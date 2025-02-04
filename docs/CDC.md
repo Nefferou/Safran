@@ -60,10 +60,44 @@
 ### 5.3 Technologies Utilisées
 ### 5.4 Architecture Logicielle
 
-## 6. Cartographie des Risques et Indicateurs (C1.2.3)
-### 6.1. Risques Techniques
-### 6.2. Risques Fonctionnels
-### 6.3. Référentiel et Indicateurs de Contrôle
+## 6 Cartographie des Risques Techniques et Fonctionnels (C1.2.3)
+
+### 6.1 Risques Techniques
+
+| **Risques**                                                             | **Criticité** | **Impact**                                                                 | **Mesures d'atténuation**                                                                                                                |
+|-------------------------------------------------------------------------|---------------|----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| Bugs et instabilités affectant l’expérience utilisateur                 | Élevée        | Expérience utilisateur dégradée                                            | Mise en place de tests unitaires et d'intégration                                                                                        |
+| Problèmes de compatibilité entre différentes plateformes et versions OS | Moyenne       | Incompatibilité et frustration des joueurs                                 | Tests sur différents appareils et systèmes d’exploitation                                                                                |
+| Failles de sécurité entraînant des fuites de données                    | Critique      | Violation des données et perte de confiance                                | Chiffrement des données et audits de sécurité réguliers                                                                                  |
+| Latence en cas de connexion instable de certains joueurs                | Élevée        | Temps de réponse allongé et expérience utilisateur dégradée en multijoueur | Mise en place de serveurs intermédiaires (brokers) pour équilibrer les connexions et éviter des écarts trop importants entre les joueurs |
+
+### 6.2 Risques Fonctionnels
+
+| **Risques**                                                           | **Criticité** | **Impact**                            | **Mesures d'atténuation**                                                                |
+|-----------------------------------------------------------------------|---------------|---------------------------------------|------------------------------------------------------------------------------------------|
+| Règles du jeu mal comprises par les utilisateurs                      | Moyenne       | Abandon précoce du jeu                | Tutoriels interactifs et explications claires                                            |
+| Manque d’engagement des joueurs à long terme                          | Élevée        | Baisse de la rétention utilisateur    | Ajout de contenus évolutifs et de modes spéciaux                                         |
+| Dépendance aux plateformes de distribution (Google Play, App Store)   | Critique      | Risque de suppression ou restrictions | Diversification des canaux de distribution et respect des guidelines                     |
+| Difficulté d’adoption du jeu en raison de la forte concurrence        | Élevée        | Faible adoption                       | Stratégie marketing ciblée, publication sur les réseaux et partenariats                  |
+| Non-conformité aux réglementations sur la confidentialité des données | Critique      | Sanctions légales                     | Respect des normes RGPD et mise en place d’une politique de confidentialité transparente |
+
+### 6.3 Référentiel des Risques
+
+- **Faible** : Surveillance minimale.
+- **Moyenne** : Actions préventives mises en place.
+- **Élevée** : Surveillance accrue et plan d’action immédiat.
+- **Critique** : Intervention prioritaire et mesures correctives immédiates.
+
+### 6.4 Indicateurs de Contrôle
+
+- **Taux de plantage de l’application** : Nombre de crashs pour 100 parties.
+- **Temps de réponse moyen** : Temps nécessaire pour charger les éléments interactifs.
+- **Nombre d’incidents de perte de données** : Fréquence des problèmes signalés.
+- **Taux de satisfaction utilisateur** : Mesuré à travers des retours et enquêtes.
+- **Taux de rétention des utilisateurs** : Mesure la fidélisation sur 60/120/180 jours.
+- **Respect des exigences des plateformes** : Nombre de rejets des mises à jour par Google Play/App Store.
+- **Audit de conformité RGPD** : Nombre d’irrégularités détectées lors des audits.
+
 
 ## 7. Veille Technique et Réglementaire (C1.3.1)
 ### Bénéfices Attendus
