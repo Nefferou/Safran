@@ -5,9 +5,9 @@
 ### 1.2 Objectifs
 ### 1.3 Public Cible
 
-## 2. Cartographie des Parties Prenantes (C1.1.1)
+## 2. Parties Prenantes (C1.1.1)
 
-### Équipe de développement
+### 2.1 Équipe de développement
 
 | Nom         | Rôle                                      | Responsabilités principales                                                                                                                |
 |-------------|-------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
@@ -16,7 +16,7 @@
 | **Yves**    | Développeur                               | Développement **Back**, gestion **réseau**, supervision de l'application (**Monitoring**), intégration **CI-CD**.                          |
 | **Guilhem** | Concepteur / Développeur                  | Conception et développement **Front / Back**, intégration **Test**.                                                                        |
 
-### Autres parties prenantes
+### 2.2 Autres parties prenantes
 
 | Acteur                               | Rôle                                    | Implication                                                                            |
 |--------------------------------------|-----------------------------------------|----------------------------------------------------------------------------------------|
@@ -25,12 +25,17 @@
 | **Plateformes de distribution**      | Google Play Store, Apple App Store      | Publication et respect des guidelines de chaque store.                                 |
 | **Communauté & testeurs**            | Bêta-testeurs et premiers utilisateurs  | Feedback sur l’UX/UI et détection des bugs.                                            |
 
-## 3. Analyse de la Demande et Objectifs (C1.1.2)
-### 3.1 Besoins Identifiés
-#### Besoins du Développeur Principal
-#### Besoins des Utilisateurs Finaux
-#### Besoins des Partenaires Commerciaux
-### 3.2 Contraintes
+## 2.3 Analyse de la Demande, des Objectifs et des Enjeux des parties prenantes (C1.1.2)
+
+| Partie prenante                 | Demande                                                              | Objectifs                                                   | Enjeux                                                                                         |
+|---------------------------------|----------------------------------------------------------------------|-------------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| **Équipe de développement**     | Outils adaptés, documentation claire, gestion de projet fluide       | Développer une application stable, performante et évolutive | Respect des délais, bonne collaboration, gestion des ressources techniques                     |
+| **Utilisateurs finaux**         | Expérience utilisateur fluide, jeux amusants et faciles à comprendre | Engagement et satisfaction des joueurs                      | Adoption de l’application, fidélisation des utilisateurs, partage du jeu avec d'autres joueurs |
+| **Partenaires commerciaux**     | Opportunités de visibilité et intégration commerciale                | Monétisation via publicité, partenariats et sponsoring      | Alignement stratégique avec l’application, impact sur l’image de marque                        |
+| **Plateformes de distribution** | Conformité aux politiques de publication                             | Distribution et accessibilité                               | Validation des mises à jour, respect des guidelines techniques et légales                      |
+| **Communauté & testeurs**       | Application fonctionnelle et stable                                  | Identification rapide des bugs et améliorations continues   | Engagement des testeurs, qualité du feedback                                                   |
+
+### 3.2 Contraintes (À déplacer)
 
 ## 4. Forces, Faiblesses, Opportunités et Menaces (C1.2.1)
 
