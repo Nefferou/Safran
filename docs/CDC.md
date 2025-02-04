@@ -34,6 +34,21 @@
 
 ## 4. Forces, Faiblesses, Opportunités et Menaces (C1.2.1)
 
+| **Forces (S)**                                 | **Faiblesses (W)**                                                       |
+|------------------------------------------------|--------------------------------------------------------------------------|
+| - Équipe polyvalente et expérimentée.          | - Dépendance à une petite équipe.                                        |
+| - Nouveau jeu avec des règles innovantes.      | - Charge de travail importante pour chaque membre.                       |
+| - Technologies modernes et multiplateformes.   | - Manque de notoriété du projet au lancement.                            |
+| - Expérience utilisateur fluide et engageante. | - Ressources financières limitées pour le développement et le marketing. |
+
+| **Opportunités (O)**                                          | **Menaces (T)**                                                    |
+|---------------------------------------------------------------|--------------------------------------------------------------------|
+| - Partenariats avec d'autres fabricants de jeux/sponsors.     | - Concurrence forte sur le marché du jeu de cartes en ligne.       |
+| - Croissance du marché des applications mobiles.              | - Évolution rapide des technologies menant à des incompatibilités. |
+| - Forte demande pour des jeux innovants.                      | - Dépendance aux plateformes de distribution.                      |
+| - Intérêt croissant pour les expériences ludiques numériques. | - Risque de piratage ou de copie du concept par des concurrents.   |
+| - Possibilité d’intégrer des fonctionnalités sociales (chat). | - Réglementations potentielles liées aux jeux numériques.          |
+
 ## 5. Spécifications Fonctionnelles et Techniques (C1.4.1, C1.5, C1.2.2)
 ### 5.1 Fonctionnalités de Base
 ### 5.2 Fonctionnalités Secondaires
