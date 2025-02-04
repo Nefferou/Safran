@@ -7,6 +7,24 @@
 
 ## 2. Cartographie des Parties Prenantes (C1.1.1)
 
+### Équipe de développement
+
+| Nom         | Rôle                                      | Responsabilités principales                                                                                                                |
+|-------------|-------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| **Julien**  | Chef de projet / Concepteur / Développeur | Gestion du projet, coordination de l’équipe, conception des fonctionnalités, développement **Front / Back**, intégration **Test / CI-CD**. |
+| **Anthony** | Concepteur / Développeur                  | Conception et développement **Front / Back**, **réseau**.                                                                                  |
+| **Yves**    | Développeur                               | Développement **Back**, gestion **réseau**, supervision de l'application (**Monitoring**), intégration **CI-CD**.                          |
+| **Guilhem** | Concepteur / Développeur                  | Conception et développement **Front / Back**, intégration **Test**.                                                                        |
+
+### Autres parties prenantes
+
+| Acteur                               | Rôle                                    | Implication                                                                            |
+|--------------------------------------|-----------------------------------------|----------------------------------------------------------------------------------------|
+| **Utilisateurs finaux**              | Joueurs de l’application mobile         | Attentes en matière d'expérience utilisateur, fluidité et compréhension facile du jeu. |
+| **Partenaires commerciaux (futurs)** | Fabricants de jeux de société, sponsors | Potentielle collaboration et monétisation (sponsoring).                                |
+| **Plateformes de distribution**      | Google Play Store, Apple App Store      | Publication et respect des guidelines de chaque store.                                 |
+| **Communauté & testeurs**            | Bêta-testeurs et premiers utilisateurs  | Feedback sur l’UX/UI et détection des bugs.                                            |
+
 ## 3. Analyse de la Demande et Objectifs (C1.1.2)
 ### 3.1 Besoins Identifiés
 #### Besoins du Développeur Principal
