@@ -59,6 +59,20 @@
 ### 5.2 Fonctionnalités Secondaires
 ### 5.3 Technologies Utilisées
 ### 5.4 Architecture Logicielle
+### 5.5 Audit de Faisabilité
+
+| **Faisabilité technique**                                                                   | **Faisabilité financière**                                                           |
+|---------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| - Mise en place simple et compatible avec les plateformes de distribution                   | - Coût de déploiment de l'application sur les différents stores.                     |
+| - Gestion des infrastructures serveurs pour les fonctionnalités en ligne                    | - Mise en place d'achat in-app et d'abonnement premium.                              |
+| - Utilisation de technologies modernes afin de proposer une infrastucture multiplateformes. | - Coût marketing afin de faire connaître l'application et ce démarqué des concurants |
+
+| **Faisabilité organisationnelle**                                                   | **Faisabilité temporelle**                                           |
+|-------------------------------------------------------------------------------------|----------------------------------------------------------------------|
+| - Utilisation de méthodologies Agile/Scrum pour optimiser la production             | - Définition d’un calendrier prévisionnel réaliste avec étapes clés. |
+| - Collaboration avec des testeurs externes et la communautée pour améliorer l’UX/UI | - Identification des risques de retard suite au manque de ressource  |
+| - Mise en place d’une stratégie de communication pour faire connaître l'application | - Plan de lancement par étapes : prototype > bêta > version finale.  |
+
 
 ## 6. Cartographie des Risques et Indicateurs (C1.2.3)
 ### 6.1. Risques Techniques
