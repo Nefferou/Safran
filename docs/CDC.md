@@ -73,13 +73,13 @@
 
 ### 6.2 Risques Fonctionnels
 
-| **Risques**                                                           | **Criticité** | **Impact**                            | **Mesures d'atténuation**                                                                |
-|-----------------------------------------------------------------------|---------------|---------------------------------------|------------------------------------------------------------------------------------------|
-| Règles du jeu mal comprises par les utilisateurs                      | Moyenne       | Abandon précoce du jeu                | Tutoriels interactifs et explications claires                                            |
-| Manque d’engagement des joueurs à long terme                          | Élevée        | Baisse de la rétention utilisateur    | Ajout de contenus évolutifs et de modes spéciaux                                         |
-| Dépendance aux plateformes de distribution (Google Play, App Store)   | Critique      | Risque de suppression ou restrictions | Diversification des canaux de distribution et respect des guidelines                     |
-| Difficulté d’adoption du jeu en raison de la forte concurrence        | Élevée        | Faible adoption                       | Stratégie marketing ciblée, publication sur les réseaux et partenariats                  |
-| Non-conformité aux réglementations sur la confidentialité des données | Critique      | Sanctions légales                     | Respect des normes RGPD et mise en place d’une politique de confidentialité transparente |
+| **Risques**                                                           | **Criticité** | **Impact**                            | **Mesures d'atténuation**                                                                 |
+|-----------------------------------------------------------------------|---------------|---------------------------------------|-------------------------------------------------------------------------------------------|
+| Règles du jeu mal comprises par les utilisateurs                      | Moyenne       | Abandon précoce du jeu                | Tutoriels interactifs et explications claires                                             |
+| Manque d’engagement des joueurs à long terme                          | Élevée        | Baisse de la rétention utilisateur    | Ajout de contenus évolutifs et de modes spéciaux                                          |
+| Dépendance aux plateformes de distribution (Google Play, App Store)   | Critique      | Risque de suppression ou restrictions | Diversification des canaux de distribution et respect des guidelines                      |
+| Manque de visibilité de l’application et faible notoriété             | Élevée        | Faible adoption                       | Stratégie marketing ciblée, publication sur les réseaux et partenariats avec influenceurs |
+| Non-conformité aux réglementations sur la confidentialité des données | Critique      | Sanctions légales                     | Respect des normes RGPD et mise en place d’une politique de confidentialité transparente  |
 
 ### 6.3 Référentiel des Risques
 
