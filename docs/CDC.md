@@ -61,17 +61,20 @@
 ### 5.4 Architecture Logicielle
 ### 5.5 Audit de Faisabilité
 
-| **Faisabilité technique**                                                                   | **Faisabilité financière**                                                           |
-|---------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
-| - Mise en place simple et compatible avec les plateformes de distribution                   | - Coût de déploiment de l'application sur les différents stores.                     |
-| - Gestion des infrastructures serveurs pour les fonctionnalités en ligne                    | - Mise en place d'achat in-app et d'abonnement premium.                              |
-| - Utilisation de technologies modernes afin de proposer une infrastucture multiplateformes. | - Coût marketing afin de faire connaître l'application et ce démarqué des concurants |
+| **Faisabilité technique**                                                                                                     | **Faisabilité financière**                                                              |
+|-------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| - Compatible cross-platform iOS/Android.                                                                                      | - Coût de déploiement de l'application sur les différents stores.                       |
+| - Infrastructures serveur pour les fonctionnalités en ligne, avec gestion de la latence et synchronisation des états de jeu.  | - Infrastructure serveurs : coûts variables selon le nombre de joueurs actif.           |
+| - Système de matchmaking et gestion des salles de jeu.                                                                        | - Mise en place d'achat in-app et d'abonnement premium.                                 |
+| - Gestion déconnexion/reconnexion et reprise de partie                                                                        | - Coût marketing afin de faire connaître l'application et se démarquer des concurrents. |                                                                                      |
+| - Base de données pour les profils joueurs et statistiques.                                                                   | - Coûts de maintenance et mises à jour régulières.                                      |
 
-| **Faisabilité organisationnelle**                                                   | **Faisabilité temporelle**                                           |
-|-------------------------------------------------------------------------------------|----------------------------------------------------------------------|
-| - Utilisation de méthodologies Agile/Scrum pour optimiser la production             | - Définition d’un calendrier prévisionnel réaliste avec étapes clés. |
-| - Collaboration avec des testeurs externes et la communautée pour améliorer l’UX/UI | - Identification des risques de retard suite au manque de ressource  |
-| - Mise en place d’une stratégie de communication pour faire connaître l'application | - Plan de lancement par étapes : prototype > bêta > version finale.  |
+| **Faisabilité organisationnelle**                                                                                                  | **Faisabilité temporelle**                                                   |
+|------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| - Utilisation de méthodologies Agile/Scrum pour optimiser la production.                                                           | - Définition d’un calendrier prévisionnel réaliste avec étapes clés.         |
+| - Collaboration avec des testeurs et la communauté pour améliorer l’UX/UI.                                                         | - Identification des risques de retard suite au manque de ressource.         |
+| - Mise en place d’une stratégie de communication pour faire connaître l'application et fidéliser les joueurs via des mises à jour. | - Plan de lancement par étapes : prototype > bêta > version finale.          |
+| - Mise en place d'un système d'analyse des statistiques du jeu pour ajuster les mécaniques.                                        | - Planification des futures mises à jour pour assurer une longévité du jeu.  |
 
 
 ## 6. Cartographie des Risques et Indicateurs (C1.2.3)
