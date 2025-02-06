@@ -108,29 +108,31 @@
 
 ### Temps moyen estimé par poste avec justification
 
-| **Poste**                      | **Temps estimé (Jours/Homme)** | **Justification**                                                                                                                                                                                                                                           |
-|--------------------------------|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Développement Front-end**    | **40 - 70 J/H**                | Une application mobile de jeu de cartes comme **Uno** nécessite plusieurs **écrans interactifs** (menu, salon, table de jeu, scores) et une bonne fluidité pour l’expérience utilisateur. Ainsi que des animations pour rendre le jeu plus agréable à jouer |
-| **Développement Back-end**     | **70 - 100 J/H**               | La mise en place de l'API, la base de données et la gestion des utilisateurs prennent du temps. Mais aussi une intégration de **matchmaking, des connexions instables et de la synchronisation en temps réel** avec plusieurs joueurs                       |
-| **Sécurité & RGPD**            | **10 J/H**                     | Toute application en ligne manipulant des **données utilisateur (compte, scores)** doit respecter la **RGPD et sécuriser les données** (hashing des mots de passe, chiffrement des communications).                                                         |
-| **Design UI/UX**               | **10 - 40 J/H**                | Un jeu mobile nécessite une **interface simple mais engageante** avec des animations et des effets visuels fluides. De plus toutes les cartes doivent être imaginer pour correspondre à l'ambiance souhaiter.                                               |
-| **Tests & QA**                 | **10 - 30 J/H**                | Plus il y a d’interactions et de fonctionnalités en ligne, plus il faut tester différents scénarios de **jeu en solo/multijoueur**, gestion des déconnexions et compatibilité mobile (version d'OS). ️                                                      |
-| **Maintenance & Mises à Jour** | **10 - 30 J/H/an**             | Plus il y a de joueurs actifs, plus il faut assurer des **mises à jour fréquentes** pour **corriger les bugs et ajouter du contenu**. Configuration d’outils de monitoring tel que Prometheus, Grafana, Datadog, ELK (Elastic, Logstash, Kibana).           |
-| **Marketing**                  | **Variable**                   | Une application mobile de jeu de cartes est dans un marché **très compétitif**, donc il faudra un bon travail sur le **référencement dans l’App Store (ASO)** et le marketing sur **réseaux sociaux**.                                                      |
+| **Poste**                      | **Temps estimé (Jours/Homme)** | **Justification**                                                                                                                                                                                                                                                                       |
+|--------------------------------|--------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Développement Front-end**    | **50 - 70 J/H**                | Une application mobile de jeu de cartes comme **Uno** nécessite plusieurs **écrans interactifs** (menu, salon, table de jeu, scores) et une bonne fluidité pour l’expérience utilisateur. Flutter permet un gain de temps grâce à une base de code unique pour iOS et Android.          |
+| **Développement Back-end**     | **50 - 70 J/H**                | La mise en place de l'API et la gestion des utilisateurs prennent du temps. Cela inclut le **matchmaking, la gestion des connexions instables et la synchronisation en temps réel** avec plusieurs joueurs.                                                                             |
+| **Infrastructure**             | **20 - 40 J/H**                | Mise en place de la base de données et de la partie DevOps de l'application, incluant la gestion des déploiements et la scalabilité.                                                                                                                                                    |
+| **Sécurité & RGPD**            | **10 J/H**                     | Toute application en ligne manipulant des **données utilisateur (compte, scores)** doit respecter la **RGPD et sécuriser les données** (hashing des mots de passe, chiffrement des communications). Gestion des permissions et accès (ex. tokens JWT, OAuth2, etc.).                    |
+| **Design UI/UX**               | **10 - 40 J/H**                | Un jeu mobile nécessite une **interface simple mais engageante** avec des animations et effets visuels fluides. De plus, les cartes doivent être conçues pour correspondre à l'ambiance souhaitée.                                                                                      |
+| **Tests & QA**                 | **10 - 30 J/H**                | Plus il y a d’interactions et de fonctionnalités en ligne, plus il faut tester différents scénarios de **jeu en solo/multijoueur**, la gestion des déconnexions et la compatibilité mobile. Tests unitaires, tests d’intégration, tests UX/UI, tests de charge et tests de performance. |
+| **Maintenance & Mises à Jour** | **10 - 30 J/H/an**             | Plus il y a de joueurs actifs, plus il faut assurer des **mises à jour fréquentes** pour **corriger les bugs et ajouter du contenu**. Configuration d’outils de monitoring comme Prometheus, Grafana, Datadog, ELK (Elastic, Logstash, Kibana).                                         |
+| **Marketing**                  | **Variable**                   | Une application mobile de jeu de cartes est dans un marché **très compétitif**, donc il faudra un bon travail sur le **référencement dans l’App Store (ASO)** et le marketing sur **réseaux sociaux**.                                                                                  |
 
-_**Précision** : Le temps estimé dans ce tableau est calculé pour une **équipe de développeurs juniors** qui vont occuper tous les postes.  En prenant en compte une **productivité moindre, un besoin d’apprentissage et plus d’itérations pour les corrections**._
+_**Précision** : Le temps estimé dans ce tableau est calculé pour une **équipe de développeurs juniors**, en prenant en compte une **productivité moindre, un besoin d’apprentissage et plus d’itérations pour les corrections**._
 
 ### Estimation des Coûts et taux journaliers moyens
 
 | **Poste**                      | **Taux journalier moyen (€)** | **Coût estimé min (€)** | **Coût estimé max (€)** |
 |--------------------------------|-------------------------------|-------------------------|-------------------------|
-| **Développement Front-end**    | **200 €/JH**                  | **8 000 €**             | **14 000 €**            |
-| **Développement Back-end**     | **300 €/JH**                  | **21 000 €**            | **30 000 €**            |
+| **Développement Front-end**    | **200 €/JH**                  | **10 000 €**            | **14 000 €**            |
+| **Développement Back-end**     | **300 €/JH**                  | **15 000 €**            | **21 000 €**            |
+| **Infrastructure**             | **450 €/JH**                  | **9 000 €**             | **18 000 €**            |
 | **Sécurité & RGPD**            | **300 €/JH**                  | **3 000 €**             | **3 000 €**             |
 | **Design UI/UX**               | **180 €/JH**                  | **1 800 €**             | **7 200 €**             |
 | **Tests & QA**                 | **200 €/JH**                  | **2 000 €**             | **6 000 €**             |
 | **Maintenance & Mises à Jour** | **250 €/JH**                  | **2 500 €**             | **7 500 €**             |
 | **Marketing**                  | **200 €/JH**                  | **-**                   | **-**                   |
-| **Total**                      | **-**                         | **38 300 €**            | **67 700 €**            |
+| **Total**                      | **-**                         | **42 500 €**            | **76 700 €**            |
 
 ## 10. Préconisation des Solutions (C1.6)
