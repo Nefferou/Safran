@@ -61,13 +61,14 @@
 ### 5.4 Architecture Logicielle
 ### 5.5 Audit de Faisabilité
 
-| **Faisabilité technique**                                                                                                     | **Faisabilité financière**                                                              |
-|-------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
-| - Compatible cross-platform iOS/Android.                                                                                      | - Coût de déploiement de l'application sur les différents stores.                       |
-| - Infrastructures serveur pour les fonctionnalités en ligne, avec gestion de la latence et synchronisation des états de jeu.  | - Infrastructure serveurs : coûts variables selon le nombre de joueurs actif.           |
-| - Système de matchmaking et gestion des salles de jeu.                                                                        | - Mise en place d'achat in-app et d'abonnement premium.                                 |
-| - Gestion déconnexion/reconnexion et reprise de partie                                                                        | - Coût marketing afin de faire connaître l'application et se démarquer des concurrents. |                                                                                      |
-| - Base de données pour les profils joueurs et statistiques.                                                                   | - Coûts de maintenance et mises à jour régulières.                                      |
+| **Faisabilité technique**                                                                                            | **Faisabilité financière**                                                                   |
+|----------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| - Compatible cross-platform iOS/Android, avec utilisation de technologies comme Flutter ou React Native.             | - Coût de déploiement sur l'App Store et Google Play (frais de publication et mises à jour). |
+| - Infrastructure serveur basée sur AWS, Google Cloud ou Azure pour gérer les fonctionnalités en ligne et la latence. | - Coût de l'infrastructure serveurs, ajustable selon le nombre d'utilisateurs actifs.        |
+| - Implémentation d’un système de matchmaking et gestion avancée des salles de jeu.                                   | - Mise en place d’achats in-app et d’un abonnement premium pour monétisation.                |
+| - Gestion robuste de la déconnexion/reconnexion avec reprise de partie en temps réel.                                | - Budget marketing pour acquisition et fidélisation des joueurs.                             |
+| - Base de données optimisée (PostgreSQL, Firebase, MongoDB) pour stocker profils joueurs et statistiques.            | - Coût de maintenance et de mises à jour régulières pour assurer la stabilité.               |
+| - Utilisation d’une architecture microservices ou serverless pour scalabilité.                                       | - Estimation des coûts liés au support client et aux serveurs multijoueurs.                  |
 
 | **Faisabilité organisationnelle**                                                                                                  | **Faisabilité temporelle**                                                   |
 |------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
