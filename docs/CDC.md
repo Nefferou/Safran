@@ -66,6 +66,24 @@
 ### 5.3 Technologies Utilisées
 
 ### 5.4 Architecture Logicielle
+### 5.5 Audit de Faisabilité
+
+| **Faisabilité technique**                                                                                                                                                                                                                                                         | **Faisabilité financière**                                                                   |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| - Compatible cross-platform iOS/Android, avec utilisation de technologies comme Flutter ou React Native.                                                                                                                                                                          | - Coût de déploiement sur l'App Store et Google Play (frais de publication et mises à jour). |
+| - Infrastructure privée : une VM Fedora Server avec 4Go de ram, 20Go de stockage et 4 threads pour le CPU. Nous avons installé les différents packages docker (docker.io, docker-compose, docker swarm). Et les services implémentés sur la VM sont Prometheus, Grafana et MySQL. | - Coût de l'infrastructure serveurs, ajustable selon le nombre d'utilisateurs actifs.        |
+| - Implémentation d’un système de matchmaking et gestion avancée des salles de jeu.                                                                                                                                                                                                | - Mise en place d’achats in-app et d’un abonnement premium pour monétisation.                |
+| - Gestion robuste de la déconnexion/reconnexion avec reprise de partie en temps réel.                                                                                                                                                                                             | - Budget marketing pour acquisition et fidélisation des joueurs.                             |
+| - Base de données optimisée (PostgreSQL, MySQL, SQLite, Firebase, MongoDB) pour stocker profils joueurs et statistiques.                                                                                                                                                          | - Coût de maintenance et de mises à jour régulières pour assurer la stabilité.               |
+| - Utilisation d’une architecture microservices ou serverless pour scalabilité.                                                                                                                                                                                                    | - Estimation des coûts liés au support client et aux serveurs multijoueurs.                  |
+
+| **Faisabilité organisationnelle**                                                                                                  | **Faisabilité temporelle**                                                   |
+|------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| - Utilisation de méthodologies Agile/Scrum pour optimiser la production.                                                           | - Définition d’un calendrier prévisionnel réaliste avec étapes clés.         |
+| - Collaboration avec des testeurs et la communauté pour améliorer l’UX/UI.                                                         | - Identification des risques de retard suite au manque de ressource.         |
+| - Mise en place d’une stratégie de communication pour faire connaître l'application et fidéliser les joueurs via des mises à jour. | - Plan de lancement par étapes : prototype > bêta > version finale.          |
+| - Mise en place d'un système d'analyse des statistiques du jeu pour ajuster les mécaniques.                                        | - Planification des futures mises à jour pour assurer une longévité du jeu.  |
+
 
 ## 6 Cartographie des Risques Techniques et Fonctionnels (C1.2.3)
 
