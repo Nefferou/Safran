@@ -109,8 +109,6 @@
 
 ### Bénéfices Attendus
 
-## 8. Étude Comparative des Solutions Techniques (C1.3.2)
-
 ## 9. Estimation de la Charge de Travail et du Budget (C1.4.2)
 
 ### Temps moyen estimé par poste avec justification
@@ -142,6 +140,9 @@ _**Précision** : Le temps estimé dans ce tableau est calculé pour une **équi
 | **Marketing**                  | **200 €/JH**                  | **-**                   | **-**                   |
 | **Total**                      | **-**                         | **42 500 €**            | **76 700 €**            |
 =======
+
+## 8. Étude Comparative des Solutions Techniques (C1.3.2)
+
 ### 8.1 Technologies Front-End
 
 | **Technologie**   | **Description**                                                                                                                                                                                                                                                      | **Avantages**                                                                                                                                                                                                                                                                      | **Inconvénients**                                                                                                                                                                                                          |
@@ -155,7 +156,7 @@ _**Précision** : Le temps estimé dans ce tableau est calculé pour une **équi
 
 | **Technologie** | **Description**                                                                          | **Avantages**                                                                                                                                | **Inconvénients**                                                                                                               |
 |-----------------|------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
-| **Express.js**  | Framework minimaliste basé sur Node.js pour développer des API légères et performantes.  | - Idéal pour les applications en temps réel.<br>- Large écosystème et communauté.<br>- Facile à apprendre et rapide à déployer.              | - Moins adapté aux calculs lourds en raison de son architecture single-threaded.<br>- Gestion avancée des erreurs à configurer. |
+| **ExpressJs**   | Framework minimaliste basé sur Node.js pour développer des API légères et performantes.  | - Idéal pour les applications en temps réel.<br>- Large écosystème et communauté.<br>- Facile à apprendre et rapide à déployer.              | - Moins adapté aux calculs lourds en raison de son architecture single-threaded.<br>- Gestion avancée des erreurs à configurer. |
 | **Spring Boot** | Framework Java robuste permettant de développer des API REST performantes et sécurisées. | - Sécurisé et adapté aux grandes applications.<br>- Forte communauté et écosystème mature.<br>- Bonne gestion des transactions et des accès. | - Courbe d'apprentissage plus élevée.<br>- Temps de développement plus long que les solutions plus légères.                     |
 | **Flask**       | Framework minimaliste en Python, adapté aux petits projets et aux microservices.         | - Facile à apprendre et rapide à configurer.<br>- Idéal pour les petites applications et APIs légères.                                       | - Moins performant pour les applications complexes.<br>- Manque d’outils intégrés pour les grandes applications.                |
 
@@ -172,6 +173,7 @@ _**Précision** : Le temps estimé dans ce tableau est calculé pour une **équi
 | **Technologie**                      | **Description**                                                                                    | **Avantages**                                                                                                                                               | **Inconvénients**                                                                                                |
 |--------------------------------------|----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
 | **PostgreSQL / MySQL (Relationnel)** | Bases de données relationnelles robustes et adaptées aux transactions complexes.                   | - Fiable et sécurisé.<br>- Gestion efficace des transactions.<br>- PostgreSQL permet le stockage de données semi-structurées via **JSONB**.                 | - Moins adapté aux très gros volumes de données non structurées.<br>- Configuration et maintenance plus lourdes. |
+| **SQLite (SQL local)**               |                                                                                                    |                                                                                                                                                             |                                                                                                                  |
 | **MongoDB (NoSQL)**                  | Base de données NoSQL orientée documents, idéale pour stocker des données flexibles et évolutives. | - Parfait pour les données non structurées.<br>- Facile à scaler horizontalement.<br>- Performant pour les requêtes rapides sur de gros volumes de données. | - Moins adapté aux transactions complexes.<br>- Consommation mémoire plus élevée.                                |
 
 ### 8.5 DevOps & Déploiement
@@ -190,5 +192,52 @@ _**Précision** : Le temps estimé dans ce tableau est calculé pour une **équi
 | **ClickUp**     | Outil de gestion tout-en-un avec tâches, suivi et automatisations. | - Flexible et personnalisable.<br>- Vues multiples (Kanban, Gantt, calendrier).<br>- Outil performant mais peut **devenir lent** avec trop de tâches ouvertes. | - Peut devenir complexe avec trop de fonctionnalités.                                                                                                                                                                           |
 | **Trello**      | Outil de gestion de projet visuel basé sur des cartes.             | - Interface intuitive.<br>- Version gratuite adaptée aux petits projets.                                                                                       | - Fonctionnalités limitées pour les projets complexes.<br>- **Ne permet pas de gérer des dépendances entre tâches**, limitant son efficacité pour des projets avancés.<br/>- Se limite à une vu Kanban pour la version gratuite |
 | **Notion**      | Outil combinant gestion de projet et documentation.                | - Très flexible.<br>- Idéal pour la documentation technique et le suivi des tâches.                                                                            | - Peut devenir brouillon si mal structuré.<br>- Version gratuite limitée.                                                                                                                                                       |
+
+## 9. Choix des Technologies
+
+### 9.1 Front-End : **Flutter**
+
+- Permet un **développement multiplateforme** (iOS, Android) avec un code unique, réduisant ainsi les coûts et le temps de développement.
+- **Performances optimisées** grâce à son moteur de rendu natif, garantissant une interface fluide.
+- **Hot Reload** permet de tester rapidement les modifications, accélérant ainsi le cycle de développement.
+- Grande flexibilité avec une **bibliothèque de widgets** modernes et personnalisables.
+- Large **communauté** et support de Google, assurant une bonne maintenance et évolution du framework.
+
+### 9.2 Back-End : **Express.js**
+
+- **Léger et rapide**, idéal pour construire des API REST performantes et adaptées aux applications mobiles.
+- Fonctionne parfaitement avec **Node.js**, permettant une gestion efficace des requêtes asynchrones.
+- **Écosystème riche** avec de nombreux modules et middleware facilitant l’intégration avec d’autres services.
+
+### 9.3 Monitoring : **Prometheus & Grafana**
+
+- **Solution open-source** performante et évolutive pour la **collecte et l’analyse des métriques** applicatives.
+- **Prometheus** est optimisé pour la surveillance des services en temps réel et intègre un **système d’alerte avancé**.
+- **Grafana** permet de **visualiser facilement** les données via des tableaux de bord interactifs.
+- Compatible avec **Docker Swarm**, facilitant le monitoring de l’ensemble de l’infrastructure.
+
+### 9.4 Bases de Données : **SQLite et MySQL**
+
+- **MySQL** est utilisé pour notre **service en ligne**, offrant :
+    - **Fiabilité et robustesse** pour la gestion des données utilisateurs et des transactions.
+    - Bonne gestion des **requêtes complexes** et intégration avec Express.js.
+    - Évolutif et **optimisé pour les applications en production**.
+- **SQLite** est utilisé pour le stockage **local sur l’application mobile**, car :
+    - Fonctionne sans serveur, idéal pour les **données locales**.
+    - Léger et performant pour des **opérations rapides en local**.
+    - Permet une **synchronisation** avec MySQL pour les données partagées.
+
+### 9.5 Déploiement : **Docker Swarm**
+
+- **Orchestration simple** des conteneurs Docker, facilitant le déploiement de nos services.
+- Moins complexe que Kubernetes, idéal pour une équipe réduite souhaitant **scaler** l’infrastructure sans surcharge technique.
+- **Facilité de mise en œuvre** et **intégration native avec Docker**.
+- Répartition de charge et haute disponibilité permettant d’assurer **une continuité de service**.
+
+### 9.6 Gestion de Projet : **ClickUp**
+
+- **Outil tout-en-un** combinant gestion des tâches, suivi des bugs, et planification.
+- Interface personnalisable avec différentes vues (**Kanban, Gantt, Calendrier**), facilitant l’organisation de l’équipe.
+- Version gratuite offrant **de nombreuses fonctionnalités**, adaptée aux besoins de l’équipe.
 
 ## 10. Préconisation des Solutions (C1.6)
