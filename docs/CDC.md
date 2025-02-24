@@ -1,8 +1,11 @@
 # Cahier des Charges - Bloc 1
 
 ## 1. Introduction et Contexte
+
 ### 1.1 Présentation du Projet
+
 ### 1.2 Objectifs
+
 ### 1.3 Public Cible
 
 ## 2. Parties Prenantes (C1.1.1)
@@ -55,9 +58,13 @@
 | - Possibilité d’intégrer des fonctionnalités sociales (chat). | - Réglementations potentielles liées aux jeux numériques.          |
 
 ## 5. Spécifications Fonctionnelles et Techniques (C1.4.1, C1.5, C1.2.2)
+
 ### 5.1 Fonctionnalités de Base
+
 ### 5.2 Fonctionnalités Secondaires
+
 ### 5.3 Technologies Utilisées
+
 ### 5.4 Architecture Logicielle
 
 ## 6 Cartographie des Risques Techniques et Fonctionnels (C1.2.3)
@@ -98,8 +105,8 @@
 - **Respect des exigences des plateformes** : Nombre de rejets des mises à jour par Google Play/App Store.
 - **Audit de conformité RGPD** : Nombre d’irrégularités détectées lors des audits.
 
-
 ## 7. Veille Technique et Réglementaire (C1.3.1)
+
 ### Bénéfices Attendus
 
 ## 8. Étude Comparative des Solutions Techniques (C1.3.2)
@@ -134,5 +141,54 @@ _**Précision** : Le temps estimé dans ce tableau est calculé pour une **équi
 | **Maintenance & Mises à Jour** | **250 €/JH**                  | **2 500 €**             | **7 500 €**             |
 | **Marketing**                  | **200 €/JH**                  | **-**                   | **-**                   |
 | **Total**                      | **-**                         | **42 500 €**            | **76 700 €**            |
+=======
+### 8.1 Technologies Front-End
+
+| **Technologie**   | **Description**                                                                                                                                                                                                                                                      | **Avantages**                                                                                                                                                                                                                                                                      | **Inconvénients**                                                                                                                                                                                                          |
+|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Flutter**       | Framework open-source développé par Google permettant de créer des applications mobiles avec un code unique en **Dart**. Utilise son propre moteur de rendu pour une interface fluide et personnalisable. Supporte également **Flutter Web** et **Flutter Desktop**. | - Code multiplateforme (iOS, Android, Web, Desktop).<br>- Performances élevées grâce à son moteur de rendu natif.<br>- Interface personnalisable avec des widgets flexibles et modernes.<br>- Large communauté et support de Google.<br>- Hot Reload pour un développement rapide. | - Poids des applications plus élevé que les solutions natives.<br>- Certaines limitations de performances par rapport au développement natif.<br/>- Certaines fonctionnalités nécessitent l'utilisation de modules natifs. |
+| **React Native**  | Framework JavaScript open-source créé par Facebook, permettant le développement multiplateforme en **React**.                                                                                                                                                        | - Large communauté et support actif.<br>- Développement rapide avec Hot Reload.<br>- Code réutilisable entre iOS, Android et Web.<br>- Possibilité d’améliorer les performances avec des **modules natifs**.                                                                       | - Moins performant que les solutions 100% natives.<br>- Certaines fonctionnalités nécessitent l'utilisation de modules natifs.                                                                                             |
+| **Kotlin / Java** | Langage moderne et officiel pour le développement Android.                                                                                                                                                                                                           | - Syntaxe concise et efficace.<br>- Performances optimisées pour Android.<br>- Support officiel de Google.                                                                                                                                                                         | - Courbe d’apprentissage pour les débutants.<br>- Code spécifique à Android (non multiplateforme).                                                                                                                         |
+| **Swift**         | Langage officiel d’Apple pour le développement iOS et macOS.                                                                                                                                                                                                         | - Performances optimales pour les applications iOS.<br>- Syntaxe moderne et expressive.<br>- Sécurité renforcée par rapport à Objective-C.                                                                                                                                         | - Courbe d’apprentissage importante.<br>- Non multiplateforme.<br/>                                                                                                                                                        |
+
+### 8.2 Technologies Back-End
+
+| **Technologie** | **Description**                                                                          | **Avantages**                                                                                                                                | **Inconvénients**                                                                                                               |
+|-----------------|------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| **Express.js**  | Framework minimaliste basé sur Node.js pour développer des API légères et performantes.  | - Idéal pour les applications en temps réel.<br>- Large écosystème et communauté.<br>- Facile à apprendre et rapide à déployer.              | - Moins adapté aux calculs lourds en raison de son architecture single-threaded.<br>- Gestion avancée des erreurs à configurer. |
+| **Spring Boot** | Framework Java robuste permettant de développer des API REST performantes et sécurisées. | - Sécurisé et adapté aux grandes applications.<br>- Forte communauté et écosystème mature.<br>- Bonne gestion des transactions et des accès. | - Courbe d'apprentissage plus élevée.<br>- Temps de développement plus long que les solutions plus légères.                     |
+| **Flask**       | Framework minimaliste en Python, adapté aux petits projets et aux microservices.         | - Facile à apprendre et rapide à configurer.<br>- Idéal pour les petites applications et APIs légères.                                       | - Moins performant pour les applications complexes.<br>- Manque d’outils intégrés pour les grandes applications.                |
+
+### 8.3 Technologies de Monitoring
+
+| **Technologie**                     | **Description**                                                                                              | **Avantages**                                                                                                                                                           | **Inconvénients**                                                                                                                                            |
+|-------------------------------------|--------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Prometheus / Grafana**            | Outils open-source permettant la collecte et la visualisation des métriques applicatives.                    | - Performant pour collecter un grand volume de données temporelles.<br>- Intégration facile avec Grafana pour visualisation.<br>- Système d’alertes avancé.             | - Stockage limité sur le long terme (nécessite des extensions comme Thanos pour l’historisation des données).<br>- Configuration avancée peut être complexe. |
+| **ELK (Elastic, Logstash, Kibana)** | Suite d’outils open-source permettant la collecte, l’analyse et la visualisation des logs d’une application. | - Collecte et centralisation efficace des logs.<br>- Visualisation avancée des données avec Kibana.<br>- Recherche rapide et indexation performante avec Elasticsearch. | - Consommation mémoire et CPU importante.<br>- Optimisation nécessaire via **sharding** et **gestion avancée des indices**.                                  |
+| **New Relic**                       | Solution cloud pour le monitoring des performances applicatives (APM).                                       | - Monitoring complet (serveur, application, base de données).<br>- Facile à intégrer avec le cloud.<br>- Visualisation avancée des logs et performances.                | - Coût élevé pour les grandes applications.<br>- Complexe pour une petite équipe.                                                                            |
+
+### 8.4 Bases de Données
+
+| **Technologie**                      | **Description**                                                                                    | **Avantages**                                                                                                                                               | **Inconvénients**                                                                                                |
+|--------------------------------------|----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| **PostgreSQL / MySQL (Relationnel)** | Bases de données relationnelles robustes et adaptées aux transactions complexes.                   | - Fiable et sécurisé.<br>- Gestion efficace des transactions.<br>- PostgreSQL permet le stockage de données semi-structurées via **JSONB**.                 | - Moins adapté aux très gros volumes de données non structurées.<br>- Configuration et maintenance plus lourdes. |
+| **MongoDB (NoSQL)**                  | Base de données NoSQL orientée documents, idéale pour stocker des données flexibles et évolutives. | - Parfait pour les données non structurées.<br>- Facile à scaler horizontalement.<br>- Performant pour les requêtes rapides sur de gros volumes de données. | - Moins adapté aux transactions complexes.<br>- Consommation mémoire plus élevée.                                |
+
+### 8.5 DevOps & Déploiement
+
+| **Technologie**    | **Description**                                                                                      | **Avantages**                                                                                                                                                                                      | **Inconvénients**                                                                                                                                               |
+|--------------------|------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Kubernetes**     | Plateforme d’orchestration de conteneurs.                                                            | - Scalabilité automatique.<br>- Haute disponibilité.<br>- Compatible avec le cloud et infrastructures on-premise.<br>- **Alternatives légères** : Minikube et K3s pour les environnements de test. | - Configuration complexe.<br>- Consommation élevée en ressources.                                                                                               |
+| **Docker Swarm**   | Orchestration native pour Docker permettant la gestion simplifiée des conteneurs.                    | - Facile à mettre en place pour un projet de taille moyenne.<br>- Intégration simple avec Docker.<br>- Moins complexe que Kubernetes.                                                              | - Moins robuste et évolutif pour une application à fort trafic.<br>- Moins d’outils avancés pour le scaling et monitoring.                                      |
+| **GitHub Actions** | Service d’intégration et déploiement continu (CI/CD) intégré à GitHub.                               | - Automatisation des tests et déploiements.<br>- Intégration native avec GitHub.<br>- Personnalisable avec des workflows YAML.                                                                     | - Moins de flexibilité que Jenkins pour des configurations avancées.<br>- Peut être limité pour des projets complexes nécessitant des intégrations spécifiques. |
+| **Jenkins**        | Outil open-source permettant d’automatiser les tests, les builds et le déploiement de l’application. | - Automatisation avancée des processus CI/CD.<br>- Grande flexibilité grâce aux plugins.<br>- Supporte plusieurs langages et plateformes.                                                          | - Peut être complexe à configurer.<br>- Nécessite une maintenance régulière.                                                                                    |
+
+### 8.6 Outils de Gestion de Projet
+
+| **Technologie** | **Description**                                                    | **Avantages**                                                                                                                                                  | **Inconvénients**                                                                                                                                                                                                               |
+|-----------------|--------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **ClickUp**     | Outil de gestion tout-en-un avec tâches, suivi et automatisations. | - Flexible et personnalisable.<br>- Vues multiples (Kanban, Gantt, calendrier).<br>- Outil performant mais peut **devenir lent** avec trop de tâches ouvertes. | - Peut devenir complexe avec trop de fonctionnalités.                                                                                                                                                                           |
+| **Trello**      | Outil de gestion de projet visuel basé sur des cartes.             | - Interface intuitive.<br>- Version gratuite adaptée aux petits projets.                                                                                       | - Fonctionnalités limitées pour les projets complexes.<br>- **Ne permet pas de gérer des dépendances entre tâches**, limitant son efficacité pour des projets avancés.<br/>- Se limite à une vu Kanban pour la version gratuite |
+| **Notion**      | Outil combinant gestion de projet et documentation.                | - Très flexible.<br>- Idéal pour la documentation technique et le suivi des tâches.                                                                            | - Peut devenir brouillon si mal structuré.<br>- Version gratuite limitée.                                                                                                                                                       |
 
 ## 10. Préconisation des Solutions (C1.6)
