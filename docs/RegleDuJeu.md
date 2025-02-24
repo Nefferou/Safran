@@ -20,51 +20,50 @@ Pour cela, vous devez conserver vos cartes le plus longtemps possible tout en ut
 ## 🎭 Les cartes et leurs effets
 
 ### 📜 **Les cartes de recrutement**
-#### **Le Stratège** 🏹
-- Change le sens du jeu (ordre des tours inversé).
+#### **Le Commandant** 🎖️ (x4)
+- Change le sens du jeu et mélange le **Champs de bataille**. (x4)
 
-#### **Les Armées** ⚔️
+#### **Les Armées** ⚔️ (x21)
 Ces cartes n'ont pas d'effet direct, mais lorsqu'elles sont jouées après une autre armée spécifique, elles déclenchent un effet spécial :
-- **L'Épéiste** 🗡️ : Si joué après un **Garde**, le joueur ciblé **défausse** une carte.
-- **Le Garde** 🛡️ : Si joué après un **Archet**, le joueur ciblé **défausse** une carte.
-- **L'Archet** 🏹 : Si joué après un **Épéiste**, le joueur ciblé **défausse** une carte.
+- **L'Épéiste** 🗡️ : Si joué après un **Garde**, le joueur ciblé **défausse** une carte. (x7)
+- **Le Garde** 🛡️ : Si joué après un **Lancier**, le joueur ciblé **défausse** une carte. (x7)
+- **Lancier** 🏹 : Si joué après un **Épéiste**, le joueur ciblé **défausse** une carte. (x7)
 
-#### **Le Trompeur** ⚖️
-- Mélange les cartes du **Champ de Bataille**.
+#### **Les Mages** 🧙‍♂️ (x13)
+- **Le Géomancien** 🏔️ : Permet de **piocher** ou de faire **piocher** la carte **en dessous** du **Champ de Bataille**. (x5)
+- **L'Aéromancien** 🌪️ : Permet de **piocher** ou de faire **piocher** la carte **au-dessus** du **Champ de Bataille**. (x5)
+- **L’Arcaniste** 🔮 : Permet de **piocher** ou de faire **piocher** la carte **au-dessus** et **en dessous** du **Champ de Bataille**. (x4)
 
-#### **Les Éclaireurs du Champ de Bataille**
-- **Le Fossoyeur** ⚰️ : Permet de **piocher** la carte **en dessous** du **Champ de Bataille**.
-- **Le Fauconnier** 🦅 : Permet de **piocher** la carte **au-dessus** du **Champ de Bataille**.
-- **L’Éclaireur** 👀 : Permet de **piocher** une carte **au-dessus et en dessous** du **Champ de Bataille**.
-- **Le Voleur** 🏴‍☠️ : Permet de **piocher** une carte au hasard dans la main d’un autre joueur.
+#### **Les Voleurs** 🕵️‍♂️ (x10)
+- Permet de **piocher** ou de faire **piocher** une carte au hasard dans la main d’un autre joueur. (x10)
 
 ---
 
-## ☠️ Les cartes Cavaliers Maudits
+## ☠️ Les cartes Cavaliers Maudits (x4)
 Ces cartes ne peuvent pas être jouées volontairement à moins qu'elles soient les dernières cartes en main du joueur.
 Ces cartes infligent des malédictions aux joueurs qui les ont dans leur jeu.
 
-- **Le Cavalier de la Mort** 💀 : Si un joueur pioche cette carte, il **défausse immédiatement toutes ses cartes et est éliminé**.
+- **Le Cavalier de l'Épidémie** 💀 : Si un joueur se fait piocher cette carte, il **défausse immédiatement toutes ses cartes et est éliminé**.
 - **Le Cavalier de la Conquête** ⚔️ : Si un joueur pioche cette carte, il doit **être le premier éliminé pour gagner**. S’il survit plus longtemps qu’un autre joueur, il est immédiatement éliminé.
 - **Le Cavalier de la Famine** 🍂 : Oblige son possesseur à **défausser une carte** avant de jouer à chaque tour.
-- **Le Cavalier de la Guerre** 🔥 : Oblige son possesseur à **défausser une carte dès qu’un autre joueur est contré**.
+- **Le Cavalier de la Guerre** 🔥 : Oblige son possesseur à **défausser une carte** dès qu’un autre joueur **défausse**.
 
 ---
 
-## ✨ Les cartes Saintes Protectrices
+## ✨ Les cartes Saintes Protectrices (x4)
 Ces cartes permettent de se débarrasser des **Cavaliers Maudits**.
 
-- **La Sainte de la Vie** 🌿 : Défausse **Le Cavalier de la Mort**.
+- **La Sainte de la Guérison** 🌿 : Défausse **Le Cavalier de l'Épidémie**.
 - **La Sainte de la Prospérité** 💎 : Défausse **Le Cavalier de la Conquête**.
 - **La Sainte de l’Abondance** 🍞 : Défausse **Le Cavalier de la Famine**.
 - **La Sainte de la Paix** ☮️ : Défausse **Le Cavalier de la Guerre**.
 
 ---
 
-## 🔄 Les cartes Hérauts du Destin
+## 🔄 Les cartes Hérauts du Destin (x4)
 Ces cartes permettent de transmettre des **Cavaliers Maudits**.
 
-- **Le Héraut de la Fin** ☠️ : Transmet **Le Cavalier de la Mort**.
+- **Le Héraut de la Maladie** ☠️ : Transmet **Le Cavalier de l'Épidémie**.
 - **Le Héraut du Pouvoir** 👑 : Transmet **Le Cavalier de la Conquête**.
 - **Le Héraut de la Souffrance** 🤢 : Transmet **Le Cavalier de la Famine**.
 - **Le Héraut du Chaos** ⚔️ : Transmet **Le Cavalier de la Guerre**.
