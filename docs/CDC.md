@@ -3,10 +3,21 @@
 ## 1. Introduction et Contexte
 
 ### 1.1 Présentation du Projet
+L'objectif du projet est de concevoir une **application mobile de jeu de cartes**, avec des règles innovantes et une expérience utilisateur fluide. Cette application permettra aux joueurs de s'affronter en **local** et en **ligne**, avec des fonctionnalités modernes telles que le matchmaking, un mode multijoueur stable et une interface dynamique.
 
 ### 1.2 Objectifs
+Les principaux objectifs du projet sont :
+- **Développement multiplateforme** : Assurer une compatibilité iOS et Android.
+- **Optimisation des performances** : Backend léger et efficace basé avec une base de données adaptée.
+- **Expérience utilisateur immersive** : Interface fluide, animations et interactions simplifiées pour améliorer la jouabilité.
+- **Facilité de maintenance et scalabilité** : Utilisation de **Docker Compose** pour la gestion des conteneurs et **Prometheus/Grafana** pour le monitoring.
 
 ### 1.3 Public Cible
+L'application s'adresse à :
+- **Joueurs occasionnels et compétitifs** : Personnes cherchant une expérience de jeu rapide et intuitive.
+- **Amateurs de jeux de société numériques** : Ceux qui souhaitent retrouver l’ambiance des jeux de cartes classiques sur mobile.
+- **Jeunes adultes et familles** : Un public cherchant un jeu accessible à tous, avec des parties rapides et engageantes.
+- **Créateurs de contenu et influenceurs** : Potentiel de viralité grâce à des défis, tournois et interactions sociales intégrées.
 
 ## 2. Parties Prenantes (C1.1.1)
 
