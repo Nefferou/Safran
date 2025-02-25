@@ -246,22 +246,15 @@ Droit d’opposition au traitement des données.<br><br>
 Le nombre de joueurs dépend de plusieurs facteurs :
 
     📱 Taille du marché des jeux de cartes mobiles : Environ 500 millions de joueurs actifs dans le monde.
-    🚀 Taux de pénétration : Un nouveau jeu bien conçu peut attirer 0,1% à 1% du marché cible.
+    🚀 Taux de pénétration : Un nouveau jeu bien conçu peut attirer 0,01% à 1% du marché cible.
     📥 Téléchargements initiaux : Selon les campagnes marketing, un bon jeu peut atteindre 50k à 1M de téléchargements en 1 an.
     🎮 Rétention des joueurs : Environ 20% des joueurs restent actifs après 1 mois.
 
 Scénarios d'estimation :
 
-    Bas : 50 000 joueurs actifs
-    Moyen : 200 000 joueurs actifs
-    Haut : 1 000 000 joueurs actifs
+    50 000 joueurs actifs
 
 2. Modèle Économique & Estimation des Revenus 💰
-
-Les achats in-app concernent :
-
-    Skins de cartes 🎴 : 1,99 € à 9,99 €
-    Modes de jeu supplémentaires 🎲 : 4,99 € à 14,99 €
 
 📌 Taux de conversion (joueurs qui achètent) :
 
@@ -273,17 +266,18 @@ Les achats in-app concernent :
 
 Revenus estimés selon le nombre de joueurs actifs :
 
-| Scénario | Joueurs actifs | % acheteurs | Dépense moyenne | Revenus mensuels |
-|----------|----------------|-------------|-----------------|------------------|
-| Bas      | 50 000         | 2% (1 000)  | 10 €            | 10 000 €         |
-| Moyen    | 200 000        | 3% (6 000)  | 12 €            | 72 000 €         |
-| Haut     | 1 000 000      | 5% (50 000) | 15 €            | 750 000 €        |
+| Joueurs actifs | % acheteurs | Dépense moyenne | Revenus mensuels |
+|----------------|-------------|-----------------|------------------|
+|  50 000        | 2% (1 000)  | 10 €            | 10 000 €         |
 
 Revenus annuels estimés :
 
-    Bas : 120 000 € / an
-    Moyen : 864 000 € / an
-    Haut : 9 000 000 € / an
+    120 000 € / an
+
+source :
+
+[ecranmobile.fr](https://www.ecranmobile.fr/Le-marche-des-jeux-mobiles-en-pleine-croissance-pres-de-250-milliards-de-dollars-d-ici-trois-ans_a77276.html)<br>
+[mistplay.com](https://fr.mistplay.com/resources/mobile-gaming-iap-spend-trends-2024)
 
 ## 9. Choix des Technologies
 
