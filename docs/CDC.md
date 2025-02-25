@@ -259,7 +259,7 @@ L'application s'adresse à :
 - **Facilité de mise en œuvre** et **intégration native avec Docker**.
 - Répartition de charge et haute disponibilité permettant d’assurer **une continuité de service**.
 
-### 8.6 Gestion de Projet : **ClickUp**
+### 8.6 Gestion de Projet : **ClickUp** 
 
 - **Outil tout-en-un** combinant gestion des tâches, suivi des bugs, et planification.
 - Interface personnalisable avec différentes vues (**Kanban, Gantt, Calendrier**), facilitant l’organisation de l’équipe.
