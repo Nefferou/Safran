@@ -227,31 +227,17 @@ _**Précision** : Le temps estimé dans ce tableau est calculé pour une **équi
 1. Principes Fondamentaux du RGPD
 
 🔹 Licéité, loyauté et transparence : Chaque joueur sera informé des données utilisées par l'application.<br>
-🔹 Limitation des finalités : Les données collecté ne seront que des informations récupéré via des action in-app.<br>
-🔹 Minimisation des données : Seul le pseudonymes donné par l'utilisateur, son email, mot de passe et les information lié au action in-app seront collecté.<br>
-🔹 Exactitude : L'utilisateur pourra changé c'est information personelle à n'importe quelle moment.<br>
 🔹 Limitation de la conservation : Les données seront conservé en fonction du temps maximum indiqué dans la lois soit 5 ans.<br>
 🔹 Sécurité et confidentialité : les mots de passe des utilisateurs seront hashé et un back-up de la base de donnée sera mise en place.
 
 2. Obligations pour un Projet Informatique
 
-📌 Désignation d’un DPO.<br>
-📌 Tenue d’un registre des traitements des données.<br>
 📌 Mise en place d’un consentement explicite : L’utilisateur pourra accepter ou refuser clairement l’utilisation de ses données.<br>
 📌 Droit des utilisateurs :<br>
 Droit d’accès, de rectification et de suppression des données.<br>
 Droit à la portabilité des données.<br>
 Droit d’opposition au traitement des données.<br><br>
-📌 Sécurisation des données : Chiffrement, anonymisation, gestion des accès et prévention des fuites.<br>
-📌 Gestion des violations de données : notification de la CNIL sous 72h en cas de fuite de données personnelles.
-
-3. Technologies et Solutions pour Assurer la Conformité
-
-🔐 Chiffrement et anonymisation : Protéger les données personnelles stockées et transmises.<br>
-🛡 Gestion des accès : Authentification forte, contrôle des accès.<br>
-📄 Politique de confidentialité claire : Informer les utilisateurs sur l’usage de leurs données.<br>
-📂 Hébergement des données en Europe : Privilégier des serveurs conformes au RGPD pour éviter les transferts illégaux de données.<br>
-📝 Audit régulier et tests de sécurité : Vérifier la conformité via des audits et tests de vulnérabilité.
+📌 Sécurisation des données : Chiffrement, anonymisation, gestion des accès et prévention des fuites.
 
 ### 8.8 bénéfice
 
