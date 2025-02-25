@@ -265,7 +265,23 @@ L'application s'adresse à :
 - Interface personnalisable avec différentes vues (**Kanban, Gantt, Calendrier**), facilitant l’organisation de l’équipe.
 - Version gratuite offrant **de nombreuses fonctionnalités**, adaptée aux besoins de l’équipe.
 
-### 8.7 Architecture logicielle (C1.5)
+### 8.7 Communication : **Teams**
+
+- **Plateforme de communication** intégrée avec les outils Microsoft 365.
+- **Appels vidéo, messagerie instantanée et partage de fichiers** pour une collaboration efficace.
+- **Intégration avec ClickUp** pour une gestion centralisée des tâches et des projets.
+- **Sécurité renforcée** pour protéger les données sensibles et les échanges.
+- **Compatibilité multiplateforme** pour une utilisation sur tous les appareils.
+- **Gestion des réunions et des plannings** pour une organisation optimale de l’équipe.
+
+### 8.8 CI/CD : **GitHub** / **GitHub Actions**
+
+- **Intégration continue** avec GitHub Actions pour automatiser les tests et déploiements.
+- **Facilité d’intégration** avec les dépôts GitHub, permettant une gestion centralisée du code.
+- **Personnalisable** avec des workflows YAML pour s’adapter aux besoins spécifiques du projet.
+- **Versioning et historique** des modifications pour une traçabilité complète du code.
+
+### 8.9 Architecture logicielle (C1.5)
 
 | **Architectures logicielles sélectionnées** | **Justification**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 |---------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
