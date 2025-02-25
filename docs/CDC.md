@@ -218,70 +218,6 @@ L'application s'adresse à :
 | **Trello**      | Outil de gestion de projet visuel basé sur des cartes.             | - Interface intuitive.<br>- Version gratuite adaptée aux petits projets.                                                                                                                                                                                                          | - Fonctionnalités limitées pour les projets complexes.<br>- **Ne permet pas de gérer des dépendances entre tâches**, limitant son efficacité pour des projets avancés.<br/>- Se limite à une vu Kanban pour la version gratuite |
 | **Notion**      | Outil combinant gestion de projet et documentation.                | - Très flexible.<br>- Idéal pour la documentation technique et le suivi des tâches.                                                                                                                                                                                               | - Peut devenir brouillon si mal structuré.<br>- Version gratuite limitée.                                                                                                                                                       |
 
-### 7.7 Veille sur le RGPD
-
-#### 1. Principes Fondamentaux du RGPD
-
-🔹 **Licéité, loyauté et transparence** : Chaque joueur sera informé des données utilisées par l'application.  
-🔹 **Limitation de la conservation** : Les données seront conservées en fonction de la durée indiquée aux utilisateurs.  
-🔹 **Sécurité et confidentialité** : Les mots de passe des utilisateurs seront **hachés**, **salés**, et une **sauvegarde** de la base de données sera mise en place.
-
-#### 2. Obligations pour un Projet Informatique
-
-📌 **Mise en place d’un consentement explicite** : L’utilisateur pourra accepter ou refuser clairement l’utilisation de ses données.
-
-📌 **Droits des utilisateurs** :
-- **Droit d’accès**, de **rectification** et de **suppression** des données.
-- **Droit à la portabilité** des données.
-- **Droit d’opposition** au traitement des données.
-
-📌 **Sécurisation des données** : Chiffrement, anonymisation, gestion des accès, token d'anonymisation et prévention des fuites.
-
-### 7.8 Bénéfice
-
-1. Estimation du Nombre de Joueurs Potentiels 📊
-
-Le nombre de joueurs dépend de plusieurs facteurs :
-
-    📱 Taille du marché des jeux de cartes mobiles : Environ 500 millions de joueurs actifs dans le monde.
-    🚀 Taux de pénétration : Un nouveau jeu bien conçu peut attirer 0,01% à 1% du marché cible.
-    📥 Téléchargements initiaux : Selon les campagnes marketing, un bon jeu peut atteindre 50k à 1M de téléchargements en 1 an.
-    🎮 Rétention des joueurs : Environ 20% des joueurs restent actifs après 1 mois.
-
-Scénarios d'estimation :
-
-    50 000 joueurs actifs
-
-2. Modèle Économique & Estimation des Revenus 💰
-
-Les achats in-app concernent :
-
-    Skins de cartes 🎴
-    Modes de jeu supplémentaires 🎲
-
-📌 Taux de conversion (joueurs qui achètent) :
-
-    En moyenne, 2% à 5% des joueurs font au moins un achat in-app.
-
-📌 Dépense moyenne par joueur payant :
-
-    Entre 5€ et 20€ par mois.
-
-Revenus estimés selon le nombre de joueurs actifs :
-
-| Joueurs actifs | % acheteurs | Dépense moyenne | Revenus mensuels |
-|----------------|-------------|-----------------|------------------|
-|  50 000        | 2% (1 000)  | 10 €            | 10 000 €         |
-
-Revenus annuels estimés :
-
-    120 000 € / an
-
-source :
-
-[ecranmobile.fr](https://www.ecranmobile.fr/Le-marche-des-jeux-mobiles-en-pleine-croissance-pres-de-250-milliards-de-dollars-d-ici-trois-ans_a77276.html)<br>
-[mistplay.com](https://fr.mistplay.com/resources/mobile-gaming-iap-spend-trends-2024)
-
 ## 8. Choix des Technologies (C1.3.2, C1.6)
 
 ### 8.1 Front-End : **Flutter**
@@ -360,5 +296,40 @@ _**Précision** : Le temps estimé dans ce tableau est calculé pour une **équi
 | **Marketing**                  | **200 €/JH**                  | **-**                   | **-**                   |
 | **Total**                      | **-**                         | **42 500 €**            | **76 700 €**            |
 
-# TODO : 8.7 Architecture logicielle (C1.5)
-# TODO : Parler de l'impact environnemental et social (C1.3.1, C1.5)
+## 10. Veille sur le RGPD
+
+### 10.1 Principes Fondamentaux du RGPD
+**Licéité, loyauté et transparence** : Chaque joueur sera informé des données utilisées par l'application.  
+**Limitation de la conservation** : Les données seront conservées en fonction de la durée indiquée aux utilisateurs.  
+**Sécurité et confidentialité** : Les mots de passe des utilisateurs seront **hachés**, **salés**, et une **sauvegarde** de la base de données sera mise en place.
+
+### 10.2 Obligations pour un Projet Informatique
+
+**Mise en place d’un consentement explicite** : L’utilisateur pourra accepter ou refuser clairement l’utilisation de ses données.
+**Droits des utilisateurs** :
+- **Droit d’accès**, de **rectification** et de **suppression** des données.
+- **Droit à la portabilité** des données.
+- **Droit d’opposition** au traitement des données.
+**Sécurisation des données** : Chiffrement, anonymisation, gestion des accès, token d'anonymisation et prévention des fuites.
+
+### 11. Bénéfice
+
+Estimation du Nombre de Joueurs Potentiels
+Le nombre de joueurs dépend de plusieurs facteurs :
+* Taille du marché des jeux de cartes mobiles : Environ **500 millions** de joueurs actifs dans le monde.
+* Téléchargements initiaux : Selon les campagnes marketing et en partant de 0, un bon jeu peut atteindre **1k** à **10k** de téléchargements en 1 an.
+* Rétention des joueurs : Environ **20%** des joueurs restent actifs après 1 mois.
+
+Scénarios d'estimation : 5 000 joueurs actifs
+Modèle Économique & Estimation des Revenus
+Les achats in-app concernent :
+* Skins de cartes
+* Modes de jeu supplémentaires
+Taux de conversion (joueurs qui achètent) : En moyenne, 2% à 5% des joueurs font au moins un achat in-app.
+Dépense moyenne par joueur payant : Entre 5€ et 20€ par mois.
+
+| Joueurs actifs | % acheteurs | Dépense moyenne | Revenus mensuels |
+|----------------|-------------|-----------------|------------------|
+| 5 000          | 2% (100)    | 10 €            | 1 000 €          |
+
+Revenus annuels estimés : 12 000 € / an
