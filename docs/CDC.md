@@ -265,6 +265,41 @@ L'application s'adresse à :
 - Interface personnalisable avec différentes vues (**Kanban, Gantt, Calendrier**), facilitant l’organisation de l’équipe.
 - Version gratuite offrant **de nombreuses fonctionnalités**, adaptée aux besoins de l’équipe.
 
+### 8.7 Communication : **Teams**
+
+- **Plateforme de communication** intégrée avec les outils Microsoft 365.
+- **Appels vidéo, messagerie instantanée et partage de fichiers** pour une collaboration efficace.
+- **Intégration avec ClickUp** pour une gestion centralisée des tâches et des projets.
+- **Sécurité renforcée** pour protéger les données sensibles et les échanges.
+- **Compatibilité multiplateforme** pour une utilisation sur tous les appareils.
+- **Gestion des réunions et des plannings** pour une organisation optimale de l’équipe.
+
+### 8.8 CI/CD : **GitHub** / **GitHub Actions**
+
+- **Intégration continue** avec GitHub Actions pour automatiser les tests et déploiements.
+- **Facilité d’intégration** avec les dépôts GitHub, permettant une gestion centralisée du code.
+- **Personnalisable** avec des workflows YAML pour s’adapter aux besoins spécifiques du projet.
+- **Versioning et historique** des modifications pour une traçabilité complète du code.
+
+### 8.9 IDE : **Android Studio**
+
+- **IDE officiel** pour le développement Android, offrant une **intégration complète** avec les outils Google.
+- **Fonctionnalités avancées** pour le développement Flutter, Kotlin et Java.
+- **Débogage et tests** simplifiés pour une **productivité accrue**.
+- **Extensions et plugins** pour personnaliser l’environnement de développement.
+- **Compatibilité multiplateforme** pour le développement iOS et Android.
+
+### 8.10 Architecture logicielle (C1.5)
+
+| **Architectures logicielles sélectionnées** | **Justification**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+|---------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Peer-to-Peer (P2P)**                      | - **Mode local (Bluetooth/Wi-Fi)** : Permet à des joueurs proches de se connecter directement entre leurs appareils sans passer par un serveur central.<br>- **Réduction de la latence dans les parties locales**, car la communication ne transite pas par Internet.<br>- **Résilience** : En cas de coupure réseau, le P2P local peut continuer à fonctionner.                                                                                                                                                                                                                                                              |
+| **Client/Server**                           | - **Gestion centralisée des données** (scores, statistiques, matchmaking) : un serveur unique assure l’intégrité des informations et la persistance des données.<br>- **Sécurité et contrôle** : Les données sensibles (identifiants, progression) sont traitées et stockées de manière sécurisée côté serveur.<br>- **Évolutivité** : Il est plus facile de faire évoluer la logique métier (back-end) sans imposer de mises à jour constantes sur tous les clients.                                                                                                                                                         |
+| **Layers**                                  | - **Séparation des préoccupations** : Chaque couche (UI, logique métier, accès aux données, etc.) est isolée, ce qui facilite la maintenance et l’évolution du code.<br>- **Testabilité** : Les tests unitaires et d’intégration sont plus simples à mettre en place car on peut cibler précisément une couche à la fois.<br>- **Clarté organisationnelle** : Les rôles de chaque couche sont clairement définis (présentation, logique, persistance).                                                                                                                                                                        |
+| **Service-Oriented Architecture (SOA)**     | - **Modularité et réutilisation** : Les fonctionnalités (authentification, matchmaking, gestion des statistiques, etc.) sont exposées sous forme de services autonomes, ce qui facilite leur réutilisation ou leur remplacement au fil du temps.<br>- **Scalabilité** : Chaque service peut être déployé sur une infrastructure distincte et “scalé” indépendamment, suivant la charge (ex. service de matchmaking plus sollicité).<br>- **Intégration facilitée** : Avec une approche SOA, il est plus simple d’intégrer d’autres services externes (paiement, notifications push, analytics) grâce à des API standardisées. |
+| **Components**                              | - **Découpage logique** : L’application est découpée en composants (modules) clairement définis (ex. module de gestion de session, module d’animation UI, module d’IA si nécessaire) afin de mieux organiser le code.<br>- **Maintenance allégée** : Les composants étant faiblement couplés, il est plus simple de remplacer ou de mettre à jour un composant sans impacter toute l’application.<br>- **Collaboration** : Plusieurs développeurs peuvent travailler simultanément sur des composants différents de manière indépendante.                                                                                     |
+
+
 ## 9. Estimation de la Charge de Travail et du Budget (C1.4.2)
 
 ### 9.1 Temps moyen estimé par poste avec justification
