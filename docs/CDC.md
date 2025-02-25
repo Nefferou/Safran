@@ -218,7 +218,7 @@ L'application s'adresse à :
 | **Trello**      | Outil de gestion de projet visuel basé sur des cartes.             | - Interface intuitive.<br>- Version gratuite adaptée aux petits projets.                                                                                                                                                                                                          | - Fonctionnalités limitées pour les projets complexes.<br>- **Ne permet pas de gérer des dépendances entre tâches**, limitant son efficacité pour des projets avancés.<br/>- Se limite à une vu Kanban pour la version gratuite |
 | **Notion**      | Outil combinant gestion de projet et documentation.                | - Très flexible.<br>- Idéal pour la documentation technique et le suivi des tâches.                                                                                                                                                                                               | - Peut devenir brouillon si mal structuré.<br>- Version gratuite limitée.                                                                                                                                                       |
 
-### 8.7 veille sur le RGPD
+### 7.7 veille sur le RGPD
 
 1. Principes Fondamentaux du RGPD
 
@@ -235,7 +235,7 @@ Droit à la portabilité des données.<br>
 Droit d’opposition au traitement des données.<br><br>
 📌 Sécurisation des données : Chiffrement, anonymisation, gestion des accès et prévention des fuites.
 
-### 8.8 bénéfice
+### 7.8 bénéfice
 
 1. Estimation du Nombre de Joueurs Potentiels 📊
 
