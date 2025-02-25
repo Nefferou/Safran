@@ -259,7 +259,7 @@ L'application s'adresse à :
 - **Facilité de mise en œuvre** et **intégration native avec Docker**.
 - Répartition de charge et haute disponibilité permettant d’assurer **une continuité de service**.
 
-### 8.6 Gestion de Projet : **ClickUp** 
+### 8.6 Gestion de Projet : **ClickUp**
 
 - **Outil tout-en-un** combinant gestion des tâches, suivi des bugs, et planification.
 - Interface personnalisable avec différentes vues (**Kanban, Gantt, Calendrier**), facilitant l’organisation de l’équipe.
@@ -281,7 +281,15 @@ L'application s'adresse à :
 - **Personnalisable** avec des workflows YAML pour s’adapter aux besoins spécifiques du projet.
 - **Versioning et historique** des modifications pour une traçabilité complète du code.
 
-### 8.9 Architecture logicielle (C1.5)
+### 8.9 IDE : **Android Studio**
+
+- **IDE officiel** pour le développement Android, offrant une **intégration complète** avec les outils Google.
+- **Fonctionnalités avancées** pour le développement Flutter, Kotlin et Java.
+- **Débogage et tests** simplifiés pour une **productivité accrue**.
+- **Extensions et plugins** pour personnaliser l’environnement de développement.
+- **Compatibilité multiplateforme** pour le développement iOS et Android.
+
+### 8.10 Architecture logicielle (C1.5)
 
 | **Architectures logicielles sélectionnées** | **Justification**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 |---------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
