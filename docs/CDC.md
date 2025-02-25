@@ -218,24 +218,26 @@ L'application s'adresse à :
 | **Trello**      | Outil de gestion de projet visuel basé sur des cartes.             | - Interface intuitive.<br>- Version gratuite adaptée aux petits projets.                                                                                                                                                                                                          | - Fonctionnalités limitées pour les projets complexes.<br>- **Ne permet pas de gérer des dépendances entre tâches**, limitant son efficacité pour des projets avancés.<br/>- Se limite à une vu Kanban pour la version gratuite |
 | **Notion**      | Outil combinant gestion de projet et documentation.                | - Très flexible.<br>- Idéal pour la documentation technique et le suivi des tâches.                                                                                                                                                                                               | - Peut devenir brouillon si mal structuré.<br>- Version gratuite limitée.                                                                                                                                                       |
 
-### 7.7 veille sur le RGPD
+### 7.7 Veille sur le RGPD
 
-1. Principes Fondamentaux du RGPD
+#### 1. Principes Fondamentaux du RGPD
 
-🔹 Licéité, loyauté et transparence : Chaque joueur sera informé des données utilisées par l'application.<br>
-🔹 Limitation de la conservation : Les données seront conservé en fonction du temps maximum indiqué dans la lois soit 5 ans.<br>
-🔹 Sécurité et confidentialité : les mots de passe des utilisateurs seront hashé et un back-up de la base de donnée sera mise en place.
+🔹 **Licéité, loyauté et transparence** : Chaque joueur sera informé des données utilisées par l'application.  
+🔹 **Limitation de la conservation** : Les données seront conservées en fonction de la durée indiquée aux utilisateurs.  
+🔹 **Sécurité et confidentialité** : Les mots de passe des utilisateurs seront **hachés**, **salés**, et une **sauvegarde** de la base de données sera mise en place.
 
-2. Obligations pour un Projet Informatique
+#### 2. Obligations pour un Projet Informatique
 
-📌 Mise en place d’un consentement explicite : L’utilisateur pourra accepter ou refuser clairement l’utilisation de ses données.<br>
-📌 Droit des utilisateurs :<br>
-Droit d’accès, de rectification et de suppression des données.<br>
-Droit à la portabilité des données.<br>
-Droit d’opposition au traitement des données.<br><br>
-📌 Sécurisation des données : Chiffrement, anonymisation, gestion des accès et prévention des fuites.
+📌 **Mise en place d’un consentement explicite** : L’utilisateur pourra accepter ou refuser clairement l’utilisation de ses données.
 
-### 7.8 bénéfice
+📌 **Droits des utilisateurs** :
+- **Droit d’accès**, de **rectification** et de **suppression** des données.
+- **Droit à la portabilité** des données.
+- **Droit d’opposition** au traitement des données.
+
+📌 **Sécurisation des données** : Chiffrement, anonymisation, gestion des accès, token d'anonymisation et prévention des fuites.
+
+### 7.8 Bénéfice
 
 1. Estimation du Nombre de Joueurs Potentiels 📊
 
@@ -251,6 +253,11 @@ Scénarios d'estimation :
     50 000 joueurs actifs
 
 2. Modèle Économique & Estimation des Revenus 💰
+
+Les achats in-app concernent :
+
+    Skins de cartes 🎴
+    Modes de jeu supplémentaires 🎲
 
 📌 Taux de conversion (joueurs qui achètent) :
 
