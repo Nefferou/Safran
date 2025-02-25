@@ -99,17 +99,17 @@ L'application s'adresse à :
 | **Matchmaking**            | Implémentation avancée avec équilibrage automatique des parties et brokers pour améliorer l'expérience utilisateur. |
 | **Gestion des connexions** | Mécanisme de reprise automatique en cas de déconnexion.                                                             |
 | **Base de données**        | Optimisation pour stocker les profils et statistiques.                                                              |
-| **Architecture**           | Utilisation de microservices ou serverless pour la scalabilité.                                                     |
+| **Architecture**           | Utilisation de P2P, Client/Server, Layers, SOA et Components.                                                       |
 
 ### 5.2 Faisabilité Financière
 
-| **Élément**                | **Description**                                                                                     |
-|----------------------------|-----------------------------------------------------------------------------------------------------|
-| **Déploiement**            | Frais de publication et mises à jour sur l'App Store et Google Play.                                |
-| **Infrastructure**         | Hébergement sur serveur privé (Coût nul initialement).                                              |
-| **Marketing**              | Budget pour acquisition et fidélisation des joueurs via publicités et ASO (App Store Optimization). |
-| **Maintenance**            | Coût des mises à jour régulières pour assurer la stabilité et ajouter du contenu.                   |
-| **Support**                | Estimation des coûts pour le service client et gestion des serveurs multijoueurs.                   |
+| **Élément**        | **Description**                                                                                                                   |
+|--------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| **Déploiement**    | Frais de publication et mises à jour sur l'App Store et Google Play.                                                              |
+| **Infrastructure** | Hébergement sur une infrastructure privée, avec un serveur et une VM dédiés, robuste, sécurisée et avec un coût nul initialement. |
+| **Marketing**      | Budget pour acquisition et fidélisation des joueurs via publicités et ASO (App Store Optimization).                               |
+| **Maintenance**    | Coût des mises à jour régulières pour assurer la stabilité et ajouter du contenu.                                                 |
+| **Support**        | Estimation des coûts pour le service client et gestion des serveurs multijoueurs.                                                 |
 
 ### 5.3 Faisabilité Organisationnelle
 
