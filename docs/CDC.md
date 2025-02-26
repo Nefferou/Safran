@@ -8,12 +8,12 @@ L'objectif du projet est de concevoir une **application mobile de jeu de cartes*
 ### 1.2 Objectifs
 Les principaux objectifs du projet sont :
 - **Développement multiplateforme** : Assurer une compatibilité iOS et Android.
-- **Optimisation des performances** : Backend léger et efficace basé avec une base de données adaptée.
+- **Optimisation des performances** : Backend léger et efficace avec une base de données adaptée.
 - **Expérience utilisateur immersive** : Interface fluide, animations et interactions simplifiées pour améliorer la jouabilité.
 - **Facilité de maintenance et scalabilité** : Utilisation de **Docker Compose** pour la gestion des conteneurs et **Prometheus/Grafana** pour le monitoring.
 
 ### 1.3 Public Cible
-L'application s'adresse à :
+L'application s'adresse aux :
 - **Joueurs occasionnels et compétitifs** : Personnes cherchant une expérience de jeu rapide et intuitive.
 - **Amateurs de jeux de société numériques** : Ceux qui souhaitent retrouver l’ambiance des jeux de cartes classiques sur mobile.
 - **Jeunes adultes et familles** : Un public cherchant un jeu accessible à tous, avec des parties rapides et engageantes.
@@ -23,31 +23,38 @@ L'application s'adresse à :
 
 ### 2.1 Équipe de développement
 
-| Nom         | Rôle                                      | Responsabilités principales                                                                                                                |
-|-------------|-------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| **Julien**  | Chef de projet / Concepteur / Développeur | Gestion du projet, coordination de l’équipe, conception des fonctionnalités, développement **Front / Back**, intégration **Test / CI-CD**. |
-| **Anthony** | Concepteur / Développeur                  | Conception et développement **Front / Back**, **réseau**.                                                                                  |
-| **Yves**    | Développeur                               | Développement **Back**, gestion **réseau**, supervision de l'application (**Monitoring**), intégration **CI-CD**.                          |
-| **Guilhem** | Concepteur / Développeur                  | Conception et développement **Front / Back**, intégration **Test**.                                                                        |
+| Nom                     | Rôle                                      | Responsabilités principales                                                                                                                |
+|-------------------------|-------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| **FERTILATI Julien**    | Chef de projet / Concepteur / Développeur | Gestion du projet, coordination de l’équipe, conception des fonctionnalités, développement **Front / Back**, intégration **Test / CI-CD**. |
+| **VIANO Anthony**       | Concepteur / Développeur                  | Conception et développement **Front / Back**, **réseau**.                                                                                  |
+| **ESTRADA Yves-Robert** | Développeur                               | Développement **Back**, gestion **réseau**, supervision de l'application (**Monitoring**), intégration **CI-CD**.                          |
+| **MAGAUD Guilhem**      | Concepteur / Développeur                  | Conception et développement **Front / Back**, intégration **Test**.                                                                        |
 
-### 2.2 Autres parties prenantes
+### 2.2 Sous Traitants
 
-| Acteur                               | Rôle                                    | Implication                                                                            |
-|--------------------------------------|-----------------------------------------|----------------------------------------------------------------------------------------|
-| **Utilisateurs finaux**              | Joueurs de l’application mobile         | Attentes en matière d'expérience utilisateur, fluidité et compréhension facile du jeu. |
-| **Partenaires commerciaux (futurs)** | Fabricants de jeux de société, sponsors | Potentielle collaboration et monétisation (sponsoring).                                |
-| **Plateformes de distribution**      | Google Play Store, Apple App Store      | Publication et respect des guidelines de chaque store.                                 |
-| **Communauté & testeurs**            | Bêta-testeurs et premiers utilisateurs  | Feedback sur l’UX/UI et détection des bugs.                                            |
+| Acteur                               | Rôle                                                           | Implication                                                                                                        |
+|--------------------------------------|----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| **DEROUET Pierre**                   | Fournisseur infrastructure et administrateur système et réseau | Hébergement du projet et en charge de la mise en place de l'infrastructure requise ainsi que de son administration |
+| **MARIN Ryan**                       | Designer UX/UI                                                 | En charge de la charte graphique ainsi que de l'interface                                                          |
 
-### 2.3 Analyse de la Demande, des Objectifs et des Enjeux des parties prenantes (C1.1.2)
+### 2.3 Autres parties prenantes
 
-| Partie prenante                 | Demande                                                              | Objectifs                                                   | Enjeux                                                                                         |
-|---------------------------------|----------------------------------------------------------------------|-------------------------------------------------------------|------------------------------------------------------------------------------------------------|
-| **Équipe de développement**     | Outils adaptés, documentation claire, gestion de projet fluide       | Développer une application stable, performante et évolutive | Respect des délais, bonne collaboration, gestion des ressources techniques                     |
-| **Utilisateurs finaux**         | Expérience utilisateur fluide, jeux amusants et faciles à comprendre | Engagement et satisfaction des joueurs                      | Adoption de l’application, fidélisation des utilisateurs, partage du jeu avec d'autres joueurs |
-| **Partenaires commerciaux**     | Opportunités de visibilité et intégration commerciale                | Monétisation via publicité, partenariats et sponsoring      | Alignement stratégique avec l’application, impact sur l’image de marque                        |
-| **Plateformes de distribution** | Conformité aux politiques de publication                             | Distribution et accessibilité                               | Validation des mises à jour, respect des guidelines techniques et légales                      |
-| **Communauté & testeurs**       | Application fonctionnelle et stable                                  | Identification rapide des bugs et améliorations continues   | Engagement des testeurs, qualité du feedback                                                   |
+| Acteur                               | Rôle                                                           | Implication                                                                                                        |
+|--------------------------------------|----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| **Utilisateurs finaux**              | Joueurs de l’application mobile                                | Attentes en matière d'expérience utilisateur, fluidité et compréhension facile du jeu.                             |
+| **Partenaires commerciaux (futurs)** | Fabricants de jeux de société, sponsors                        | Potentielle collaboration et monétisation (sponsoring).                                                            |
+| **Plateformes de distribution**      | Google Play Store, Apple App Store                             | Publication et respect des guidelines de chaque store.                                                             |
+| **Communauté & testeurs**            | Bêta-testeurs et premiers utilisateurs                         | Feedback sur l’UX/UI et détection des bugs.                                                                        |
+
+### 2.4 Analyse de la Demande, des Objectifs et des Enjeux des parties prenantes (C1.1.2)
+
+| Partie prenante                 | Demande                                                              | Objectifs                                                   | Enjeux                                                                                           |
+|---------------------------------|----------------------------------------------------------------------|-------------------------------------------------------------|--------------------------------------------------------------------------------------------------|
+| **Équipe de développement**     | Outils adaptés, documentation claire et gestion de projet fluide     | Développer une application stable, performante et évolutive | Respect des délais, bonne collaboration et gestion des ressources techniques                     |
+| **Utilisateurs finaux**         | Expérience utilisateur fluide, jeux amusants et faciles à comprendre | Engagement et satisfaction des joueurs                      | Adoption de l’application, fidélisation des utilisateurs et partage du jeu avec d'autres joueurs |
+| **Partenaires commerciaux**     | Opportunités de visibilité et intégration commerciale                | Monétisation via publicité, partenariat et sponsoring       | Alignement stratégique avec l’application et impact sur l’image de marque                        |
+| **Plateformes de distribution** | Conformité aux politiques de publication                             | Distribution et accessibilité                               | Validation des mises à jour et respect des guidelines techniques et légales                      |
+| **Communauté & testeurs**       | Application fonctionnelle et stable                                  | Identification rapide des bugs et améliorations continues   | Engagement des testeurs et qualité du feedback                                                   |
 
 ## 3. Forces, Faiblesses, Opportunités et Menaces (C1.2.1)
 
@@ -95,11 +102,11 @@ L'application s'adresse à :
 | **Élément**                | **Description**                                                                                                     |
 |----------------------------|---------------------------------------------------------------------------------------------------------------------|
 | **Compatibilité**          | Application cross-platform iOS/Android avec Flutter.                                                                |
-| **Infrastructure**         | Serveur privé avec VM Debian (4Go de RAM, 20Go de stockage). Services pour BDD et monitoring.                       |
+| **Infrastructure**         | Serveur privé avec VM Debian (4Go de RAM, 20Go de stockage, CPU 4 threads). Services pour BDD et monitoring.        |
 | **Matchmaking**            | Implémentation avancée avec équilibrage automatique des parties et brokers pour améliorer l'expérience utilisateur. |
 | **Gestion des connexions** | Mécanisme de reprise automatique en cas de déconnexion.                                                             |
 | **Base de données**        | Optimisation pour stocker les profils et statistiques.                                                              |
-| **Architecture**           | Utilisation de P2P, Client/Server, Layers, SOA et Components.                                                       |
+| **Architecture**           | Utilisation de P2P, Client/Serveur, En Couches, SOA et Composants.                                                  |
 
 ### 5.2 Faisabilité Financière
 
@@ -107,7 +114,7 @@ L'application s'adresse à :
 |--------------------|-----------------------------------------------------------------------------------------------------------------------------------|
 | **Déploiement**    | Frais de publication et mises à jour sur l'App Store et Google Play.                                                              |
 | **Infrastructure** | Hébergement sur une infrastructure privée, avec un serveur et une VM dédiés, robuste, sécurisée et avec un coût nul initialement. |
-| **Marketing**      | Budget pour acquisition et fidélisation des joueurs via publicités et ASO (App Store Optimization).                               |
+| **Marketing**      | Budget pour acquisition et fidélisation des joueurs via publicité et ASO (App Store Optimization).                                |
 | **Maintenance**    | Coût des mises à jour régulières pour assurer la stabilité et ajouter du contenu.                                                 |
 | **Support**        | Estimation des coûts pour le service client et gestion des serveurs multijoueurs.                                                 |
 
@@ -116,7 +123,7 @@ L'application s'adresse à :
 | **Élément**                    | **Description**                                                                                                                                                                       |
 |--------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Méthodologie**               | Utilisation de la méthodologie Agile avec un système de reviews régulières et une distribution/récupération des tickets libre en fonction des compétences et préférences de l'équipe. |
-| **Équipe**                     | Définition des rôles : Chef de projet, Concepteur, Développeur, Dev/Ops, Testeur logiciel, Designer, Administrateur Système                                                           |
+| **Équipe**                     | Définition des rôles : Chef de projet, Concepteur, Développeur, Dev/Ops, Testeur logiciel, Designer, Administrateur Système et Réseau                                                 |
 | **Collaboration**              | Tests continus avec bêta-testeurs pour affiner l'UX/UI.                                                                                                                               |
 | **Stratégie de communication** | Plan de marketing digital pour maximiser la visibilité de l'application.                                                                                                              |
 
@@ -134,6 +141,7 @@ L'application s'adresse à :
 
 | **Risques**                                                             | **Criticité** | **Impact**                                                                 | **Mesures d'atténuation**                                                                                                                |
 |-------------------------------------------------------------------------|---------------|----------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| Manque d’intuitivité de l’interface utilisateur                         | Moyenne       | Difficulté d’adoption et frustration des joueurs                           | Amélioration continue de l’UX/UI via retours utilisateurs et tests A/B                                                                   |
 | Bugs et instabilités affectant l’expérience utilisateur                 | Élevée        | Expérience utilisateur dégradée                                            | Mise en place de tests unitaires et d'intégration                                                                                        |
 | Problèmes de compatibilité entre différentes plateformes et versions OS | Moyenne       | Incompatibilité et frustration des joueurs                                 | Tests sur différents appareils et systèmes d’exploitation                                                                                |
 | Failles de sécurité entraînant des fuites de données                    | Critique      | Violation des données et perte de confiance                                | Chiffrement des données et audits de sécurité réguliers                                                                                  |
@@ -228,20 +236,28 @@ L'application s'adresse à :
 - Grande flexibilité avec une **bibliothèque de widgets** modernes et personnalisables.
 - Large **communauté** et support de Google, assurant une bonne maintenance et évolution du framework.
 
-### 8.2 Back-End : **Express.js**
+### 8.2 Back-End (Core App Mobile) : **Dart**
+
+- **Langage de programmation** utilisé par Flutter, permettant une **compatibilité totale** entre le Front-End et le Back-End.
+- **Performant et léger**, idéal pour les applications mobiles.
+- **Facile à apprendre** et à maîtriser, réduisant le temps de développement.
+- **Écosystème riche** avec de nombreux packages et librairies pour faciliter le développement.
+- **Intégration native avec Flutter**, permettant une communication efficace entre les deux parties de l’application.
+
+### 8.3 Back-End : **Express.js**
 
 - **Léger et rapide**, idéal pour construire des API REST performantes et adaptées aux applications mobiles.
 - Fonctionne parfaitement avec **Node.js**, permettant une gestion efficace des requêtes asynchrones.
 - **Écosystème riche** avec de nombreux modules et middleware facilitant l’intégration avec d’autres services.
 
-### 8.3 Monitoring : **Prometheus & Grafana**
+### 8.4 Monitoring : **Prometheus & Grafana**
 
 - **Solution open-source** performante et évolutive pour la **collecte et l’analyse des métriques** applicatives.
 - **Prometheus** est optimisé pour la surveillance des services en temps réel et intègre un **système d’alerte avancé**.
 - **Grafana** permet de **visualiser facilement** les données via des tableaux de bord interactifs.
 - Compatible avec **Docker Swarm**, facilitant le monitoring de l’ensemble de l’infrastructure.
 
-### 8.4 Bases de Données : **SQLite et MySQL**
+### 8.5 Bases de Données : **SQLite et MySQL**
 
 - **MySQL** est utilisé pour notre **service en ligne**, offrant :
   - **Fiabilité et robustesse** pour la gestion des données utilisateurs et des transactions.
@@ -252,20 +268,20 @@ L'application s'adresse à :
   - Léger et performant pour des **opérations rapides en local**.
   - Permet une **synchronisation** avec MySQL pour les données partagées.
 
-### 8.5 Déploiement : **Docker Swarm**
+### 8.6 Déploiement : **Docker Swarm**
 
 - **Orchestration simple** des conteneurs Docker, facilitant le déploiement de nos services.
 - Moins complexe que Kubernetes, idéal pour une équipe réduite souhaitant **scaler** l’infrastructure sans surcharge technique.
 - **Facilité de mise en œuvre** et **intégration native avec Docker**.
 - Répartition de charge et haute disponibilité permettant d’assurer **une continuité de service**.
 
-### 8.6 Gestion de Projet : **ClickUp**
+### 8.7 Gestion de Projet : **ClickUp**
 
 - **Outil tout-en-un** combinant gestion des tâches, suivi des bugs, et planification.
 - Interface personnalisable avec différentes vues (**Kanban, Gantt, Calendrier**), facilitant l’organisation de l’équipe.
 - Version gratuite offrant **de nombreuses fonctionnalités**, adaptée aux besoins de l’équipe.
 
-### 8.7 Communication : **Teams**
+### 8.8 Communication : **Teams**
 
 - **Plateforme de communication** intégrée avec les outils Microsoft 365.
 - **Appels vidéo, messagerie instantanée et partage de fichiers** pour une collaboration efficace.
@@ -274,30 +290,29 @@ L'application s'adresse à :
 - **Compatibilité multiplateforme** pour une utilisation sur tous les appareils.
 - **Gestion des réunions et des plannings** pour une organisation optimale de l’équipe.
 
-### 8.8 CI/CD : **GitHub** / **GitHub Actions**
+### 8.9 CI/CD : **GitHub** / **GitHub Actions**
 
 - **Intégration continue** avec GitHub Actions pour automatiser les tests et déploiements.
 - **Facilité d’intégration** avec les dépôts GitHub, permettant une gestion centralisée du code.
 - **Personnalisable** avec des workflows YAML pour s’adapter aux besoins spécifiques du projet.
 - **Versioning et historique** des modifications pour une traçabilité complète du code.
 
-### 8.9 IDE : **Android Studio**
+### 8.10 IDE : **Android Studio**
 
 - **IDE officiel** pour le développement Android, offrant une **intégration complète** avec les outils Google.
 - **Fonctionnalités avancées** pour le développement Flutter, Kotlin et Java.
 - **Débogage et tests** simplifiés pour une **productivité accrue**.
 - **Extensions et plugins** pour personnaliser l’environnement de développement.
-- **Compatibilité multiplateforme** pour le développement iOS et Android.
 
-### 8.10 Architecture logicielle (C1.5)
+### 8.11 Architecture logicielle (C1.5)
 
 | **Architectures logicielles sélectionnées** | **Justification**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 |---------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Peer-to-Peer (P2P)**                      | - **Mode local (Bluetooth/Wi-Fi)** : Permet à des joueurs proches de se connecter directement entre leurs appareils sans passer par un serveur central.<br>- **Réduction de la latence dans les parties locales**, car la communication ne transite pas par Internet.<br>- **Résilience** : En cas de coupure réseau, le P2P local peut continuer à fonctionner.                                                                                                                                                                                                                                                              |
-| **Client/Server**                           | - **Gestion centralisée des données** (scores, statistiques, matchmaking) : un serveur unique assure l’intégrité des informations et la persistance des données.<br>- **Sécurité et contrôle** : Les données sensibles (identifiants, progression) sont traitées et stockées de manière sécurisée côté serveur.<br>- **Évolutivité** : Il est plus facile de faire évoluer la logique métier (back-end) sans imposer de mises à jour constantes sur tous les clients.                                                                                                                                                         |
-| **Layers**                                  | - **Séparation des préoccupations** : Chaque couche (UI, logique métier, accès aux données, etc.) est isolée, ce qui facilite la maintenance et l’évolution du code.<br>- **Testabilité** : Les tests unitaires et d’intégration sont plus simples à mettre en place car on peut cibler précisément une couche à la fois.<br>- **Clarté organisationnelle** : Les rôles de chaque couche sont clairement définis (présentation, logique, persistance).                                                                                                                                                                        |
+| **Client/Serveur**                          | - **Gestion centralisée des données** (scores, statistiques, matchmaking) : un serveur unique assure l’intégrité des informations et la persistance des données.<br>- **Sécurité et contrôle** : Les données sensibles (identifiants, progression) sont traitées et stockées de manière sécurisée côté serveur.<br>- **Évolutivité** : Il est plus facile de faire évoluer la logique métier (back-end) sans imposer de mises à jour constantes sur tous les clients.                                                                                                                                                         |
+| **En Couches**                              | - **Séparation des préoccupations** : Chaque couche (UI, logique métier, accès aux données, etc.) est isolée, ce qui facilite la maintenance et l’évolution du code.<br>- **Testabilité** : Les tests unitaires et d’intégration sont plus simples à mettre en place car on peut cibler précisément une couche à la fois.<br>- **Clarté organisationnelle** : Les rôles de chaque couche sont clairement définis (présentation, logique, persistance).                                                                                                                                                                        |
 | **Service-Oriented Architecture (SOA)**     | - **Modularité et réutilisation** : Les fonctionnalités (authentification, matchmaking, gestion des statistiques, etc.) sont exposées sous forme de services autonomes, ce qui facilite leur réutilisation ou leur remplacement au fil du temps.<br>- **Scalabilité** : Chaque service peut être déployé sur une infrastructure distincte et “scalé” indépendamment, suivant la charge (ex. service de matchmaking plus sollicité).<br>- **Intégration facilitée** : Avec une approche SOA, il est plus simple d’intégrer d’autres services externes (paiement, notifications push, analytics) grâce à des API standardisées. |
-| **Components**                              | - **Découpage logique** : L’application est découpée en composants (modules) clairement définis (ex. module de gestion de session, module d’animation UI, module d’IA si nécessaire) afin de mieux organiser le code.<br>- **Maintenance allégée** : Les composants étant faiblement couplés, il est plus simple de remplacer ou de mettre à jour un composant sans impacter toute l’application.<br>- **Collaboration** : Plusieurs développeurs peuvent travailler simultanément sur des composants différents de manière indépendante.                                                                                     |
+| **Orienté Composants**                      | - **Découpage logique** : L’application est découpée en composants (modules) clairement définis (ex. module de gestion de session, module d’animation UI, module d’IA si nécessaire) afin de mieux organiser le code.<br>- **Maintenance allégée** : Les composants étant faiblement couplés, il est plus simple de remplacer ou de mettre à jour un composant sans impacter toute l’application.<br>- **Collaboration** : Plusieurs développeurs peuvent travailler simultanément sur des composants différents de manière indépendante.                                                                                     |
 
 
 ## 9. Estimation de la Charge de Travail et du Budget (C1.4.2)
@@ -347,7 +362,7 @@ _**Précision** : Le temps estimé dans ce tableau est calculé pour une **équi
 - **Droit d’opposition** au traitement des données.
 **Sécurisation des données** : Chiffrement, anonymisation, gestion des accès, token d'anonymisation et prévention des fuites.
 
-### 11. Bénéfice
+## 11. Bénéfice
 
 Estimation du Nombre de Joueurs Potentiels
 Le nombre de joueurs dépend de plusieurs facteurs :
