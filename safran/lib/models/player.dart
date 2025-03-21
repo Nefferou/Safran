@@ -1,6 +1,8 @@
+import 'dart:collection';
 import 'dart:math';
 
-import 'package:flutter/material.dart';
+import 'card/card.dart';
+
 
 class Player {
 
@@ -16,22 +18,25 @@ class Player {
     isAlive = false;
   }
 
-  addCard(Card card) {
-    deck.add(card);
-  }
-
-  chooseCard(int index) {
-    return deck[index];
-  }
-
-  removeRandomCard() {
+  takeRandomCard() {
     int deckLength = deck.length;
     int randomIndex = Random().nextInt(deckLength);
 
+    Card card = deck.elementAt(randomIndex);
     deck.removeAt(randomIndex);
+
+    return card;
   }
 
-  removeChosenCard(Card card) {
-    deck.remove(card);
+  getName() {
+    return userName;
+  }
+
+  getDeck() {
+    return deck;
+  }
+
+  getDeckLength() {
+    return deck.length;
   }
 }

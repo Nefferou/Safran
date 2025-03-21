@@ -1,8 +1,12 @@
+import '../../constant/descriptionCardConstante.dart';
+import '../../constant/nameCardConstante.dart';
+import '../../constant/pictureCardConstant.dart';
 import 'fateHeraldCard.dart';
 
 class ChaosHeraldCard extends FateHeraldCard{
-
-  ChaosHeraldCard(super.name, super.description, super.image, super.game);
+  ChaosHeraldCard(game)
+      : super(NameCardConstant.CHAOSHERALD, DescriptionCardConstant.CHAOSHERALD,
+      PictureCardConstant.CHAOSHERALD, game);
 
   play() {
     ///TODO

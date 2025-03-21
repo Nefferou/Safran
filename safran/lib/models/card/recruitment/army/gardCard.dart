@@ -1,7 +1,12 @@
+import 'package:safran/models/card/constant/descriptionCardConstante.dart';
+import 'package:safran/models/card/constant/nameCardConstante.dart';
+import 'package:safran/models/card/constant/pictureCardConstant.dart';
 import 'package:safran/models/card/recruitment/army/armyCard.dart';
 
 class GardCard extends ArmyCard {
-  GardCard(super.name, super.description, super.image, super.game);
+  GardCard(game)
+      : super(NameCardConstant.GARDE, DescriptionCardConstant.GARDE,
+            PictureCardConstant.GARDE, game);
 
   play() {
     ///TODO

@@ -1,8 +1,13 @@
 import 'package:safran/models/card/triad/saintProtector/saintProtectorCard.dart';
 
-class PeaceSaintCard extends SaintProtectorCard{
+import '../../constant/descriptionCardConstante.dart';
+import '../../constant/nameCardConstante.dart';
+import '../../constant/pictureCardConstant.dart';
 
-  PeaceSaintCard(super.name, super.description, super.image, super.game);
+class PeaceSaintCard extends SaintProtectorCard{
+  PeaceSaintCard(game)
+      : super(NameCardConstant.PEACESAINT, DescriptionCardConstant.PEACESAINT,
+      PictureCardConstant.PEACESAINT, game);
 
   play() {
     ///TODO

@@ -1,8 +1,13 @@
 import 'package:safran/models/card/triad/saintProtector/saintProtectorCard.dart';
 
-class HealingSaintCard extends SaintProtectorCard{
+import '../../constant/descriptionCardConstante.dart';
+import '../../constant/nameCardConstante.dart';
+import '../../constant/pictureCardConstant.dart';
 
-  HealingSaintCard(super.name, super.description, super.image, super.game);
+class HealingSaintCard extends SaintProtectorCard{
+  HealingSaintCard(game)
+      : super(NameCardConstant.HEALINGSAINT, DescriptionCardConstant.HEALINGSAINT,
+      PictureCardConstant.HEALINGSAINT, game);
 
   play() {
     ///TODO

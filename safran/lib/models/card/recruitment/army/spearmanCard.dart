@@ -1,7 +1,13 @@
 import 'package:safran/models/card/recruitment/army/armyCard.dart';
 
+import '../../constant/descriptionCardConstante.dart';
+import '../../constant/nameCardConstante.dart';
+import '../../constant/pictureCardConstant.dart';
+
 class SpearmanCard extends ArmyCard {
-  SpearmanCard(super.name, super.description, super.image, super.game);
+  SpearmanCard(game)
+      : super(NameCardConstant.SPEARMAN, DescriptionCardConstant.SPEARMAN,
+      PictureCardConstant.SPEARMAN, game);
 
   play() {
     ///TODO

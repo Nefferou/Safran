@@ -9,4 +9,17 @@ abstract class Card {
   Game game;
 
   Card(this.name, this.description, this.image, this.game);
+
+  getName() {
+    return name;
+  }
+
+  getDescription() {
+    return description;
+  }
+
+  @override
+  String toString() {
+    return "[" + name + "]";
+  }
 }
