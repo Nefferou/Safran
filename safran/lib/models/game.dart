@@ -12,6 +12,8 @@ class Game {
   late bool isSetup;
   late bool playOrder;
   late bool battleMode;
+  late bool isInPause;
+  late bool isGameOver;
   late int currentPlayerTurn;
   late BattleField battleField;
   late CardFactory cardFactory;
@@ -33,6 +35,8 @@ class Game {
   setUpGame() {
     playOrder = true;
     battleMode = false;
+    isInPause = false;
+    isGameOver = false;
     battleField = new BattleField();
     cardFactory = new CardFactory(this);
 
@@ -61,8 +65,31 @@ class Game {
     }
   }
 
-  takeTurn(Player player) {
-    /// TODO
+  play(Player player) {
+    // Choose a random player to start
+    currentPlayerTurn = Random().nextInt(players.length);
+
+    // Start the game loop
+    while (!isGameOver) {
+      // Check if the game is over
+      if (nbPlayerAlive() <= 1) {
+        isGameOver = true;
+      }
+
+      // Take the turn of the current player
+      players[currentPlayerTurn].takeTurn(this);
+
+      // Set the next player to play
+      nextTurn();
+    }
+  }
+
+  nextTurn() {
+    if (playOrder) {
+      currentPlayerTurn = (currentPlayerTurn + 1) % players.length;
+    } else {
+      currentPlayerTurn = (currentPlayerTurn - 1 + players.length) % players.length;
+    }
   }
 
   takeCardToPlayer(Player player) {
@@ -70,8 +97,7 @@ class Game {
     return takenCard;
   }
 
-  takeCardToBattleField(
-      BattleField battleField, DrawPositionEnum drawPosition) {
+  takeCardToBattleField(BattleField battleField, DrawPositionEnum drawPosition) {
     switch (drawPosition) {
       case DrawPositionEnum.TOP:
         return battleField.takeUpCard();
@@ -90,20 +116,19 @@ class Game {
     battleField.cards.addAll(cards);
   }
 
-  transferCardPlayerToBattleField(Player player, BattleField battleField) {
-    List<Card> cards = takeCardToPlayer(player);
+  transferCardPlayerToBattleField(int player, BattleField battleField) {
+    List<Card> cards = takeCardToPlayer(players[player]);
     giveCardToBattleField(battleField, cards);
   }
 
-  transferCardPlayerToPlayer(Player player1, Player player2) {
-    List<Card> cards = takeCardToPlayer(player1);
-    giveCardToPlayer(player2, cards);
+  transferCardPlayerToPlayer(int player1, int player2) {
+    List<Card> cards = takeCardToPlayer(players[player1]);
+    giveCardToPlayer(players[player2], cards);
   }
 
-  transferCardBattleFieldToPlayer(
-      BattleField battleField, Player player, DrawPositionEnum drawPosition) {
+  transferCardBattleFieldToPlayer(BattleField battleField, int player, DrawPositionEnum drawPosition) {
     List<Card> cards = takeCardToBattleField(battleField, drawPosition);
-    giveCardToPlayer(player, cards);
+    giveCardToPlayer(players[player], cards);
   }
 
   checkIfCardIsEqualyDistributed() {
@@ -124,5 +149,19 @@ class Game {
 
   setFactory(CardFactory cardFactory) {
     this.cardFactory = cardFactory;
+  }
+
+  pauseGame() {
+    isInPause = !isInPause;
+  }
+
+  nbPlayerAlive() {
+    int count = 0;
+    for (int i = 0; i < players.length; i++) {
+      if (players[i].isAlive) {
+        count++;
+      }
+    }
+    return count;
   }
 }

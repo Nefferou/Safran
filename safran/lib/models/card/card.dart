@@ -6,9 +6,7 @@ abstract class Card {
   String description;
   String image;
 
-  Game game;
-
-  Card(this.name, this.description, this.image, this.game);
+  Card(this.name, this.description, this.image);
 
   getName() {
     return name;
@@ -22,4 +20,6 @@ abstract class Card {
   String toString() {
     return "[" + name + "]";
   }
+
+  play(Game game, [List<int> targets = const []]);
 }

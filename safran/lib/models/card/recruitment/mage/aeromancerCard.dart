@@ -1,4 +1,5 @@
 import 'package:safran/models/card/drawPositionEnum.dart';
+import '../../../game.dart';
 import '../../../player.dart';
 import '../../constant/descriptionCardConstante.dart';
 import '../../constant/nameCardConstante.dart';
@@ -6,12 +7,12 @@ import '../../constant/pictureCardConstant.dart';
 import 'mageCard.dart';
 
 class AeromancerCard extends MageCard {
-  AeromancerCard(game)
+  AeromancerCard()
       : super(NameCardConstant.AEROMANCER, DescriptionCardConstant.AEROMANCER,
-      PictureCardConstant.AEROMANCER, game);
+      PictureCardConstant.AEROMANCER);
 
-  play(Player player) {
+  play(Game game, [List<int> targets = const []]) {
     game.transferCardBattleFieldToPlayer(game.battleField,
-        player, DrawPositionEnum.TOP);
+        targets[0], DrawPositionEnum.TOP);
   }
 }

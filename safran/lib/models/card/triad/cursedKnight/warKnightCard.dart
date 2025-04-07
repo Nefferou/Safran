@@ -1,14 +1,15 @@
+import '../../../game.dart';
 import '../../constant/descriptionCardConstante.dart';
 import '../../constant/nameCardConstante.dart';
 import '../../constant/pictureCardConstant.dart';
 import 'cursedKnightCard.dart';
 
 class WarKnightCard extends CursedKnightCard {
-  WarKnightCard(game)
+  WarKnightCard()
       : super(NameCardConstant.WARKNIGHT, DescriptionCardConstant.WARKNIGHT,
-      PictureCardConstant.WARKNIGHT, game);
+      PictureCardConstant.WARKNIGHT);
 
-  play() {
+  play(Game game, [List<int> targets = const []]) {
     ///TODO
   }
 }

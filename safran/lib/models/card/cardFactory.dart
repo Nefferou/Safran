@@ -54,9 +54,9 @@ class CardFactory {
     List<ArmyCard> armyCardsDeck = [];
 
     for(int i = 0; i < count; i += 3) {
-      armyCardsDeck.add(GardCard(game));
-      armyCardsDeck.add(SwordsmanCard(game));
-      armyCardsDeck.add(SpearmanCard(game));
+      armyCardsDeck.add(GardCard());
+      armyCardsDeck.add(SwordsmanCard());
+      armyCardsDeck.add(SpearmanCard());
     }
 
     return armyCardsDeck;
@@ -66,13 +66,13 @@ class CardFactory {
     List<MageCard> mageCardsDeck = [];
 
     for(int i = 0; i < count; i += 5) {
-      mageCardsDeck.add(GeomancerCard(game));
-      mageCardsDeck.add(GeomancerCard(game));
+      mageCardsDeck.add(GeomancerCard());
+      mageCardsDeck.add(GeomancerCard());
 
-      mageCardsDeck.add(AeromancerCard(game));
-      mageCardsDeck.add(AeromancerCard(game));
+      mageCardsDeck.add(AeromancerCard());
+      mageCardsDeck.add(AeromancerCard());
 
-      mageCardsDeck.add(ArcanistCard(game));
+      mageCardsDeck.add(ArcanistCard());
     }
 
     return mageCardsDeck;
@@ -81,7 +81,7 @@ class CardFactory {
   createRecruitmentCards(int commanderCardCount, int armyCardCount, int mageCardCount, int thielfCardCount) {
     List<RecruitmentCard> recruitmentCardsDeck = [];
     for (int i = 0; i < commanderCardCount; i++) {
-      recruitmentCardsDeck.add(CommanderCard(game));
+      recruitmentCardsDeck.add(CommanderCard());
     }
 
     if(armyCardCount % 3 != 0) {
@@ -97,7 +97,7 @@ class CardFactory {
     }
 
     for (int i = 0; i < thielfCardCount; i++) {
-      recruitmentCardsDeck.add(ThielfCard(game));
+      recruitmentCardsDeck.add(ThielfCard());
     }
 
     return recruitmentCardsDeck;
@@ -106,10 +106,10 @@ class CardFactory {
   createHeraldCards() {
     List<FateHeraldCard> heraldCardsDeck = [];
     
-    heraldCardsDeck.add(ChaosHeraldCard(game));
-    heraldCardsDeck.add(DiseaseHeraldCard(game));
-    heraldCardsDeck.add(PowerHeraldCard(game));
-    heraldCardsDeck.add(SufferingHeraldCard(game));
+    heraldCardsDeck.add(ChaosHeraldCard());
+    heraldCardsDeck.add(DiseaseHeraldCard());
+    heraldCardsDeck.add(PowerHeraldCard());
+    heraldCardsDeck.add(SufferingHeraldCard());
 
     return heraldCardsDeck;
   }
@@ -117,10 +117,10 @@ class CardFactory {
   createSaintCards() {
     List<SaintProtectorCard> saintCardsDeck = [];
 
-    saintCardsDeck.add(AbundanceSaintCard(game));
-    saintCardsDeck.add(HealingSaintCard(game));
-    saintCardsDeck.add(PeaceSaintCard(game));
-    saintCardsDeck.add(ProsperitySaintCard(game));
+    saintCardsDeck.add(AbundanceSaintCard());
+    saintCardsDeck.add(HealingSaintCard());
+    saintCardsDeck.add(PeaceSaintCard());
+    saintCardsDeck.add(ProsperitySaintCard());
 
     return saintCardsDeck;
   }
@@ -128,10 +128,10 @@ class CardFactory {
   createKnightCards() {
     List<CursedKnightCard> knightCardsDeck = [];
 
-    knightCardsDeck.add(ConquestKnightCard(game));
-    knightCardsDeck.add(FamineKnightCard(game));
-    knightCardsDeck.add(PlagueKnightCard(game));
-    knightCardsDeck.add(WarKnightCard(game));
+    knightCardsDeck.add(ConquestKnightCard());
+    knightCardsDeck.add(FamineKnightCard());
+    knightCardsDeck.add(PlagueKnightCard());
+    knightCardsDeck.add(WarKnightCard());
 
     return knightCardsDeck;
   }

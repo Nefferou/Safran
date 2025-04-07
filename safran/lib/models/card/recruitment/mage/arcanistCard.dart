@@ -1,3 +1,4 @@
+import '../../../game.dart';
 import '../../../player.dart';
 import '../../constant/descriptionCardConstante.dart';
 import '../../constant/nameCardConstante.dart';
@@ -6,12 +7,12 @@ import '../../drawPositionEnum.dart';
 import 'mageCard.dart';
 
 class ArcanistCard extends MageCard {
-  ArcanistCard(game)
+  ArcanistCard()
       : super(NameCardConstant.ARCANIST, DescriptionCardConstant.ARCANIST,
-      PictureCardConstant.ARCANIST, game);
+      PictureCardConstant.ARCANIST);
 
-  play(Player player) {
+  play(Game game, [List<int> targets = const []]) {
     game.transferCardBattleFieldToPlayer(game.battleField,
-        player, DrawPositionEnum.BOTH);
+        targets[0], DrawPositionEnum.BOTH);
   }
 }

@@ -1,5 +1,8 @@
+import 'dart:collection';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:safran/models/battleField.dart';
+import 'package:safran/models/card/card.dart';
 import 'package:safran/models/card/recruitment/army/gardCard.dart';
 import 'package:safran/models/card/recruitment/army/spearmanCard.dart';
 import 'package:safran/models/card/recruitment/army/swordsmanCard.dart';
@@ -98,7 +101,17 @@ void main() {
       PeaceSaintCard(customGame),
       WarKnightCard(customGame)
     ]);
-    customGame.battleField.cards.add(CommanderCard(customGame));
+    customGame.battleField.cards.addAll([
+      GardCard(customGame),
+      SpearmanCard(customGame),
+      SwordsmanCard(customGame),
+      GardCard(customGame),
+      SpearmanCard(customGame),
+      SwordsmanCard(customGame),
+      GeomancerCard(customGame),
+      AeromancerCard(customGame),
+      ArcanistCard(customGame),
+    ]);
 
     customGame.playOrder = true;
     customGame.battleMode = false;
@@ -119,6 +132,21 @@ void main() {
       expect(customGame.battleField.getLength(), 1);
 
       expect(customGame.isSetup, true);
+    });
+
+    test("Card Commander", () {
+      Game customGame = setUpCustomGame();
+
+      expect(customGame.players[0].getDeckLength(), 11);
+
+      Queue<Card> battleFieldBeforeShuffle = customGame.battleField.cards;
+      customGame.players[0].deck[0];
+      Queue<Card> battleFieldAfterShuffle = customGame.battleField.cards;
+
+      expect(customGame.players[0].getDeckLength(), 10);
+      expect(battleFieldBeforeShuffle, isNot(battleFieldAfterShuffle));
+
+      expect(playerWithConquestKnight.deck[0].name, "Commander");
     });
   });
 }

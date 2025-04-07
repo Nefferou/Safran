@@ -1,3 +1,4 @@
+import '../../../game.dart';
 import '../../../player.dart';
 import '../../constant/descriptionCardConstante.dart';
 import '../../constant/nameCardConstante.dart';
@@ -6,12 +7,12 @@ import '../../drawPositionEnum.dart';
 import 'mageCard.dart';
 
 class GeomancerCard extends MageCard {
-  GeomancerCard(game)
+  GeomancerCard()
       : super(NameCardConstant.GEOMANCER, DescriptionCardConstant.GEOMANCER,
-      PictureCardConstant.GEOMANCER, game);
+      PictureCardConstant.GEOMANCER);
 
-  play(Player player) {
+  play(Game game, [List<int> targets = const []]) {
     game.transferCardBattleFieldToPlayer(game.battleField,
-        player, DrawPositionEnum.BOTTOM);
+        targets[0], DrawPositionEnum.BOTTOM);
   }
 }
