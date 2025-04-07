@@ -1,4 +1,4 @@
-import 'package:safran/models/card/card.dart';
+import 'package:safran/models/card/game_card.dart';
 import 'package:safran/models/card/recruitment/recruitmentCard.dart';
 
 import '../../../game.dart';

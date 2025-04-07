@@ -1,5 +1,5 @@
-import '../card.dart';
+import '../game_card.dart';
 
-abstract class TriadCard extends Card {
+abstract class TriadCard extends GameCard {
   TriadCard(super.name, super.description, super.image);
 }

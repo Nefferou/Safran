@@ -10,7 +10,8 @@ class ThielfCard extends RecruitmentCard {
       : super(NameCardConstant.THIELF, DescriptionCardConstant.THIELF,
             PictureCardConstant.THIELF);
 
+  @override
   play(Game game, [List<int> targets = const []]) {
-    game.transferCardPlayerToPlayer(targets[0], targets[1]);
+    game.transferCardPlayerToPlayer(targets[0], -1, targets[1]);
   }
 }

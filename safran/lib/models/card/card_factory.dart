@@ -1,5 +1,5 @@
 import 'package:safran/models/card/recruitment/army/armyCard.dart';
-import 'package:safran/models/card/recruitment/army/gardCard.dart';
+import 'package:safran/models/card/recruitment/army/guardCard.dart';
 import 'package:safran/models/card/recruitment/army/spearmanCard.dart';
 import 'package:safran/models/card/recruitment/army/swordsmanCard.dart';
 import 'package:safran/models/card/recruitment/commanderCard.dart';
@@ -27,7 +27,8 @@ import 'package:safran/models/card/triad/saintProtector/saintProtectorCard.dart'
 import 'package:safran/models/card/triad/triadCard.dart';
 
 import '../game.dart';
-import 'card.dart';
+import '../logger.dart';
+import 'game_card.dart';
 
 class CardFactory {
 
@@ -35,12 +36,14 @@ class CardFactory {
   CardFactory(this.game);
 
   createDeck(int commanderCardCount, int armyCardCount, int mageCardCount, int thielfCardCount) {
-    List<Card> deckList = [];
+    Logger.info("Creating deck");
+    List<GameCard> deckList = [];
 
-    // Check if total card count is 61 (12 triad cards)
+    // Check if total card count is 61 (+ 12 triad cards)
     int totalCardCount = commanderCardCount + armyCardCount + mageCardCount + thielfCardCount + 12;
 
     if(totalCardCount != 61) {
+      Logger.warning("Total card count must be 61");
       throw new Exception("Total card count must be 61");
     }
 
@@ -54,7 +57,7 @@ class CardFactory {
     List<ArmyCard> armyCardsDeck = [];
 
     for(int i = 0; i < count; i += 3) {
-      armyCardsDeck.add(GardCard());
+      armyCardsDeck.add(GuardCard());
       armyCardsDeck.add(SwordsmanCard());
       armyCardsDeck.add(SpearmanCard());
     }

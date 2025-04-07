@@ -1,19 +1,19 @@
 import 'dart:collection';
-import 'card/card.dart';
+import 'card/game_card.dart';
 
 class BattleField {
-  late Queue<Card> cards;
+  late Queue<GameCard> cards;
 
   BattleField() {
-    cards = Queue<Card>();
+    cards = Queue<GameCard>();
   }
 
   takeUpCard() {
-    return cards.removeFirst();
+    return [cards.removeLast()];
   }
 
   takeDownCard() {
-    return cards.removeLast();
+    return [cards.removeFirst()];
   }
 
   takeBothCards() {
@@ -21,13 +21,17 @@ class BattleField {
   }
 
   shuffleBattleField() {
-    List<Card> cardsList = cards.toList();
+    List<GameCard> cardsList = cards.toList();
     cardsList.shuffle();
     cards = Queue.from(cardsList);
   }
 
   getCards() {
     return cards;
+  }
+
+  getUpCard() {
+    return cards.last;
   }
 
   getLength() {

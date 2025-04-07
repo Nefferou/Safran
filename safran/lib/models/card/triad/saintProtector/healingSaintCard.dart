@@ -10,6 +10,7 @@ class HealingSaintCard extends SaintProtectorCard{
       : super(NameCardConstant.HEALINGSAINT, DescriptionCardConstant.HEALINGSAINT,
       PictureCardConstant.HEALINGSAINT);
 
+  @override
   play(Game game, [List<int> targets = const []]) {
     ///TODO
   }

@@ -10,6 +10,7 @@ class CommanderCard extends RecruitmentCard {
       : super(NameCardConstant.COMMANDER, DescriptionCardConstant.COMMANDER,
             PictureCardConstant.COMMANDER);
 
+  @override
   void play(Game game, [List<int> targets = const []]) {
     game.battleField.shuffleBattleField();
     game.changePlayOrder();

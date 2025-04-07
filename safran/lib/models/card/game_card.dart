@@ -1,12 +1,12 @@
 import 'package:safran/models/game.dart';
 
-abstract class Card {
+abstract class GameCard {
 
   String name;
   String description;
   String image;
 
-  Card(this.name, this.description, this.image);
+  GameCard(this.name, this.description, this.image);
 
   getName() {
     return name;
@@ -18,7 +18,7 @@ abstract class Card {
 
   @override
   String toString() {
-    return "[" + name + "]";
+    return "[$name]";
   }
 
   play(Game game, [List<int> targets = const []]);
