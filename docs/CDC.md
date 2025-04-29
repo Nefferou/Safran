@@ -121,12 +121,12 @@ L'application s'adresse aux :
 
 ### 5.3 Faisabilité Organisationnelle
 
-| **Élément**                    | **Description**                                                                                                                                                                       |
-|--------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Méthodologie**               | Utilisation de la méthodologie Agile avec un système de reviews régulières et une distribution/récupération des tickets libre en fonction des compétences et préférences de l'équipe. |
-| **Équipe**                     | Définition des rôles : Chef de projet, Concepteur, Développeur, Dev/Ops, Testeur logiciel, Designer, Administrateur Système et Réseau                                                 |
-| **Collaboration**              | Tests continus avec bêta-testeurs pour affiner l'UX/UI.                                                                                                                               |
-| **Stratégie de communication** | Plan de marketing digital pour maximiser la visibilité de l'application.                                                                                                              |
+| **Élément**                    | **Description**                                                                                                                                                                        |
+|--------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Méthodologie**               | Utilisation de la méthodologie Agile avec un système de reviews régulières et une distribution/récupération des tickets libres en fonction des compétences et préférences de l'équipe. |
+| **Équipe**                     | Définition des rôles : Chef de projet, Concepteur, Développeur, Dev/Ops, Testeur logiciel, Designer, Administrateur Système et Réseau                                                  |
+| **Collaboration**              | Tests continus avec bêta-testeurs pour affiner l'UX/UI.                                                                                                                                |
+| **Stratégie de communication** | Plan de marketing digital pour maximiser la visibilité de l'application.                                                                                                               |
 
 ### 5.4 Faisabilité Temporelle
 
@@ -206,8 +206,8 @@ L'application s'adresse aux :
 
 | **Technologie**                      | **Description**                                                                                                  | **Avantages**                                                                                                                                                                                                                                                                                                                     | **Inconvénients**                                                                                                |
 |--------------------------------------|------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
-| **PostgreSQL / MySQL (Relationnel)** | Bases de données relationnelles robustes et adaptées aux transactions complexes.                                 | - Fiable et sécurisé.<br>- Gestion efficace des transactions.<br>- PostgreSQL permet le stockage de données semi-structurées via **JSONB**.<br>- Options de compression et d’optimisation qui réduisent l'espace disque et la charge CPU.<br>- gestion efficace des requêtes et transactions, évitant le gaspillage de ressources | - Moins adapté aux très gros volumes de données non structurées.<br>- Configuration et maintenance plus lourdes. |
-| **SQLite (SQL local)**               | SQLite est une bibliothèque qui propose un moteur de base de données relationnelle accessible par le langage SQL | - Base de données légère qui ne nécessite pas de serveur dédié, ce qui réduit considérablement la consommation énergétique                                                                                                                                                                                                        | - Ineficace pour gérer les grandes quantitées de données et les tables complexes                                 |
+| **PostGreSQL / MySQL (Relationnel)** | Bases de données relationnelles robustes et adaptées aux transactions complexes.                                 | - Fiable et sécurisé.<br>- Gestion efficace des transactions.<br>- PostGreSQL permet le stockage de données semi-structurées via **JSONB**.<br>- Options de compression et d’optimisation qui réduisent l'espace disque et la charge CPU.<br>- gestion efficace des requêtes et transactions, évitant le gaspillage de ressources | - Moins adapté aux très gros volumes de données non structurées.<br>- Configuration et maintenance plus lourdes. |
+| **SQLite (SQL local)**               | SQLite est une bibliothèque qui propose un moteur de base de données relationnelle accessible par le langage SQL | - Base de données légère qui ne nécessite pas de serveur dédié, ce qui réduit considérablement la consommation énergétique                                                                                                                                                                                                        | - Inefficace pour gérer les grandes quantités de données et les tables complexes                                 |
 | **MongoDB (NoSQL)**                  | Base de données NoSQL orientée documents, idéale pour stocker des données flexibles et évolutives.               | - Parfait pour les données non structurées.<br>- Facile à scaler horizontalement.<br>- Performant pour les requêtes rapides sur de gros volumes de données.                                                                                                                                                                       | - Moins adapté aux transactions complexes.<br>- Consommation mémoire plus élevée.                                |
 
 ### 7.5 DevOps & Déploiement
@@ -368,11 +368,11 @@ _**Précision** : Le temps estimé dans ce tableau est calculé pour une **équi
 Estimation du Nombre de Joueurs Potentiels
 Le nombre de joueurs dépend de plusieurs facteurs :
 * Taille du marché des jeux de cartes mobiles : Environ **500 millions** de joueurs actifs dans le monde.
-* Téléchargements initiaux : Selon les campagnes marketing et en partant de 0, un bon jeu peut atteindre **1k** à **10k** de téléchargements en 1 an.
-* Rétention des joueurs : Environ **20%** des joueurs restent actifs après 1 mois.
+* Téléchargements initiaux : Selon les campagnes marketing et en partant de 0, un bon jeu peut atteindre **1k** à **10k** de téléchargements en un an.
+* Rétention des joueurs : Environ **20%** des joueurs restent actifs après un mois.
 
 Scénarios d'estimation : 5 000 joueurs actifs
-Modèle Économique & Estimation des Revenus
+Modèle Économique et Estimation des Revenus
 Les achats in-app concernent :
 * Skins de cartes
 * Modes de jeu supplémentaires
