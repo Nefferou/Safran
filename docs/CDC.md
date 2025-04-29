@@ -59,12 +59,13 @@ L'application s'adresse aux :
 
 ## 3. Forces, Faiblesses, Opportunités et Menaces (C1.2.1)
 
-| **Forces (S)**                                 | **Faiblesses (W)**                                                       |
-|------------------------------------------------|--------------------------------------------------------------------------|
-| - Équipe polyvalente et expérimentée.          | - Dépendance à une petite équipe.                                        |
-| - Nouveau jeu avec des règles innovantes.      | - Charge de travail importante pour chaque membre.                       |
-| - Technologies modernes et multiplateformes.   | - Manque de notoriété du projet au lancement.                            |
-| - Expérience utilisateur fluide et engageante. | - Ressources financières limitées pour le développement et le marketing. |
+| **Forces (S)**                                                                                             | **Faiblesses (W)**                                                       |
+|------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
+| - Impact environnemental faible, architecture sobre, choix de techno pour réduire l'empreinte énergétique. | - Dépendance à une petite équipe.                                        |
+| - Nouveau jeu avec des règles innovantes.                                                                  | - Charge de travail importante pour chaque membre.                       |
+| - Technologies modernes et multiplateformes.                                                               | - Manque de notoriété du projet au lancement.                            |
+| - Expérience utilisateur fluide et engageante.                                                             | - Ressources financières limitées pour le développement et le marketing. |
+| - Respect du RGPD, stockage local sécurisé, pas de transfert réseau sensible en version offline​           |                                                                          |
 
 | **Opportunités (O)**                                          | **Menaces (T)**                                                    |
 |---------------------------------------------------------------|--------------------------------------------------------------------|
@@ -76,22 +77,15 @@ L'application s'adresse aux :
 
 ## 4. Spécifications Fonctionnelles et Techniques (C1.2.2, C1.4.1)
 
-### 4.1 Spécifications Fonctionnelles
-
-| **Fonctionnalité**          | **Description**                                                                                                           |
-|-----------------------------|---------------------------------------------------------------------------------------------------------------------------|
-| Mode Multijoueur local      | Possibilité de créer ou rejoindre une partie en Bluetooth / Wi-Fi local, nombre max de joueurs, reprise après déconnexion |
-| Mode Multijoueur en ligne   | Possibilité de créer ou rejoindre une partie en ligne, nombre max de joueurs, reprise après déconnexion                   |
-| Système de matchmaking      | Possibilité de rejoindre les parties des joueurs en fonction de leur niveau                                               |
-| Selection du mode de jeux   | Selection du mode de jeux souhaité                                                                                        |
-| Mode Spectateur             | Possibilité de suivre des parties en cours en cas de défaite                                                              |
-| Classements et statistiques | Suivi des performances des joueurs et affichage des classements                                                           |
-| Achats intégrés (Future)    | Monétisation pour la personnalisation d'interface, avatars ou modes de jeu supplémentaires                                |
-
-### 4.2 Spécifications Techniques
-
 | **Fonctionnalité**                           | **Description**                                                                                                           |
 |----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
+| Mode Multijoueur local                       | Possibilité de créer ou rejoindre une partie en Bluetooth / Wi-Fi local, nombre max de joueurs, reprise après déconnexion |
+| Mode Multijoueur en ligne                    | Possibilité de créer ou rejoindre une partie en ligne, nombre max de joueurs, reprise après déconnexion                   |
+| Système de matchmaking                       | Possibilité de rejoindre les parties des joueurs en fonction de leur niveau                                               |
+| Selection du mode de jeux                    | Selection du mode de jeux souhaité                                                                                        |
+| Mode Spectateur                              | Possibilité de suivre des parties en cours en cas de défaite                                                              |
+| Classements et statistiques                  | Suivi des performances des joueurs et affichage des classements                                                           |
+| Achats intégrés (Future)                     | Monétisation pour la personnalisation d'interface, avatars ou modes de jeu supplémentaires                                |
 | Authentification et gestion des utilisateurs | Inscription, connexion, gestion des profils                                                                               |
 | Interface utilisateur optimisée              | UI/UX fluide et intuitive                                                                                                 |
 | Matchmaking avancé                           | Mise en place de brokers pour améliorer l'expérience utilisateur et assurer un équilibrage efficace des parties en ligne. |
@@ -111,13 +105,13 @@ L'application s'adresse aux :
 
 ### 5.2 Faisabilité Financière
 
-| **Élément**        | **Description**                                                                                                                   |
-|--------------------|-----------------------------------------------------------------------------------------------------------------------------------|
-| **Déploiement**    | Frais de publication et mises à jour sur l'App Store et Google Play.                                                              |
-| **Infrastructure** | Hébergement sur une infrastructure privée, avec un serveur et une VM dédiés, robuste, sécurisée et avec un coût nul initialement. |
-| **Marketing**      | Budget pour acquisition et fidélisation des joueurs via publicité et ASO (App Store Optimization).                                |
-| **Maintenance**    | Coût des mises à jour régulières pour assurer la stabilité et ajouter du contenu.                                                 |
-| **Support**        | Estimation des coûts pour le service client et gestion des serveurs multijoueurs.                                                 |
+| **Élément**        | **Description**                                                                                    |
+|--------------------|----------------------------------------------------------------------------------------------------|
+| **Déploiement**    | Frais de publication et mises à jour sur l'App Store et Google Play.                               |
+| **Infrastructure** | Hébergement sur une infrastructure privée, avec un serveur et une VM dédiés, robuste, sécurisée.   |
+| **Marketing**      | Budget pour acquisition et fidélisation des joueurs via publicité et ASO (App Store Optimization). |
+| **Maintenance**    | Coût des mises à jour régulières pour assurer la stabilité et ajouter du contenu.                  |
+| **Support**        | Estimation des coûts pour le service client et gestion des serveurs multijoueurs.                  |
 
 ### 5.3 Faisabilité Organisationnelle
 
@@ -281,6 +275,7 @@ L'application s'adresse aux :
 - **Outil tout-en-un** combinant gestion des tâches, suivi des bugs, et planification.
 - Interface personnalisable avec différentes vues (**Kanban, Gantt, Calendrier**), facilitant l’organisation de l’équipe.
 - Version gratuite offrant **de nombreuses fonctionnalités**, adaptée aux besoins de l’équipe.
+- Utilisé comme outil de **ticketing** et de **suivi des tâches**
 
 ### 8.8 Communication : **Teams**
 
