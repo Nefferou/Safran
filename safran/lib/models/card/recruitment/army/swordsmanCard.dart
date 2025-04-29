@@ -13,15 +13,18 @@ class SwordsmanCard extends ArmyCard {
             PictureCardConstant.SWORSDMAN);
 
   @override
-  play(Game game, [List<int> targets = const []]) {
-    if(game.battleMode && game.battleField.getUpCard().runtimeType == GuardCard) {
+  play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
+    if (targets.isNotEmpty) {
+      throw Exception("Swordsman : Invalid number of target");
+    } else if (game.battleMode &&
+        game.battleField.getUpCard().runtimeType == GuardCard) {
       int playerIndex = game.getPreviousPlayerTurnIndex();
 
-      Logger.info("Player ${game.players[game.getPreviousPlayerTurnIndex()].userName} is countered by Swordsman");
+      Logger.info(
+          "Player ${game.players[game.getPreviousPlayerTurnIndex()].userName} is countered by Swordsman");
 
-      game.transferCardPlayerToBattleField(
-          playerIndex, game.players[playerIndex].discardCard(),
-          game.battleField);
+      game.transferCardPlayerToBattleField(playerIndex,
+          game.players[playerIndex].discardCard(game), game.battleField);
     }
     game.setBattleMode(true);
   }

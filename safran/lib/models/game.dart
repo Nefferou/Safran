@@ -68,6 +68,20 @@ class Game {
     }
   }
 
+  // Check if the cards are equally distributed among players
+  checkIfCardIsEqualyDistributed() {
+    int playerCount = players.length;
+    int expectedCardCount = 61 ~/ playerCount;
+
+    for (int i = 0; i < playerCount; i++) {
+      if (players[i].deck.length != expectedCardCount) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // Play the game
   play(Player player) {
     // Choose a random player to start
     currentPlayerTurn = Random().nextInt(players.length);
@@ -76,7 +90,7 @@ class Game {
     // Start the game loop
     while (!isGameOver) {
       // Check if the game is over
-      if (nbPlayerAlive() <= 1) {
+      if (getNbPlayerAlive() <= 1) {
         isGameOver = true;
         Logger.info("Game is over!");
       }
@@ -89,6 +103,7 @@ class Game {
     }
   }
 
+  // Give the turn to the next player
   nextTurn() {
     if (playOrder) {
       currentPlayerTurn = (currentPlayerTurn + 1) % players.length;
@@ -97,6 +112,7 @@ class Game {
     }
   }
 
+  // Get the Next / Previous / Current player index to play
   getNextPlayerTurnIndex() {
     if(playOrder) {
       return (currentPlayerTurn + 1) % players.length;
@@ -117,6 +133,7 @@ class Game {
     return currentPlayerTurn;
   }
 
+  // Take Card from player or battle field
   takeCardToPlayer(Player player, int indexCard) {
     GameCard takenCard = player.takeCard(indexCard);
     return takenCard;
@@ -138,6 +155,7 @@ class Game {
     }
   }
 
+  // Give Card to player or battle field
   giveCardToPlayer(Player player, List<GameCard> cards) {
     player.deck.addAll(cards);
   }
@@ -146,20 +164,22 @@ class Game {
     battleField.cards.addAll(cards);
   }
 
+  // Transfer Card from ... to ... (Take and Give)
   transferCardPlayerToBattleField(int player, int indexCard, BattleField battleField) {
     GameCard card = takeCardToPlayer(players[player], indexCard);
     giveCardToBattleField(battleField, [card]);
+    Logger.info("Player ${players[player].userName} discard");
   }
 
   transferCardPlayerToPlayer(int player1, int indexCard, int player2) {
-    List<GameCard> cards;
+    GameCard cards;
     if(indexCard == -1) {
       cards = takeRandomCardToPlayer(players[player1]);
     } else {
       cards = takeCardToPlayer(players[player1], indexCard);
     }
-    giveCardToPlayer(players[player2], cards);
-    Logger.info("Player ${players[player1].userName} draw from player ${players[player2].userName}");
+    giveCardToPlayer(players[player2], [cards]);
+    Logger.info("Player ${players[player2].userName} from player ${players[player1].userName}");
   }
 
   transferCardBattleFieldToPlayer(BattleField battleField, int player, DrawPositionEnum drawPosition) {
@@ -168,35 +188,21 @@ class Game {
     Logger.info("Player ${players[player].userName} draw ${cards.length} card(s)");
   }
 
-  checkIfCardIsEqualyDistributed() {
-    int playerCount = players.length;
-    int expectedCardCount = 61 ~/ playerCount;
-
-    for (int i = 0; i < playerCount; i++) {
-      if (players[i].deck.length != expectedCardCount) {
-        return false;
-      }
-    }
-    return true;
-  }
-
+  // Change state of the game
   changePlayOrder() {
     playOrder = !playOrder;
   }
 
-  setFactory(CardFactory cardFactory) {
-    this.cardFactory = cardFactory;
-  }
-
-  setBattleMode(bool battleMode) {
-    this.battleMode = battleMode;
-  }
-
-  pauseGame() {
+  changePauseGame() {
     isInPause = !isInPause;
   }
 
-  nbPlayerAlive() {
+  // Setters and Getters
+  getBattleField() {
+    return battleField;
+  }
+
+  getNbPlayerAlive() {
     int count = 0;
     for (int i = 0; i < players.length; i++) {
       if (players[i].isAlive) {
@@ -204,5 +210,25 @@ class Game {
       }
     }
     return count;
+  }
+
+  getCurrentPlayer() {
+    return players[currentPlayerTurn];
+  }
+
+  getCurrentPlayerIndex() {
+    return currentPlayerTurn;
+  }
+
+  getPlayer(int index) {
+    return players[index];
+  }
+
+  setBattleMode(bool battleMode) {
+    this.battleMode = battleMode;
+  }
+
+  setFactory(CardFactory cardFactory) {
+    this.cardFactory = cardFactory;
   }
 }

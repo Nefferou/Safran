@@ -1,3 +1,5 @@
+import 'package:safran/models/card/triad/cursedKnight/famineKnightCard.dart';
+
 import '../../../game.dart';
 import '../../constant/descriptionCardConstante.dart';
 import '../../constant/nameCardConstante.dart';
@@ -9,7 +11,18 @@ class SufferingHeraldCard extends FateHeraldCard{
       : super(NameCardConstant.SUFFERINGHERALD, DescriptionCardConstant.SUFFERINGHERALD,
       PictureCardConstant.SUFFERINGHERALD);
 
-  play(Game game, [List<int> targets = const []]) {
-    ///TODO
+  @override
+  play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
+    if (activateEffect &&
+        game.getCurrentPlayer().haveCardTypeInDeck(FamineKnightCard)) {
+      if (targets.length != 1) {
+        throw Exception("SufferingHerald : Invalid number of target");
+      } else {
+        game.transferCardPlayerToPlayer(
+            game.getCurrentPlayerIndex(),
+            game.getCurrentPlayer().getIndexCardInDeck(FamineKnightCard),
+            targets[0]);
+      }
+    }
   }
 }

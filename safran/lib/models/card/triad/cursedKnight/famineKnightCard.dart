@@ -9,7 +9,7 @@ class FamineKnightCard extends CursedKnightCard {
       : super(NameCardConstant.FAMINEKNIGHT, DescriptionCardConstant.FAMINEKNIGHT,
       PictureCardConstant.FAMINEKNIGHT);
 
-  play(Game game, [List<int> targets = const []]) {
+  play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
     ///TODO
   }
 }

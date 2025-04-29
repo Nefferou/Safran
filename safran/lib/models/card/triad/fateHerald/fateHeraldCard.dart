@@ -5,5 +5,6 @@ abstract class FateHeraldCard extends TriadCard{
 
   FateHeraldCard(super.name, super.description, super.image);
 
-  play(Game game, [List<int> targets = const []]);
+  @override
+  play(Game game, [List<int> targets = const [], bool activateEffect = true]);
 }

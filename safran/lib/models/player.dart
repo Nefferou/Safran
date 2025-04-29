@@ -9,9 +9,7 @@ import 'package:safran/models/logger.dart';
 import 'card/game_card.dart';
 import 'game.dart';
 
-
 class Player {
-
   String userName;
   bool isAlive;
   bool isTheirTurn;
@@ -22,49 +20,56 @@ class Player {
       : isAlive = true,
         isTheirTurn = false;
 
-  playCard(Game game, indexCard, [List<int> targets = const []]) {
-    Logger.info("$userName play ${deck[indexCard].name}");
+  playCard(Game game, indexCard) {
     // Check if card require one target
-    if(deck[indexCard] is MageCard || deck[indexCard] is FateHeraldCard) {
-      int indexPlayer;
-      if(game.testingMode) {
-        indexPlayer = targets[0];
-      } else {
-        // Player chooses a target player
-        stdout.write("Choose target : ");
-        indexPlayer = stdin.readLineSync() as int;
-      }
-
-      // Play the card with one target player
-      Logger.info("${game.players[indexPlayer].userName} is the target");
-      deck[indexCard].play(game, [indexPlayer]);
+    if (getCard(indexCard) is MageCard || getCard(indexCard) is FateHeraldCard) {
+      stdout.write("Choose target : ");
+      int target = stdin.readLineSync() as int;
+      playCardWithOneTarget(game, indexCard, target);
     }
     // Check if card require two target
-    else if(deck[indexCard] is ThielfCard) {
-      int indexPlayer1;
-      int indexPlayer2;
-
-      if(game.testingMode) {
-        indexPlayer1 = targets[0];
-        indexPlayer2 = targets[1];
-      }
-      else {
-        // Player chooses two target players
-        stdout.write("Choose stealer target : ");
-        indexPlayer1 = stdin.readLineSync() as int;
-        stdout.write("Choose stolen target : ");
-        indexPlayer2 = stdin.readLineSync() as int;
-      }
-
-      Logger.info("${game.players[indexPlayer1].userName} is first target and ${game.players[indexPlayer2].userName} is second target");
-      deck[indexCard].play(game, [indexPlayer1, indexPlayer2]);
+    else if (getCard(indexCard) is ThielfCard) {
+      stdout.write("Choose stealer target : ");
+      int stealerTarget = stdin.readLineSync() as int;
+      stdout.write("Choose stolen target : ");
+      int stolenTarget = stdin.readLineSync() as int;
+      playCardWithTwoTargets(game, indexCard, stealerTarget, stolenTarget);
     }
     // Check if card doesn't require any target
     else {
-      deck[indexCard].play(game);
+      playCardWithoutTarget(game, indexCard);
     }
+  }
 
-    game.transferCardPlayerToBattleField(game.currentPlayerTurn, indexCard, game.battleField);
+  playCardWithoutTarget(Game game, indexCard) {
+    Logger.info("$userName play ${getCard(indexCard).name}");
+
+    deck[indexCard].play(game);
+
+    game.transferCardPlayerToBattleField(
+        game.getCurrentPlayerIndex(), indexCard, game.battleField);
+  }
+
+  playCardWithOneTarget(Game game, indexCard, int target) {
+    Logger.info("$userName play ${getCard(indexCard).name}");
+
+    // Play the card with one target player
+    Logger.info("${game.players[target].userName} is the target");
+    getCard(indexCard).play(game, [target]);
+
+    game.transferCardPlayerToBattleField(
+        game.getCurrentPlayerIndex(), indexCard, game.battleField);
+  }
+
+  playCardWithTwoTargets(Game game, indexCard, int target1, int target2) {
+    Logger.info("$userName play ${getCard(indexCard).name}");
+
+    // Player chooses two target players
+    Logger.info("${game.getPlayer(target1).userName} draw a card from ${game.getPlayer(target2).userName}");
+    getCard(indexCard).play(game, [target1, target2]);
+
+    game.transferCardPlayerToBattleField(
+        game.getCurrentPlayerIndex(), indexCard, game.battleField);
   }
 
   kill() {
@@ -88,18 +93,26 @@ class Player {
     return card;
   }
 
-  discardCard() {
+  discardCard(Game game) {
     Logger.info("$userName discard a card");
 
-    // Player chooses a card to play
-    stdout.write("Entrez l'index de la carte à jouer : ");
-    int indexCard = stdin.readLineSync() as int;
+    if(game.testingMode) { /// TODO A enlevé
+      return 0;
+    } else {
+      // Player chooses a card to discard
+      stdout.write("Entrez l'index de la carte à défausser : ");
+      int indexCard = stdin.readLineSync() as int;
 
-    return indexCard;
+      return indexCard;
+    }
   }
 
   getName() {
     return userName;
+  }
+
+  getCard(int indexCard) {
+    return deck[indexCard];
   }
 
   getDeck() {
@@ -112,7 +125,7 @@ class Player {
 
   takeTurn(Game game) {
     // Check if the player is alive
-    if(!isAlive) {
+    if (!isAlive) {
       return;
     }
 
@@ -127,14 +140,28 @@ class Player {
     Logger.info("$userName play ${deck[indexCard].name}");
     playCard(game, indexCard);
 
-    game.transferCardPlayerToBattleField(game.currentPlayerTurn, indexCard, game.battleField);
+    game.transferCardPlayerToBattleField(
+        game.currentPlayerTurn, indexCard, game.battleField);
 
     // Check if player is still alive
-    if(deck.isEmpty) {
+    if (deck.isEmpty) {
       kill();
       Logger.info("$userName has no more cards, he is dead");
     }
 
     isTheirTurn = false;
+  }
+
+  haveCardTypeInDeck(Type type) {
+    return deck.any((card) => card.runtimeType == type);
+  }
+
+  getIndexCardInDeck(Type type) {
+    for (int i = 0; i < deck.length; i++) {
+      if (deck[i].runtimeType == type) {
+        return i;
+      }
+    }
+    return -1;
   }
 }

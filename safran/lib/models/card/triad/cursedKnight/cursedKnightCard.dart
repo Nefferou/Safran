@@ -11,5 +11,5 @@ abstract class CursedKnightCard extends TriadCard {
     ///TODO
   }
 
-  play(Game game, [List<int> targets = const []]);
+  play(Game game, [List<int> targets = const [], bool activateEffect = true]);
 }

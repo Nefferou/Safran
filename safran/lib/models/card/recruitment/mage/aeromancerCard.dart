@@ -10,17 +10,15 @@ import 'mageCard.dart';
 class AeromancerCard extends MageCard {
   AeromancerCard()
       : super(NameCardConstant.AEROMANCER, DescriptionCardConstant.AEROMANCER,
-      PictureCardConstant.AEROMANCER);
+            PictureCardConstant.AEROMANCER);
 
   @override
-  play(Game game, [List<int> targets = const []]) {
-    // Verify if player index is provided
-    if (targets.isEmpty) {
-      Logger.warning("AeromancerCard: Invalid target");
-      throw Exception("Invalid target");
-    } else {
-      game.transferCardBattleFieldToPlayer(game.battleField,
-          targets[0], DrawPositionEnum.TOP);
+  play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
+    if (targets.length != 1) {
+      throw Exception("Aeromancer : Invalid number of target");
+    } else if (activateEffect) {
+      game.transferCardBattleFieldToPlayer(
+          game.battleField, targets[0], DrawPositionEnum.TOP);
     }
   }
 }

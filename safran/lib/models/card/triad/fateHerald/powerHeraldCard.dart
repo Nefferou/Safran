@@ -1,3 +1,5 @@
+import 'package:safran/models/card/triad/cursedKnight/conquestKnightCard.dart';
+
 import '../../../game.dart';
 import '../../constant/descriptionCardConstante.dart';
 import '../../constant/nameCardConstante.dart';
@@ -9,7 +11,18 @@ class PowerHeraldCard extends FateHeraldCard{
       : super(NameCardConstant.POWERHERALD, DescriptionCardConstant.POWERHERALD,
       PictureCardConstant.POWERHERALD);
 
-  play(Game game, [List<int> targets = const []]) {
-    ///TODO
+  @override
+  play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
+    if (activateEffect &&
+        game.getCurrentPlayer().haveCardTypeInDeck(ConquestKnightCard)) {
+      if (targets.length != 1) {
+        throw Exception("PowerHerald : Invalid number of target");
+      } else {
+        game.transferCardPlayerToPlayer(
+            game.getCurrentPlayerIndex(),
+            game.getCurrentPlayer().getIndexCardInDeck(ConquestKnightCard),
+            targets[0]);
+      }
+    }
   }
 }

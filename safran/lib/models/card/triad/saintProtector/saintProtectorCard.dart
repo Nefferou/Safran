@@ -6,7 +6,7 @@ abstract class SaintProtectorCard extends TriadCard {
 
   SaintProtectorCard(super.name, super.description, super.image);
 
-  play(Game game, [List<int> targets = const []]) {
+  play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
     /// TODO
   }
 }

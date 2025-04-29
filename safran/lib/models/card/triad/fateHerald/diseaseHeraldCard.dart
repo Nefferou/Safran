@@ -1,3 +1,5 @@
+import 'package:safran/models/card/triad/cursedKnight/plagueKnightCard.dart';
+
 import '../../../game.dart';
 import '../../constant/descriptionCardConstante.dart';
 import '../../constant/nameCardConstante.dart';
@@ -9,7 +11,18 @@ class DiseaseHeraldCard extends FateHeraldCard{
       : super(NameCardConstant.DISEASEHERALD, DescriptionCardConstant.DISEASEHERALD,
       PictureCardConstant.DISEASEHERALD);
 
-  play(Game game, [List<int> targets = const []]) {
-    ///TODO
+  @override
+  play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
+    if (activateEffect &&
+        game.getCurrentPlayer().haveCardTypeInDeck(PlagueKnightCard)) {
+      if (targets.length != 1) {
+        throw Exception("DiseaseHerald : Invalid number of target");
+      } else {
+        game.transferCardPlayerToPlayer(
+            game.getCurrentPlayerIndex(),
+            game.getCurrentPlayer().getIndexCardInDeck(PlagueKnightCard),
+            targets[0]);
+      }
+    }
   }
 }

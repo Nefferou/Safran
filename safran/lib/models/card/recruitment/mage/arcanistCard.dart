@@ -10,17 +10,15 @@ import 'mageCard.dart';
 class ArcanistCard extends MageCard {
   ArcanistCard()
       : super(NameCardConstant.ARCANIST, DescriptionCardConstant.ARCANIST,
-      PictureCardConstant.ARCANIST);
+            PictureCardConstant.ARCANIST);
 
   @override
-  play(Game game, [List<int> targets = const []]) {
-    // Verify if player index is provided
-    if (targets.isEmpty) {
-      Logger.warning("Arcanist: Invalid target");
-      throw Exception("Invalid target");
-    } else {
-      game.transferCardBattleFieldToPlayer(game.battleField,
-          targets[0], DrawPositionEnum.BOTH);
+  play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
+    if (targets.length != 1) {
+      throw Exception("Arcanist : Invalid number of target");
+    } else if (activateEffect) {
+      game.transferCardBattleFieldToPlayer(
+          game.battleField, targets[0], DrawPositionEnum.BOTH);
     }
   }
 }

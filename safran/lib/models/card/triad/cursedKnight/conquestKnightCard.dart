@@ -9,7 +9,7 @@ class ConquestKnightCard extends CursedKnightCard {
       : super(NameCardConstant.CONQUESTKNIGHT, DescriptionCardConstant.CONQUESTKNIGHT,
       PictureCardConstant.CONQUESTKNIGHT);
 
-  play(Game game, [List<int> targets = const []]) {
+  play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
     ///TODO
   }
 }
