@@ -9,19 +9,19 @@ class DescriptionCardConstant {
   static const String ARCANIST = "";
   static const String THIELF = "";
 
-  // Heral;
+  // Herald;
   static const String CHAOSHERALD = "";
   static const String DISEASEHERALD = "";
   static const String POWERHERALD = "";
   static const String SUFFERINGHERALD = "";
 
-  // Sain;
+  // Saint;
   static const String ABUNDANCESAINT = "";
   static const String HEALINGSAINT = "";
   static const String PEACESAINT = "";
   static const String PROSPERITYSAINT = "";
 
-  // Knigh;
+  // Knight;
   static const String CONQUESTKNIGHT = "";
   static const String FAMINEKNIGHT = "";
   static const String PLAGUEKNIGHT = "";

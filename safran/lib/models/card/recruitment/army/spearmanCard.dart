@@ -3,8 +3,8 @@ import 'package:safran/models/card/recruitment/army/swordsmanCard.dart';
 
 import '../../../game.dart';
 import '../../../logger.dart';
-import '../../constant/descriptionCardConstante.dart';
-import '../../constant/nameCardConstante.dart';
+import '../../constant/descriptionCardConstant.dart';
+import '../../constant/nameCardConstant.dart';
 import '../../constant/pictureCardConstant.dart';
 
 class SpearmanCard extends ArmyCard {

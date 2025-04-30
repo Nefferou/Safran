@@ -2,8 +2,8 @@ import 'package:safran/models/card/triad/cursedKnight/famineKnightCard.dart';
 import 'package:safran/models/card/triad/saintProtector/saintProtectorCard.dart';
 
 import '../../../game.dart';
-import '../../constant/descriptionCardConstante.dart';
-import '../../constant/nameCardConstante.dart';
+import '../../constant/descriptionCardConstant.dart';
+import '../../constant/nameCardConstant.dart';
 import '../../constant/pictureCardConstant.dart';
 
 class AbundanceSaintCard extends SaintProtectorCard{

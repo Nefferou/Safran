@@ -10,7 +10,7 @@ import 'package:safran/models/card/recruitment/commanderCard.dart';
 import 'package:safran/models/card/recruitment/mage/aeromancerCard.dart';
 import 'package:safran/models/card/recruitment/mage/arcanistCard.dart';
 import 'package:safran/models/card/recruitment/mage/geomancerCard.dart';
-import 'package:safran/models/card/recruitment/thielfCard.dart';
+import 'package:safran/models/card/recruitment/thiefCard.dart';
 import 'package:safran/models/card/triad/cursedKnight/famineKnightCard.dart';
 import 'package:safran/models/card/triad/cursedKnight/plagueKnightCard.dart';
 import 'package:safran/models/card/triad/cursedKnight/warKnightCard.dart';
@@ -52,7 +52,7 @@ void main() {
       GeomancerCard(),
       AeromancerCard(),
       ArcanistCard(),
-      ThielfCard(),
+      ThiefCard(),
       DiseaseHeraldCard(),
       HealingSaintCard(),
       PlagueKnightCard()
@@ -65,7 +65,7 @@ void main() {
       GeomancerCard(),
       AeromancerCard(),
       ArcanistCard(),
-      ThielfCard(),
+      ThiefCard(),
       SufferingHeraldCard(),
       AbundanceSaintCard(),
       FamineKnightCard()
@@ -78,7 +78,7 @@ void main() {
       GeomancerCard(),
       AeromancerCard(),
       ArcanistCard(),
-      ThielfCard(),
+      ThiefCard(),
       PowerHeraldCard(),
       ProsperitySaintCard(),
       DiseaseHeraldCard()
@@ -91,7 +91,7 @@ void main() {
       GeomancerCard(),
       AeromancerCard(),
       ArcanistCard(),
-      ThielfCard(),
+      ThiefCard(),
       ChaosHeraldCard(),
       PeaceSaintCard(),
       WarKnightCard()
@@ -459,9 +459,9 @@ void main() {
         verifyPlayerNbCard(customGame.players[0], 11);
         verifyPlayerNbCard(customGame.players[1], 11);
         verifyBattleFieldNbCard(customGame.getBattleField(), 4);
-        verifyIfCardTypeIsInDeck(customGame.players[0], ThielfCard);
+        verifyIfCardTypeIsInDeck(customGame.players[0], ThiefCard);
 
-        int indexCard1 = getIndexCardByType(customGame.players[0], ThielfCard);
+        int indexCard1 = getIndexCardByType(customGame.players[0], ThiefCard);
 
         customGame
             .getCurrentPlayer()

@@ -9,19 +9,19 @@ class PictureCardConstant {
   static const String ARCANIST = "Arcaniste";
   static const String THIELF = "Voleur";
 
-  // Heral;
+  // Herald;
   static const String CHAOSHERALD = "Messager du Chaos";
   static const String DISEASEHERALD = "Messager de la Maladie";
   static const String POWERHERALD = "Messager du Pouvoir";
   static const String SUFFERINGHERALD = "Messager de la Souffrance";
 
-  // Sain;
+  // Saint;
   static const String ABUNDANCESAINT = "Saint de l'Abondance";
   static const String HEALINGSAINT = "Saint de la Guerison";
   static const String PEACESAINT = "Saint de la Paix";
   static const String PROSPERITYSAINT = "Saint de la Prosperite";
 
-  // Knigh;
+  // Knight;
   static const String CONQUESTKNIGHT = "Cavalier de la Conquete";
   static const String FAMINEKNIGHT = "Cavalier de la Famine";
   static const String PLAGUEKNIGHT = "Cavalier de la Peste";

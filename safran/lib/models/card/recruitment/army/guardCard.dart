@@ -1,5 +1,5 @@
-import 'package:safran/models/card/constant/descriptionCardConstante.dart';
-import 'package:safran/models/card/constant/nameCardConstante.dart';
+import 'package:safran/models/card/constant/descriptionCardConstant.dart';
+import 'package:safran/models/card/constant/nameCardConstant.dart';
 import 'package:safran/models/card/constant/pictureCardConstant.dart';
 import 'package:safran/models/card/recruitment/army/armyCard.dart';
 import 'package:safran/models/card/recruitment/army/spearmanCard.dart';

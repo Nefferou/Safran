@@ -1,6 +1,6 @@
 import '../../../game.dart';
-import '../../constant/descriptionCardConstante.dart';
-import '../../constant/nameCardConstante.dart';
+import '../../constant/descriptionCardConstant.dart';
+import '../../constant/nameCardConstant.dart';
 import '../../constant/pictureCardConstant.dart';
 import 'cursedKnightCard.dart';
 

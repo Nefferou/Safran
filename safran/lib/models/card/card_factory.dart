@@ -1,3 +1,4 @@
+import 'package:safran/models/card/constant/cardCreationConstant.dart';
 import 'package:safran/models/card/recruitment/army/armyCard.dart';
 import 'package:safran/models/card/recruitment/army/guardCard.dart';
 import 'package:safran/models/card/recruitment/army/spearmanCard.dart';
@@ -8,22 +9,19 @@ import 'package:safran/models/card/recruitment/mage/arcanistCard.dart';
 import 'package:safran/models/card/recruitment/mage/geomancerCard.dart';
 import 'package:safran/models/card/recruitment/mage/mageCard.dart';
 import 'package:safran/models/card/recruitment/recruitmentCard.dart';
-import 'package:safran/models/card/recruitment/thielfCard.dart';
+import 'package:safran/models/card/recruitment/thiefCard.dart';
 import 'package:safran/models/card/triad/cursedKnight/conquestKnightCard.dart';
-import 'package:safran/models/card/triad/cursedKnight/cursedKnightCard.dart';
 import 'package:safran/models/card/triad/cursedKnight/famineKnightCard.dart';
 import 'package:safran/models/card/triad/cursedKnight/plagueKnightCard.dart';
 import 'package:safran/models/card/triad/cursedKnight/warKnightCard.dart';
 import 'package:safran/models/card/triad/fateHerald/chaosHeraldCard.dart';
 import 'package:safran/models/card/triad/fateHerald/diseaseHeraldCard.dart';
-import 'package:safran/models/card/triad/fateHerald/fateHeraldCard.dart';
 import 'package:safran/models/card/triad/fateHerald/powerHeraldCard.dart';
 import 'package:safran/models/card/triad/fateHerald/sufferingHeraldCard.dart';
 import 'package:safran/models/card/triad/saintProtector/abundanceSaintCard.dart';
 import 'package:safran/models/card/triad/saintProtector/healingSaintCard.dart';
 import 'package:safran/models/card/triad/saintProtector/peaceSaintCard.dart';
 import 'package:safran/models/card/triad/saintProtector/prosperitySaintCard.dart';
-import 'package:safran/models/card/triad/saintProtector/saintProtectorCard.dart';
 import 'package:safran/models/card/triad/triadCard.dart';
 
 import '../game.dart';
@@ -35,19 +33,19 @@ class CardFactory {
   Game game;
   CardFactory(this.game);
 
-  createDeck(int commanderCardCount, int armyCardCount, int mageCardCount, int thielfCardCount) {
+  createDeck(int commanderCardCount, int armyCardCount, int mageCardCount, int thiefCardCount) {
     Logger.info("Creating deck");
     List<GameCard> deckList = [];
 
-    // Check if total card count is 61 (+ 12 triad cards)
-    int totalCardCount = commanderCardCount + armyCardCount + mageCardCount + thielfCardCount + 12;
+    // Check if total card count is equal to the total defined in CardCreationConstant (+ total of triad cards)
+    int totalCardCount = commanderCardCount + armyCardCount + mageCardCount + thiefCardCount + CardCreationConstant.TOTAL_TRIAD_CARDS;
 
-    if(totalCardCount != 61) {
-      Logger.warning("Total card count must be 61");
-      throw new Exception("Total card count must be 61");
+    if(totalCardCount != CardCreationConstant.TOTAL_DECK_SIZE) {
+      Logger.warning("Total card count must be ${CardCreationConstant.TOTAL_DECK_SIZE}");
+      throw Exception("Total card count must be ${CardCreationConstant.TOTAL_DECK_SIZE}");
     }
 
-    deckList.addAll(createRecruitmentCards(commanderCardCount, armyCardCount, mageCardCount, thielfCardCount));
+    deckList.addAll(createRecruitmentCards(commanderCardCount, armyCardCount, mageCardCount, thiefCardCount));
     deckList.addAll(createTriadCards());
 
     return deckList;
@@ -56,10 +54,12 @@ class CardFactory {
   createArmyCards(int count) {
     List<ArmyCard> armyCardsDeck = [];
 
-    for(int i = 0; i < count; i += 3) {
-      armyCardsDeck.add(GuardCard());
-      armyCardsDeck.add(SwordsmanCard());
-      armyCardsDeck.add(SpearmanCard());
+    for(int i = 0; i < count; i += CardCreationConstant.ARMY_GROUP_SIZE) {
+      armyCardsDeck.addAll([
+        GuardCard(),
+        SwordsmanCard(),
+        SpearmanCard(),
+      ]);
     }
 
     return armyCardsDeck;
@@ -68,14 +68,16 @@ class CardFactory {
   createMageCards(int count) {
     List<MageCard> mageCardsDeck = [];
 
-    for(int i = 0; i < count; i += 5) {
-      mageCardsDeck.add(GeomancerCard());
-      mageCardsDeck.add(GeomancerCard());
+    final mageGroup = [
+      () => GeomancerCard(),
+      () => GeomancerCard(),
+      () => AeromancerCard(),
+      () => AeromancerCard(),
+      () => ArcanistCard(),
+    ];
 
-      mageCardsDeck.add(AeromancerCard());
-      mageCardsDeck.add(AeromancerCard());
-
-      mageCardsDeck.add(ArcanistCard());
+    for(int i = 0; i < count; i += CardCreationConstant.MAGE_GROUP_SIZE) {
+      mageCardsDeck.addAll(mageGroup.map((create) => create()));
     }
 
     return mageCardsDeck;
@@ -87,56 +89,53 @@ class CardFactory {
       recruitmentCardsDeck.add(CommanderCard());
     }
 
-    if(armyCardCount % 3 != 0) {
-      throw new Exception("Army card count must be a multiple of 3");
+    if(armyCardCount % CardCreationConstant.ARMY_GROUP_SIZE != 0) {
+      throw Exception("Army card count must be a multiple of ${CardCreationConstant.ARMY_GROUP_SIZE}");
     } else {
       recruitmentCardsDeck.addAll(createArmyCards(armyCardCount));
     }
 
-    if(mageCardCount % 5 != 0) {
-      throw new Exception("Mage card count must be a multiple of 5");
+    if(mageCardCount % CardCreationConstant.MAGE_GROUP_SIZE != 0) {
+      throw Exception("Mage card count must be a multiple of ${CardCreationConstant.MAGE_GROUP_SIZE}");
     } else {
       recruitmentCardsDeck.addAll(createMageCards(mageCardCount));
     }
 
     for (int i = 0; i < thielfCardCount; i++) {
-      recruitmentCardsDeck.add(ThielfCard());
+      recruitmentCardsDeck.add(ThiefCard());
     }
 
     return recruitmentCardsDeck;
   }
 
   createHeraldCards() {
-    List<FateHeraldCard> heraldCardsDeck = [];
-    
-    heraldCardsDeck.add(ChaosHeraldCard());
-    heraldCardsDeck.add(DiseaseHeraldCard());
-    heraldCardsDeck.add(PowerHeraldCard());
-    heraldCardsDeck.add(SufferingHeraldCard());
-
-    return heraldCardsDeck;
+    final constructors = [
+          () => ChaosHeraldCard(),
+          () => DiseaseHeraldCard(),
+          () => PowerHeraldCard(),
+          () => SufferingHeraldCard(),
+    ];
+    return constructors.map((c) => c()).toList();
   }
 
   createSaintCards() {
-    List<SaintProtectorCard> saintCardsDeck = [];
-
-    saintCardsDeck.add(AbundanceSaintCard());
-    saintCardsDeck.add(HealingSaintCard());
-    saintCardsDeck.add(PeaceSaintCard());
-    saintCardsDeck.add(ProsperitySaintCard());
-
-    return saintCardsDeck;
+    final constructors = [
+          () => AbundanceSaintCard(),
+          () => HealingSaintCard(),
+          () => PeaceSaintCard(),
+          () => ProsperitySaintCard(),
+    ];
+    return constructors.map((c) => c()).toList();
   }
 
   createKnightCards() {
-    List<CursedKnightCard> knightCardsDeck = [];
-
-    knightCardsDeck.add(ConquestKnightCard());
-    knightCardsDeck.add(FamineKnightCard());
-    knightCardsDeck.add(PlagueKnightCard());
-    knightCardsDeck.add(WarKnightCard());
-
-    return knightCardsDeck;
+    final constructors = [
+          () => ConquestKnightCard(),
+          () => FamineKnightCard(),
+          () => PlagueKnightCard(),
+          () => WarKnightCard(),
+    ];
+    return constructors.map((c) => c()).toList();
   }
 
   createTriadCards() {

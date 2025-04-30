@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:safran/models/card/recruitment/mage/mageCard.dart';
-import 'package:safran/models/card/recruitment/thielfCard.dart';
+import 'package:safran/models/card/recruitment/thiefCard.dart';
 import 'package:safran/models/card/triad/fateHerald/fateHeraldCard.dart';
 import 'package:safran/models/logger.dart';
 
@@ -28,7 +28,7 @@ class Player {
       playCardWithOneTarget(game, indexCard, target);
     }
     // Check if card require two target
-    else if (getCard(indexCard) is ThielfCard) {
+    else if (getCard(indexCard) is ThiefCard) {
       stdout.write("Choose stealer target : ");
       int stealerTarget = stdin.readLineSync() as int;
       stdout.write("Choose stolen target : ");
