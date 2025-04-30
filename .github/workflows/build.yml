@@ -17,16 +17,22 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'  # à adapter si besoin
+          flutter-version: '3.19.0'
+
+      - name: Change directory to Flutter app
+        run: cd safran
 
       - name: Install dependencies
         run: flutter pub get
+        working-directory: safran
 
       - name: Analyze Dart code
         run: flutter analyze
+        working-directory: safran
 
       - name: Run tests with coverage
         run: flutter test --coverage
+        working-directory: safran
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
