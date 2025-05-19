@@ -21,7 +21,7 @@ Safran se joue de 2 à 6 joueurs.
 
 ## 🎭 Les cartes et leurs effets
 
-Le jeu contient 60 cartes au total.
+Le jeu contient 61 cartes au total.
 
 ### 📜 **Les cartes de recrutement**
 #### **Le Commandant** 🎖️ (x4)
