@@ -29,7 +29,7 @@ Ces cartes n'ont pas d'effet direct, mais lorsqu'elles sont jouées après une a
 - **Le Garde** 🛡️ : Si joué après un **Lancier**, le joueur ciblé **défausse** une carte. (x7)
 - **Lancier** 🏹 : Si joué après un **Épéiste**, le joueur ciblé **défausse** une carte. (x7)
 
-#### **Les Mages** 🧙‍♂️ (x13)
+#### **Les Mages** 🧙‍♂️ (x14)
 - **Le Géomancien** 🏔️ : Permet de **piocher** ou de faire **piocher** la carte **en dessous** du **Champ de Bataille**. (x5)
 - **L'Aéromancien** 🌪️ : Permet de **piocher** ou de faire **piocher** la carte **au-dessus** du **Champ de Bataille**. (x5)
 - **L’Arcaniste** 🔮 : Permet de **piocher** ou de faire **piocher** la carte **au-dessus** et **en dessous** du **Champ de Bataille**. (x4)
