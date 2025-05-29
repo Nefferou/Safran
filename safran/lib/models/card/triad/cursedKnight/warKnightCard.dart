@@ -8,8 +8,4 @@ class WarKnightCard extends CursedKnightCard {
   WarKnightCard()
       : super(NameCardConstant.WARKNIGHT, DescriptionCardConstant.WARKNIGHT,
       PictureCardConstant.WARKNIGHT);
-
-  play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
-    ///TODO
-  }
 }
