@@ -11,5 +11,6 @@ abstract class CursedKnightCard extends TriadCard {
     return game.getCurrentPlayer().haveOnlyKnightCardTypeInDeck();
   }
 
+  @override
   play(Game game, [List<int> targets = const [], bool activateEffect = true]);
 }
