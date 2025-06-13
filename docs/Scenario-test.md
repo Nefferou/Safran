@@ -34,3 +34,15 @@ Si un joueur possède des cartes autres que les Cavaliers, il ne peut pas jouer 
 
 ## Cas de test 11 : Jouer un Cavalier en n'en possédant plusieurs
 Si un joueur possède plusieurs Cavaliers et qu'il n'a plus d'autres cartes, il peut en jouer un.
+
+## Cas de test 12 : Victoire avec le Cavalier de la conquête grâce au Cavalier de la mort
+Si un joueur se fait piocher le Cavalier de la mort et qu'il a le Cavalier de la conquête
+
+## Cas de test 13 : Piocher le Cavalier de la conquête et qu'il y a déjà eu des joueurs éliminés
+Si un joueur pioche le cavalier de la conquête celui ci ne doit plus rien faire
+
+## Cas de test 14 : Défausser des cartes à cause du Cavalier de la famine
+Si un joueur à le cavalier de la famine il doit défausser une carte à chacun de ces tour
+
+## Cas de test 15 : Défausser des cartes à cause dU Cavalier de la guerre
+si un joueur défausse une carte alors le joueur avec le Cavalier de la guerre le défausse
