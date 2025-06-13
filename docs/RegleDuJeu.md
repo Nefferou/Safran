@@ -6,6 +6,8 @@ Pour cela, vous devez conserver vos cartes le plus longtemps possible tout en ut
 
 ## 🔄 Déroulement du jeu
 
+Safran se joue de 2 à 6 joueurs.
+
 1. Toutes les cartes sont distribuées équitablement entre les joueurs, sauf une qui est placée **face visible** au centre de la table. Cette carte représente **le Champ de Bataille**.
 2. À tour de rôle, chaque joueur **joue** une carte de sa main sur la pile du **Champ de Bataille** et applique son effet si la carte en possède un.
 3. Un joueur qui **n’a plus de cartes** est immédiatement **éliminé**.
@@ -18,6 +20,8 @@ Pour cela, vous devez conserver vos cartes le plus longtemps possible tout en ut
 ---
 
 ## 🎭 Les cartes et leurs effets
+
+Le jeu contient 61 cartes au total.
 
 ### 📜 **Les cartes de recrutement**
 #### **Le Commandant** 🎖️ (x4)
