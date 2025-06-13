@@ -2,7 +2,6 @@ import '../../../game.dart';
 import '../../constant/descriptionCardConstant.dart';
 import '../../constant/nameCardConstant.dart';
 import '../../constant/pictureCardConstant.dart';
-import '../../draw_position_enum.dart';
 import 'mageCard.dart';
 
 class ArcanistCard extends MageCard {
