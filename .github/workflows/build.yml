@@ -26,19 +26,41 @@ jobs:
         run: flutter pub get
         working-directory: safran
 
-      - name: Analyze Dart code
-        run: flutter analyze
-        working-directory: safran
-
       - name: Run tests with coverage
         run: flutter test --coverage
         working-directory: safran
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+        
+  sonarqube:
+    name: SonarQube
+    runs-on: windows-latest
+    needs: build-and-test
+    steps:
+      - uses: actions/checkout@v4
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: coverage/lcov.info
-          flags: flutter
-          name: flutter-app
-          fail_ci_if_error: true
+          fetch-depth: 0
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.3'
+
+      - name: Set up Java (obligatoire pour Gradle)
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: safran
+          
+      - name: Build
+        run: flutter build apk
+        working-directory: safran
+        
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: safran
