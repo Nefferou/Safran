@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:safran/widgets/pages/settings_page.dart';
+import 'package:safran/widgets/pages/setings_page/settings_page.dart';
 
 class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
 
