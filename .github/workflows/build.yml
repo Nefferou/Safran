@@ -38,7 +38,7 @@ jobs:
         run: pip install lcov_cobertura
 
       - name: Convert lcov to cobertura format
-        run: lcov_cobertura safran/coverage/lcov.info safran/coverage/cobertura.xml
+        run: lcov_cobertura safran/coverage/lcov.info -o safran/coverage/cobertura.xml
 
       - name: Build APK
         run: flutter build apk
