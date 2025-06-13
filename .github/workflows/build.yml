@@ -1,4 +1,4 @@
-name: Flutter CI
+name: Flutter CI + SonarQube
 
 on:
   push:
@@ -7,44 +7,20 @@ on:
     branches: [main]
 
 jobs:
-  build-and-test:
+  flutter-ci:
+    name: Flutter Ci
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.29.3'
 
-      - name: Change directory to Flutter app
-        run: cd safran
-
-      - name: Install dependencies
-        run: flutter pub get
-        working-directory: safran
-
-      - name: Run tests with coverage
-        run: flutter test --coverage
-        working-directory: safran
-        
-  sonarqube:
-    name: SonarQube
-    runs-on: ubuntu-latest
-    needs: build-and-test
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.29.3'
-
-      - name: Set up Java (obligatoire pour Gradle)
+      - name: Set up Java
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
@@ -53,18 +29,21 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
         working-directory: safran
-          
-      - name: Build
+
+      - name: Run tests with coverage
+        run: flutter test --coverage
+        working-directory: safran
+
+      - name: Install lcov_cobertura converter
+        run: pip install lcov_cobertura
+
+      - name: Convert lcov to cobertura format
+        run: lcov_cobertura safran/coverage/lcov.info safran/coverage/cobertura.xml
+
+      - name: Build APK
         run: flutter build apk
         working-directory: safran
 
-      - name: Install lcov-to-sonarqube converter
-        run: npm install -g lcov-to-sonarqube
-      
-      - name: Convert lcov to SonarQube generic format
-        run: lcov-to-sonarqube -i coverage/lcov.info -o coverage/sonar-generic-coverage.xml
-        working-directory: safran
-        
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
         env:
