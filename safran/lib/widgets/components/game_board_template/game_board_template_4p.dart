@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:safran/widgets/components/hands/opponent_hand.dart';
 import 'package:safran/widgets/components/hands/main_hand.dart';
 import 'package:safran/widgets/components/discard_pile/discard_pile.dart';
-import 'package:safran/widgets/components/header/custom_header.dart';
 import '../../../models/card/game_card.dart';
 import '../../../models/game.dart';
 import '../cards/game_card_component.dart';
@@ -17,15 +16,12 @@ class GameBoardTemplate4P extends StatefulWidget {
 }
 
 class _GameBoardTemplate4PState extends State<GameBoardTemplate4P> {
-  static const double handWidth = 400;
-  static const double handHeight = 180;
-
-  bool isHeader = true;
+  static const double handWidth = 80;
+  static const double handHeight = 200;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: (isHeader) ? CustomHeader() : null,
       body: SafeArea(
         child: LayoutBuilder(builder: (context, constraints) {
           // 1. height available
@@ -73,11 +69,12 @@ class _GameBoardTemplate4PState extends State<GameBoardTemplate4P> {
 
               // --- Left Opponent ---
               Positioned(
-                top: 0,
-                left: -50,
+                top: 25,
+                right: MediaQuery.of(context).size.width / 2,
+                left: 0,
                 child: Transform.scale(
                   scale: scale,
-                  alignment: Alignment.topLeft, // ancre la réduction en haut à gauche
+                  alignment: Alignment.topLeft,
                   child: _buildOpponentColumn(
                     widget.game.players[1].userName,
                     widget.game.players[1].deck,
@@ -86,10 +83,11 @@ class _GameBoardTemplate4PState extends State<GameBoardTemplate4P> {
                 ),
               ),
 
-              // --- Right Opponent ---
+              // --- Middle Opponent ---
               Positioned(
-                top: 0,
-                right: -50,
+                top: -50,
+                right: 0,
+                left: 0,
                 child: Transform.scale(
                   scale: scale,
                   alignment: Alignment.topRight,
@@ -101,11 +99,11 @@ class _GameBoardTemplate4PState extends State<GameBoardTemplate4P> {
                 ),
               ),
 
-              // --- Top Opponent ---
+              // --- Right Opponent ---
               Positioned(
-                top: -50,
-                right: (isHeader) ? 170 : 100,
-                left: 0,
+                top: 25,
+                right: 0,
+                left: MediaQuery.of(context).size.width / 2,
                 child: Transform.scale(
                   scale: scale,
                   alignment: Alignment.topRight,
@@ -125,20 +123,17 @@ class _GameBoardTemplate4PState extends State<GameBoardTemplate4P> {
 
   Widget _buildOpponentColumn(
       String name, List<GameCard> cards, {required int quarterTurns}) {
-    return RotatedBox(
-      quarterTurns: quarterTurns,
-      child: SizedBox(
-        width: handWidth,
-        height: handHeight,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("$name (${cards.length} cards)",
-                style:
-                const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-            OpponentHand(cards: cards),
-          ],
-        ),
+    return SizedBox(
+      width: handWidth,
+      height: handHeight,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(name,
+              style:
+              const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          OpponentHand(cards: cards),
+        ],
       ),
     );
   }

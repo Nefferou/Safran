@@ -14,10 +14,8 @@ class OpponentHand extends StatefulWidget {
 }
 
 class _OpponentHandState extends State<OpponentHand> {
-  static const double handWidth = 400;
-  static const double handHeight = 180;
-  static const double cardWidth = 80;
-  static const double maxOffset = 40;
+  static const double handWidth = 80;
+  static const double handHeight = 120;
 
   int? pressedIndex;
 
@@ -25,30 +23,31 @@ class _OpponentHandState extends State<OpponentHand> {
   Widget build(BuildContext context) {
     final int cardCount = widget.cards.length;
 
-    double offset = cardCount > 1
-        ? (handWidth - cardWidth) / (cardCount - 1)
-        : 0;
-    offset = offset.clamp(0, maxOffset);
-
-    final totalWidth = cardWidth + offset * (cardCount - 1);
-    final startOffset = (handWidth - totalWidth) / 2;
-
     return SizedBox(
       width: handWidth,
       height: handHeight,
       child: Stack(
-        children: List.generate(cardCount, (index) {
-          final leftPos = startOffset + (index * offset);
-
-          return Positioned(
-            left: leftPos,
-            child: SizedBox(
-              width: cardWidth,
-              height: 120,
-              child: OpponentGameCardComponent(card: widget.cards[index]),
+        children: [
+          Positioned(
+            child: Image.asset(
+              "res/assets/cards/back_card_empty.png",
+              width: handWidth,
+              height: handHeight,
             ),
-          );
-        }),
+          ),
+          Positioned(
+            child: Center(
+              child: Text(
+                "$cardCount",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ]
       ),
     );
   }
