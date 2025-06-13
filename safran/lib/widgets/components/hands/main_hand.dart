@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:safran/models/card/card_game.dart';
+import 'package:safran/models/card/game_card.dart';
 import 'package:safran/widgets/components/cards/game_card_component.dart';
 
 class MainHand extends StatefulWidget {
