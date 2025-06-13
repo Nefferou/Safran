@@ -4,7 +4,6 @@ import 'package:safran/widgets/components/header/custom_header.dart';
 import 'package:safran/widgets/pages/connection_game_type_pages/local_page.dart';
 import 'package:safran/widgets/pages/connection_game_type_pages/online_page.dart';
 import 'package:safran/widgets/pages/game_board_page/game_board_page.dart';
-import 'package:safran/widgets/pages/setings_page/settings_page.dart';
 
 import '../../models/game.dart';
 import '../../models/player.dart';

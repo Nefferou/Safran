@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:safran/models/battleField.dart';
 import 'package:safran/models/game.dart';
 import 'package:safran/models/player.dart';
 
@@ -21,7 +20,7 @@ void main() {
   });
 
   setUpWithNbPlayer(List<Player> players) {
-    Game game = new Game(players);
+    Game game = Game(players);
     game.setUpGame();
 
     return game;
@@ -117,6 +116,7 @@ void main() {
     test("Game is not setup with less than 3 players", () {
       try {
         Game game = setUpWithNbPlayer([playerTest1, playerTest2]);
+        game.getNbPlayerAlive();
       } catch (e) {
         expect(e.toString(),
             "Exception: Invalid number of players (3-6), Actual: 2");
@@ -134,6 +134,7 @@ void main() {
           playerTest6,
           playerTest6
         ]);
+        game.getNbPlayerAlive();
       } catch (e) {
         expect(e.toString(),
             "Exception: Invalid number of players (3-6), Actual: 8");

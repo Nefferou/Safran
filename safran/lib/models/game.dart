@@ -28,7 +28,7 @@ class Game {
   // Constructor
   Game(this.players) {
     if (players.length < 3 || players.length > 6) {
-      throw new Exception(
+      throw Exception(
           "Invalid number of players (3-6), Actual: ${players.length}");
     }
     currentPlayerTurn = -1;
@@ -41,8 +41,8 @@ class Game {
     battleMode = false;
     isInPause = false;
     isGameOver = false;
-    battleField = new BattleField();
-    cardFactory = new CardFactory(this);
+    battleField = BattleField();
+    cardFactory =  CardFactory(this);
 
     dealCards(cardFactory.createDeck(3, 21, 15, 10));
 
@@ -63,9 +63,9 @@ class Game {
     battleField.cards.add(deck.removeLast());
 
     if (deck.isNotEmpty) {
-      throw new Exception("Deck not empty");
+      throw Exception("Deck not empty");
     } else if (!checkIfCardIsEqualyDistributed()) {
-      throw new Exception("Cards not equally distributed");
+      throw Exception("Cards not equally distributed");
     }
   }
 

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:safran/widgets/components/game_board_template/game_board_template_3p.dart';
-import 'package:safran/widgets/components/hands/main_hand.dart';
-import 'package:safran/widgets/components/header/custom_header.dart';
 
 import '../../../models/game.dart';
 
