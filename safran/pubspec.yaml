@@ -66,6 +66,7 @@ flutter:
     - res/assets/logos/safran_logo_black.png
     - res/assets/cards/back_card.png
     - res/assets/cards/back_card.svg
+    - res/assets/cards/back_card_empty.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

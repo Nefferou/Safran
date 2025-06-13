@@ -20,7 +20,7 @@ class _OpponentGameCardComponentState extends State<OpponentGameCardComponent> {
   Widget build(BuildContext context) {
     return Container(
       width: 80,
-      height: 150,
+      height: 120,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
@@ -33,7 +33,7 @@ class _OpponentGameCardComponentState extends State<OpponentGameCardComponent> {
         ],
       ),
       child: Image.asset(
-        "res/assets/cards/back_card.png",
+        "res/assets/cards/back_card_empty.png",
         fit: BoxFit.cover,
       ),
     );
