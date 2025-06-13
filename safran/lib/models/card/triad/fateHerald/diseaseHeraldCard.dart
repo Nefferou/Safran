@@ -21,7 +21,8 @@ class DiseaseHeraldCard extends FateHeraldCard{
         game.transferCardPlayerToPlayer(
             game.getCurrentPlayerIndex(),
             game.getCurrentPlayer().getIndexCardInDeck(PlagueKnightCard),
-            targets[0]);
+            targets[0],
+            canBeKill: false);
       }
     }
   }

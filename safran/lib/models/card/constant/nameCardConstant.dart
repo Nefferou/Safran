@@ -7,7 +7,7 @@ class NameCardConstant {
   static const String GEOMANCER = "Geomancien";
   static const String AEROMANCER = "Aeromancien";
   static const String ARCANIST = "Arcaniste";
-  static const String THIELF = "Voleur";
+  static const String THIEF = "Voleur";
 
   // Herald;
   static const String CHAOSHERALD = "Messager du Chaos";

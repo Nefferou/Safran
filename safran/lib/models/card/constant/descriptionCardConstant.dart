@@ -7,7 +7,7 @@ class DescriptionCardConstant {
   static const String GEOMANCER = "";
   static const String AEROMANCER = "";
   static const String ARCANIST = "";
-  static const String THIELF = "";
+  static const String THIEF = "";
 
   // Herald;
   static const String CHAOSHERALD = "";

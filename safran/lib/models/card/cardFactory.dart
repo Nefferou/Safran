@@ -8,7 +8,7 @@ import 'package:safran/models/card/recruitment/mage/arcanistCard.dart';
 import 'package:safran/models/card/recruitment/mage/geomancerCard.dart';
 import 'package:safran/models/card/recruitment/mage/mageCard.dart';
 import 'package:safran/models/card/recruitment/recruitmentCard.dart';
-import 'package:safran/models/card/recruitment/thielfCard.dart';
+import 'package:safran/models/card/recruitment/thiefCard.dart';
 import 'package:safran/models/card/triad/cursedKnight/conquestKnightCard.dart';
 import 'package:safran/models/card/triad/cursedKnight/cursedKnightCard.dart';
 import 'package:safran/models/card/triad/cursedKnight/famineKnightCard.dart';

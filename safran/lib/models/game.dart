@@ -172,7 +172,8 @@ class Game {
     Logger.info("Player ${players[player].userName} discard");
   }
 
-  transferCardPlayerToPlayer(int player1, int indexCard, int player2) {
+  transferCardPlayerToPlayer(int player1, int indexCard, int player2,
+      {bool canBeKill = true}) {
     GameCard cards;
     if(indexCard == -1) {
       cards = takeRandomCardToPlayer(players[player1]);
@@ -180,7 +181,7 @@ class Game {
       cards = takeCardToPlayer(players[player1], indexCard);
     }
 
-    if(cards.runtimeType == PlagueKnightCard) {
+    if(cards.runtimeType == PlagueKnightCard && canBeKill) {
       players[player1].discardAllCard(this, player1);
     }
 
