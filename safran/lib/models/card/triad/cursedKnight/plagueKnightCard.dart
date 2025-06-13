@@ -8,8 +8,4 @@ class PlagueKnightCard extends CursedKnightCard {
   PlagueKnightCard()
       : super(NameCardConstant.PLAGUEKNIGHT, DescriptionCardConstant.PLAGUEKNIGHT,
       PictureCardConstant.PLAGUEKNIGHT);
-
-  play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
-    ///TODO
-  }
 }

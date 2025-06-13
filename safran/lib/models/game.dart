@@ -8,6 +8,7 @@ import 'package:safran/models/player.dart';
 
 import 'card/game_card.dart';
 import 'card/card_factory.dart';
+import 'card/triad/cursedKnight/plagueKnightCard.dart';
 
 class Game {
   late bool isSetup;
@@ -135,12 +136,12 @@ class Game {
 
   // Take Card from player or battle field
   takeCardToPlayer(Player player, int indexCard) {
-    GameCard takenCard = player.takeCard(indexCard);
+    GameCard takenCard = player.takeCard(indexCard, this);
     return takenCard;
   }
 
   takeRandomCardToPlayer(Player player) {
-    GameCard takenCard = player.takeRandomCard();
+    GameCard takenCard = player.takeRandomCard(this);
     return takenCard;
   }
 
@@ -178,6 +179,11 @@ class Game {
     } else {
       cards = takeCardToPlayer(players[player1], indexCard);
     }
+
+    if(cards.runtimeType == PlagueKnightCard) {
+      players[player1].discardAllCard(this, player1);
+    }
+
     giveCardToPlayer(players[player2], [cards]);
     Logger.info("Player ${players[player2].userName} from player ${players[player1].userName}");
   }
@@ -197,6 +203,16 @@ class Game {
     isInPause = !isInPause;
   }
 
+  conquestWin(int playerIndex) {
+    players
+        .where((player) => player != players[playerIndex])
+        .forEach((player) => player.kill(this));
+  }
+
+  allPlayerAlive() {
+    return players.every((player) => player.isAlive);
+  }
+
   // Setters and Getters
   getBattleField() {
     return battleField;
@@ -212,7 +228,18 @@ class Game {
     return count;
   }
 
-  getCurrentPlayer() {
+  getPlayerWithWarKnight() {
+    for (var player in players) {
+      if (player.haveWarKnightCard()) return player;
+    }
+    return null;
+  }
+
+  getPlayerIndexWithConquestKnight() {
+    return players.indexWhere((player) => player.haveConquestKnightCard());
+  }
+
+  Player getCurrentPlayer() {
     return players[currentPlayerTurn];
   }
 

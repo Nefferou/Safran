@@ -9,7 +9,10 @@ class ConquestKnightCard extends CursedKnightCard {
       : super(NameCardConstant.CONQUESTKNIGHT, DescriptionCardConstant.CONQUESTKNIGHT,
       PictureCardConstant.CONQUESTKNIGHT);
 
+  @override
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
-    ///TODO
+    if (game.getCurrentPlayer().deck.length == 1 && game.allPlayerAlive()) {
+      game.conquestWin(game.getCurrentPlayerIndex());
+    }
   }
 }
