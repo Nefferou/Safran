@@ -3,10 +3,14 @@ import 'dart:math';
 
 import 'package:safran/models/card/recruitment/mage/mageCard.dart';
 import 'package:safran/models/card/recruitment/thiefCard.dart';
+import 'package:safran/models/card/triad/cursedKnight/conquestKnightCard.dart';
+import 'package:safran/models/card/triad/cursedKnight/warKnightCard.dart';
 import 'package:safran/models/card/triad/fateHerald/fateHeraldCard.dart';
 import 'package:safran/models/logger.dart';
 
 import 'card/game_card.dart';
+import 'card/triad/cursedKnight/cursedKnightCard.dart';
+import 'card/triad/cursedKnight/famineKnightCard.dart';
 import 'game.dart';
 
 class Player {
@@ -72,20 +76,35 @@ class Player {
         game.getCurrentPlayerIndex(), indexCard, game.battleField);
   }
 
-  kill() {
+  kill(Game game) {
     isAlive = false;
+    int playerIndex = game.getPlayerIndexWithConquestKnight();
+    if (playerIndex != -1) {
+      game.players[playerIndex].discardAllCard(game, playerIndex);
+      Logger.info("${game.players[playerIndex].userName} have been taken by the knight of conquest");
+    }
   }
 
-  takeCard(int indexCard) {
+  takeCard(int indexCard, Game game) {
+    int deckLength = deck.length;
+
+    if (deckLength == 1) {
+      kill(game);
+    }
+
     GameCard card = deck.elementAt(indexCard);
     deck.removeAt(indexCard);
 
     return card;
   }
 
-  takeRandomCard() {
+  takeRandomCard(Game game) {
     int deckLength = deck.length;
     int randomIndex = Random().nextInt(deckLength);
+
+    if (deckLength == 1) {
+      kill(game);
+    }
 
     GameCard card = deck.elementAt(randomIndex);
     deck.removeAt(randomIndex);
@@ -99,11 +118,27 @@ class Player {
     if(game.testingMode) { /// TODO A enlevé
       return 0;
     } else {
+      Player? player = game.getPlayerWithWarKnight();
+      if (player != null && player != this) {
+        player.discardCard(game);
+      }
+
       // Player chooses a card to discard
       stdout.write("Entrez l'index de la carte à défausser : ");
       int indexCard = stdin.readLineSync() as int;
 
       return indexCard;
+    }
+  }
+  
+  discardAllCard(Game game, int playerIndex) {
+    if (game.allPlayerAlive() && game.players[playerIndex].haveConquestKnightCard()) {
+      game.conquestWin(playerIndex);
+    }
+    else {
+      while (deck.isNotEmpty) {
+        game.transferCardPlayerToBattleField(playerIndex, 0, game.battleField);
+      }
     }
   }
 
@@ -132,6 +167,13 @@ class Player {
     isTheirTurn = true;
     Logger.info("$userName turns");
 
+    // Check if have famine knight
+    if(haveFamineKnightCard()) {
+      //Choose card to discard
+      stdout.write("Vous avez faim");
+      game.transferCardPlayerToBattleField(game.currentPlayerTurn, this.discardCard(game), game.battleField);
+    }
+
     // Player chooses a card to play
     stdout.write("Entrez l'index de la carte à jouer : ");
     int indexCard = stdin.readLineSync() as int;
@@ -145,7 +187,7 @@ class Player {
 
     // Check if player is still alive
     if (deck.isEmpty) {
-      kill();
+      kill(game);
       Logger.info("$userName has no more cards, he is dead");
     }
 
@@ -163,5 +205,21 @@ class Player {
       }
     }
     return -1;
+  }
+
+  haveFamineKnightCard() {
+    return haveCardTypeInDeck(FamineKnightCard);
+  }
+
+  haveWarKnightCard() {
+    return haveCardTypeInDeck(WarKnightCard);
+  }
+
+  haveConquestKnightCard() {
+    return haveCardTypeInDeck(ConquestKnightCard);
+  }
+
+  haveOnlyKnightCardTypeInDeck() {
+    return deck.every((card) => card.runtimeType == CursedKnightCard);
   }
 }
