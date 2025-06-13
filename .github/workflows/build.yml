@@ -41,7 +41,7 @@ jobs:
         run: sed -i 's|SF:lib/|SF:safran/lib/|g' safran/coverage/lcov.info
 
       - name: Convert lcov to cobertura format
-        run: lcov_cobertura safran/coverage/lcov.info -o safran/coverage/cobertura.xml
+        run: lcov2cobertura safran/coverage/lcov.info -o safran/coverage/cobertura.xml
 
       - name: Build APK
         run: flutter build apk
