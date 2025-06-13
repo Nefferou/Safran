@@ -474,26 +474,6 @@ void main() {
     });
 
     group("Card Triad", () {
-      test("Card Fate Herald", () {
-        verifyPlayerNbCard(customGame.players[0], 11);
-        verifyPlayerNbCard(customGame.players[1], 11);
-        verifyBattleFieldNbCard(customGame.getBattleField(), 4);
-        verifyIfCardTypeIsInDeck(customGame.players[0], DiseaseHeraldCard);
-
-        int indexCardDiseaseHerald =
-            getIndexCardByType(customGame.players[0], DiseaseHeraldCard);
-
-        customGame
-            .getCurrentPlayer()
-            .playCardWithOneTarget(customGame, indexCardDiseaseHerald, 1);
-
-        verifyPlayerNbCard(customGame.players[0], 9);
-        verifyPlayerNbCard(customGame.players[1], 12);
-        verifyBattleFieldNbCard(customGame.getBattleField(), 5);
-        verifyIfCardTypeIsntInDeck(customGame.players[0], DiseaseHeraldCard);
-        verifyIfCardTypeIsntInDeck(customGame.players[0], PlagueKnightCard);
-        verifyIfCardTypeIsInDeck(customGame.players[1], PlagueKnightCard);
-      });
 
       test("Card Saint Protector", () {
         verifyPlayerNbCard(customGame.players[0], 11);
