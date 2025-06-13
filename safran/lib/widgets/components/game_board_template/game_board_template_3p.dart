@@ -26,9 +26,9 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3P> {
       appBar: CustomHeader(),
       body: SafeArea(
         child: LayoutBuilder(builder: (context, constraints) {
-          // 1. hauteur dispo
+          // 1. height available
           final availableH = constraints.maxHeight;
-          // 2. hauteur requise après rotation
+          // 2. required height after the rotation
           const double rotatedHandH = handWidth;
           // 3. scale factor
           final double scale = min(1.0, availableH / rotatedHandH);
@@ -36,7 +36,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3P> {
           return Stack(
             clipBehavior: Clip.none,
             children: [
-              // --- Main hand en bas (inchangé) ---
+              // --- Main Hand ---
               Positioned(
                 bottom: -100,
                 left: 0,
@@ -54,7 +54,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3P> {
                 ),
               ),
 
-              // --- Discard pile (inchangé) ---
+              // --- Discard Pile ---
               DiscardPile(
                 cards: [
                   GameCardComponent(
@@ -63,7 +63,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3P> {
                 quarterTurns: 0,
               ),
 
-              // --- Adversaire Gauche ---
+              // --- Left Opponent ---
               Positioned(
                 top: 0,
                 left: -50,
@@ -78,7 +78,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3P> {
                 ),
               ),
 
-              // --- Adversaire Droite ---
+              // --- Right Opponent ---
               Positioned(
                 top: 0,
                 right: -50,
