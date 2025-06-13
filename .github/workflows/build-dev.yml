@@ -48,7 +48,7 @@ jobs:
           
       - name: Build
         run: flutter build apk
-        working-directory: safra
+        working-directory: safran
         
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5
