@@ -37,6 +37,9 @@ jobs:
       - name: Install lcov_cobertura converter
         run: pip install lcov_cobertura
 
+      - name: Normalize lcov paths
+        run: sed -i 's|SF:lib/|SF:safran/lib/|g' safran/coverage/lcov.info
+
       - name: Convert lcov to cobertura format
         run: lcov_cobertura safran/coverage/lcov.info -o safran/coverage/cobertura.xml
 
