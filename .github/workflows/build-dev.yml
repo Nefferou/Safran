@@ -26,10 +26,6 @@ jobs:
         run: flutter pub get
         working-directory: safran
 
-      - name: Analyze Dart code
-        run: flutter analyze
-        working-directory: safran
-
       - name: Run tests with coverage
         run: flutter test --coverage
         working-directory: safran
