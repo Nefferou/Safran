@@ -1,4 +1,4 @@
-class PictureCardConstant {
+class NameCardConstant {
   // Recruitment
   static const String COMMANDER = "Commandant";
   static const String GARDE = "Garde";

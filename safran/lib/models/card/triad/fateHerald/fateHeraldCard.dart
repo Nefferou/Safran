@@ -1,6 +1,10 @@
+import '../../../game.dart';
 import '../triadCard.dart';
 
 abstract class FateHeraldCard extends TriadCard{
 
-  FateHeraldCard(super.name, super.description, super.image, super.game);
+  FateHeraldCard(super.name, super.description, super.image);
+
+  @override
+  play(Game game, [List<int> targets = const [], bool activateEffect = true]);
 }

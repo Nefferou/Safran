@@ -1,17 +1,23 @@
-import '../../../player.dart';
-import '../../constant/descriptionCardConstante.dart';
-import '../../constant/nameCardConstante.dart';
+
+import '../../../game.dart';
+import '../../constant/descriptionCardConstant.dart';
+import '../../constant/nameCardConstant.dart';
 import '../../constant/pictureCardConstant.dart';
-import '../../drawPositionEnum.dart';
+import '../../draw_position_enum.dart';
 import 'mageCard.dart';
 
 class ArcanistCard extends MageCard {
-  ArcanistCard(game)
+  ArcanistCard()
       : super(NameCardConstant.ARCANIST, DescriptionCardConstant.ARCANIST,
-      PictureCardConstant.ARCANIST, game);
+      PictureCardConstant.ARCANIST);
 
-  play(Player player) {
-    game.transferCardBattleFieldToPlayer(game.battleField,
-        player, DrawPositionEnum.BOTH);
+  @override
+  play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
+    if (targets.length != 1) {
+      throw Exception("Arcanist : Invalid number of target");
+    } else if (activateEffect) {
+      game.transferCardBattleFieldToPlayer(
+          game.battleField, targets[0], DrawPositionEnum.BOTH);
+    }
   }
 }

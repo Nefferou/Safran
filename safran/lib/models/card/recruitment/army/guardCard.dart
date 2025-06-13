@@ -10,7 +10,7 @@ import '../../../game.dart';
 class GuardCard extends ArmyCard {
   GuardCard()
       : super(NameCardConstant.GARDE, DescriptionCardConstant.GARDE,
-      PictureCardConstant.GARDE);
+            PictureCardConstant.GARDE);
 
   @override
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {

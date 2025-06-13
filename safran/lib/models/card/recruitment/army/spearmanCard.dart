@@ -1,15 +1,30 @@
 import 'package:safran/models/card/recruitment/army/armyCard.dart';
+import 'package:safran/models/card/recruitment/army/swordsmanCard.dart';
 
-import '../../constant/descriptionCardConstante.dart';
-import '../../constant/nameCardConstante.dart';
+import '../../../game.dart';
+import '../../../logger.dart';
+import '../../constant/descriptionCardConstant.dart';
+import '../../constant/nameCardConstant.dart';
 import '../../constant/pictureCardConstant.dart';
 
 class SpearmanCard extends ArmyCard {
-  SpearmanCard(game)
+  SpearmanCard()
       : super(NameCardConstant.SPEARMAN, DescriptionCardConstant.SPEARMAN,
-      PictureCardConstant.SPEARMAN, game);
+            PictureCardConstant.SPEARMAN);
 
-  play() {
-    ///TODO
+  @override
+  play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
+    if (targets.isNotEmpty) {
+      throw Exception("Guard : Invalid number of target");
+    } else if (game.battleMode &&
+        game.battleField.getUpCard().runtimeType == SwordsmanCard) {
+      int playerIndex = game.getPreviousPlayerTurnIndex();
+
+      Logger.info(
+          "Player ${game.players[game.getPreviousPlayerTurnIndex()].userName} is countered by Spearman");
+      game.transferCardPlayerToBattleField(playerIndex,
+          game.players[playerIndex].discardCard(game), game.battleField);
+    }
+    game.setBattleMode(true);
   }
 }

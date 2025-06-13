@@ -1,14 +1,11 @@
-import '../../constant/descriptionCardConstante.dart';
-import '../../constant/nameCardConstante.dart';
+import '../../../game.dart';
+import '../../constant/descriptionCardConstant.dart';
+import '../../constant/nameCardConstant.dart';
 import '../../constant/pictureCardConstant.dart';
 import 'cursedKnightCard.dart';
 
 class PlagueKnightCard extends CursedKnightCard {
-  PlagueKnightCard(game)
+  PlagueKnightCard()
       : super(NameCardConstant.PLAGUEKNIGHT, DescriptionCardConstant.PLAGUEKNIGHT,
-      PictureCardConstant.PLAGUEKNIGHT, game);
-
-  play() {
-    ///TODO
-  }
+      PictureCardConstant.PLAGUEKNIGHT);
 }

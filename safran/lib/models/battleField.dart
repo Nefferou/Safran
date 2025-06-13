@@ -1,5 +1,5 @@
 import 'dart:collection';
-import 'card/card_game.dart';
+import 'card/game_card.dart';
 
 class BattleField {
   late Queue<GameCard> cards;
@@ -9,11 +9,11 @@ class BattleField {
   }
 
   takeUpCard() {
-    return cards.removeFirst();
+    return [cards.removeLast()];
   }
 
   takeDownCard() {
-    return cards.removeLast();
+    return [cards.removeFirst()];
   }
 
   takeBothCards() {
@@ -28,6 +28,10 @@ class BattleField {
 
   getCards() {
     return cards;
+  }
+
+  getUpCard() {
+    return cards.last;
   }
 
   getLength() {

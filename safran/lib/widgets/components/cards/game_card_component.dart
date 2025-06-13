@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/card/card_game.dart';
+import '../../../models/card/game_card.dart';
 
 class GameCardComponent extends StatefulWidget {
 

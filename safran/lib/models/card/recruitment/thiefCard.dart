@@ -9,7 +9,7 @@ import '../../logger.dart';
 class ThiefCard extends RecruitmentCard {
   ThiefCard()
       : super(NameCardConstant.THIELF, DescriptionCardConstant.THIELF,
-      PictureCardConstant.THIELF);
+            PictureCardConstant.THIELF);
 
   @override
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {

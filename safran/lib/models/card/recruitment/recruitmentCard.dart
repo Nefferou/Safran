@@ -1,5 +1,9 @@
-import '../card_game.dart';
+import '../../game.dart';
+import '../game_card.dart';
 
-abstract class RecruitmentCard extends GameCard{
-  RecruitmentCard(super.name, super.description, super.image, super.game);
+abstract class RecruitmentCard extends GameCard {
+  RecruitmentCard(super.name, super.description, super.image);
+
+  @override
+  play(Game game, [List<int> targets = const [], bool activateEffect = true]);
 }
