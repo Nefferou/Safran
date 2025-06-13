@@ -29,3 +29,24 @@ jobs:
       - name: Run tests with coverage
         run: flutter test --coverage
         working-directory: safran
+        
+  sonarqube:
+    name: SonarQube
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: safran
+          
+      - name: Build
+        run: flutter build apk
+        working-directory: safra
+        
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
