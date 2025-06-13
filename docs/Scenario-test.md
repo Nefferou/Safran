@@ -44,5 +44,8 @@ Si un joueur pioche le cavalier de la conquête celui ci ne doit plus rien faire
 ## Cas de test 14 : Défausser des cartes à cause du Cavalier de la famine
 Si un joueur à le cavalier de la famine il doit défausser une carte à chacun de ces tour
 
-## Cas de test 15 : Défausser des cartes à cause dU Cavalier de la guerre
+## Cas de test 15 : Défausser des cartes à cause du Cavalier de la guerre
 si un joueur défausse une carte alors le joueur avec le Cavalier de la guerre le défausse
+
+## Cas de test 16 : Défausser une carte lorsque le champ de bataille est activé
+si un joueur joue une carte armé et qu'un autre joue son contre alors le joueur précédent défausse
