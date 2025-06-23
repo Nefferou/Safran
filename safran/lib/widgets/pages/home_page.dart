@@ -21,9 +21,6 @@ class HomePage extends StatelessWidget {
       Player("Player 1"),
       Player("Player 2"),
       Player("Player 3"),
-      Player("Player 4"),
-      Player("Player 5"),
-      Player("Player 6"),
     ];
 
     Game game = Game(players);
