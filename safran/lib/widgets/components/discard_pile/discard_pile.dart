@@ -17,55 +17,53 @@ class _DiscardPileState extends State<DiscardPile> {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      child: Center(
-        child: RotatedBox(
-          quarterTurns: widget.quarterTurns,
-          child: Container(
-            width: 80,
-            height: 120,
-            decoration: BoxDecoration(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: Colors.black,
-                width: 3,
-              ),
+    return Center(
+      child: RotatedBox(
+        quarterTurns: widget.quarterTurns,
+        child: Container(
+          width: 80,
+          height: 120,
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: Colors.black,
+              width: 3,
             ),
-            child: Stack(
-                children: [
-                  RotatedBox(
-                    quarterTurns: 3,
-                    child: Center(
-                      child: Text("Discard Pile",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
+          ),
+          child: Stack(
+              children: [
+                RotatedBox(
+                  quarterTurns: 3,
+                  child: Center(
+                    child: Text("Discard Pile",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
                     ),
                   ),
-                  ...widget.cards.map(
-                        (card) => Positioned(
-                        child: GestureDetector(
-                          onTapDown: (_) => setState(() => pressedIndex = 0),
-                          onTapUp: (_) => setState(() => pressedIndex = null),
-                          onTapCancel: () => setState(() => pressedIndex = null),
-                          onTap: () {
-                            setState(() => pressedIndex = null);
-                            _showCardDialog(context, 0);
-                          },
-                          child: SizedBox(
-                            width: cardWidth,
-                            height: 120,
-                            child: widget.cards[0],
-                          ),
+                ),
+                ...widget.cards.map(
+                      (card) => Positioned(
+                      child: GestureDetector(
+                        onTapDown: (_) => setState(() => pressedIndex = 0),
+                        onTapUp: (_) => setState(() => pressedIndex = null),
+                        onTapCancel: () => setState(() => pressedIndex = null),
+                        onTap: () {
+                          setState(() => pressedIndex = null);
+                          _showCardDialog(context, 0);
+                        },
+                        child: SizedBox(
+                          width: cardWidth,
+                          height: 120,
+                          child: widget.cards[0],
                         ),
-                    ),
+                      ),
                   ),
-                ]
-            ),
+                ),
+              ]
           ),
         ),
       ),
