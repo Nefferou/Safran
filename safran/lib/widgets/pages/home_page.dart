@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:safran/widgets/components/buttons/basic_button.dart';
 import 'package:safran/widgets/components/header/custom_header.dart';
@@ -23,7 +25,7 @@ class HomePage extends StatelessWidget {
 
     Game game = Game(players);
 
-    game.setUpGame();
+    game.setUpGame(Random().nextInt(players.length));
 
     return Scaffold(
       appBar: CustomHeader(),
