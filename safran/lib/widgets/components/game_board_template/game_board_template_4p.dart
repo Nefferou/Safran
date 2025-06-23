@@ -5,6 +5,7 @@ import 'package:safran/widgets/components/hands/main_hand.dart';
 import 'package:safran/widgets/components/discard_pile/discard_pile.dart';
 import '../../../models/card/game_card.dart';
 import '../../../models/game.dart';
+import '../../pages/setings_page/settings_page.dart';
 import '../cards/game_card_component.dart';
 
 class GameBoardTemplate4P extends StatefulWidget {
@@ -34,6 +35,22 @@ class _GameBoardTemplate4PState extends State<GameBoardTemplate4P> {
           return Stack(
             clipBehavior: Clip.none,
             children: [
+              Positioned(
+                top: 0,
+                right: 0,
+                child: IconButton(
+                  icon: const Icon(Icons.settings),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation1, animation2) => SettingsPage(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+
               // --- Main Hand ---
               Positioned(
                 bottom: -100,
