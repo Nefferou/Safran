@@ -26,10 +26,6 @@ class BattleField {
     cards = Queue.from(cardsList);
   }
 
-  getCards() {
-    return cards;
-  }
-
   getUpCard() {
     return cards.last;
   }

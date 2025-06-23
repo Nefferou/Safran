@@ -21,7 +21,7 @@ void main() {
 
   setUpWithNbPlayer(List<Player> players) {
     Game game = Game(players);
-    game.setUpGame();
+    game.setUpGame(0);
 
     return game;
   }

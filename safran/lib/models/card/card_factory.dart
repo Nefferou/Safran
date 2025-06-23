@@ -29,23 +29,31 @@ import '../logger.dart';
 import 'game_card.dart';
 
 class CardFactory {
-
   Game game;
+
   CardFactory(this.game);
 
-  createDeck(int commanderCardCount, int armyCardCount, int mageCardCount, int thiefCardCount) {
+  createDeck(int commanderCardCount, int armyCardCount, int mageCardCount,
+      int thiefCardCount) {
     Logger.info("Creating deck");
     List<GameCard> deckList = [];
 
     // Check if total card count is equal to the total defined in CardCreationConstant (+ total of triad cards)
-    int totalCardCount = commanderCardCount + armyCardCount + mageCardCount + thiefCardCount + CardCreationConstant.TOTAL_TRIAD_CARDS;
+    int totalCardCount = commanderCardCount +
+        armyCardCount +
+        mageCardCount +
+        thiefCardCount +
+        CardCreationConstant.TOTAL_TRIAD_CARDS;
 
+    /*
     if(totalCardCount != CardCreationConstant.TOTAL_DECK_SIZE) {
       Logger.warning("Total card count must be ${CardCreationConstant.TOTAL_DECK_SIZE}");
       throw Exception("Total card count must be ${CardCreationConstant.TOTAL_DECK_SIZE}");
     }
+    */
 
-    deckList.addAll(createRecruitmentCards(commanderCardCount, armyCardCount, mageCardCount, thiefCardCount));
+    deckList.addAll(createRecruitmentCards(
+        commanderCardCount, armyCardCount, mageCardCount, thiefCardCount));
     deckList.addAll(createTriadCards());
 
     return deckList;
@@ -54,7 +62,7 @@ class CardFactory {
   createArmyCards(int count) {
     List<ArmyCard> armyCardsDeck = [];
 
-    for(int i = 0; i < count; i += CardCreationConstant.ARMY_GROUP_SIZE) {
+    for (int i = 0; i < count; i += CardCreationConstant.ARMY_GROUP_SIZE) {
       armyCardsDeck.addAll([
         GuardCard(),
         SwordsmanCard(),
@@ -76,27 +84,30 @@ class CardFactory {
       () => ArcanistCard(),
     ];
 
-    for(int i = 0; i < count; i += CardCreationConstant.MAGE_GROUP_SIZE) {
+    for (int i = 0; i < count; i += CardCreationConstant.MAGE_GROUP_SIZE) {
       mageCardsDeck.addAll(mageGroup.map((create) => create()));
     }
 
     return mageCardsDeck;
   }
 
-  createRecruitmentCards(int commanderCardCount, int armyCardCount, int mageCardCount, int thielfCardCount) {
+  createRecruitmentCards(int commanderCardCount, int armyCardCount,
+      int mageCardCount, int thielfCardCount) {
     List<RecruitmentCard> recruitmentCardsDeck = [];
     for (int i = 0; i < commanderCardCount; i++) {
       recruitmentCardsDeck.add(CommanderCard());
     }
 
-    if(armyCardCount % CardCreationConstant.ARMY_GROUP_SIZE != 0) {
-      throw Exception("Army card count must be a multiple of ${CardCreationConstant.ARMY_GROUP_SIZE}");
+    if (armyCardCount % CardCreationConstant.ARMY_GROUP_SIZE != 0) {
+      throw Exception(
+          "Army card count must be a multiple of ${CardCreationConstant.ARMY_GROUP_SIZE}");
     } else {
       recruitmentCardsDeck.addAll(createArmyCards(armyCardCount));
     }
 
-    if(mageCardCount % CardCreationConstant.MAGE_GROUP_SIZE != 0) {
-      throw Exception("Mage card count must be a multiple of ${CardCreationConstant.MAGE_GROUP_SIZE}");
+    if (mageCardCount % CardCreationConstant.MAGE_GROUP_SIZE != 0) {
+      throw Exception(
+          "Mage card count must be a multiple of ${CardCreationConstant.MAGE_GROUP_SIZE}");
     } else {
       recruitmentCardsDeck.addAll(createMageCards(mageCardCount));
     }
@@ -110,30 +121,30 @@ class CardFactory {
 
   createHeraldCards() {
     final constructors = [
-          () => ChaosHeraldCard(),
-          () => DiseaseHeraldCard(),
-          () => PowerHeraldCard(),
-          () => SufferingHeraldCard(),
+      () => ChaosHeraldCard(),
+      () => PowerHeraldCard(),
+      () => SufferingHeraldCard(),
+      () => DiseaseHeraldCard(),
     ];
     return constructors.map((c) => c()).toList();
   }
 
   createSaintCards() {
     final constructors = [
-          () => AbundanceSaintCard(),
-          () => HealingSaintCard(),
-          () => PeaceSaintCard(),
-          () => ProsperitySaintCard(),
+      () => PeaceSaintCard(),
+      () => ProsperitySaintCard(),
+      () => AbundanceSaintCard(),
+      () => HealingSaintCard(),
     ];
     return constructors.map((c) => c()).toList();
   }
 
   createKnightCards() {
     final constructors = [
-          () => ConquestKnightCard(),
-          () => FamineKnightCard(),
-          () => PlagueKnightCard(),
-          () => WarKnightCard(),
+      () => WarKnightCard(),
+      () => ConquestKnightCard(),
+      () => FamineKnightCard(),
+      () => PlagueKnightCard(),
     ];
     return constructors.map((c) => c()).toList();
   }

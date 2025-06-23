@@ -1,7 +1,7 @@
-import 'dart:collection';
 import 'dart:math';
 
 import 'package:safran/models/battleField.dart';
+import 'package:safran/models/card/constant/cardCreationConstant.dart';
 import 'package:safran/models/card/draw_position_enum.dart';
 import 'package:safran/models/logger.dart';
 import 'package:safran/models/player.dart';
@@ -17,6 +17,7 @@ class Game {
   late bool isInPause;
   late bool isGameOver;
   late int currentPlayerTurn;
+  late int nbCardGame;
   late BattleField battleField;
   late CardFactory cardFactory;
 
@@ -36,46 +37,68 @@ class Game {
   }
 
   // Set up game
-  setUpGame() {
+  setUpGame(int playerTurn) {
     playOrder = true;
     battleMode = false;
     isInPause = false;
     isGameOver = false;
+    currentPlayerTurn = playerTurn;
     battleField = BattleField();
     cardFactory =  CardFactory(this);
 
-    dealCards(cardFactory.createDeck(3, 21, 15, 10));
+    int nbPlayers = players.length;
+
+    nbCardGame = 61;
+    dealCards(cardFactory.createDeck(3, 21, 15, 10), true);
 
     isSetup = true;
   }
 
   // Deal cards to players and initialize battle field
-  dealCards(List<GameCard> deck) {
-    deck.shuffle();
-    int playerCount = players.length;
+  dealCards(List<GameCard> deck, bool shuffleDeck) {
 
+    // Check if the deck is empty
+    if (deck.isEmpty) {
+      throw Exception("Deck is empty");
+    }
+
+    // Check if the deck size is valid
+    if (deck.length % players.length != 1) {
+      throw Exception("Deck size must be divisible by the number of players plus one for the battle field card.");
+    }
+
+    // Check if the deck must be shuffled
+    if (shuffleDeck) {
+      deck.shuffle();
+    }
+
+    // Distribute cards to players
     while (deck.length > 1) {
-      for (int i = 0; i < playerCount; i++) {
+      for (int i = 0; i < players.length; i++) {
         players[i].deck.add(deck.removeLast());
       }
     }
 
+    // Initialize the battle field with one card
     battleField.cards.add(deck.removeLast());
 
+    // Check if the deck is empty
     if (deck.isNotEmpty) {
-      throw Exception("Deck not empty");
-    } else if (!checkIfCardIsEqualyDistributed()) {
+      throw Exception("Deck isn't empty");
+    }
+
+    // Check if cards are equally distributed
+    if (!checkIfCardIsEqualyDistributed()) {
       throw Exception("Cards not equally distributed");
     }
   }
 
   // Check if the cards are equally distributed among players
   checkIfCardIsEqualyDistributed() {
-    int playerCount = players.length;
-    int expectedCardCount = 61 ~/ playerCount;
+    double expectedCardCount = (nbCardGame - 1) / players.length;
 
-    for (int i = 0; i < playerCount; i++) {
-      if (players[i].deck.length != expectedCardCount) {
+    for (int i = 0; i < players.length; i++) {
+      if (players[i].deck.length != expectedCardCount.toInt()) {
         return false;
       }
     }
