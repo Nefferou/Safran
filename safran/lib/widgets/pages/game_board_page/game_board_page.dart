@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:safran/widgets/components/game_board_template/game_board_template_3p.dart';
 
 import '../../../models/game.dart';
+import '../../components/game_board_template/game_board_template_4p.dart';
+import '../../components/game_board_template/game_board_template_5p.dart';
+import '../../components/game_board_template/game_board_template_6p.dart';
 
 class GameBoardPage extends StatefulWidget {
 
@@ -18,7 +21,14 @@ class _GameBoardPageState extends State<GameBoardPage> {
   Widget build(BuildContext context) {
     if(widget.game.players.length == 3) {
       return GameBoardTemplate3P(game: widget.game);
-    } else {
+    } else if(widget.game.players.length == 4) {
+      return GameBoardTemplate4P(game: widget.game);
+    } else if(widget.game.players.length == 5) {
+      return GameBoardTemplate5P(game: widget.game);
+    } else if(widget.game.players.length == 6) {
+      return GameBoardTemplate6P(game: widget.game);
+    }
+    else {
       return const Center(child: Text("Not implemented yet"));
     }
   }
