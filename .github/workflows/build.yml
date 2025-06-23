@@ -19,6 +19,12 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.29.3'
+      
+      - uses: actions/cache@v3
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: ${{ runner.os }}-pub-
 
       - name: Set up Java
         uses: actions/setup-java@v3
@@ -34,17 +40,10 @@ jobs:
         run: flutter test --coverage
         working-directory: safran
 
-      - name: Install lcov_cobertura converter
-        run: pip install lcov_cobertura
-
-      - name: Normalize lcov paths
-        run: sed -i 's|SF:lib/|SF:safran/lib/|g' safran/coverage/lcov.info
-
-      - name: Install lcov2cobertura converter
-        run: pip install lcov2cobertura
-
-      - name: Convert lcov to cobertura format
-        run: lcov2cobertura safran/coverage/lcov.info -o safran/coverage/cobertura.xml
+      - name: Verify lcov report
+        run: |
+          ls -la safran/coverage
+          cat safran/coverage/lcov.info
 
       - name: Build APK
         run: flutter build apk
@@ -54,5 +53,6 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
         with:
           projectBaseDir: safran
