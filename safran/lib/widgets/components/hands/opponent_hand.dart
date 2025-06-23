@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:safran/models/card/game_card.dart';
-import 'package:safran/widgets/components/cards/game_card_component.dart';
-
-import '../cards/opponent_game_card_component.dart';
 
 class OpponentHand extends StatefulWidget {
   final List<GameCard> cards;
@@ -14,8 +11,8 @@ class OpponentHand extends StatefulWidget {
 }
 
 class _OpponentHandState extends State<OpponentHand> {
-  static const double handWidth = 80;
-  static const double handHeight = 120;
+  static const double cardWidth = 80;
+  static const double cardHeight = 120;
 
   int? pressedIndex;
 
@@ -24,15 +21,15 @@ class _OpponentHandState extends State<OpponentHand> {
     final int cardCount = widget.cards.length;
 
     return SizedBox(
-      width: handWidth,
-      height: handHeight,
+      width: cardWidth,
+      height: cardHeight,
       child: Stack(
         children: [
           Positioned(
             child: Image.asset(
               "res/assets/cards/back_card_empty.png",
-              width: handWidth,
-              height: handHeight,
+              width: cardWidth,
+              height: cardHeight,
             ),
           ),
           Positioned(
