@@ -6,6 +6,8 @@ Pour cela, vous devez conserver vos cartes le plus longtemps possible tout en ut
 
 ## 🔄 Déroulement du jeu
 
+Safran se joue de 2 à 6 joueurs.
+
 1. Toutes les cartes sont distribuées équitablement entre les joueurs, sauf une qui est placée **face visible** au centre de la table. Cette carte représente **le Champ de Bataille**.
 2. À tour de rôle, chaque joueur **joue** une carte de sa main sur la pile du **Champ de Bataille** et applique son effet si la carte en possède un.
 3. Un joueur qui **n’a plus de cartes** est immédiatement **éliminé**.
@@ -19,6 +21,8 @@ Pour cela, vous devez conserver vos cartes le plus longtemps possible tout en ut
 
 ## 🎭 Les cartes et leurs effets
 
+Le jeu contient 61 cartes au total.
+
 ### 📜 **Les cartes de recrutement**
 #### **Le Commandant** 🎖️ (x4)
 - Change le sens du jeu et mélange le **Champs de bataille**. (x4)
@@ -29,7 +33,7 @@ Ces cartes n'ont pas d'effet direct, mais lorsqu'elles sont jouées après une a
 - **Le Garde** 🛡️ : Si joué après un **Lancier**, le joueur ciblé **défausse** une carte. (x7)
 - **Lancier** 🏹 : Si joué après un **Épéiste**, le joueur ciblé **défausse** une carte. (x7)
 
-#### **Les Mages** 🧙‍♂️ (x13)
+#### **Les Mages** 🧙‍♂️ (x14)
 - **Le Géomancien** 🏔️ : Permet de **piocher** ou de faire **piocher** la carte **en dessous** du **Champ de Bataille**. (x5)
 - **L'Aéromancien** 🌪️ : Permet de **piocher** ou de faire **piocher** la carte **au-dessus** du **Champ de Bataille**. (x5)
 - **L’Arcaniste** 🔮 : Permet de **piocher** ou de faire **piocher** la carte **au-dessus** et **en dessous** du **Champ de Bataille**. (x4)

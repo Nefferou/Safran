@@ -32,10 +32,11 @@ L'application s'adresse aux :
 
 ### 2.2 Sous Traitants
 
-| Acteur                               | Rôle                                                           | Implication                                                                                                        |
-|--------------------------------------|----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
-| **DEROUET Pierre**                   | Fournisseur infrastructure et administrateur système et réseau | Hébergement du projet et en charge de la mise en place de l'infrastructure requise ainsi que de son administration |
-| **MARIN Ryan**                       | Designer UX/UI                                                 | En charge de la charte graphique ainsi que de l'interface                                                          |
+| Acteur               | Rôle                                                           | Implication                                                                                                        |
+|----------------------|----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| **DEROUET Pierre**   | Fournisseur infrastructure et administrateur système et réseau | Hébergement du projet et en charge de la mise en place de l'infrastructure requise ainsi que de son administration |
+| **MARIN Ryan**       | Designer UX/UI                                                 | En charge de la charte graphique ainsi que de l'interface                                                          |
+| **GUEDDOURA Kheira** | Designer UX/UI                                                 | En charge de l'identité visuel de l'application                                                                    |
 
 ### 2.3 Autres parties prenantes
 
