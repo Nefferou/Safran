@@ -1,15 +1,10 @@
 import 'dart:math';
-
 import 'package:safran/models/battleField.dart';
-import 'package:safran/models/card/draw_position_enum.dart';
 import 'package:safran/models/card/triad/cursedKnight/conquestKnightCard.dart';
 import 'package:safran/models/logger.dart';
 import 'package:safran/models/player.dart';
-
 import 'card/game_card.dart';
 import 'card/card_factory.dart';
-import 'card/triad/cursedKnight/famineKnightCard.dart';
-import 'card/triad/cursedKnight/plagueKnightCard.dart';
 
 class Game {
   late bool isSetup;
@@ -21,8 +16,6 @@ class Game {
   late int nbCardGame;
   late BattleField battleField;
   late CardFactory cardFactory;
-
-  bool testingMode = false;
 
   // List of players 3-6
   List<Player> players = [];
@@ -65,7 +58,7 @@ class Game {
       if (deck.length % players.length != 1 ||
           deck.length < players.length + 1) {
         throw Exception(
-            "Deck size is not valid. It must be divisible by the number of players plus one for the battle field card.");
+            "Deck size is not valid. It must be divisible by the number of players plus one for the battle field card");
       }
 
       deck.shuffle();
@@ -79,6 +72,10 @@ class Game {
 
       // Take the last card for the battle field
       battleField.cards.add(deck.removeLast());
+
+      if (!checkIfCardIsEquallyDistributed()) {
+        throw Exception("Cards are not equally distributed among players");
+      }
     } catch (e) {
       Logger.error("Error while dealing cards: $e");
       rethrow;
@@ -86,7 +83,7 @@ class Game {
   }
 
   // Check if the cards are equally distributed among players
-  checkIfCardIsEqualyDistributed() {
+  checkIfCardIsEquallyDistributed() {
     double expectedCardCount = (nbCardGame - 1) / players.length;
 
     for (int i = 0; i < players.length; i++) {
@@ -98,54 +95,60 @@ class Game {
   }
 
   // Play the game
-  play(Player player) {
-    // Choose a random player to start
-    currentPlayerTurn = Random().nextInt(players.length);
+  play([int playerTurn = -1]) {
+    // Choose a player to start or randomly select one if not specified
+    currentPlayerTurn =
+        (playerTurn == -1) ? Random().nextInt(players.length) : playerTurn;
+
     players[currentPlayerTurn].isTheirTurn = true;
     Logger.info(
         "Player ${players[currentPlayerTurn].userName} starts the game");
 
     // Start the game loop
     while (!isGameOver) {
-      // Check if the game is over
+      final currentPlayer = players[currentPlayerTurn];
+
+      // Game is over if only one player is left alive
       if (getNbPlayerAlive() <= 1) {
         isGameOver = true;
-        Logger.info("Game is over!");
+        Logger.info("Game is over! Only one player is left alive.");
+        break;
       }
 
-      // Check if player is alive
-      if (!players[currentPlayerTurn].isAlive) {
+      // Skip turn if the player is not alive
+      if (!currentPlayer.isAlive) {
         nextTurn();
         continue;
       }
 
-      // Check if player have Famine Knight Card
-      if (getCurrentPlayer().haveFamineKnightCard()) {
-        /// TODO : Player choose a card to discard
+      // Discard a card if the player has the Famine Knight card
+      if (currentPlayer.haveFamineKnightCard()) {
+        // TODO: Gérer la défausse d'une carte
       }
 
-      // Take the turn of the current player
-      getCurrentPlayer().play(this);
+      // Check if player can play a card
+      if (currentPlayer.isTheirTurn) {
+        currentPlayer.play(this);
+      }
 
-      // Check if the current player is still alive
-      if (getCurrentPlayer().deck.isEmpty) {
-        kill(getCurrentPlayer());
+      // Eliminate the player if they have no cards left
+      if (currentPlayer.deck.isEmpty) {
+        kill(currentPlayer);
       }
 
       // Set the next player to play
       nextTurn();
     }
+    Logger.info("${players[currentPlayerTurn].userName} wins !");
   }
 
   kill(Player player) {
     if (player.deck.contains(ConquestKnightCard()) && allPlayerAlive()) {
-      Logger.info(
-          "${player.userName} has no more cards, he wins by conquest!");
+      Logger.info("${player.userName} has no more cards, he wins by conquest!");
 
       /// TODO : Player win with conquest
     } else {
-      Logger.info(
-          "${player.userName} has no more cards, he is eliminated");
+      Logger.info("${player.userName} has no more cards, he is eliminated");
 
       /// TODO : Player is eliminated and all his cards are discarded
     }

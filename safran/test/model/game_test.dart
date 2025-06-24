@@ -1,8 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:safran/models/battleField.dart';
+import 'package:safran/models/card/card_factory.dart';
 import 'package:safran/models/card/game_card.dart';
 import 'package:safran/models/card/recruitment/commanderCard.dart';
 import 'package:safran/models/game.dart';
 import 'package:safran/models/player.dart';
+
+import '../utils/fake_card.dart';
+import '../utils/fake_player.dart';
 
 void main() {
   late Player playerTest1;
@@ -12,6 +17,10 @@ void main() {
   late Player playerTest5;
   late Player playerTest6;
 
+  late FakePlayer testPlayer1;
+  late FakePlayer testPlayer2;
+  late FakePlayer testPlayer3;
+
   setUp(() {
     playerTest1 = Player("PlayerTest1");
     playerTest2 = Player("PlayerTest2");
@@ -19,6 +28,10 @@ void main() {
     playerTest4 = Player("PlayerTest4");
     playerTest5 = Player("PlayerTest5");
     playerTest6 = Player("PlayerTest6");
+
+    testPlayer1 = FakePlayer("Player1");
+    testPlayer2 = FakePlayer("Player2");
+    testPlayer3 = FakePlayer("Player3");
   });
 
   setUpWithNbPlayer(List<Player> players) {
@@ -149,7 +162,16 @@ void main() {
 
     test("Game with deck size not divisible by number of players + 1", () {
       try {
-        Game game = setUpWithNbPlayer([playerTest1, playerTest2, playerTest3]);
+        // Create a game with 3 players
+        Game game = Game([playerTest1, playerTest2, playerTest3]);
+        game.playOrder = true;
+        game.battleMode = false;
+        game.isInPause = false;
+        game.isGameOver = false;
+        game.nbCardGame = 28;
+        game.currentPlayerTurn = 0;
+        game.battleField = BattleField();
+        game.cardFactory = CardFactory(game);
 
         // Create a deck for 3 players with an invalid size (27 cards)
         List<GameCard> deck = game.cardFactory.createDeck(2, 3, 5, 5);
@@ -159,13 +181,21 @@ void main() {
         fail("Exception was expected but not thrown.");
       } catch (e) {
         expect(e.toString(),
-            "Exception: Deck size is not valid. It must be divisible by the number of players plus one for the battle field card.");
+            "Exception: Deck size is not valid. It must be divisible by the number of players plus one for the battle field card");
       }
     });
-
     test("Game with empty deck", () {
       try {
-        Game game = setUpWithNbPlayer([playerTest1, playerTest2, playerTest3]);
+        // Create a game with 3 players
+        Game game = Game([playerTest1, playerTest2, playerTest3]);
+        game.playOrder = true;
+        game.battleMode = false;
+        game.isInPause = false;
+        game.isGameOver = false;
+        game.nbCardGame = 28;
+        game.currentPlayerTurn = 0;
+        game.battleField = BattleField();
+        game.cardFactory = CardFactory(game);
 
         // Create an empty deck
         List<GameCard> deck = [];
@@ -176,6 +206,89 @@ void main() {
       } catch (e) {
         expect(e.toString(), "Exception: Deck is empty");
       }
+    });
+    test("Game with card not equally distributed", () {
+      try {
+        // Add one card to one player to make the distribution unequal
+        playerTest1.deck.add(CommanderCard());
+
+        // Create a game with 3 players
+        Game game = Game([playerTest1, playerTest2, playerTest3]);
+        game.playOrder = true;
+        game.battleMode = false;
+        game.isInPause = false;
+        game.isGameOver = false;
+        game.nbCardGame = 28;
+        game.currentPlayerTurn = 0;
+        game.battleField = BattleField();
+        game.cardFactory = CardFactory(game);
+
+        // Create a deck for 3 players
+        List<GameCard> deck = game.cardFactory.createDeck(3, 3, 5, 5);
+        game.dealCards(deck);
+
+        // Fail if the exception is not thrown
+        fail("Exception was expected but not thrown.");
+      } catch (e) {
+        expect(e.toString(),
+            "Exception: Cards are not equally distributed among players");
+      }
+    });
+  });
+
+  group("Game play tests", () {
+    test("Game play order is correct", () {
+      // Play order : clockwise
+      Game game = Game([playerTest1, playerTest2, playerTest3]);
+      game.setUpGame(0);
+
+      expect(game.playOrder, true);
+      expect(game.currentPlayerTurn, 0);
+
+      // Simulate a turn change
+      game.nextTurn();
+
+      expect(game.playOrder, true);
+      expect(game.currentPlayerTurn, 1);
+
+      // Play order : counterclockwise
+      game.playOrder = false;
+
+      // Simulate a turn change
+      game.nextTurn();
+
+      expect(game.playOrder, false);
+      expect(game.currentPlayerTurn, 0);
+    });
+    test("Play game", () {
+      // All players card are dealt
+      testPlayer1.deck.addAll([FakeCard(), FakeCard()]);
+      testPlayer2.deck.addAll([FakeCard(), FakeCard(), FakeCard(), FakeCard()]);
+      testPlayer3.deck.addAll([FakeCard(), FakeCard(), FakeCard(), FakeCard(), FakeCard()]);
+
+      // Create a game with 3 players
+      Game game = Game([testPlayer1, testPlayer2, testPlayer3]);
+      game.playOrder = true;
+      game.battleMode = false;
+      game.isInPause = false;
+      game.isGameOver = false;
+      game.nbCardGame = 28;
+      game.currentPlayerTurn = 0;
+      game.battleField = BattleField();
+      game.cardFactory = CardFactory(game);
+
+      // Set up the game (Player 1 starts)
+      game.play(0);
+
+      // Game is over
+      expect(game.isGameOver, isTrue);
+
+      // Player 1 and 2 are not alive
+      expect(testPlayer1.isAlive, isFalse);
+      expect(testPlayer2.isAlive, isFalse);
+
+      // Player 3 is alive
+      expect(testPlayer3.isAlive, isTrue);
     });
   });
 }
