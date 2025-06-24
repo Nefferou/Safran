@@ -19,6 +19,8 @@ class Player {
   String userName;
   bool isAlive;
   bool isTheirTurn;
+  bool isInPause = false;
+  int timeInPause = 0;
 
   List<GameCard> deck = [];
 
@@ -118,20 +120,17 @@ class Player {
     }
   }
 
-  getName() {
-    return userName;
-  }
-
   getCard(int indexCard) {
     return deck[indexCard];
   }
 
-  getDeck() {
-    return deck;
-  }
-
   getDeckLength() {
     return deck.length;
+  }
+
+  pausePlayer() {
+    isInPause = !isInPause;
+    Logger.info("$userName in paused");
   }
 
   play(Game game) {

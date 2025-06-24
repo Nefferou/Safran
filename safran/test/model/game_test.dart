@@ -46,9 +46,9 @@ void main() {
       Game game = setUpWithNbPlayer([playerTest1, playerTest2, playerTest3]);
 
       expect(game.players.length, 3);
-      expect(game.players[0].getName(), "PlayerTest1");
-      expect(game.players[1].getName(), "PlayerTest2");
-      expect(game.players[2].getName(), "PlayerTest3");
+      expect(game.players[0].userName, "PlayerTest1");
+      expect(game.players[1].userName, "PlayerTest2");
+      expect(game.players[2].userName, "PlayerTest3");
 
       expect(game.players[0].getDeckLength(), 20);
       expect(game.players[1].getDeckLength(), 20);
@@ -63,10 +63,10 @@ void main() {
           [playerTest1, playerTest2, playerTest3, playerTest4]);
 
       expect(game.players.length, 4);
-      expect(game.players[0].getName(), "PlayerTest1");
-      expect(game.players[1].getName(), "PlayerTest2");
-      expect(game.players[2].getName(), "PlayerTest3");
-      expect(game.players[3].getName(), "PlayerTest4");
+      expect(game.players[0].userName, "PlayerTest1");
+      expect(game.players[1].userName, "PlayerTest2");
+      expect(game.players[2].userName, "PlayerTest3");
+      expect(game.players[3].userName, "PlayerTest4");
 
       expect(game.players[0].getDeckLength(), 15);
       expect(game.players[1].getDeckLength(), 15);
@@ -82,11 +82,11 @@ void main() {
           [playerTest1, playerTest2, playerTest3, playerTest4, playerTest5]);
 
       expect(game.players.length, 5);
-      expect(game.players[0].getName(), "PlayerTest1");
-      expect(game.players[1].getName(), "PlayerTest2");
-      expect(game.players[2].getName(), "PlayerTest3");
-      expect(game.players[3].getName(), "PlayerTest4");
-      expect(game.players[4].getName(), "PlayerTest5");
+      expect(game.players[0].userName, "PlayerTest1");
+      expect(game.players[1].userName, "PlayerTest2");
+      expect(game.players[2].userName, "PlayerTest3");
+      expect(game.players[3].userName, "PlayerTest4");
+      expect(game.players[4].userName, "PlayerTest5");
 
       expect(game.players[0].getDeckLength(), 12);
       expect(game.players[1].getDeckLength(), 12);
@@ -109,12 +109,12 @@ void main() {
       ]);
 
       expect(game.players.length, 6);
-      expect(game.players[0].getName(), "PlayerTest1");
-      expect(game.players[1].getName(), "PlayerTest2");
-      expect(game.players[2].getName(), "PlayerTest3");
-      expect(game.players[3].getName(), "PlayerTest4");
-      expect(game.players[4].getName(), "PlayerTest5");
-      expect(game.players[5].getName(), "PlayerTest6");
+      expect(game.players[0].userName, "PlayerTest1");
+      expect(game.players[1].userName, "PlayerTest2");
+      expect(game.players[2].userName, "PlayerTest3");
+      expect(game.players[3].userName, "PlayerTest4");
+      expect(game.players[4].userName, "PlayerTest5");
+      expect(game.players[5].userName, "PlayerTest6");
 
       expect(game.players[0].getDeckLength(), 10);
       expect(game.players[1].getDeckLength(), 10);
@@ -244,12 +244,16 @@ void main() {
 
       expect(game.playOrder, true);
       expect(game.currentPlayerTurn, 0);
+      expect(game.getPreviousPlayerTurnIndex(), 2);
+      expect(game.getNextPlayerTurnIndex(), 1);
 
       // Simulate a turn change
       game.nextTurn();
 
       expect(game.playOrder, true);
       expect(game.currentPlayerTurn, 1);
+      expect(game.getPreviousPlayerTurnIndex(), 0);
+      expect(game.getNextPlayerTurnIndex(), 2);
 
       // Play order : counterclockwise
       game.playOrder = false;
@@ -259,12 +263,49 @@ void main() {
 
       expect(game.playOrder, false);
       expect(game.currentPlayerTurn, 0);
+      expect(game.getPreviousPlayerTurnIndex(), 1);
+      expect(game.getNextPlayerTurnIndex(), 2);
     });
-    test("Play game", () {
+    test("Play game successfully", () {
       // All players card are dealt
       testPlayer1.deck.addAll([FakeCard(), FakeCard()]);
       testPlayer2.deck.addAll([FakeCard(), FakeCard(), FakeCard(), FakeCard()]);
-      testPlayer3.deck.addAll([FakeCard(), FakeCard(), FakeCard(), FakeCard(), FakeCard()]);
+      testPlayer3.deck
+          .addAll([FakeCard(), FakeCard(), FakeCard(), FakeCard(), FakeCard()]);
+
+      // Create a game with 3 players
+      Game game = Game([testPlayer1, testPlayer2, testPlayer3]);
+      game.playOrder = true;
+      game.battleMode = false;
+      game.isInPause = false;
+      game.isGameOver = false;
+      game.nbCardGame = 28;
+      game.currentPlayerTurn = 0;
+      game.battleField = BattleField();
+      game.cardFactory = CardFactory(game);
+
+      // Set up the game (Player 1 starts)
+      game.play(0);
+
+      // Game is over
+      expect(game.isGameOver, isTrue);
+
+      // Player 1 and 2 are not alive
+      expect(testPlayer1.isAlive, isFalse);
+      expect(testPlayer2.isAlive, isFalse);
+
+      // Player 3 is alive
+      expect(testPlayer3.isAlive, isTrue);
+    });
+    test("Player in pause and time out", () {
+      // All players card are dealt
+      testPlayer1.deck.addAll([FakeCard(), FakeCard()]);
+      testPlayer2.deck.addAll([FakeCard(), FakeCard(), FakeCard(), FakeCard()]);
+      testPlayer3.deck
+          .addAll([FakeCard(), FakeCard(), FakeCard(), FakeCard(), FakeCard()]);
+
+      // Player 2 is in pause
+      testPlayer2.pausePlayer();
 
       // Create a game with 3 players
       Game game = Game([testPlayer1, testPlayer2, testPlayer3]);

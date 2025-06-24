@@ -6,6 +6,7 @@ import 'package:safran/models/card/recruitment/army/archerCard.dart';
 import 'package:safran/models/logger.dart';
 
 import '../../../game.dart';
+import '../../../player.dart';
 import '../../dealer.dart';
 import '../../game_card.dart';
 
@@ -20,10 +21,10 @@ class GuardCard extends ArmyCard {
       if (game.battleMode &&
           game.battleField.getUpCard().runtimeType == ArcherCard) {
         GameCard.correctNbTargets(0, targets);
-        Logger.info(
-            "Player ${game.getPreviousPlayerTurn().userName} is countered by Guard");
-        Dealer.transferCardPlayerToBattleField(game.getPreviousPlayerTurn(),
-            game.getPreviousPlayerTurn().discardCard(game), game.battleField);
+        Player previousPlayer = game.players[game.getPreviousPlayerTurnIndex()];
+        Logger.info("Player ${previousPlayer.userName} is countered by Guard");
+        Dealer.transferCardPlayerToBattleField(
+            previousPlayer, previousPlayer.discardCard(game), game.battleField);
       }
       game.setBattleMode(true);
     } catch (e) {

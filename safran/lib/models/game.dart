@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 import 'package:safran/models/battleField.dart';
 import 'package:safran/models/card/triad/cursedKnight/conquestKnightCard.dart';
@@ -95,7 +96,7 @@ class Game {
   }
 
   // Play the game
-  play([int playerTurn = -1]) {
+  play([int playerTurn = -1]) async {
     // Choose a player to start or randomly select one if not specified
     currentPlayerTurn =
         (playerTurn == -1) ? Random().nextInt(players.length) : playerTurn;
@@ -107,6 +108,17 @@ class Game {
     // Start the game loop
     while (!isGameOver) {
       final currentPlayer = players[currentPlayerTurn];
+
+      // Pause the game if isInPause is true
+      if (currentPlayer.isInPause) {
+        sleep(Duration(seconds: 10));
+        currentPlayer.timeInPause += 10;
+        if (currentPlayer.timeInPause >= 30) {
+          kill(currentPlayer, true);
+        }
+        nextTurn();
+        continue;
+      }
 
       // Game is over if only one player is left alive
       if (getNbPlayerAlive() <= 1) {
@@ -142,17 +154,26 @@ class Game {
     Logger.info("${players[currentPlayerTurn].userName} wins !");
   }
 
-  kill(Player player) {
-    if (player.deck.contains(ConquestKnightCard()) && allPlayerAlive()) {
+  kill(Player player, [bool isTimeOut = false]) {
+    // If the player has the Conquest Knight card and all players are alive (win)
+    if (player.deck.contains(ConquestKnightCard()) &&
+        allPlayerAlive() &&
+        !isTimeOut) {
       Logger.info("${player.userName} has no more cards, he wins by conquest!");
 
       /// TODO : Player win with conquest
-    } else {
-      Logger.info("${player.userName} has no more cards, he is eliminated");
-
-      /// TODO : Player is eliminated and all his cards are discarded
     }
-    player.isAlive = false;
+    // If the player is time out 3 times, they are eliminated
+    else if (isTimeOut) {
+      Logger.info("${player.userName} is time out, he is eliminated");
+      player.discardAllCard(this);
+      player.isAlive = false;
+    }
+    // If the player has no more cards, they are eliminated
+    else {
+      Logger.info("${player.userName} has no more cards, he is eliminated");
+      player.isAlive = false;
+    }
   }
 
   // Give the turn to the next player
@@ -168,19 +189,19 @@ class Game {
   }
 
   // Get the Next / Previous / Current player index to play
-  getNextPlayerTurn() {
+  getNextPlayerTurnIndex() {
     if (playOrder) {
-      return players[(currentPlayerTurn + 1) % players.length];
+      return (currentPlayerTurn + 1) % players.length;
     } else {
-      return players[(currentPlayerTurn - 1 + players.length) % players.length];
+      return (currentPlayerTurn - 1 + players.length) % players.length;
     }
   }
 
-  Player getPreviousPlayerTurn() {
+  getPreviousPlayerTurnIndex() {
     if (playOrder) {
-      return players[(currentPlayerTurn - 1 + players.length) % players.length];
+      return (currentPlayerTurn - 1 + players.length) % players.length;
     } else {
-      return players[(currentPlayerTurn + 1) % players.length];
+      return (currentPlayerTurn + 1) % players.length;
     }
   }
 
@@ -189,25 +210,12 @@ class Game {
     playOrder = !playOrder;
   }
 
-  changePauseGame() {
-    isInPause = !isInPause;
-  }
-
   /*
   conquestWin(int playerIndex) {
     players
         .where((player) => player != players[playerIndex])
         .forEach((player) => player.kill());
   }*/
-
-  allPlayerAlive() {
-    return players.every((player) => player.isAlive);
-  }
-
-  // Setters and Getters
-  getBattleField() {
-    return battleField;
-  }
 
   getNbPlayerAlive() {
     int count = 0;

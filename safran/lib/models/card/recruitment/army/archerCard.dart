@@ -3,6 +3,7 @@ import 'package:safran/models/card/recruitment/army/swordsmanCard.dart';
 
 import '../../../game.dart';
 import '../../../logger.dart';
+import '../../../player.dart';
 import '../../constant/descriptionCardConstant.dart';
 import '../../constant/nameCardConstant.dart';
 import '../../constant/pictureCardConstant.dart';
@@ -18,16 +19,12 @@ class ArcherCard extends ArmyCard {
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
     try {
       if (game.battleMode &&
-          game.battleField
-              .getUpCard()
-              .runtimeType == SwordsmanCard) {
+          game.battleField.getUpCard().runtimeType == SwordsmanCard) {
         GameCard.correctNbTargets(0, targets);
-        Logger.info(
-            "Player ${game
-                .getPreviousPlayerTurn()
-                .userName} is countered by Guard");
-        Dealer.transferCardPlayerToBattleField(game.getPreviousPlayerTurn(),
-            game.getPreviousPlayerTurn().discardCard(game), game.battleField);
+        Player previousPlayer = game.players[game.getPreviousPlayerTurnIndex()];
+        Logger.info("Player ${previousPlayer.userName} is countered by Guard");
+        Dealer.transferCardPlayerToBattleField(
+            previousPlayer, previousPlayer.discardCard(game), game.battleField);
       }
       game.setBattleMode(true);
     } catch (e) {
