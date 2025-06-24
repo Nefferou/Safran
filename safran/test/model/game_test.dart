@@ -159,7 +159,7 @@ void main() {
         fail("Exception was expected but not thrown.");
       } catch (e) {
         expect(e.toString(),
-            "Exception: Deck size must be divisible by the number of players plus one for the battle field card.");
+            "Exception: Deck size is not valid. It must be divisible by the number of players plus one for the battle field card.");
       }
     });
 
