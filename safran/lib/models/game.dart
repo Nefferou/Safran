@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:safran/models/battleField.dart';
-import 'package:safran/models/card/constant/cardCreationConstant.dart';
 import 'package:safran/models/card/draw_position_enum.dart';
 import 'package:safran/models/logger.dart';
 import 'package:safran/models/player.dart';
@@ -46,50 +45,36 @@ class Game {
     battleField = BattleField();
     cardFactory =  CardFactory(this);
 
-    int nbPlayers = players.length;
-
     nbCardGame = 61;
-    dealCards(cardFactory.createDeck(3, 21, 15, 10), true);
+    dealCards(cardFactory.createDeck(3, 21, 15, 10));
 
     isSetup = true;
   }
 
   // Deal cards to players and initialize battle field
-  dealCards(List<GameCard> deck, bool shuffleDeck) {
-
-    // Check if the deck is empty
-    if (deck.isEmpty) {
-      throw Exception("Deck is empty");
-    }
-
-    // Check if the deck size is valid
-    if (deck.length % players.length != 1) {
-      throw Exception("Deck size must be divisible by the number of players plus one for the battle field card.");
-    }
-
-    // Check if the deck must be shuffled
-    if (shuffleDeck) {
-      deck.shuffle();
-    }
-
-    // Distribute cards to players
-    while (deck.length > 1) {
-      for (int i = 0; i < players.length; i++) {
-        players[i].deck.add(deck.removeLast());
+  dealCards(List<GameCard> deck) {
+    try {
+      // Check if the deck is empty
+      if (deck.isEmpty) {
+        throw Exception("Deck is empty");
       }
-    }
 
-    // Initialize the battle field with one card
-    battleField.cards.add(deck.removeLast());
+      // Check if the deck size is valid
+      if (deck.length % players.length != 1) {
+        throw Exception("Deck size must be divisible by the number of players plus one for the battle field card.");
+      }
 
-    // Check if the deck is empty
-    if (deck.isNotEmpty) {
-      throw Exception("Deck isn't empty");
-    }
+      deck.shuffle();
 
-    // Check if cards are equally distributed
-    if (!checkIfCardIsEqualyDistributed()) {
-      throw Exception("Cards not equally distributed");
+      // Distribute cards to players
+      while (deck.length > 1) {
+        for (int i = 0; i < players.length; i++) {
+          players[i].deck.add(deck.removeLast());
+        }
+      }
+    } catch (e) {
+      Logger.error("Error while dealing cards: $e");
+      rethrow;
     }
   }
 
