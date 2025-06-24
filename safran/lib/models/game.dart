@@ -2,11 +2,13 @@ import 'dart:math';
 
 import 'package:safran/models/battleField.dart';
 import 'package:safran/models/card/draw_position_enum.dart';
+import 'package:safran/models/card/triad/cursedKnight/conquestKnightCard.dart';
 import 'package:safran/models/logger.dart';
 import 'package:safran/models/player.dart';
 
 import 'card/game_card.dart';
 import 'card/card_factory.dart';
+import 'card/triad/cursedKnight/famineKnightCard.dart';
 import 'card/triad/cursedKnight/plagueKnightCard.dart';
 
 class Game {
@@ -60,8 +62,10 @@ class Game {
       }
 
       // Check if the deck size is valid
-      if (deck.length % players.length != 1 || deck.length < players.length + 1) {
-        throw Exception("Deck size is not valid. It must be divisible by the number of players plus one for the battle field card.");
+      if (deck.length % players.length != 1 ||
+          deck.length < players.length + 1) {
+        throw Exception(
+            "Deck size is not valid. It must be divisible by the number of players plus one for the battle field card.");
       }
 
       deck.shuffle();
@@ -75,7 +79,6 @@ class Game {
 
       // Take the last card for the battle field
       battleField.cards.add(deck.removeLast());
-
     } catch (e) {
       Logger.error("Error while dealing cards: $e");
       rethrow;
@@ -98,7 +101,9 @@ class Game {
   play(Player player) {
     // Choose a random player to start
     currentPlayerTurn = Random().nextInt(players.length);
-    Logger.info("Player ${players[currentPlayerTurn].userName} starts the game");
+    players[currentPlayerTurn].isTheirTurn = true;
+    Logger.info(
+        "Player ${players[currentPlayerTurn].userName} starts the game");
 
     // Start the game loop
     while (!isGameOver) {
@@ -108,103 +113,72 @@ class Game {
         Logger.info("Game is over!");
       }
 
+      // Check if player is alive
+      if (!players[currentPlayerTurn].isAlive) {
+        nextTurn();
+        continue;
+      }
+
+      // Check if player have Famine Knight Card
+      if (getCurrentPlayer().haveFamineKnightCard()) {
+        /// TODO : Player choose a card to discard
+      }
+
       // Take the turn of the current player
-      players[currentPlayerTurn].takeTurn(this);
+      getCurrentPlayer().play(this);
+
+      // Check if the current player is still alive
+      if (getCurrentPlayer().deck.isEmpty) {
+        kill(getCurrentPlayer());
+      }
 
       // Set the next player to play
       nextTurn();
     }
   }
 
+  kill(Player player) {
+    if (player.deck.contains(ConquestKnightCard()) && allPlayerAlive()) {
+      Logger.info(
+          "${player.userName} has no more cards, he wins by conquest!");
+
+      /// TODO : Player win with conquest
+    } else {
+      Logger.info(
+          "${player.userName} has no more cards, he is eliminated");
+
+      /// TODO : Player is eliminated and all his cards are discarded
+    }
+    player.isAlive = false;
+  }
+
   // Give the turn to the next player
   nextTurn() {
+    players[currentPlayerTurn].isTheirTurn = false;
     if (playOrder) {
       currentPlayerTurn = (currentPlayerTurn + 1) % players.length;
     } else {
-      currentPlayerTurn = (currentPlayerTurn - 1 + players.length) % players.length;
+      currentPlayerTurn =
+          (currentPlayerTurn - 1 + players.length) % players.length;
     }
+    players[currentPlayerTurn].isTheirTurn = true;
   }
 
   // Get the Next / Previous / Current player index to play
-  getNextPlayerTurnIndex() {
-    if(playOrder) {
-      return (currentPlayerTurn + 1) % players.length;
-    } else {
-      return (currentPlayerTurn - 1 + players.length) % players.length;
-    }
-  }
-
-  getPreviousPlayerTurnIndex() {
+  getNextPlayerTurn() {
     if (playOrder) {
-      return (currentPlayerTurn - 1 + players.length) % players.length;
+      return players[(currentPlayerTurn + 1) % players.length];
     } else {
-      return (currentPlayerTurn + 1) % players.length;
+      return players[(currentPlayerTurn - 1 + players.length) % players.length];
     }
   }
 
-  getCurrentPlayerTurnIndex() {
-    return currentPlayerTurn;
-  }
-
-  // Take Card from player or battle field
-  takeCardToPlayer(Player player, int indexCard) {
-    GameCard takenCard = player.takeCard(indexCard, this);
-    return takenCard;
-  }
-
-  takeRandomCardToPlayer(Player player) {
-    GameCard takenCard = player.takeRandomCard(this);
-    return takenCard;
-  }
-
-  takeCardToBattleField(BattleField battleField, DrawPositionEnum drawPosition) {
-    switch (drawPosition) {
-      case DrawPositionEnum.TOP:
-        return battleField.takeUpCard();
-      case DrawPositionEnum.BOTTOM:
-        return battleField.takeDownCard();
-      case DrawPositionEnum.BOTH:
-        return battleField.takeBothCards();
-    }
-  }
-
-  // Give Card to player or battle field
-  giveCardToPlayer(Player player, List<GameCard> cards) {
-    player.deck.addAll(cards);
-  }
-
-  giveCardToBattleField(BattleField battleField, List<GameCard> cards) {
-    battleField.cards.addAll(cards);
-  }
-
-  // Transfer Card from ... to ... (Take and Give)
-  transferCardPlayerToBattleField(int player, int indexCard, BattleField battleField) {
-    GameCard card = takeCardToPlayer(players[player], indexCard);
-    giveCardToBattleField(battleField, [card]);
-    Logger.info("Player ${players[player].userName} discard");
-  }
-
-  transferCardPlayerToPlayer(int player1, int indexCard, int player2,
-      {bool canBeKill = true}) {
-    GameCard cards;
-    if(indexCard == -1) {
-      cards = takeRandomCardToPlayer(players[player1]);
+  Player getPreviousPlayerTurn() {
+    if (playOrder) {
+      return players[(currentPlayerTurn - 1 + players.length) % players.length];
     } else {
-      cards = takeCardToPlayer(players[player1], indexCard);
+      return players[(currentPlayerTurn + 1) % players.length];
     }
-
-    if(cards.runtimeType == PlagueKnightCard && canBeKill) {
-      players[player1].discardAllCard(this, player1);
-    }
-
-    giveCardToPlayer(players[player2], [cards]);
-    Logger.info("Player ${players[player2].userName} from player ${players[player1].userName}");
-  }
-
-  transferCardBattleFieldToPlayer(BattleField battleField, int player, DrawPositionEnum drawPosition) {
-    List<GameCard> cards = takeCardToBattleField(battleField, drawPosition);
-    giveCardToPlayer(players[player], cards);
-    Logger.info("Player ${players[player].userName} draw ${cards.length} card(s)");
   }
 
   // Change state of the game
@@ -216,11 +190,12 @@ class Game {
     isInPause = !isInPause;
   }
 
+  /*
   conquestWin(int playerIndex) {
     players
         .where((player) => player != players[playerIndex])
-        .forEach((player) => player.kill(this));
-  }
+        .forEach((player) => player.kill());
+  }*/
 
   allPlayerAlive() {
     return players.every((player) => player.isAlive);

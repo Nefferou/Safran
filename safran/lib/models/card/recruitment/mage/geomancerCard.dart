@@ -1,8 +1,11 @@
 import '../../../game.dart';
+import '../../../logger.dart';
 import '../../constant/descriptionCardConstant.dart';
 import '../../constant/nameCardConstant.dart';
 import '../../constant/pictureCardConstant.dart';
+import '../../dealer.dart';
 import '../../draw_position_enum.dart';
+import '../../game_card.dart';
 import 'mageCard.dart';
 
 class GeomancerCard extends MageCard {
@@ -12,11 +15,13 @@ class GeomancerCard extends MageCard {
 
   @override
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
-    if (targets.length != 1) {
-      throw Exception("Geomancer : Invalid number of target");
-    } else if (activateEffect) {
-      game.transferCardBattleFieldToPlayer(
-          game.battleField, targets[0], DrawPositionEnum.BOTTOM);
+    try {
+      GameCard.correctNbTargets(1, targets);
+      Dealer.transferCardBattleFieldToPlayer(
+          game.battleField, game.players[targets[0]], DrawPositionEnum.bottom);
+    } catch (e) {
+      Logger.error("Error while playing Geomancer: $e");
+      rethrow;
     }
   }
 }

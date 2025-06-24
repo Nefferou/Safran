@@ -1,5 +1,5 @@
 enum DrawPositionEnum {
-  TOP,
-  BOTTOM,
-  BOTH
+  top,
+  bottom,
+  both
 }

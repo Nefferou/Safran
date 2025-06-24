@@ -1,7 +1,7 @@
 import 'package:safran/models/card/constant/cardCreationConstant.dart';
 import 'package:safran/models/card/recruitment/army/armyCard.dart';
 import 'package:safran/models/card/recruitment/army/guardCard.dart';
-import 'package:safran/models/card/recruitment/army/spearmanCard.dart';
+import 'package:safran/models/card/recruitment/army/archerCard.dart';
 import 'package:safran/models/card/recruitment/army/swordsmanCard.dart';
 import 'package:safran/models/card/recruitment/commanderCard.dart';
 import 'package:safran/models/card/recruitment/mage/aeromancerCard.dart';
@@ -66,7 +66,7 @@ class CardFactory {
       armyCardsDeck.addAll([
         GuardCard(),
         SwordsmanCard(),
-        SpearmanCard(),
+        ArcherCard(),
       ]);
     }
 

@@ -12,7 +12,7 @@ class ConquestKnightCard extends CursedKnightCard {
   @override
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
     if (game.getCurrentPlayer().deck.length == 1 && game.allPlayerAlive()) {
-      game.conquestWin(game.getCurrentPlayerIndex());
+      //game.conquestWin(game.getCurrentPlayerIndex());
     }
   }
 }

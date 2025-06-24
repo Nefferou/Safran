@@ -1,8 +1,7 @@
 import 'package:safran/models/battleField.dart';
 import 'package:safran/models/card/card_factory.dart';
-import 'package:safran/models/card/game_card.dart';
-import 'package:safran/models/card/recruitment/army/gardCard.dart';
-import 'package:safran/models/card/recruitment/army/spearmanCard.dart';
+import 'package:safran/models/card/recruitment/army/archerCard.dart';
+import 'package:safran/models/card/recruitment/army/guardCard.dart';
 import 'package:safran/models/card/recruitment/army/swordsmanCard.dart';
 import 'package:safran/models/card/recruitment/commanderCard.dart';
 import 'package:safran/models/card/recruitment/mage/aeromancerCard.dart';
@@ -46,7 +45,7 @@ class PresetUtil {
     player1.deck.addAll([
       CommanderCard(),
       GuardCard(),
-      SpearmanCard(),
+      ArcherCard(),
       SwordsmanCard(),
       GeomancerCard(),
       AeromancerCard(),
@@ -60,7 +59,7 @@ class PresetUtil {
     player2.deck.addAll([
       CommanderCard(),
       GuardCard(),
-      SpearmanCard(),
+      ArcherCard(),
       SwordsmanCard(),
       GeomancerCard(),
       AeromancerCard(),
@@ -74,7 +73,7 @@ class PresetUtil {
     player3.deck.addAll([
       CommanderCard(),
       GuardCard(),
-      SpearmanCard(),
+      ArcherCard(),
       SwordsmanCard(),
       GeomancerCard(),
       AeromancerCard(),
@@ -88,7 +87,7 @@ class PresetUtil {
     player4.deck.addAll([
       CommanderCard(),
       GuardCard(),
-      SpearmanCard(),
+      ArcherCard(),
       SwordsmanCard(),
       GeomancerCard(),
       AeromancerCard(),
@@ -102,7 +101,7 @@ class PresetUtil {
     battleField.cards.addAll([
       CommanderCard(),
       GuardCard(),
-      SpearmanCard(),
+      ArcherCard(),
       SwordsmanCard()
     ]);
 

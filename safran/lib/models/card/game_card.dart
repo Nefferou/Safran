@@ -16,4 +16,10 @@ abstract class GameCard {
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
     // Default implementation does nothing
   }
+
+  static correctNbTargets(int nbTargets, List<int> targets) {
+    if (nbTargets != targets.length) {
+      throw Exception("Invalid number of targets: $nbTargets. Expected: ${targets.length}");
+    }
+  }
 }

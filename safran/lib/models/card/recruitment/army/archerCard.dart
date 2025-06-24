@@ -1,5 +1,5 @@
 import 'package:safran/models/card/recruitment/army/armyCard.dart';
-import 'package:safran/models/card/recruitment/army/guardCard.dart';
+import 'package:safran/models/card/recruitment/army/swordsmanCard.dart';
 
 import '../../../game.dart';
 import '../../../logger.dart';
@@ -9,10 +9,10 @@ import '../../constant/pictureCardConstant.dart';
 import '../../dealer.dart';
 import '../../game_card.dart';
 
-class SwordsmanCard extends ArmyCard {
-  SwordsmanCard()
-      : super(NameCardConstant.SWORSDMAN, DescriptionCardConstant.SWORSDMAN,
-            PictureCardConstant.SWORSDMAN);
+class ArcherCard extends ArmyCard {
+  ArcherCard()
+      : super(NameCardConstant.SPEARMAN, DescriptionCardConstant.SPEARMAN,
+            PictureCardConstant.SPEARMAN);
 
   @override
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
@@ -20,7 +20,7 @@ class SwordsmanCard extends ArmyCard {
       if (game.battleMode &&
           game.battleField
               .getUpCard()
-              .runtimeType == GuardCard) {
+              .runtimeType == SwordsmanCard) {
         GameCard.correctNbTargets(0, targets);
         Logger.info(
             "Player ${game
@@ -31,7 +31,7 @@ class SwordsmanCard extends ArmyCard {
       }
       game.setBattleMode(true);
     } catch (e) {
-      Logger.error("Error while playing SwordsmanCard: $e");
+      Logger.error("Error while playing SpearmanCard: $e");
       rethrow;
     }
   }

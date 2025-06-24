@@ -1,8 +1,11 @@
+import 'package:safran/models/card/dealer.dart';
 import 'package:safran/models/card/draw_position_enum.dart';
 import '../../../game.dart';
+import '../../../logger.dart';
 import '../../constant/descriptionCardConstant.dart';
 import '../../constant/nameCardConstant.dart';
 import '../../constant/pictureCardConstant.dart';
+import '../../game_card.dart';
 import 'mageCard.dart';
 
 class AeromancerCard extends MageCard {
@@ -12,11 +15,13 @@ class AeromancerCard extends MageCard {
 
   @override
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
-    if (targets.length != 1) {
-      throw Exception("Aeromancer : Invalid number of target");
-    } else if (activateEffect) {
-      game.transferCardBattleFieldToPlayer(
-          game.battleField, targets[0], DrawPositionEnum.TOP);
+    try {
+      GameCard.correctNbTargets(1, targets);
+      Dealer.transferCardBattleFieldToPlayer(
+          game.battleField, game.players[targets[0]], DrawPositionEnum.top);
+    } catch (e) {
+      Logger.error("Error while playing Aeromancer: $e");
+      rethrow;
     }
   }
 }

@@ -1,9 +1,12 @@
+import 'package:safran/models/card/dealer.dart';
 import 'package:safran/models/card/triad/cursedKnight/warKnightCard.dart';
 
 import '../../../game.dart';
+import '../../../logger.dart';
 import '../../constant/descriptionCardConstant.dart';
 import '../../constant/nameCardConstant.dart';
 import '../../constant/pictureCardConstant.dart';
+import '../../game_card.dart';
 import 'fateHeraldCard.dart';
 
 class ChaosHeraldCard extends FateHeraldCard {
@@ -13,16 +16,18 @@ class ChaosHeraldCard extends FateHeraldCard {
 
   @override
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
-    if (activateEffect &&
-        game.getCurrentPlayer().haveCardTypeInDeck(WarKnightCard)) {
-      if (targets.length != 1) {
-        throw Exception("ChaosHerald : Invalid number of target");
-      } else {
-        game.transferCardPlayerToPlayer(
-            game.getCurrentPlayerIndex(),
+    try {
+      GameCard.correctNbTargets(1, targets);
+      if (activateEffect &&
+          game.getCurrentPlayer().haveCardTypeInDeck(WarKnightCard)) {
+        Dealer.transferCardPlayerToPlayer(
+            game.getCurrentPlayer(),
             game.getCurrentPlayer().getIndexCardInDeck(WarKnightCard),
-            targets[0]);
+            game.players[targets[0]]);
       }
+    } catch (e) {
+      Logger.error("Error while playing ChaosHeraldCard: $e");
+      rethrow;
     }
   }
 }

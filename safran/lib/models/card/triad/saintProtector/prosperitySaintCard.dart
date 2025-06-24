@@ -2,9 +2,12 @@ import 'package:safran/models/card/triad/cursedKnight/conquestKnightCard.dart';
 import 'package:safran/models/card/triad/saintProtector/saintProtectorCard.dart';
 
 import '../../../game.dart';
+import '../../../logger.dart';
 import '../../constant/descriptionCardConstant.dart';
 import '../../constant/nameCardConstant.dart';
 import '../../constant/pictureCardConstant.dart';
+import '../../dealer.dart';
+import '../../game_card.dart';
 
 class ProsperitySaintCard extends SaintProtectorCard{
   ProsperitySaintCard()
@@ -13,16 +16,18 @@ class ProsperitySaintCard extends SaintProtectorCard{
 
   @override
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
-    if (activateEffect &&
-        game.getCurrentPlayer().haveCardTypeInDeck(ConquestKnightCard)) {
-      if (targets.isEmpty) {
-        throw Exception("ProsperitySaint : Invalid number of target");
-      } else {
-        game.transferCardPlayerToBattleField(
-            game.getCurrentPlayerIndex(),
+    try {
+      if (activateEffect &&
+          game.getCurrentPlayer().haveCardTypeInDeck(ConquestKnightCard)) {
+        GameCard.correctNbTargets(0, targets);
+        Dealer.transferCardPlayerToBattleField(
+            game.getCurrentPlayer(),
             game.getCurrentPlayer().getIndexCardInDeck(ConquestKnightCard),
             game.getBattleField());
       }
+    } catch (e) {
+      Logger.error("Error while playing ProsperitySaintCard: $e");
+      rethrow;
     }
   }
 }
