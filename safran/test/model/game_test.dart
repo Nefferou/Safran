@@ -1,4 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:safran/models/card/game_card.dart';
+import 'package:safran/models/card/recruitment/commanderCard.dart';
 import 'package:safran/models/game.dart';
 import 'package:safran/models/player.dart';
 
@@ -116,7 +118,9 @@ void main() {
     test("Game is not setup with less than 3 players", () {
       try {
         Game game = setUpWithNbPlayer([playerTest1, playerTest2]);
-        game.getNbPlayerAlive();
+
+        // Fail if the exception is not thrown
+        fail("Exception was expected but not thrown.");
       } catch (e) {
         expect(e.toString(),
             "Exception: Invalid number of players (3-6), Actual: 2");
@@ -134,10 +138,43 @@ void main() {
           playerTest6,
           playerTest6
         ]);
-        game.getNbPlayerAlive();
+
+        // Fail if the exception is not thrown
+        fail("Exception was expected but not thrown.");
       } catch (e) {
         expect(e.toString(),
             "Exception: Invalid number of players (3-6), Actual: 8");
+      }
+    });
+
+    test("Game with deck size not divisible by number of players + 1", () {
+      try {
+        Game game = setUpWithNbPlayer([playerTest1, playerTest2, playerTest3]);
+
+        // Create a deck for 3 players with an invalid size (27 cards)
+        List<GameCard> deck = game.cardFactory.createDeck(2, 3, 5, 5);
+        game.dealCards(deck);
+
+        // Fail if the exception is not thrown
+        fail("Exception was expected but not thrown.");
+      } catch (e) {
+        expect(e.toString(),
+            "Exception: Deck size must be divisible by the number of players plus one for the battle field card.");
+      }
+    });
+
+    test("Game with empty deck", () {
+      try {
+        Game game = setUpWithNbPlayer([playerTest1, playerTest2, playerTest3]);
+
+        // Create an empty deck
+        List<GameCard> deck = [];
+        game.dealCards(deck);
+
+        // Fail if the exception is not thrown
+        fail("Exception was expected but not thrown.");
+      } catch (e) {
+        expect(e.toString(), "Exception: Deck is empty");
       }
     });
   });

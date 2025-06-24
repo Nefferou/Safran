@@ -43,7 +43,7 @@ class Game {
     isGameOver = false;
     currentPlayerTurn = playerTurn;
     battleField = BattleField();
-    cardFactory =  CardFactory(this);
+    cardFactory = CardFactory(this);
 
     nbCardGame = 61;
     dealCards(cardFactory.createDeck(3, 21, 15, 10));
@@ -60,8 +60,8 @@ class Game {
       }
 
       // Check if the deck size is valid
-      if (deck.length % players.length != 1) {
-        throw Exception("Deck size must be divisible by the number of players plus one for the battle field card.");
+      if (deck.length % players.length != 1 || deck.length < players.length + 1) {
+        throw Exception("Deck size is not valid. It must be divisible by the number of players plus one for the battle field card.");
       }
 
       deck.shuffle();
@@ -72,6 +72,10 @@ class Game {
           players[i].deck.add(deck.removeLast());
         }
       }
+
+      // Take the last card for the battle field
+      battleField.cards.add(deck.removeLast());
+
     } catch (e) {
       Logger.error("Error while dealing cards: $e");
       rethrow;
