@@ -111,4 +111,41 @@ class PresetUtil {
 
     return game;
   }
+
+  static Game presetCanPlayKgniht() {
+    Player player1 = Player("Player1");
+    Player player2 = Player("Player2");
+    Player player3 = Player("Player3");
+    BattleField battleField = BattleField();
+
+    player1.deck.addAll([
+      WarKnightCard(),
+      PlagueKnightCard()
+    ]);
+
+    player2.deck.addAll([
+      CommanderCard(),
+      GuardCard(),
+      FamineKnightCard()
+    ]);
+
+    player3.deck.addAll([
+      CommanderCard(),
+      GuardCard(),
+      ArcherCard(),
+    ]);
+
+    battleField.cards.addAll([
+      CommanderCard(),
+      GuardCard(),
+      ArcherCard(),
+      SwordsmanCard()
+    ]);
+
+    Game game = Game([player1, player2, player3]);
+    game.battleField = battleField;
+    setUpGame(game);
+
+    return game;
+  }
 }

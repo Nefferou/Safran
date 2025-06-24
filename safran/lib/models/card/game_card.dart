@@ -13,6 +13,10 @@ abstract class GameCard {
     return "[$name]";
   }
 
+  canBePlayed(Game game) {
+    return true;
+  }
+
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
     // Default implementation does nothing
   }
