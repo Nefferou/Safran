@@ -81,7 +81,7 @@ class Player {
     Logger.info("$userName play ${getCard(indexCard).name}");
 
     // Player chooses two target players
-    Logger.info("${game.getPlayer(target1).userName} draw a card from ${game.getPlayer(target2).userName}");
+    Logger.info("${game.players[target1].userName} draw a card from ${game.players[target2].userName}");
     getCard(indexCard).play(game, [target1, target2]);
 
     // Discard the card played

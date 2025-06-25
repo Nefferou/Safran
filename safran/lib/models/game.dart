@@ -18,6 +18,8 @@ class Game {
   late BattleField battleField;
   late CardFactory cardFactory;
 
+  String winCondition = "No win condition set";
+
   // List of players 3-6
   List<Player> players = [];
 
@@ -123,7 +125,8 @@ class Game {
       // Game is over if only one player is left alive
       if (getNbPlayerAlive() <= 1) {
         isGameOver = true;
-        Logger.info("Game is over! Only one player is left alive.");
+        Logger.info("Game is over!");
+        winCondition = "Only one player is left alive";
         break;
       }
 
@@ -135,7 +138,7 @@ class Game {
 
       // Discard a card if the player has the Famine Knight card
       if (currentPlayer.haveFamineKnightCard()) {
-        // TODO: Gérer la défausse d'une carte
+        currentPlayer.discardCard(this);
       }
 
       // Check if player can play a card
@@ -151,7 +154,7 @@ class Game {
       // Set the next player to play
       nextTurn();
     }
-    Logger.info("${players[currentPlayerTurn].userName} wins !");
+    Logger.info("${players[currentPlayerTurn].userName} wins ! $winCondition");
   }
 
   kill(Player player, [bool isTimeOut = false]) {
@@ -161,7 +164,13 @@ class Game {
         !isTimeOut) {
       Logger.info("${player.userName} has no more cards, he wins by conquest!");
 
-      /// TODO : Player win with conquest
+      for (player in getOtherAlivePlayers()) {
+        player.discardAllCard(this);
+        player.isAlive = false;
+      }
+
+      isGameOver = true;
+      winCondition = "Wins by conquest";
     }
     // If the player is time out 3 times, they are eliminated
     else if (isTimeOut) {
@@ -210,13 +219,6 @@ class Game {
     playOrder = !playOrder;
   }
 
-  /*
-  conquestWin(int playerIndex) {
-    players
-        .where((player) => player != players[playerIndex])
-        .forEach((player) => player.kill());
-  }*/
-
   getNbPlayerAlive() {
     int count = 0;
     for (int i = 0; i < players.length; i++) {
@@ -225,6 +227,16 @@ class Game {
       }
     }
     return count;
+  }
+
+  allPlayerAlive() {
+    return players.every((player) => player.isAlive);
+  }
+
+  List<Player> getOtherAlivePlayers() {
+    return players.where((player) =>
+    player.isAlive && player != players[currentPlayerTurn]
+    ).toList();
   }
 
   getPlayerWithWarKnight() {
@@ -240,21 +252,5 @@ class Game {
 
   Player getCurrentPlayer() {
     return players[currentPlayerTurn];
-  }
-
-  getCurrentPlayerIndex() {
-    return currentPlayerTurn;
-  }
-
-  getPlayer(int index) {
-    return players[index];
-  }
-
-  setBattleMode(bool battleMode) {
-    this.battleMode = battleMode;
-  }
-
-  setFactory(CardFactory cardFactory) {
-    this.cardFactory = cardFactory;
   }
 }
