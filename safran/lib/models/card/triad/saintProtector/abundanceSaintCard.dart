@@ -25,7 +25,7 @@ class AbundanceSaintCard extends SaintProtectorCard {
         Dealer.transferCardPlayerToBattleField(
             game.getCurrentPlayer(),
             game.getCurrentPlayer().getIndexCardInDeck(FamineKnightCard),
-            game.getBattleField());
+            game.battleField);
       }
     } catch (e) {
       Logger.error("Error while playing AbundanceSaintCard: $e");

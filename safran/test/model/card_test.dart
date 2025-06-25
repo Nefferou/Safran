@@ -28,7 +28,7 @@ void main() {
       expect(customGame.players[2].getDeckLength(), 11);
       expect(customGame.players[3].getDeckLength(), 11);
 
-      expect(customGame.getBattleField().getLength(), 4);
+      expect(customGame.battleField.getLength(), 4);
 
       expect(customGame.isSetup, true);
     });
@@ -38,23 +38,23 @@ void main() {
     group("Card Recruitment", () {
       test("Card Commander", () {
         CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 4);
+        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
         CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[0], CommanderCard);
 
         int indexCardCommander =
             CardsVerifier.getIndexCardByType(customGame.players[0], CommanderCard);
 
         Queue<GameCard> battleFieldBeforeShuffle =
-            customGame.getBattleField().cards;
+            customGame.battleField.cards;
         customGame.getCurrentPlayer().playCard(customGame, indexCardCommander);
         Queue<GameCard> battleFieldAfterShuffle =
-            customGame.getBattleField().cards;
+            customGame.battleField.cards;
 
         expect(
             battleFieldBeforeShuffle, isNot(equals(battleFieldAfterShuffle)));
 
         CardsVerifier.verifyPlayerNbCard(customGame.players[0], 10);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 5);
+        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 5);
         CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[0], CommanderCard);
       });
 /*
@@ -62,7 +62,7 @@ void main() {
         test("Card Guard (Counter OK)", () {
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 4);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[0], SpearmanCard);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[1], GuardCard);
 
@@ -82,7 +82,7 @@ void main() {
 
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 9);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 10);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 7);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 7);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[0], SpearmanCard);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[0], CommanderCard);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[1], GuardCard);
@@ -91,7 +91,7 @@ void main() {
         test("Card Guard (Counter KO)", () {
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 4);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[0], SwordsmanCard);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[1], GuardCard);
 
@@ -111,7 +111,7 @@ void main() {
 
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 10);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 10);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 6);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 6);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[0], SwordsmanCard);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[1], GuardCard);
         });
@@ -119,7 +119,7 @@ void main() {
         test("Card Spearman (Counter OK)", () {
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 4);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[0], SwordsmanCard);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[1], SpearmanCard);
 
@@ -140,7 +140,7 @@ void main() {
 
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 9);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 10);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 7);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 7);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[0], SwordsmanCard);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[0], CommanderCard);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[1], SpearmanCard);
@@ -149,7 +149,7 @@ void main() {
         test("Card Spearman (Counter KO)", () {
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 4);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[0], GuardCard);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[1], SpearmanCard);
 
@@ -169,7 +169,7 @@ void main() {
 
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 10);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 10);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 6);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 6);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[0], GuardCard);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[1], SpearmanCard);
         });
@@ -177,7 +177,7 @@ void main() {
         test("Card Swordsman (Counter OK)", () {
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 4);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[0], GuardCard);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[1], SwordsmanCard);
 
@@ -197,7 +197,7 @@ void main() {
 
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 9);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 10);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 7);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 7);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[0], GuardCard);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[0], CommanderCard);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[1], SwordsmanCard);
@@ -206,7 +206,7 @@ void main() {
         test("Card Swordsman (Counter KO)", () {
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 4);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[0], SpearmanCard);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[1], SwordsmanCard);
 
@@ -227,7 +227,7 @@ void main() {
 
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 10);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 10);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 6);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 6);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[0], SpearmanCard);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[1], SwordsmanCard);
         });
@@ -237,7 +237,7 @@ void main() {
         test("Card Geomancer", () {
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 4);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[0], GeomancerCard);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[1], GeomancerCard);
 
@@ -248,7 +248,7 @@ void main() {
               .getCurrentPlayer()
               .playCardWithOneTarget(customGame, indexForGeomancerCard1, 0);
           CardsVerifier.verifyPlayerNbCard(customGame.getCurrentPlayer(), 11);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 4);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
 
           customGame.nextTurn();
 
@@ -261,7 +261,7 @@ void main() {
 
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 12);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 10);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 4);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[0], GeomancerCard);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[1], GeomancerCard);
         });
@@ -269,7 +269,7 @@ void main() {
         test("Card Aeromancer", () {
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 4);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[0], AeromancerCard);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[1], AeromancerCard);
 
@@ -280,7 +280,7 @@ void main() {
               .getCurrentPlayer()
               .playCardWithOneTarget(customGame, indexForAeromancerCard1, 0);
           CardsVerifier.verifyPlayerNbCard(customGame.getCurrentPlayer(), 11);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 4);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
 
           customGame.nextTurn();
 
@@ -293,7 +293,7 @@ void main() {
 
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 12);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 10);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 4);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[0], AeromancerCard);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[1], AeromancerCard);
         });
@@ -301,7 +301,7 @@ void main() {
         test("Card Arcanist", () {
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 4);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[0], ArcanistCard);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[1], ArcanistCard);
 
@@ -312,7 +312,7 @@ void main() {
               .getCurrentPlayer()
               .playCardWithOneTarget(customGame, indexForArcanistCard1, 0);
           CardsVerifier.verifyPlayerNbCard(customGame.getCurrentPlayer(), 12);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 3);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 3);
 
           customGame.nextTurn();
 
@@ -325,7 +325,7 @@ void main() {
 
           CardsVerifier.verifyPlayerNbCard(customGame.players[0], 14);
           CardsVerifier.verifyPlayerNbCard(customGame.players[1], 10);
-          CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 2);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 2);
           CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[0], ArcanistCard);
           CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[1], ArcanistCard);
         });
@@ -334,7 +334,7 @@ void main() {
       test("Card Thielf", () {
         CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
         CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 4);
+        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
         CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[0], ThiefCard);
 
         int indexCard1 = CardsVerifier.getIndexCardByType(customGame.players[0], ThiefCard);
@@ -345,7 +345,7 @@ void main() {
 
         CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
         CardsVerifier.verifyPlayerNbCard(customGame.players[1], 10);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 5);
+        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 5);
       });
     });
 
@@ -354,7 +354,7 @@ void main() {
       test("Card Fate Herald", () {
         CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
         CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 4);
+        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
         CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[0], DiseaseHeraldCard);
 
         int indexCardDiseaseHerald =
@@ -366,7 +366,7 @@ void main() {
 
         CardsVerifier.verifyPlayerNbCard(customGame.players[0], 9);
         CardsVerifier.verifyPlayerNbCard(customGame.players[1], 12);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 5);
+        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 5);
         CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[0], DiseaseHeraldCard);
         CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[0], PlagueKnightCard);
         CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[1], PlagueKnightCard);
@@ -374,7 +374,7 @@ void main() {
 
       test("Card Saint Protector", () {
         CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 4);
+        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
         CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[0], HealingSaintCard);
 
         int indexCardHealingSaint =
@@ -385,7 +385,7 @@ void main() {
             .playCardWithoutTarget(customGame, indexCardHealingSaint);
 
         CardsVerifier.verifyPlayerNbCard(customGame.players[0], 9);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.getBattleField(), 6);
+        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 6);
         CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[0], HealingSaintCard);
         CardsVerifier.verifyIfCardTypeIsntInDeck(customGame.players[0], PlagueKnightCard);
       });

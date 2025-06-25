@@ -23,7 +23,7 @@ class PeaceSaintCard extends SaintProtectorCard{
         Dealer.transferCardPlayerToBattleField(
             game.getCurrentPlayer(),
             game.getCurrentPlayer().getIndexCardInDeck(WarKnightCard),
-            game.getBattleField());
+            game.battleField);
       }
     } catch (e) {
       Logger.error("Error while playing PeaceSaintCard: $e");

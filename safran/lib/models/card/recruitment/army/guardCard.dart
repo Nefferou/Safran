@@ -26,7 +26,7 @@ class GuardCard extends ArmyCard {
         Dealer.transferCardPlayerToBattleField(
             previousPlayer, previousPlayer.discardCard(game), game.battleField);
       }
-      game.setBattleMode(true);
+      game.battleMode = true;
     } catch (e) {
       Logger.error("Error while playing GuardCard: $e");
       rethrow;
