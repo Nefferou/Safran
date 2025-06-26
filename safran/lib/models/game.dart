@@ -124,7 +124,7 @@ class Game {
         if (currentPlayer.timeInPause >= 30) {
           kill(currentPlayer, true);
           nextTurn();
-          continue;
+          break;
         }
       }
 
