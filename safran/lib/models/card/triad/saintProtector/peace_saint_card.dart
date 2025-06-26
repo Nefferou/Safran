@@ -1,11 +1,11 @@
-import 'package:safran/models/card/triad/cursedKnight/warKnightCard.dart';
-import 'package:safran/models/card/triad/saintProtector/saintProtectorCard.dart';
+import 'package:safran/models/card/triad/cursedKnight/war_knight_card.dart';
+import 'package:safran/models/card/triad/saintProtector/saint_protector_card.dart';
 
 import '../../../game.dart';
 import '../../../logger.dart';
-import '../../constant/descriptionCardConstant.dart';
-import '../../constant/nameCardConstant.dart';
-import '../../constant/pictureCardConstant.dart';
+import '../../constant/description_card_constant.dart';
+import '../../constant/name_card_constant.dart';
+import '../../constant/picture_card_constant.dart';
 import '../../dealer.dart';
 import '../../game_card.dart';
 

@@ -2,17 +2,16 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:safran/models/card/dealer.dart';
-import 'package:safran/models/card/recruitment/mage/mageCard.dart';
-import 'package:safran/models/card/recruitment/thiefCard.dart';
-import 'package:safran/models/card/triad/cursedKnight/conquestKnightCard.dart';
-import 'package:safran/models/card/triad/cursedKnight/warKnightCard.dart';
-import 'package:safran/models/card/triad/fateHerald/fateHeraldCard.dart';
+import 'package:safran/models/card/recruitment/mage/mage_card.dart';
+import 'package:safran/models/card/recruitment/thief_card.dart';
+import 'package:safran/models/card/triad/cursedKnight/conquest_knight_card.dart';
+import 'package:safran/models/card/triad/cursedKnight/war_knight_card.dart';
+import 'package:safran/models/card/triad/fateHerald/fate_herald_card.dart';
 import 'package:safran/models/logger.dart';
 
 import 'card/game_card.dart';
-import 'card/triad/cursedKnight/cursedKnightCard.dart';
-import 'card/triad/cursedKnight/famineKnightCard.dart';
-import 'card/triad/cursedKnight/plagueKnightCard.dart';
+import 'card/triad/cursedKnight/cursed_knight_card.dart';
+import 'card/triad/cursedKnight/famine_knight_card.dart';
 import 'game.dart';
 
 class Player {

@@ -2,11 +2,11 @@ import 'package:safran/models/card/dealer.dart';
 import 'package:safran/models/card/draw_position_enum.dart';
 import '../../../game.dart';
 import '../../../logger.dart';
-import '../../constant/descriptionCardConstant.dart';
-import '../../constant/nameCardConstant.dart';
-import '../../constant/pictureCardConstant.dart';
+import '../../constant/description_card_constant.dart';
+import '../../constant/name_card_constant.dart';
+import '../../constant/picture_card_constant.dart';
 import '../../game_card.dart';
-import 'mageCard.dart';
+import 'mage_card.dart';
 
 class AeromancerCard extends MageCard {
   AeromancerCard()

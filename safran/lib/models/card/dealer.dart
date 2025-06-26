@@ -1,4 +1,4 @@
-import '../battleField.dart';
+import '../battle_field.dart';
 import '../logger.dart';
 import '../player.dart';
 import 'draw_position_enum.dart';

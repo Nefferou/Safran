@@ -1,13 +1,12 @@
-import 'package:safran/models/card/recruitment/army/armyCard.dart';
-import 'package:safran/models/card/recruitment/army/guardCard.dart';
+import 'package:safran/models/card/recruitment/army/army_card.dart';
+import 'package:safran/models/card/recruitment/army/guard_card.dart';
 
 import '../../../game.dart';
 import '../../../logger.dart';
 import '../../../player.dart';
-import '../../constant/descriptionCardConstant.dart';
-import '../../constant/nameCardConstant.dart';
-import '../../constant/pictureCardConstant.dart';
-import '../../dealer.dart';
+import '../../constant/description_card_constant.dart';
+import '../../constant/name_card_constant.dart';
+import '../../constant/picture_card_constant.dart';
 import '../../game_card.dart';
 
 class SwordsmanCard extends ArmyCard {

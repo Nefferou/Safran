@@ -1,13 +1,12 @@
-import 'package:safran/models/card/constant/descriptionCardConstant.dart';
-import 'package:safran/models/card/constant/nameCardConstant.dart';
-import 'package:safran/models/card/constant/pictureCardConstant.dart';
-import 'package:safran/models/card/recruitment/army/armyCard.dart';
-import 'package:safran/models/card/recruitment/army/archerCard.dart';
+import 'package:safran/models/card/constant/description_card_constant.dart';
+import 'package:safran/models/card/constant/name_card_constant.dart';
+import 'package:safran/models/card/constant/picture_card_constant.dart';
+import 'package:safran/models/card/recruitment/army/army_card.dart';
+import 'package:safran/models/card/recruitment/army/archer_card.dart';
 import 'package:safran/models/logger.dart';
 
 import '../../../game.dart';
 import '../../../player.dart';
-import '../../dealer.dart';
 import '../../game_card.dart';
 
 class GuardCard extends ArmyCard {

@@ -1,7 +1,7 @@
-import 'package:safran/models/card/constant/descriptionCardConstant.dart';
-import 'package:safran/models/card/constant/nameCardConstant.dart';
-import 'package:safran/models/card/constant/pictureCardConstant.dart';
-import 'package:safran/models/card/recruitment/recruitmentCard.dart';
+import 'package:safran/models/card/constant/description_card_constant.dart';
+import 'package:safran/models/card/constant/name_card_constant.dart';
+import 'package:safran/models/card/constant/picture_card_constant.dart';
+import 'package:safran/models/card/recruitment/recruitment_card.dart';
 
 import '../../game.dart';
 

@@ -1,5 +1,5 @@
 import '../../../game.dart';
-import '../recruitmentCard.dart';
+import '../recruitment_card.dart';
 
 abstract class ArmyCard extends RecruitmentCard {
   ArmyCard(super.name, super.description, super.image);

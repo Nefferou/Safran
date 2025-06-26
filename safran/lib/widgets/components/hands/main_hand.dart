@@ -5,7 +5,7 @@ import 'package:safran/widgets/components/cards/game_card_component.dart';
 class MainHand extends StatefulWidget {
   final List<GameCard> cards;
 
-  const MainHand({Key? key, required this.cards}) : super(key: key);
+  const MainHand({super.key, required this.cards});
 
   @override
   State<MainHand> createState() => _MainHandState();

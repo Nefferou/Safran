@@ -1,5 +1,5 @@
 import '../../../game.dart';
-import '../triadCard.dart';
+import '../triad_card.dart';
 
 abstract class CursedKnightCard extends TriadCard {
   bool isPlayed;

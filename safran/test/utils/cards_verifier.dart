@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:safran/models/battleField.dart';
+import 'package:safran/models/battle_field.dart';
 import 'package:safran/models/player.dart';
 
 class CardsVerifier {

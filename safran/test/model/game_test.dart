@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:safran/models/battleField.dart';
+import 'package:safran/models/battle_field.dart';
 import 'package:safran/models/card/card_factory.dart';
 import 'package:safran/models/card/game_card.dart';
-import 'package:safran/models/card/recruitment/commanderCard.dart';
+import 'package:safran/models/card/recruitment/commander_card.dart';
 import 'package:safran/models/game.dart';
 import 'package:safran/models/player.dart';
 

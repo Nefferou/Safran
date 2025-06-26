@@ -1,28 +1,28 @@
-import 'package:safran/models/card/constant/cardCreationConstant.dart';
-import 'package:safran/models/card/recruitment/army/armyCard.dart';
-import 'package:safran/models/card/recruitment/army/guardCard.dart';
-import 'package:safran/models/card/recruitment/army/archerCard.dart';
-import 'package:safran/models/card/recruitment/army/swordsmanCard.dart';
-import 'package:safran/models/card/recruitment/commanderCard.dart';
-import 'package:safran/models/card/recruitment/mage/aeromancerCard.dart';
-import 'package:safran/models/card/recruitment/mage/arcanistCard.dart';
-import 'package:safran/models/card/recruitment/mage/geomancerCard.dart';
-import 'package:safran/models/card/recruitment/mage/mageCard.dart';
-import 'package:safran/models/card/recruitment/recruitmentCard.dart';
-import 'package:safran/models/card/recruitment/thiefCard.dart';
-import 'package:safran/models/card/triad/cursedKnight/conquestKnightCard.dart';
-import 'package:safran/models/card/triad/cursedKnight/famineKnightCard.dart';
-import 'package:safran/models/card/triad/cursedKnight/plagueKnightCard.dart';
-import 'package:safran/models/card/triad/cursedKnight/warKnightCard.dart';
-import 'package:safran/models/card/triad/fateHerald/chaosHeraldCard.dart';
-import 'package:safran/models/card/triad/fateHerald/diseaseHeraldCard.dart';
-import 'package:safran/models/card/triad/fateHerald/powerHeraldCard.dart';
-import 'package:safran/models/card/triad/fateHerald/sufferingHeraldCard.dart';
-import 'package:safran/models/card/triad/saintProtector/abundanceSaintCard.dart';
-import 'package:safran/models/card/triad/saintProtector/healingSaintCard.dart';
-import 'package:safran/models/card/triad/saintProtector/peaceSaintCard.dart';
-import 'package:safran/models/card/triad/saintProtector/prosperitySaintCard.dart';
-import 'package:safran/models/card/triad/triadCard.dart';
+import 'package:safran/models/card/constant/card_creation_constant.dart';
+import 'package:safran/models/card/recruitment/army/army_card.dart';
+import 'package:safran/models/card/recruitment/army/guard_card.dart';
+import 'package:safran/models/card/recruitment/army/archer_card.dart';
+import 'package:safran/models/card/recruitment/army/swordsman_card.dart';
+import 'package:safran/models/card/recruitment/commander_card.dart';
+import 'package:safran/models/card/recruitment/mage/aeromancer_card.dart';
+import 'package:safran/models/card/recruitment/mage/arcanist_card.dart';
+import 'package:safran/models/card/recruitment/mage/geomancer_card.dart';
+import 'package:safran/models/card/recruitment/mage/mage_card.dart';
+import 'package:safran/models/card/recruitment/recruitment_card.dart';
+import 'package:safran/models/card/recruitment/thief_card.dart';
+import 'package:safran/models/card/triad/cursedKnight/conquest_knight_card.dart';
+import 'package:safran/models/card/triad/cursedKnight/famine_knight_card.dart';
+import 'package:safran/models/card/triad/cursedKnight/plague_knight_card.dart';
+import 'package:safran/models/card/triad/cursedKnight/war_knight_card.dart';
+import 'package:safran/models/card/triad/fateHerald/chaos_herald_card.dart';
+import 'package:safran/models/card/triad/fateHerald/disease_herald_card.dart';
+import 'package:safran/models/card/triad/fateHerald/power_herald_card.dart';
+import 'package:safran/models/card/triad/fateHerald/suffering_herald_card.dart';
+import 'package:safran/models/card/triad/saintProtector/abundance_saint_card.dart';
+import 'package:safran/models/card/triad/saintProtector/healing_saint_card.dart';
+import 'package:safran/models/card/triad/saintProtector/peace_saint_card.dart';
+import 'package:safran/models/card/triad/saintProtector/prosperity_saint_card.dart';
+import 'package:safran/models/card/triad/triad_card.dart';
 
 import '../game.dart';
 import '../logger.dart';
@@ -37,20 +37,6 @@ class CardFactory {
       int thiefCardCount) {
     Logger.info("Creating deck");
     List<GameCard> deckList = [];
-
-    // Check if total card count is equal to the total defined in CardCreationConstant (+ total of triad cards)
-    int totalCardCount = commanderCardCount +
-        armyCardCount +
-        mageCardCount +
-        thiefCardCount +
-        CardCreationConstant.TOTAL_TRIAD_CARDS;
-
-    /*
-    if(totalCardCount != CardCreationConstant.TOTAL_DECK_SIZE) {
-      Logger.warning("Total card count must be ${CardCreationConstant.TOTAL_DECK_SIZE}");
-      throw Exception("Total card count must be ${CardCreationConstant.TOTAL_DECK_SIZE}");
-    }
-    */
 
     deckList.addAll(createRecruitmentCards(
         commanderCardCount, armyCardCount, mageCardCount, thiefCardCount));
