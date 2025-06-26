@@ -112,55 +112,22 @@ class Game {
     Logger.info("${players[currentPlayerTurn].userName} wins ! $winCondition");
   }
 
-  playGame() {
-    // Start the game loop
+  void playGame() {
     while (!isGameOver) {
       final currentPlayer = players[currentPlayerTurn];
 
-      // Pause the game if isInPause is true
-      while (currentPlayer.isInPause) {
-        sleep(const Duration(seconds: 1));
-        currentPlayer.timeInPause += 1;
-        if (currentPlayer.timeInPause >= 30) {
-          kill(currentPlayer, true);
-          nextTurn();
-          break;
-        }
-      }
+      if (handlePauseIfNeeded(currentPlayer)) continue;
+      if (checkEndGame()) break;
+      if (skipIfDead(currentPlayer)) continue;
 
-      // Game is over if only one player is left alive
-      if (getNbPlayerAlive() <= 1) {
-        isGameOver = true;
-        Logger.info("Game is over!");
-        winCondition = "Only one player is left alive";
-        break;
-      }
+      handleFamineCard(currentPlayer);
+      playTurn(currentPlayer);
+      eliminateIfNoCards(currentPlayer);
 
-      // Skip turn if the player is not alive
-      if (!currentPlayer.isAlive) {
-        nextTurn();
-        continue;
-      }
-
-      // Discard a card if the player has the Famine Knight card
-      if (currentPlayer.haveFamineKnightCard()) {
-        currentPlayer.discardCard(this);
-      }
-
-      // Check if player can play a card
-      if (currentPlayer.isTheirTurn) {
-        currentPlayer.play(this);
-      }
-
-      // Eliminate the player if they have no cards left
-      if (currentPlayer.deck.isEmpty) {
-        kill(currentPlayer);
-      }
-
-      // Set the next player to play
       nextTurn();
     }
   }
+
 
   kill(Player player, [bool isTimeOut = false]) {
     // If the player has the Conquest Knight card and all players are alive (win)
@@ -201,6 +168,57 @@ class Game {
     }
     players[currentPlayerTurn].isTheirTurn = true;
   }
+
+  bool handlePauseIfNeeded(Player currentPlayer) {
+    while (currentPlayer.isInPause) {
+      sleep(const Duration(seconds: 1));
+      currentPlayer.timeInPause += 1;
+
+      if (currentPlayer.timeInPause >= 30) {
+        kill(currentPlayer, true);
+        nextTurn();
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool checkEndGame() {
+    if (getNbPlayerAlive() <= 1) {
+      isGameOver = true;
+      Logger.info("Game is over!");
+      winCondition = "Only one player is left alive";
+      return true;
+    }
+    return false;
+  }
+
+  bool skipIfDead(Player player) {
+    if (!player.isAlive) {
+      nextTurn();
+      return true;
+    }
+    return false;
+  }
+
+  void handleFamineCard(Player player) {
+    if (player.haveFamineKnightCard()) {
+      player.discardCard(this);
+    }
+  }
+
+  void playTurn(Player player) {
+    if (player.isTheirTurn) {
+      player.play(this);
+    }
+  }
+
+  void eliminateIfNoCards(Player player) {
+    if (player.deck.isEmpty) {
+      kill(player);
+    }
+  }
+
 
   // Get the Next / Previous / Current player index to play
   getNextPlayerTurnIndex() {
