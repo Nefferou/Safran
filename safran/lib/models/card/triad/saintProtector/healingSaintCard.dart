@@ -23,7 +23,7 @@ class HealingSaintCard extends SaintProtectorCard{
         Dealer.transferCardPlayerToBattleField(
             game.getCurrentPlayer(),
             game.getCurrentPlayer().getIndexCardInDeck(PlagueKnightCard),
-            game.getBattleField());
+            game.battleField);
       }
     } catch (e) {
       Logger.error("Error while playing HealingSaintCard: $e");

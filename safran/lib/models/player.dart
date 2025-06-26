@@ -19,6 +19,8 @@ class Player {
   String userName;
   bool isAlive;
   bool isTheirTurn;
+  bool isInPause = false;
+  int timeInPause = 0;
 
   List<GameCard> deck = [];
 
@@ -79,7 +81,7 @@ class Player {
     Logger.info("$userName play ${getCard(indexCard).name}");
 
     // Player chooses two target players
-    Logger.info("${game.getPlayer(target1).userName} draw a card from ${game.getPlayer(target2).userName}");
+    Logger.info("${game.players[target1].userName} draw a card from ${game.players[target2].userName}");
     getCard(indexCard).play(game, [target1, target2]);
 
     // Discard the card played
@@ -118,20 +120,17 @@ class Player {
     }
   }
 
-  getName() {
-    return userName;
-  }
-
   getCard(int indexCard) {
     return deck[indexCard];
   }
 
-  getDeck() {
-    return deck;
-  }
-
   getDeckLength() {
     return deck.length;
+  }
+
+  pausePlayer() {
+    isInPause = !isInPause;
+    Logger.info("$userName in paused");
   }
 
   play(Game game) {

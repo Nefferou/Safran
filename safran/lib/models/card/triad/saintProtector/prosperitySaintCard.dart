@@ -23,7 +23,7 @@ class ProsperitySaintCard extends SaintProtectorCard{
         Dealer.transferCardPlayerToBattleField(
             game.getCurrentPlayer(),
             game.getCurrentPlayer().getIndexCardInDeck(ConquestKnightCard),
-            game.getBattleField());
+            game.battleField);
       }
     } catch (e) {
       Logger.error("Error while playing ProsperitySaintCard: $e");

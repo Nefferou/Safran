@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 import 'package:safran/models/battleField.dart';
 import 'package:safran/models/card/triad/cursedKnight/conquestKnightCard.dart';
@@ -16,6 +17,8 @@ class Game {
   late int nbCardGame;
   late BattleField battleField;
   late CardFactory cardFactory;
+
+  String winCondition = "No win condition set";
 
   // List of players 3-6
   List<Player> players = [];
@@ -95,7 +98,7 @@ class Game {
   }
 
   // Play the game
-  play([int playerTurn = -1]) {
+  play([int playerTurn = -1]) async {
     // Choose a player to start or randomly select one if not specified
     currentPlayerTurn =
         (playerTurn == -1) ? Random().nextInt(players.length) : playerTurn;
@@ -108,10 +111,22 @@ class Game {
     while (!isGameOver) {
       final currentPlayer = players[currentPlayerTurn];
 
+      // Pause the game if isInPause is true
+      if (currentPlayer.isInPause) {
+        sleep(Duration(seconds: 10));
+        currentPlayer.timeInPause += 10;
+        if (currentPlayer.timeInPause >= 30) {
+          kill(currentPlayer, true);
+        }
+        nextTurn();
+        continue;
+      }
+
       // Game is over if only one player is left alive
       if (getNbPlayerAlive() <= 1) {
         isGameOver = true;
-        Logger.info("Game is over! Only one player is left alive.");
+        Logger.info("Game is over!");
+        winCondition = "Only one player is left alive";
         break;
       }
 
@@ -123,7 +138,7 @@ class Game {
 
       // Discard a card if the player has the Famine Knight card
       if (currentPlayer.haveFamineKnightCard()) {
-        // TODO: Gérer la défausse d'une carte
+        currentPlayer.discardCard(this);
       }
 
       // Check if player can play a card
@@ -139,20 +154,35 @@ class Game {
       // Set the next player to play
       nextTurn();
     }
-    Logger.info("${players[currentPlayerTurn].userName} wins !");
+    Logger.info("${players[currentPlayerTurn].userName} wins ! $winCondition");
   }
 
-  kill(Player player) {
-    if (player.deck.contains(ConquestKnightCard()) && allPlayerAlive()) {
+  kill(Player player, [bool isTimeOut = false]) {
+    // If the player has the Conquest Knight card and all players are alive (win)
+    if (player.deck.contains(ConquestKnightCard()) &&
+        allPlayerAlive() &&
+        !isTimeOut) {
       Logger.info("${player.userName} has no more cards, he wins by conquest!");
 
-      /// TODO : Player win with conquest
-    } else {
-      Logger.info("${player.userName} has no more cards, he is eliminated");
+      for (player in getOtherAlivePlayers()) {
+        player.discardAllCard(this);
+        player.isAlive = false;
+      }
 
-      /// TODO : Player is eliminated and all his cards are discarded
+      isGameOver = true;
+      winCondition = "Wins by conquest";
     }
-    player.isAlive = false;
+    // If the player is time out 3 times, they are eliminated
+    else if (isTimeOut) {
+      Logger.info("${player.userName} is time out, he is eliminated");
+      player.discardAllCard(this);
+      player.isAlive = false;
+    }
+    // If the player has no more cards, they are eliminated
+    else {
+      Logger.info("${player.userName} has no more cards, he is eliminated");
+      player.isAlive = false;
+    }
   }
 
   // Give the turn to the next player
@@ -168,45 +198,25 @@ class Game {
   }
 
   // Get the Next / Previous / Current player index to play
-  getNextPlayerTurn() {
+  getNextPlayerTurnIndex() {
     if (playOrder) {
-      return players[(currentPlayerTurn + 1) % players.length];
+      return (currentPlayerTurn + 1) % players.length;
     } else {
-      return players[(currentPlayerTurn - 1 + players.length) % players.length];
+      return (currentPlayerTurn - 1 + players.length) % players.length;
     }
   }
 
-  Player getPreviousPlayerTurn() {
+  getPreviousPlayerTurnIndex() {
     if (playOrder) {
-      return players[(currentPlayerTurn - 1 + players.length) % players.length];
+      return (currentPlayerTurn - 1 + players.length) % players.length;
     } else {
-      return players[(currentPlayerTurn + 1) % players.length];
+      return (currentPlayerTurn + 1) % players.length;
     }
   }
 
   // Change state of the game
   changePlayOrder() {
     playOrder = !playOrder;
-  }
-
-  changePauseGame() {
-    isInPause = !isInPause;
-  }
-
-  /*
-  conquestWin(int playerIndex) {
-    players
-        .where((player) => player != players[playerIndex])
-        .forEach((player) => player.kill());
-  }*/
-
-  allPlayerAlive() {
-    return players.every((player) => player.isAlive);
-  }
-
-  // Setters and Getters
-  getBattleField() {
-    return battleField;
   }
 
   getNbPlayerAlive() {
@@ -217,6 +227,16 @@ class Game {
       }
     }
     return count;
+  }
+
+  allPlayerAlive() {
+    return players.every((player) => player.isAlive);
+  }
+
+  List<Player> getOtherAlivePlayers() {
+    return players.where((player) =>
+    player.isAlive && player != players[currentPlayerTurn]
+    ).toList();
   }
 
   getPlayerWithWarKnight() {
@@ -232,21 +252,5 @@ class Game {
 
   Player getCurrentPlayer() {
     return players[currentPlayerTurn];
-  }
-
-  getCurrentPlayerIndex() {
-    return currentPlayerTurn;
-  }
-
-  getPlayer(int index) {
-    return players[index];
-  }
-
-  setBattleMode(bool battleMode) {
-    this.battleMode = battleMode;
-  }
-
-  setFactory(CardFactory cardFactory) {
-    this.cardFactory = cardFactory;
   }
 }
