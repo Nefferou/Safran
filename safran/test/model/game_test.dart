@@ -3,6 +3,7 @@ import 'package:safran/models/battle_field.dart';
 import 'package:safran/models/card/card_factory.dart';
 import 'package:safran/models/card/game_card.dart';
 import 'package:safran/models/card/recruitment/commander_card.dart';
+import 'package:safran/models/card/triad/cursedKnight/conquest_knight_card.dart';
 import 'package:safran/models/game.dart';
 import 'package:safran/models/player.dart';
 
@@ -330,6 +331,66 @@ void main() {
 
       // Player 3 is alive
       expect(testPlayer3.isAlive, isTrue);
+    });
+  });
+
+  group("Win conditions tests", () {
+    test("One player win", () {
+      // All players card are dealt
+      testPlayer1.deck.addAll([FakeCard(), FakeCard()]);
+      testPlayer2.deck.addAll([FakeCard(), FakeCard(), FakeCard(), ConquestKnightCard()]);
+      testPlayer3.deck
+          .addAll([FakeCard(), FakeCard(), FakeCard(), FakeCard(), FakeCard()]);
+
+      // Create a game with 3 players
+      Game game = Game([testPlayer1, testPlayer2, testPlayer3]);
+      game.playOrder = true;
+      game.battleMode = false;
+      game.isInPause = false;
+      game.isGameOver = false;
+      game.nbCardGame = 28;
+      game.currentPlayerTurn = 0;
+      game.battleField = BattleField();
+      game.cardFactory = CardFactory(game);
+
+      // Set up the game (Player 1 starts)
+      game.startGame(0);
+
+      // Game is over
+      expect(game.isGameOver, isTrue);
+
+      // Player 1 and 2 are not alive
+      expect(testPlayer1.isAlive, isFalse);
+      expect(testPlayer2.isAlive, isFalse);
+
+      // Player 3 is alive
+      expect(testPlayer3.isAlive, isTrue);
+      expect(game.winCondition, "Only one player is left alive");
+    });
+    test("Conquest win", () {
+      // All players card are dealt
+      testPlayer1.deck.addAll([ConquestKnightCard()]);
+      testPlayer2.deck.addAll([FakeCard(), FakeCard(), FakeCard(), FakeCard()]);
+      testPlayer3.deck
+          .addAll([FakeCard(), FakeCard(), FakeCard(), FakeCard(), FakeCard()]);
+
+      // Create a game with 3 players
+      Game game = Game([testPlayer1, testPlayer2, testPlayer3]);
+      game.playOrder = true;
+      game.battleMode = false;
+      game.isInPause = false;
+      game.isGameOver = false;
+      game.nbCardGame = 28;
+      game.currentPlayerTurn = 0;
+      game.battleField = BattleField();
+      game.cardFactory = CardFactory(game);
+
+      // Set up the game (Player 1 starts)
+      game.startGame(0);
+
+      // Game is over
+      expect(game.isGameOver, isTrue);
+      expect(game.winCondition, "Wins by conquest");
     });
   });
 }

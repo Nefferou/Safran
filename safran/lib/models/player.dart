@@ -19,6 +19,7 @@ class Player {
   bool isAlive;
   bool isTheirTurn;
   bool isInPause = false;
+  String status = "Playing";
   int timeInPause = 0;
 
   List<GameCard> deck = [];

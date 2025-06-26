@@ -1,3 +1,4 @@
+import '../../../game.dart';
 import '../../constant/description_card_constant.dart';
 import '../../constant/name_card_constant.dart';
 import '../../constant/picture_card_constant.dart';

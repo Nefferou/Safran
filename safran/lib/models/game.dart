@@ -15,6 +15,7 @@ class Game {
   late bool isGameOver;
   late int currentPlayerTurn;
   late int nbCardGame;
+  late int nbPlayerDieInARow;
   late BattleField battleField;
   late CardFactory cardFactory;
 
@@ -122,7 +123,7 @@ class Game {
 
       handleFamineCard(currentPlayer);
       playTurn(currentPlayer);
-      eliminateIfNoCards(currentPlayer);
+      eliminateAllPlayersWithoutCards();
 
       nextTurn();
     }
@@ -131,7 +132,7 @@ class Game {
 
   kill(Player player, [bool isTimeOut = false]) {
     // If the player has the Conquest Knight card and all players are alive (win)
-    if (player.deck.contains(ConquestKnightCard()) &&
+    if (player.status == "Conquest" &&
         allPlayerAlive() &&
         !isTimeOut) {
       Logger.info("${player.userName} has no more cards, he wins by conquest!");
@@ -155,6 +156,7 @@ class Game {
       Logger.info("${player.userName} has no more cards, he is eliminated");
       player.isAlive = false;
     }
+    nbPlayerDieInARow++;
   }
 
   // Give the turn to the next player
@@ -184,12 +186,24 @@ class Game {
   }
 
   bool checkEndGame() {
-    if (getNbPlayerAlive() <= 1) {
+    // One player left alive
+    if (getNbPlayerAlive() == 1) {
       isGameOver = true;
       Logger.info("Game is over!");
       winCondition = "Only one player is left alive";
       return true;
     }
+
+    // Zero player left alive
+    if (getNbPlayerAlive() == 0) {
+      isGameOver = true;
+      Logger.info("Draw: $nbPlayerDieInARow players eliminated in a row.");
+      winCondition = "Draw: $nbPlayerDieInARow players eliminated after a chain of deaths";
+      return true;
+    }
+
+    // The game is not over yet
+    nbPlayerDieInARow = 0;
     return false;
   }
 
@@ -213,12 +227,13 @@ class Game {
     }
   }
 
-  void eliminateIfNoCards(Player player) {
-    if (player.deck.isEmpty) {
-      kill(player);
+  void eliminateAllPlayersWithoutCards() {
+    for (var player in players) {
+      if (player.isAlive && player.deck.isEmpty) {
+        kill(player);
+      }
     }
   }
-
 
   // Get the Next / Previous / Current player index to play
   getNextPlayerTurnIndex() {

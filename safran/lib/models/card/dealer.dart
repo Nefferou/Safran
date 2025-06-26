@@ -1,3 +1,5 @@
+import 'package:safran/models/card/triad/cursedKnight/conquest_knight_card.dart';
+
 import '../battle_field.dart';
 import '../logger.dart';
 import '../player.dart';
@@ -44,6 +46,10 @@ class Dealer {
       cards = takeRandomCardToPlayer(player);
     } else {
       cards = takeCardToPlayer(player, indexCard);
+    }
+    if (cards is ConquestKnightCard) {
+      player.status = "Conquest";
+      return;
     }
     giveCardToBattleField(battleField, [cards]);
     Logger.info("Player ${player.userName} discard");
