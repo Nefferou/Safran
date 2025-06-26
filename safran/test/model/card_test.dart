@@ -28,12 +28,12 @@ import '../utils/preset_util.dart';
 
 void main() {
   late Game customGame;
-  late Game kinightGame;
+  late Game knightGame;
   late Game armyGame;
 
   setUp(() {
     customGame = PresetUtil.presetGameWithPlayersEqualyDealed();
-    kinightGame = PresetUtil.presetCanPlayKgniht();
+    knightGame = PresetUtil.presetCanPlayKgniht();
     armyGame = PresetUtil.presetArmy();
   });
 
@@ -534,23 +534,23 @@ void main() {
 
     group("Cursed Knight Card", () {
       test("Can play Cursed Knight", () {
-        CardsVerifier.verifyIfCardTypeIsInDeck(kinightGame.players[0], WarKnightCard);
+        CardsVerifier.verifyIfCardTypeIsInDeck(knightGame.players[0], WarKnightCard);
 
         int indexCardWarKnight =
-          CardsVerifier.getIndexCardByType(kinightGame.players[0], WarKnightCard);
+          CardsVerifier.getIndexCardByType(knightGame.players[0], WarKnightCard);
 
-        expect(kinightGame.players[0].deck[indexCardWarKnight].canBePlayed(kinightGame), isTrue);
+        expect(knightGame.players[0].deck[indexCardWarKnight].canBePlayed(knightGame), isTrue);
       });
 
       test("Can't play Cursed Knight", () {
-        CardsVerifier.verifyIfCardTypeIsInDeck(kinightGame.players[1], FamineKnightCard);
+        CardsVerifier.verifyIfCardTypeIsInDeck(knightGame.players[1], FamineKnightCard);
 
-        kinightGame.currentPlayerTurn = 1;
+        knightGame.currentPlayerTurn = 1;
 
         int indexCardWarKnight =
-          CardsVerifier.getIndexCardByType(kinightGame.players[1], FamineKnightCard);
+          CardsVerifier.getIndexCardByType(knightGame.players[1], FamineKnightCard);
 
-        expect(kinightGame.players[1].deck[indexCardWarKnight].canBePlayed(kinightGame), isFalse);
+        expect(knightGame.players[1].deck[indexCardWarKnight].canBePlayed(knightGame), isFalse);
       });
     });
   });
