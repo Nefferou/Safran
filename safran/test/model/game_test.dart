@@ -285,7 +285,7 @@ void main() {
       game.cardFactory = CardFactory(game);
 
       // Set up the game (Player 1 starts)
-      game.play(0);
+      game.startGame(0);
 
       // Game is over
       expect(game.isGameOver, isTrue);
@@ -319,7 +319,7 @@ void main() {
       game.cardFactory = CardFactory(game);
 
       // Set up the game (Player 1 starts)
-      game.play(0);
+      game.startGame(0);
 
       // Game is over
       expect(game.isGameOver, isTrue);

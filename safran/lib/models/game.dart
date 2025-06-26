@@ -97,8 +97,8 @@ class Game {
     return true;
   }
 
-  // Play the game
-  play([int playerTurn = -1]) async {
+  // Start the game
+  startGame([int playerTurn = -1]) async {
     // Choose a player to start or randomly select one if not specified
     currentPlayerTurn =
         (playerTurn == -1) ? Random().nextInt(players.length) : playerTurn;
@@ -107,6 +107,12 @@ class Game {
     Logger.info(
         "Player ${players[currentPlayerTurn].userName} starts the game");
 
+    playGame();
+
+    Logger.info("${players[currentPlayerTurn].userName} wins ! $winCondition");
+  }
+
+  playGame() {
     // Start the game loop
     while (!isGameOver) {
       final currentPlayer = players[currentPlayerTurn];
@@ -154,7 +160,6 @@ class Game {
       // Set the next player to play
       nextTurn();
     }
-    Logger.info("${players[currentPlayerTurn].userName} wins ! $winCondition");
   }
 
   kill(Player player, [bool isTimeOut = false]) {
@@ -234,9 +239,10 @@ class Game {
   }
 
   List<Player> getOtherAlivePlayers() {
-    return players.where((player) =>
-    player.isAlive && player != players[currentPlayerTurn]
-    ).toList();
+    return players
+        .where(
+            (player) => player.isAlive && player != players[currentPlayerTurn])
+        .toList();
   }
 
   getPlayerWithWarKnight() {
