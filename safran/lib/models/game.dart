@@ -118,14 +118,14 @@ class Game {
       final currentPlayer = players[currentPlayerTurn];
 
       // Pause the game if isInPause is true
-      if (currentPlayer.isInPause) {
-        sleep(Duration(seconds: 10));
-        currentPlayer.timeInPause += 10;
+      while (currentPlayer.isInPause) {
+        sleep(const Duration(seconds: 1));
+        currentPlayer.timeInPause += 1;
         if (currentPlayer.timeInPause >= 30) {
           kill(currentPlayer, true);
+          nextTurn();
+          continue;
         }
-        nextTurn();
-        continue;
       }
 
       // Game is over if only one player is left alive
