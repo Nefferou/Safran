@@ -23,8 +23,7 @@ class ArcherCard extends ArmyCard {
         GameCard.correctNbTargets(0, targets);
         Player previousPlayer = game.players[game.getPreviousPlayerTurnIndex()];
         Logger.info("Player ${previousPlayer.userName} is countered by Guard");
-        Dealer.transferCardPlayerToBattleField(
-            previousPlayer, previousPlayer.discardCard(game), game.battleField);
+        previousPlayer.discardCard(game);
       }
       game.battleMode = true;
     } catch (e) {

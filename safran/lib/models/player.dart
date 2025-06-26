@@ -138,6 +138,11 @@ class Player {
     stdout.write("Entrez l'index de la carte à jouer : ");
     int indexCard = stdin.readLineSync() as int;
 
+    while (!deck[indexCard].canBePlayed(game)) {
+      stdout.write("Choisir un autre index de carte à jouer : ");
+      indexCard = stdin.readLineSync() as int;
+    }
+
     // Player plays the card
     Logger.info("$userName play ${deck[indexCard].name}");
     playCard(game, indexCard);
@@ -169,6 +174,6 @@ class Player {
   }
 
   haveOnlyKnightCardTypeInDeck() {
-    return deck.every((card) => card.runtimeType == CursedKnightCard);
+    return deck.every((card) => card is CursedKnightCard);
   }
 }

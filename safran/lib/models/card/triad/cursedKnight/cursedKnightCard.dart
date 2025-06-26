@@ -7,6 +7,7 @@ abstract class CursedKnightCard extends TriadCard {
   CursedKnightCard(super.name, super.description, super.image)
       : isPlayed = false;
 
+  @override
   canBePlayed(Game game) {
     return game.getCurrentPlayer().haveOnlyKnightCardTypeInDeck();
   }
