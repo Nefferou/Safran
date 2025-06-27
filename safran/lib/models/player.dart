@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:safran/models/card/constant/player_status-constant.dart';
 import 'package:safran/models/card/dealer.dart';
 import 'package:safran/models/card/recruitment/mage/mage_card.dart';
 import 'package:safran/models/card/recruitment/thief_card.dart';
@@ -19,13 +20,13 @@ class Player {
   bool isAlive;
   bool isTheirTurn;
   bool isInPause = false;
-  String status = "Playing";
+  String status;
   int timeInPause = 0;
 
   List<GameCard> deck = [];
 
   Player(this.userName)
-      : isAlive = true,
+      : status = PlayerStatusConstant.alive,
         isTheirTurn = false;
 
   playCard(Game game, indexCard) {

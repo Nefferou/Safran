@@ -7,8 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  flutter-ci:
-    name: Flutter Ci
+  Build_and_Test:
+    name: Build and Test Flutter App
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +19,44 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.29.3'
-      
+
+      - uses: actions/cache@v3
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: ${{ runner.os }}-pub-
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: safran
+
+      - name: Run tests
+        run: flutter test
+        working-directory: safran
+
+      - name: Build APK
+        run: flutter build apk
+        working-directory: safran
+
+  SonarQube:
+    name: SonarQube Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.3'
+
       - uses: actions/cache@v3
         with:
           path: ~/.pub-cache
@@ -44,10 +81,6 @@ jobs:
         run: |
           ls -la safran/coverage
           cat safran/coverage/lcov.info
-
-      - name: Build APK
-        run: flutter build apk
-        working-directory: safran
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v5

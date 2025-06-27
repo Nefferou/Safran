@@ -292,11 +292,11 @@ void main() {
       expect(game.isGameOver, isTrue);
 
       // Player 1 and 2 are not alive
-      expect(testPlayer1.isAlive, isFalse);
-      expect(testPlayer2.isAlive, isFalse);
+      expect(testPlayer1.status == PlayerStatusConstant.alive, isFalse);
+      expect(testPlayer2.status == PlayerStatusConstant.alive, isFalse);
 
       // Player 3 is alive
-      expect(testPlayer3.isAlive, isTrue);
+      expect(testPlayer3.status == PlayerStatusConstant.alive, isTrue);
     });
     test("Player in pause and time out", () {
       // All players card are dealt
@@ -326,11 +326,11 @@ void main() {
       expect(game.isGameOver, isTrue);
 
       // Player 1 and 2 are not alive
-      expect(testPlayer1.isAlive, isFalse);
-      expect(testPlayer2.isAlive, isFalse);
+      expect(testPlayer1.status == PlayerStatusConstant.alive, isFalse);
+      expect(testPlayer2.status == PlayerStatusConstant.alive, isFalse);
 
       // Player 3 is alive
-      expect(testPlayer3.isAlive, isTrue);
+      expect(testPlayer3.status == PlayerStatusConstant.alive, isTrue);
     });
   });
 
@@ -360,11 +360,11 @@ void main() {
       expect(game.isGameOver, isTrue);
 
       // Player 1 and 2 are not alive
-      expect(testPlayer1.isAlive, isFalse);
-      expect(testPlayer2.isAlive, isFalse);
+      expect(testPlayer1.status == PlayerStatusConstant.alive, isFalse);
+      expect(testPlayer2.status == PlayerStatusConstant.alive, isFalse);
 
       // Player 3 is alive
-      expect(testPlayer3.isAlive, isTrue);
+      expect(testPlayer3.status == PlayerStatusConstant.alive, isTrue);
       expect(game.winCondition, "Only one player is left alive");
     });
     test("Conquest win", () {

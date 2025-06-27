@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:safran/models/battle_field.dart';
-import 'package:safran/models/card/triad/cursedKnight/conquest_knight_card.dart';
+import 'package:safran/models/card/constant/player_status-constant.dart';
 import 'package:safran/models/logger.dart';
 import 'package:safran/models/player.dart';
 import 'card/game_card.dart';
@@ -208,7 +208,7 @@ class Game {
   }
 
   bool skipIfDead(Player player) {
-    if (!player.isAlive) {
+    if (player.status == PlayerStatusConstant.dead || player.status == PlayerStatusConstant.timeout) {
       nextTurn();
       return true;
     }
@@ -229,7 +229,7 @@ class Game {
 
   void eliminateAllPlayersWithoutCards() {
     for (var player in players) {
-      if (player.isAlive && player.deck.isEmpty) {
+      if (player.status == PlayerStatusConstant.alive && player.deck.isEmpty) {
         kill(player);
       }
     }
@@ -260,7 +260,7 @@ class Game {
   getNbPlayerAlive() {
     int count = 0;
     for (int i = 0; i < players.length; i++) {
-      if (players[i].isAlive) {
+      if (players[i].status == PlayerStatusConstant.alive) {
         count++;
       }
     }
@@ -268,13 +268,13 @@ class Game {
   }
 
   allPlayerAlive() {
-    return players.every((player) => player.isAlive);
+    return players.every((player) => player.status == PlayerStatusConstant.alive);
   }
 
   List<Player> getOtherAlivePlayers() {
     return players
         .where(
-            (player) => player.isAlive && player != players[currentPlayerTurn])
+            (player) => player.status == PlayerStatusConstant.alive && player != players[currentPlayerTurn])
         .toList();
   }
 
