@@ -17,7 +17,6 @@ import 'game.dart';
 
 class Player {
   String userName;
-  bool isAlive;
   bool isTheirTurn;
   bool isInPause = false;
   String status;
@@ -51,19 +50,12 @@ class Player {
   }
 
   playCardWithoutTarget(Game game, indexCard) {
-    // Check if card is a Knight Card and if it is the last card in the deck
-    bool haveConquestKnightCondition = deck[indexCard] is ConquestKnightCard && deck.length == 1 && game.allPlayerAlive();
-
     Logger.info("$userName play ${getCard(indexCard).name}");
     deck[indexCard].play(game);
 
     // Discard the card played
     Dealer.transferCardPlayerToBattleField(
         game.getCurrentPlayer(), indexCard, game.battleField);
-
-    if(haveConquestKnightCondition) {
-      //game.conquestWin(game.getCurrentPlayerIndex());
-    }
   }
 
   playCardWithOneTarget(Game game, indexCard, int target) {

@@ -99,10 +99,10 @@ class Game {
   }
 
   // Start the game
-  startGame([int playerTurn = -1]) async {
+  startGame([int playerTurn = -1]) {
     // Choose a player to start or randomly select one if not specified
     currentPlayerTurn =
-        (playerTurn == -1) ? Random().nextInt(players.length) : playerTurn;
+    (playerTurn == -1) ? Random().nextInt(players.length) : playerTurn;
 
     players[currentPlayerTurn].isTheirTurn = true;
     Logger.info(
@@ -121,9 +121,10 @@ class Game {
       if (checkEndGame()) break;
       if (skipIfDead(currentPlayer)) continue;
 
-      handleFamineCard(currentPlayer);
+      handleFamineKnight(currentPlayer);
       playTurn(currentPlayer);
       eliminateAllPlayersWithoutCards();
+      handleConquestKnight();
 
       nextTurn();
     }
@@ -132,14 +133,14 @@ class Game {
 
   kill(Player player, [bool isTimeOut = false]) {
     // If the player has the Conquest Knight card and all players are alive (win)
-    if (player.status == "Conquest" &&
-        allPlayerAlive() &&
+    if (player.status == PlayerStatusConstant.conquest &&
+        !onePlayerIsDead() &&
         !isTimeOut) {
       Logger.info("${player.userName} has no more cards, he wins by conquest!");
 
       for (player in getOtherAlivePlayers()) {
         player.discardAllCard(this);
-        player.isAlive = false;
+        player.status = PlayerStatusConstant.dead;
       }
 
       isGameOver = true;
@@ -149,12 +150,12 @@ class Game {
     else if (isTimeOut) {
       Logger.info("${player.userName} is time out, he is eliminated");
       player.discardAllCard(this);
-      player.isAlive = false;
+      player.status = PlayerStatusConstant.timeout;
     }
     // If the player has no more cards, they are eliminated
     else {
       Logger.info("${player.userName} has no more cards, he is eliminated");
-      player.isAlive = false;
+      player.status = PlayerStatusConstant.dead;
     }
     nbPlayerDieInARow++;
   }
@@ -198,7 +199,8 @@ class Game {
     if (getNbPlayerAlive() == 0) {
       isGameOver = true;
       Logger.info("Draw: $nbPlayerDieInARow players eliminated in a row.");
-      winCondition = "Draw: $nbPlayerDieInARow players eliminated after a chain of deaths";
+      winCondition =
+      "Draw: $nbPlayerDieInARow players eliminated after a chain of deaths";
       return true;
     }
 
@@ -208,16 +210,25 @@ class Game {
   }
 
   bool skipIfDead(Player player) {
-    if (player.status == PlayerStatusConstant.dead || player.status == PlayerStatusConstant.timeout) {
+    if (player.status == PlayerStatusConstant.dead ||
+        player.status == PlayerStatusConstant.timeout) {
       nextTurn();
       return true;
     }
     return false;
   }
 
-  void handleFamineCard(Player player) {
+  void handleFamineKnight(Player player) {
     if (player.haveFamineKnightCard()) {
       player.discardCard(this);
+    }
+  }
+
+  void handleConquestKnight() {
+    for (var player in players) {
+      if (player.haveConquestKnightCard()) {
+        kill(player);
+      }
     }
   }
 
@@ -234,6 +245,7 @@ class Game {
       }
     }
   }
+
 
   // Get the Next / Previous / Current player index to play
   getNextPlayerTurnIndex() {
@@ -267,14 +279,18 @@ class Game {
     return count;
   }
 
-  allPlayerAlive() {
-    return players.every((player) => player.status == PlayerStatusConstant.alive);
+  onePlayerIsDead() {
+    return players
+        .where((player) => player.status == PlayerStatusConstant.dead)
+        .isNotEmpty;
   }
 
   List<Player> getOtherAlivePlayers() {
     return players
         .where(
-            (player) => player.status == PlayerStatusConstant.alive && player != players[currentPlayerTurn])
+            (player) =>
+        player.status == PlayerStatusConstant.alive &&
+            player != players[currentPlayerTurn])
         .toList();
   }
 

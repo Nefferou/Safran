@@ -1,3 +1,4 @@
+import 'package:safran/models/card/constant/player_status-constant.dart';
 import 'package:safran/models/card/triad/cursedKnight/conquest_knight_card.dart';
 
 import '../battle_field.dart';
@@ -48,7 +49,7 @@ class Dealer {
       cards = takeCardToPlayer(player, indexCard);
     }
     if (cards is ConquestKnightCard) {
-      player.status = "Conquest";
+      player.status = PlayerStatusConstant.conquest;
     }
     giveCardToBattleField(battleField, [cards]);
     Logger.info("Player ${player.userName} discard");

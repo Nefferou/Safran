@@ -1,7 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:safran/models/battle_field.dart';
 import 'package:safran/models/card/card_factory.dart';
+import 'package:safran/models/card/constant/player_status-constant.dart';
 import 'package:safran/models/card/game_card.dart';
+import 'package:safran/models/card/recruitment/army/archer_card.dart';
+import 'package:safran/models/card/recruitment/army/guard_card.dart';
 import 'package:safran/models/card/recruitment/commander_card.dart';
 import 'package:safran/models/card/triad/cursedKnight/conquest_knight_card.dart';
 import 'package:safran/models/game.dart';
@@ -391,6 +394,32 @@ void main() {
       // Game is over
       expect(game.isGameOver, isTrue);
       expect(game.winCondition, "Wins by conquest");
+    });
+
+    test("Tie", () {
+      // All players card are dealt
+      testPlayer1.deck.addAll([ArcherCard(), FakeCard()]);
+      testPlayer2.deck.addAll([GuardCard()]);
+      testPlayer3.deck
+          .addAll([ConquestKnightCard(), FakeCard(), FakeCard()]);
+
+      // Create a game with 3 players
+      Game game = Game([testPlayer1, testPlayer2, testPlayer3]);
+      game.playOrder = true;
+      game.battleMode = false;
+      game.isInPause = false;
+      game.isGameOver = false;
+      game.nbCardGame = 28;
+      game.currentPlayerTurn = 0;
+      game.battleField = BattleField();
+      game.cardFactory = CardFactory(game);
+
+      // Set up the game (Player 1 starts)
+      game.startGame(0);
+
+      // Game is over
+      expect(game.isGameOver, isTrue);
+      expect(game.winCondition, "Draw: 3 players eliminated after a chain of deaths");
     });
   });
 }
