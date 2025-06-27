@@ -1,18 +1,15 @@
+import 'package:safran/models/card/constant/card_info.dart';
 import 'package:safran/models/card/recruitment/army/army_card.dart';
 import 'package:safran/models/card/recruitment/army/swordsman_card.dart';
 
 import '../../../game.dart';
 import '../../../logger.dart';
 import '../../../player.dart';
-import '../../constant/description_card_constant.dart';
-import '../../constant/name_card_constant.dart';
-import '../../constant/picture_card_constant.dart';
 import '../../game_card.dart';
 
 class ArcherCard extends ArmyCard {
   ArcherCard()
-      : super(NameCardConstant.SPEARMAN, DescriptionCardConstant.SPEARMAN,
-            PictureCardConstant.SPEARMAN);
+      : super(CardInfo.archer);
 
   @override
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {

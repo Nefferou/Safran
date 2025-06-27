@@ -1,6 +1,4 @@
-import 'package:safran/models/card/constant/description_card_constant.dart';
-import 'package:safran/models/card/constant/name_card_constant.dart';
-import 'package:safran/models/card/constant/picture_card_constant.dart';
+import 'package:safran/models/card/constant/card_info.dart';
 import 'package:safran/models/card/dealer.dart';
 import 'package:safran/models/card/game_card.dart';
 import 'package:safran/models/card/recruitment/recruitment_card.dart';
@@ -11,8 +9,7 @@ import '../triad/cursedKnight/plague_knight_card.dart';
 
 class ThiefCard extends RecruitmentCard {
   ThiefCard()
-      : super(NameCardConstant.THIEF, DescriptionCardConstant.THIEF,
-            PictureCardConstant.THIEF);
+      : super(CardInfo.thief);
 
   @override
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {

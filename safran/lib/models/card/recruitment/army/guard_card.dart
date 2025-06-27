@@ -1,6 +1,4 @@
-import 'package:safran/models/card/constant/description_card_constant.dart';
-import 'package:safran/models/card/constant/name_card_constant.dart';
-import 'package:safran/models/card/constant/picture_card_constant.dart';
+import 'package:safran/models/card/constant/card_info.dart';
 import 'package:safran/models/card/recruitment/army/army_card.dart';
 import 'package:safran/models/card/recruitment/army/archer_card.dart';
 import 'package:safran/models/logger.dart';
@@ -11,8 +9,7 @@ import '../../game_card.dart';
 
 class GuardCard extends ArmyCard {
   GuardCard()
-      : super(NameCardConstant.GARDE, DescriptionCardConstant.GARDE,
-            PictureCardConstant.GARDE);
+      : super(CardInfo.guard);
 
   @override
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {

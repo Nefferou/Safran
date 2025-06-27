@@ -4,7 +4,7 @@ import '../triad_card.dart';
 abstract class CursedKnightCard extends TriadCard {
   bool isPlayed;
 
-  CursedKnightCard(super.name, super.description, super.image)
+  CursedKnightCard(super.cardInfo)
       : isPlayed = false;
 
   @override

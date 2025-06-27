@@ -1,14 +1,11 @@
-import 'package:safran/models/card/constant/description_card_constant.dart';
-import 'package:safran/models/card/constant/name_card_constant.dart';
-import 'package:safran/models/card/constant/picture_card_constant.dart';
 import 'package:safran/models/card/recruitment/recruitment_card.dart';
 
 import '../../game.dart';
+import '../constant/card_info.dart';
 
 class CommanderCard extends RecruitmentCard {
   CommanderCard()
-      : super(NameCardConstant.COMMANDER, DescriptionCardConstant.COMMANDER,
-            PictureCardConstant.COMMANDER);
+      : super(CardInfo.commander);
 
   @override
   void play(Game game, [List<int> targets = const [], bool activateEffect = true]) {

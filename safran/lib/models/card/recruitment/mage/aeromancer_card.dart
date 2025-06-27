@@ -1,17 +1,14 @@
+import 'package:safran/models/card/constant/card_info.dart';
 import 'package:safran/models/card/dealer.dart';
 import 'package:safran/models/card/draw_position_enum.dart';
 import '../../../game.dart';
 import '../../../logger.dart';
-import '../../constant/description_card_constant.dart';
-import '../../constant/name_card_constant.dart';
-import '../../constant/picture_card_constant.dart';
 import '../../game_card.dart';
 import 'mage_card.dart';
 
 class AeromancerCard extends MageCard {
   AeromancerCard()
-      : super(NameCardConstant.AEROMANCER, DescriptionCardConstant.AEROMANCER,
-            PictureCardConstant.AEROMANCER);
+      : super(CardInfo.aeromancer);
 
   @override
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {

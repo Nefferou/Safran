@@ -1,18 +1,15 @@
+import 'package:safran/models/card/constant/card_info.dart';
 import 'package:safran/models/card/triad/cursedKnight/famine_knight_card.dart';
 
 import '../../../game.dart';
 import '../../../logger.dart';
-import '../../constant/description_card_constant.dart';
-import '../../constant/name_card_constant.dart';
-import '../../constant/picture_card_constant.dart';
 import '../../dealer.dart';
 import '../../game_card.dart';
 import 'fate_herald_card.dart';
 
 class SufferingHeraldCard extends FateHeraldCard{
   SufferingHeraldCard()
-      : super(NameCardConstant.SUFFERINGHERALD, DescriptionCardConstant.SUFFERINGHERALD,
-      PictureCardConstant.SUFFERINGHERALD);
+      : super(CardInfo.sufferingHerald);
 
   @override
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {

@@ -1,20 +1,15 @@
+import 'package:safran/models/card/constant/card_info.dart';
 import 'package:safran/models/card/dealer.dart';
 import 'package:safran/models/card/triad/cursedKnight/plague_knight_card.dart';
 
 import '../../../game.dart';
 import '../../../logger.dart';
-import '../../constant/description_card_constant.dart';
-import '../../constant/name_card_constant.dart';
-import '../../constant/picture_card_constant.dart';
 import '../../game_card.dart';
 import 'fate_herald_card.dart';
 
 class DiseaseHeraldCard extends FateHeraldCard {
   DiseaseHeraldCard()
-      : super(
-            NameCardConstant.DISEASEHERALD,
-            DescriptionCardConstant.DISEASEHERALD,
-            PictureCardConstant.DISEASEHERALD);
+      : super(CardInfo.diseaseHerald);
 
   @override
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {

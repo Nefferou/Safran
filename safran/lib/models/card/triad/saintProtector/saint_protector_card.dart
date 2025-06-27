@@ -4,7 +4,7 @@ import '../../../game.dart';
 
 abstract class SaintProtectorCard extends TriadCard {
 
-  SaintProtectorCard(super.name, super.description, super.image);
+  SaintProtectorCard(super.cardInfo);
 
   @override
   play(Game game, [List<int> targets = const [], bool activateEffect = true]);
