@@ -112,7 +112,7 @@ class PresetUtil {
     return game;
   }
 
-  static Game presetCanPlayKgniht() {
+  static Game presetCanPlayKnight() {
     Player player1 = Player("Player1");
     Player player2 = Player("Player2");
     Player player3 = Player("Player3");

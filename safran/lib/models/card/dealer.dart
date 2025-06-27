@@ -49,7 +49,6 @@ class Dealer {
     }
     if (cards is ConquestKnightCard) {
       player.status = "Conquest";
-      return;
     }
     giveCardToBattleField(battleField, [cards]);
     Logger.info("Player ${player.userName} discard");
