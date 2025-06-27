@@ -19,6 +19,7 @@ import 'package:safran/models/card/triad/fateHerald/suffering_herald_card.dart';
 import 'package:safran/models/card/triad/saintProtector/abundance_saint_card.dart';
 import 'package:safran/models/card/triad/saintProtector/healing_saint_card.dart';
 import 'package:safran/models/card/triad/saintProtector/peace_saint_card.dart';
+import 'package:safran/models/card/triad/saintProtector/prosperity_saint_card.dart';
 import 'package:safran/models/game.dart';
 import 'package:safran/models/player.dart';
 
