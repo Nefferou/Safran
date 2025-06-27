@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:safran/models/card/constant/player_status-constant.dart';
 import 'package:safran/models/card/game_card.dart';
 import 'package:safran/models/card/recruitment/army/archer_card.dart';
 import 'package:safran/models/card/recruitment/army/guard_card.dart';
@@ -30,11 +31,13 @@ void main() {
   late Game customGame;
   late Game knightGame;
   late Game armyGame;
+  late Game robGame;
 
   setUp(() {
     customGame = PresetUtil.presetGameWithPlayersEqualyDealed();
     knightGame = PresetUtil.presetCanPlayKnight();
     armyGame = PresetUtil.presetArmy();
+    robGame = PresetUtil.presetRobPlagueKnight();
   });
 
   group("Game custom tests", () {
@@ -384,251 +387,276 @@ void main() {
         });
       });
 
-      test("Card Thielf", () {
-        CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
-        CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
-        CardsVerifier.verifyIfCardTypeIsInDeck(
-            customGame.players[0], ThiefCard);
+      group("Card Thief", () {
+        test("Card Thielf Standard play", () {
+          CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
+          CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
+          CardsVerifier.verifyIfCardTypeIsInDeck(
+              customGame.players[0], ThiefCard);
 
-        int indexCard1 =
-            CardsVerifier.getIndexCardByType(customGame.players[0], ThiefCard);
+          int indexCard1 =
+          CardsVerifier.getIndexCardByType(customGame.players[0], ThiefCard);
 
-        customGame
-            .getCurrentPlayer()
-            .playCardWithTwoTargets(customGame, indexCard1, 0, 1);
+          customGame
+              .getCurrentPlayer()
+              .playCardWithTwoTargets(customGame, indexCard1, 0, 1);
 
-        CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
-        CardsVerifier.verifyPlayerNbCard(customGame.players[1], 10);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 5);
+          CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
+          CardsVerifier.verifyPlayerNbCard(customGame.players[1], 10);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 5);
+        });
+
+        test("Card Thielf rob Plague Knight", () {
+          CardsVerifier.verifyPlayerNbCard(robGame.players[0], 3);
+          CardsVerifier.verifyPlayerNbCard(robGame.players[1], 1);
+          CardsVerifier.verifyBattleFieldNbCard(robGame.battleField, 4);
+          CardsVerifier.verifyIfCardTypeIsInDeck(robGame.players[0], ThiefCard);
+
+          int indexCard1 =
+            CardsVerifier.getIndexCardByType(robGame.players[0], ThiefCard);
+
+          robGame
+              .getCurrentPlayer()
+              .playCardWithTwoTargets(robGame, indexCard1, 0, 1);
+
+          CardsVerifier.verifyPlayerNbCard(robGame.players[0], 3);
+          CardsVerifier.verifyPlayerNbCard(robGame.players[1], 0);
+          CardsVerifier.verifyBattleFieldNbCard(robGame.battleField, 5);
+          expect(robGame.players[1].status, PlayerStatusConstant.dead);
+        });
       });
     });
 
     group("Card Triad", () {
-      test("Card Herald Disease", () {
-        CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
-        CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
-        CardsVerifier.verifyIfCardTypeIsInDeck(
-            customGame.players[0], DiseaseHeraldCard);
+      group("Card Fate Herald", () {
+        test("Card Herald Disease", () {
+          CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
+          CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
+          CardsVerifier.verifyIfCardTypeIsInDeck(
+              customGame.players[0], DiseaseHeraldCard);
 
-        int indexCardDiseaseHerald = CardsVerifier.getIndexCardByType(
-            customGame.players[0], DiseaseHeraldCard);
+          int indexCardDiseaseHerald = CardsVerifier.getIndexCardByType(
+              customGame.players[0], DiseaseHeraldCard);
 
-        customGame
-            .getCurrentPlayer()
-            .playCardWithOneTarget(customGame, indexCardDiseaseHerald, 1);
+          customGame
+              .getCurrentPlayer()
+              .playCardWithOneTarget(customGame, indexCardDiseaseHerald, 1);
 
-        CardsVerifier.verifyPlayerNbCard(customGame.players[0], 9);
-        CardsVerifier.verifyPlayerNbCard(customGame.players[1], 12);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 5);
-        CardsVerifier.verifyIfCardTypeIsntInDeck(
-            customGame.players[0], DiseaseHeraldCard);
-        CardsVerifier.verifyIfCardTypeIsntInDeck(
-            customGame.players[0], PlagueKnightCard);
-        CardsVerifier.verifyIfCardTypeIsInDeck(
-            customGame.players[1], PlagueKnightCard);
+          CardsVerifier.verifyPlayerNbCard(customGame.players[0], 9);
+          CardsVerifier.verifyPlayerNbCard(customGame.players[1], 12);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 5);
+          CardsVerifier.verifyIfCardTypeIsntInDeck(
+              customGame.players[0], DiseaseHeraldCard);
+          CardsVerifier.verifyIfCardTypeIsntInDeck(
+              customGame.players[0], PlagueKnightCard);
+          CardsVerifier.verifyIfCardTypeIsInDeck(
+              customGame.players[1], PlagueKnightCard);
+        });
+
+        test("Card Herald Chaos", () {
+          CardsVerifier.verifyPlayerNbCard(customGame.players[2], 11);
+          CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
+          CardsVerifier.verifyIfCardTypeIsInDeck(
+              customGame.players[2], ChaosHeraldCard);
+
+          int indexCardChaosHerald = CardsVerifier.getIndexCardByType(
+              customGame.players[2], ChaosHeraldCard);
+
+          customGame.currentPlayerTurn = 2;
+
+          customGame
+              .getCurrentPlayer()
+              .playCardWithOneTarget(customGame, indexCardChaosHerald, 1);
+
+          CardsVerifier.verifyPlayerNbCard(customGame.players[2], 9);
+          CardsVerifier.verifyPlayerNbCard(customGame.players[1], 12);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 5);
+          CardsVerifier.verifyIfCardTypeIsntInDeck(
+              customGame.players[2], ChaosHeraldCard);
+          CardsVerifier.verifyIfCardTypeIsntInDeck(
+              customGame.players[2], WarKnightCard);
+          CardsVerifier.verifyIfCardTypeIsInDeck(
+              customGame.players[1], WarKnightCard);
+        });
+
+        test("Card Herald Power", () {
+          CardsVerifier.verifyPlayerNbCard(customGame.players[3], 11);
+          CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
+          CardsVerifier.verifyIfCardTypeIsInDeck(
+              customGame.players[3], PowerHeraldCard);
+
+          int indexCardPowerHerald = CardsVerifier.getIndexCardByType(
+              customGame.players[3], PowerHeraldCard);
+
+          customGame.currentPlayerTurn = 3;
+
+          customGame
+              .getCurrentPlayer()
+              .playCardWithOneTarget(customGame, indexCardPowerHerald, 1);
+
+          CardsVerifier.verifyPlayerNbCard(customGame.players[3], 9);
+          CardsVerifier.verifyPlayerNbCard(customGame.players[1], 12);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 5);
+          CardsVerifier.verifyIfCardTypeIsntInDeck(
+              customGame.players[3], PowerHeraldCard);
+          CardsVerifier.verifyIfCardTypeIsntInDeck(
+              customGame.players[3], ConquestKnightCard);
+          CardsVerifier.verifyIfCardTypeIsInDeck(
+              customGame.players[1], ConquestKnightCard);
+        });
+
+        test("Card Herald Suffering", () {
+          CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
+          CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
+          CardsVerifier.verifyIfCardTypeIsInDeck(
+              customGame.players[1], SufferingHeraldCard);
+
+          int indexCardSufferingHerald = CardsVerifier.getIndexCardByType(
+              customGame.players[1], SufferingHeraldCard);
+
+          customGame.currentPlayerTurn = 1;
+
+          customGame
+              .getCurrentPlayer()
+              .playCardWithOneTarget(customGame, indexCardSufferingHerald, 0);
+
+          CardsVerifier.verifyPlayerNbCard(customGame.players[1], 9);
+          CardsVerifier.verifyPlayerNbCard(customGame.players[0], 12);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 5);
+          CardsVerifier.verifyIfCardTypeIsntInDeck(
+              customGame.players[1], SufferingHeraldCard);
+          CardsVerifier.verifyIfCardTypeIsntInDeck(
+              customGame.players[1], FamineKnightCard);
+          CardsVerifier.verifyIfCardTypeIsInDeck(
+              customGame.players[0], FamineKnightCard);
+        });
       });
 
-      test("Card Herald Chaos", () {
-        CardsVerifier.verifyPlayerNbCard(customGame.players[2], 11);
-        CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
-        CardsVerifier.verifyIfCardTypeIsInDeck(
-            customGame.players[2], ChaosHeraldCard);
+      group("Card Saint Protector", () {
+        test("Card Saint Healing", () {
+          CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
+          CardsVerifier.verifyIfCardTypeIsInDeck(
+              customGame.players[0], HealingSaintCard);
 
-        int indexCardChaosHerald = CardsVerifier.getIndexCardByType(
-            customGame.players[2], ChaosHeraldCard);
+          int indexCardHealingSaint = CardsVerifier.getIndexCardByType(
+              customGame.players[0], HealingSaintCard);
 
-        customGame.currentPlayerTurn = 2;
+          customGame
+              .getCurrentPlayer()
+              .playCardWithoutTarget(customGame, indexCardHealingSaint);
 
-        customGame
-            .getCurrentPlayer()
-            .playCardWithOneTarget(customGame, indexCardChaosHerald, 1);
+          CardsVerifier.verifyPlayerNbCard(customGame.players[0], 9);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 6);
+          CardsVerifier.verifyIfCardTypeIsntInDeck(
+              customGame.players[0], HealingSaintCard);
+          CardsVerifier.verifyIfCardTypeIsntInDeck(
+              customGame.players[0], PlagueKnightCard);
+        });
 
-        CardsVerifier.verifyPlayerNbCard(customGame.players[2], 9);
-        CardsVerifier.verifyPlayerNbCard(customGame.players[1], 12);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 5);
-        CardsVerifier.verifyIfCardTypeIsntInDeck(
-            customGame.players[2], ChaosHeraldCard);
-        CardsVerifier.verifyIfCardTypeIsntInDeck(
-            customGame.players[2], WarKnightCard);
-        CardsVerifier.verifyIfCardTypeIsInDeck(
-            customGame.players[1], WarKnightCard);
+        test("Card Saint Abundance", () {
+          CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
+          CardsVerifier.verifyIfCardTypeIsInDeck(
+              customGame.players[1], AbundanceSaintCard);
+
+          int indexCardAbundanceSaint = CardsVerifier.getIndexCardByType(
+              customGame.players[1], AbundanceSaintCard);
+
+          customGame.currentPlayerTurn = 1;
+
+          customGame
+              .getCurrentPlayer()
+              .playCardWithoutTarget(customGame, indexCardAbundanceSaint);
+
+          CardsVerifier.verifyPlayerNbCard(customGame.players[1], 9);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 6);
+          CardsVerifier.verifyIfCardTypeIsntInDeck(
+              customGame.players[1], AbundanceSaintCard);
+          CardsVerifier.verifyIfCardTypeIsntInDeck(
+              customGame.players[1], FamineKnightCard);
+        });
+
+        test("Card Saint Peace", () {
+          CardsVerifier.verifyPlayerNbCard(customGame.players[2], 11);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
+          CardsVerifier.verifyIfCardTypeIsInDeck(
+              customGame.players[2], PeaceSaintCard);
+
+          int indexCardPeaceSaint = CardsVerifier.getIndexCardByType(
+              customGame.players[2], PeaceSaintCard);
+
+          customGame.currentPlayerTurn = 2;
+
+          customGame
+              .getCurrentPlayer()
+              .playCardWithoutTarget(customGame, indexCardPeaceSaint);
+
+          CardsVerifier.verifyPlayerNbCard(customGame.players[2], 9);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 6);
+          CardsVerifier.verifyIfCardTypeIsntInDeck(
+              customGame.players[2], PeaceSaintCard);
+          CardsVerifier.verifyIfCardTypeIsntInDeck(
+              customGame.players[2], WarKnightCard);
+        });
+
+        test("Card Saint Prosperity", () {
+          CardsVerifier.verifyPlayerNbCard(customGame.players[3], 11);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
+          CardsVerifier.verifyIfCardTypeIsInDeck(
+              customGame.players[3], ProsperitySaintCard);
+
+          int indexCardProsperitySaint = CardsVerifier.getIndexCardByType(
+              customGame.players[3], ProsperitySaintCard);
+
+          customGame.currentPlayerTurn = 3;
+
+          customGame
+              .getCurrentPlayer()
+              .playCardWithoutTarget(customGame, indexCardProsperitySaint);
+
+          CardsVerifier.verifyPlayerNbCard(customGame.players[3], 9);
+          CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 6);
+          CardsVerifier.verifyIfCardTypeIsntInDeck(
+              customGame.players[3], ProsperitySaintCard);
+          CardsVerifier.verifyIfCardTypeIsntInDeck(
+              customGame.players[3], ConquestKnightCard);
+        });
       });
 
-      test("Card Herald Power", () {
-        CardsVerifier.verifyPlayerNbCard(customGame.players[3], 11);
-        CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
-        CardsVerifier.verifyIfCardTypeIsInDeck(
-            customGame.players[3], PowerHeraldCard);
+      group("Cursed Knight Card", () {
+        test("Can play Cursed Knight", () {
+          CardsVerifier.verifyIfCardTypeIsInDeck(
+              knightGame.players[0], WarKnightCard);
 
-        int indexCardPowerHerald = CardsVerifier.getIndexCardByType(
-            customGame.players[3], PowerHeraldCard);
+          int indexCardWarKnight = CardsVerifier.getIndexCardByType(
+              knightGame.players[0], WarKnightCard);
 
-        customGame.currentPlayerTurn = 3;
+          expect(
+              knightGame.players[0].deck[indexCardWarKnight]
+                  .canBePlayed(knightGame),
+              isTrue);
+        });
 
-        customGame
-            .getCurrentPlayer()
-            .playCardWithOneTarget(customGame, indexCardPowerHerald, 1);
+        test("Can't play Cursed Knight", () {
+          CardsVerifier.verifyIfCardTypeIsInDeck(
+              knightGame.players[1], FamineKnightCard);
 
-        CardsVerifier.verifyPlayerNbCard(customGame.players[3], 9);
-        CardsVerifier.verifyPlayerNbCard(customGame.players[1], 12);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 5);
-        CardsVerifier.verifyIfCardTypeIsntInDeck(
-            customGame.players[3], PowerHeraldCard);
-        CardsVerifier.verifyIfCardTypeIsntInDeck(
-            customGame.players[3], ConquestKnightCard);
-        CardsVerifier.verifyIfCardTypeIsInDeck(
-            customGame.players[1], ConquestKnightCard);
-      });
+          knightGame.currentPlayerTurn = 1;
 
-      test("Card Herald Suffering", () {
-        CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-        CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
-        CardsVerifier.verifyIfCardTypeIsInDeck(
-            customGame.players[1], SufferingHeraldCard);
+          int indexCardWarKnight = CardsVerifier.getIndexCardByType(
+              knightGame.players[1], FamineKnightCard);
 
-        int indexCardSufferingHerald = CardsVerifier.getIndexCardByType(
-            customGame.players[1], SufferingHeraldCard);
-
-        customGame.currentPlayerTurn = 1;
-
-        customGame
-            .getCurrentPlayer()
-            .playCardWithOneTarget(customGame, indexCardSufferingHerald, 0);
-
-        CardsVerifier.verifyPlayerNbCard(customGame.players[1], 9);
-        CardsVerifier.verifyPlayerNbCard(customGame.players[0], 12);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 5);
-        CardsVerifier.verifyIfCardTypeIsntInDeck(
-            customGame.players[1], SufferingHeraldCard);
-        CardsVerifier.verifyIfCardTypeIsntInDeck(
-            customGame.players[1], FamineKnightCard);
-        CardsVerifier.verifyIfCardTypeIsInDeck(
-            customGame.players[0], FamineKnightCard);
-      });
-
-      test("Card Saint Healing", () {
-        CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
-        CardsVerifier.verifyIfCardTypeIsInDeck(
-            customGame.players[0], HealingSaintCard);
-
-        int indexCardHealingSaint = CardsVerifier.getIndexCardByType(
-            customGame.players[0], HealingSaintCard);
-
-        customGame
-            .getCurrentPlayer()
-            .playCardWithoutTarget(customGame, indexCardHealingSaint);
-
-        CardsVerifier.verifyPlayerNbCard(customGame.players[0], 9);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 6);
-        CardsVerifier.verifyIfCardTypeIsntInDeck(
-            customGame.players[0], HealingSaintCard);
-        CardsVerifier.verifyIfCardTypeIsntInDeck(
-            customGame.players[0], PlagueKnightCard);
-      });
-
-      test("Card Saint Abundance", () {
-        CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
-        CardsVerifier.verifyIfCardTypeIsInDeck(
-            customGame.players[1], AbundanceSaintCard);
-
-        int indexCardAbundanceSaint = CardsVerifier.getIndexCardByType(
-            customGame.players[1], AbundanceSaintCard);
-
-        customGame.currentPlayerTurn = 1;
-
-        customGame
-            .getCurrentPlayer()
-            .playCardWithoutTarget(customGame, indexCardAbundanceSaint);
-
-        CardsVerifier.verifyPlayerNbCard(customGame.players[1], 9);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 6);
-        CardsVerifier.verifyIfCardTypeIsntInDeck(
-            customGame.players[1], AbundanceSaintCard);
-        CardsVerifier.verifyIfCardTypeIsntInDeck(
-            customGame.players[1], FamineKnightCard);
-      });
-
-      test("Card Saint Peace", () {
-        CardsVerifier.verifyPlayerNbCard(customGame.players[2], 11);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
-        CardsVerifier.verifyIfCardTypeIsInDeck(
-            customGame.players[2], PeaceSaintCard);
-
-        int indexCardPeaceSaint = CardsVerifier.getIndexCardByType(
-            customGame.players[2], PeaceSaintCard);
-
-        customGame.currentPlayerTurn = 2;
-
-        customGame
-            .getCurrentPlayer()
-            .playCardWithoutTarget(customGame, indexCardPeaceSaint);
-
-        CardsVerifier.verifyPlayerNbCard(customGame.players[2], 9);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 6);
-        CardsVerifier.verifyIfCardTypeIsntInDeck(
-            customGame.players[2], PeaceSaintCard);
-        CardsVerifier.verifyIfCardTypeIsntInDeck(
-            customGame.players[2], WarKnightCard);
-      });
-
-      test("Card Saint Prosperity", () {
-        CardsVerifier.verifyPlayerNbCard(customGame.players[3], 11);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
-        CardsVerifier.verifyIfCardTypeIsInDeck(
-            customGame.players[3], ProsperitySaintCard);
-
-        int indexCardProsperitySaint = CardsVerifier.getIndexCardByType(
-            customGame.players[3], ProsperitySaintCard);
-
-        customGame.currentPlayerTurn = 3;
-
-        customGame
-            .getCurrentPlayer()
-            .playCardWithoutTarget(customGame, indexCardProsperitySaint);
-
-        CardsVerifier.verifyPlayerNbCard(customGame.players[3], 9);
-        CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 6);
-        CardsVerifier.verifyIfCardTypeIsntInDeck(
-            customGame.players[3], ProsperitySaintCard);
-        CardsVerifier.verifyIfCardTypeIsntInDeck(
-            customGame.players[3], ConquestKnightCard);
-      });
-    });
-
-    group("Cursed Knight Card", () {
-      test("Can play Cursed Knight", () {
-        CardsVerifier.verifyIfCardTypeIsInDeck(
-            knightGame.players[0], WarKnightCard);
-
-        int indexCardWarKnight = CardsVerifier.getIndexCardByType(
-            knightGame.players[0], WarKnightCard);
-
-        expect(
-            knightGame.players[0].deck[indexCardWarKnight]
-                .canBePlayed(knightGame),
-            isTrue);
-      });
-
-      test("Can't play Cursed Knight", () {
-        CardsVerifier.verifyIfCardTypeIsInDeck(
-            knightGame.players[1], FamineKnightCard);
-
-        knightGame.currentPlayerTurn = 1;
-
-        int indexCardWarKnight = CardsVerifier.getIndexCardByType(
-            knightGame.players[1], FamineKnightCard);
-
-        expect(
-            knightGame.players[1].deck[indexCardWarKnight]
-                .canBePlayed(knightGame),
-            isFalse);
+          expect(
+              knightGame.players[1].deck[indexCardWarKnight]
+                  .canBePlayed(knightGame),
+              isFalse);
+        });
       });
     });
   });

@@ -32,6 +32,7 @@ class Game {
     }
     currentPlayerTurn = -1;
     isSetup = false;
+    nbPlayerDieInARow = 0;
   }
 
   // Set up game
