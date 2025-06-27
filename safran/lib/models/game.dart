@@ -102,7 +102,7 @@ class Game {
   startGame([int playerTurn = -1]) {
     // Choose a player to start or randomly select one if not specified
     currentPlayerTurn =
-    (playerTurn == -1) ? Random().nextInt(players.length) : playerTurn;
+        (playerTurn == -1) ? Random().nextInt(players.length) : playerTurn;
 
     players[currentPlayerTurn].isTheirTurn = true;
     Logger.info(
@@ -129,7 +129,6 @@ class Game {
       nextTurn();
     }
   }
-
 
   kill(Player player, [bool isTimeOut = false]) {
     // If the player has the Conquest Knight card and all players are alive (win)
@@ -200,7 +199,7 @@ class Game {
       isGameOver = true;
       Logger.info("Draw: $nbPlayerDieInARow players eliminated in a row.");
       winCondition =
-      "Draw: $nbPlayerDieInARow players eliminated after a chain of deaths";
+          "Draw: $nbPlayerDieInARow players eliminated after a chain of deaths";
       return true;
     }
 
@@ -226,7 +225,7 @@ class Game {
 
   void handleConquestKnight() {
     for (var player in players) {
-      if (player.haveConquestKnightCard()) {
+      if (player.haveConquestKnightCard() && onePlayerIsDead()) {
         kill(player);
       }
     }
@@ -240,12 +239,15 @@ class Game {
 
   void eliminateAllPlayersWithoutCards() {
     for (var player in players) {
-      if (player.status == PlayerStatusConstant.alive && player.deck.isEmpty) {
+      if (isAlive(player) && player.deck.isEmpty) {
         kill(player);
       }
     }
   }
 
+  bool isAlive(Player player) =>
+      player.status == PlayerStatusConstant.alive ||
+      player.status == PlayerStatusConstant.conquest;
 
   // Get the Next / Previous / Current player index to play
   getNextPlayerTurnIndex() {
@@ -287,9 +289,8 @@ class Game {
 
   List<Player> getOtherAlivePlayers() {
     return players
-        .where(
-            (player) =>
-        player.status == PlayerStatusConstant.alive &&
+        .where((player) =>
+            player.status == PlayerStatusConstant.alive &&
             player != players[currentPlayerTurn])
         .toList();
   }
