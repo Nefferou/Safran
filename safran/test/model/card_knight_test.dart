@@ -1,0 +1,44 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:safran/models/card/triad/cursedKnight/war_knight_card.dart';
+import 'package:safran/models/card/triad/cursedKnight/famine_knight_card.dart';
+import 'package:safran/models/game.dart';
+import '../utils/cards_verifier.dart';
+import '../utils/preset_util.dart';
+
+void main() {
+  late Game knightGame;
+
+  setUp(() {
+    knightGame = PresetUtil.presetCanPlayKnight();
+  });
+
+  group("Cursed Knight Card", () {
+    test("Can play Cursed Knight", () {
+      CardsVerifier.verifyIfCardTypeIsInDeck(
+          knightGame.players[0], WarKnightCard);
+
+      int indexCardWarKnight = CardsVerifier.getIndexCardByType(
+          knightGame.players[0], WarKnightCard);
+
+      expect(
+          knightGame.players[0].deck[indexCardWarKnight]
+              .canBePlayed(knightGame),
+          isTrue);
+    });
+
+    test("Can't play Cursed Knight", () {
+      CardsVerifier.verifyIfCardTypeIsInDeck(
+          knightGame.players[1], FamineKnightCard);
+
+      knightGame.currentPlayerTurn = 1;
+
+      int indexCardWarKnight = CardsVerifier.getIndexCardByType(
+          knightGame.players[1], FamineKnightCard);
+
+      expect(
+          knightGame.players[1].deck[indexCardWarKnight]
+              .canBePlayed(knightGame),
+          isFalse);
+    });
+  });
+} 

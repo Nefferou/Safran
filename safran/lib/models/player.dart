@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:safran/models/card/constant/player_status-constant.dart';
+import 'package:safran/models/card/constant/player_status_constant.dart';
 import 'package:safran/models/card/dealer.dart';
 import 'package:safran/models/card/recruitment/mage/mage_card.dart';
 import 'package:safran/models/card/recruitment/thief_card.dart';

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:safran/models/battle_field.dart';
-import 'package:safran/models/card/constant/player_status-constant.dart';
+import 'package:safran/models/card/constant/player_status_constant.dart';
 import 'package:safran/models/logger.dart';
 import 'package:safran/models/player.dart';
 import 'card/game_card.dart';

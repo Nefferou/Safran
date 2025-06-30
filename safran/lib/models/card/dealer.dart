@@ -1,4 +1,4 @@
-import 'package:safran/models/card/constant/player_status-constant.dart';
+import 'package:safran/models/card/constant/player_status_constant.dart';
 import 'package:safran/models/card/triad/cursedKnight/conquest_knight_card.dart';
 
 import '../battle_field.dart';

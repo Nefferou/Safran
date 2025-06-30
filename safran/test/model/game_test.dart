@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:safran/models/battle_field.dart';
 import 'package:safran/models/card/card_factory.dart';
-import 'package:safran/models/card/constant/player_status-constant.dart';
+import 'package:safran/models/card/constant/player_status_constant.dart';
 import 'package:safran/models/card/game_card.dart';
 import 'package:safran/models/card/recruitment/army/archer_card.dart';
 import 'package:safran/models/card/recruitment/army/guard_card.dart';
