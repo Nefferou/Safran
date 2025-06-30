@@ -46,7 +46,7 @@ void main() {
   }
 
   group("Game setup tests", () {
-    test("Game is created and setup / card is correct deal (3 players)", () {
+    test("Game is created and setup / cards is correct deal (3 players)", () {
       Game game = setUpWithNbPlayer([playerTest1, playerTest2, playerTest3]);
 
       expect(game.players.length, 3);
@@ -62,7 +62,7 @@ void main() {
 
       expect(game.isSetup, true);
     });
-    test("Game is created and setup / card is correct deal (4 players)", () {
+    test("Game is created and setup / cards is correct deal (4 players)", () {
       Game game = setUpWithNbPlayer(
           [playerTest1, playerTest2, playerTest3, playerTest4]);
 
@@ -81,7 +81,7 @@ void main() {
 
       expect(game.isSetup, true);
     });
-    test("Game is created and setup / card is correct deal (5 players)", () {
+    test("Game is created and setup / cards is correct deal (5 players)", () {
       Game game = setUpWithNbPlayer(
           [playerTest1, playerTest2, playerTest3, playerTest4, playerTest5]);
 
@@ -102,7 +102,7 @@ void main() {
 
       expect(game.isSetup, true);
     });
-    test("Game is created and setup / card is correct deal (6 players)", () {
+    test("Game is created and setup / cards is correct deal (6 players)", () {
       Game game = setUpWithNbPlayer([
         playerTest1,
         playerTest2,
@@ -185,7 +185,7 @@ void main() {
         fail("Exception was expected but not thrown.");
       } catch (e) {
         expect(e.toString(),
-            "Exception: Deck size is not valid. It must be divisible by the number of players plus one for the battle field card");
+            "Exception: Deck size is not valid. It must be divisible by the number of players plus one for the battle field cards");
       }
     });
     test("Game with empty deck", () {
@@ -211,9 +211,9 @@ void main() {
         expect(e.toString(), "Exception: Deck is empty");
       }
     });
-    test("Game with card not equally distributed", () {
+    test("Game with cards not equally distributed", () {
       try {
-        // Add one card to one player to make the distribution unequal
+        // Add one cards to one player to make the distribution unequal
         playerTest1.deck.add(CommanderCard());
 
         // Create a game with 3 players
@@ -271,7 +271,7 @@ void main() {
       expect(game.getNextPlayerTurnIndex(), 2);
     });
     test("Play game successfully", () {
-      // All players card are dealt
+      // All players cards are dealt
       testPlayer1.deck.addAll([FakeCard(), FakeCard()]);
       testPlayer2.deck.addAll([FakeCard(), FakeCard(), FakeCard(), FakeCard()]);
       testPlayer3.deck
@@ -302,7 +302,7 @@ void main() {
       expect(testPlayer3.status == PlayerStatusConstant.alive, isTrue);
     });
     test("Player in pause and time out", () {
-      // All players card are dealt
+      // All players cards are dealt
       testPlayer1.deck.addAll([FakeCard(), FakeCard()]);
       testPlayer2.deck.addAll([FakeCard(), FakeCard(), FakeCard(), FakeCard()]);
       testPlayer3.deck
@@ -339,7 +339,7 @@ void main() {
 
   group("Win conditions tests", () {
     test("One player win", () {
-      // All players card are dealt
+      // All players cards are dealt
       testPlayer1.deck.addAll([FakeCard(), FakeCard()]);
       testPlayer2.deck.addAll([FakeCard(), FakeCard(), FakeCard(), ConquestKnightCard()]);
       testPlayer3.deck
@@ -371,7 +371,7 @@ void main() {
       expect(game.winCondition, "Only one player is left alive");
     });
     test("Conquest win", () {
-      // All players card are dealt
+      // All players cards are dealt
       testPlayer1.deck.addAll([ConquestKnightCard()]);
       testPlayer2.deck.addAll([FakeCard(), FakeCard(), FakeCard(), FakeCard()]);
       testPlayer3.deck
@@ -397,7 +397,7 @@ void main() {
     });
 
     test("Tie", () {
-      // All players card are dealt
+      // All players cards are dealt
       testPlayer1.deck.addAll([ArcherCard(), FakeCard()]);
       testPlayer2.deck.addAll([GuardCard()]);
       testPlayer3.deck

@@ -8,8 +8,8 @@ import 'package:safran/entities/card/triad/saintProtector/healing_saint_card.dar
 import 'package:safran/entities/card/triad/saintProtector/peace_saint_card.dart';
 import 'package:safran/entities/card/triad/saintProtector/prosperity_saint_card.dart';
 import 'package:safran/entities/game.dart';
-import '../utils/cards_verifier.dart';
-import '../utils/preset_util.dart';
+import '../../utils/cards_verifier.dart';
+import '../../utils/preset_util.dart';
 
 void main() {
   late Game customGame;

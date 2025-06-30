@@ -3,8 +3,8 @@ import 'package:safran/entities/card/recruitment/army/archer_card.dart';
 import 'package:safran/entities/card/recruitment/army/guard_card.dart';
 import 'package:safran/entities/card/recruitment/army/swordsman_card.dart';
 import 'package:safran/entities/game.dart';
-import '../utils/cards_verifier.dart';
-import '../utils/preset_util.dart';
+import '../../utils/cards_verifier.dart';
+import '../../utils/preset_util.dart';
 
 void main() {
   late Game armyGame;

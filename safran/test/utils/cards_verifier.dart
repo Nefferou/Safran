@@ -14,12 +14,12 @@ class CardsVerifier {
   }
 
   static verifyIfCardTypeIsInDeck(Player player, Type cardType) {
-    // Verify if the card type is in the player's deck
+    // Verify if the cards type is in the player's deck
     expect(getIndexCardByType(player, cardType), isNot(-1));
   }
 
   static verifyIfCardTypeIsntInDeck(Player player, Type cardType) {
-    // Verify if the card type is in the player's deck
+    // Verify if the cards type is in the player's deck
     expect(getIndexCardByType(player, cardType), -1);
   }
 

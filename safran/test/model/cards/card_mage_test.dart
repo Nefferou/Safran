@@ -3,8 +3,8 @@ import 'package:safran/entities/card/recruitment/mage/aeromancer_card.dart';
 import 'package:safran/entities/card/recruitment/mage/arcanist_card.dart';
 import 'package:safran/entities/card/recruitment/mage/geomancer_card.dart';
 import 'package:safran/entities/game.dart';
-import '../utils/cards_verifier.dart';
-import '../utils/preset_util.dart';
+import '../../utils/cards_verifier.dart';
+import '../../utils/preset_util.dart';
 
 void main() {
   late Game customGame;
