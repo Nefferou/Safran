@@ -1,5 +1,5 @@
-import 'package:safran/models/card/game_card.dart';
-import 'package:safran/models/game.dart';
+import 'package:safran/entities/card/game_card.dart';
+import 'package:safran/entities/game.dart';
 
 class FakeCard extends GameCard {
   FakeCard() : super("FakeCard", "Fake card for testing", "fake_image.png");

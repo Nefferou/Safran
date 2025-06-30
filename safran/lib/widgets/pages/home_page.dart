@@ -7,8 +7,8 @@ import 'package:safran/widgets/pages/connection_game_type_pages/local_page.dart'
 import 'package:safran/widgets/pages/connection_game_type_pages/online_page.dart';
 import 'package:safran/widgets/pages/game_board_page/game_board_page.dart';
 
-import '../../models/game.dart';
-import '../../models/player.dart';
+import '../../entities/game.dart';
+import '../../entities/player.dart';
 
 class HomePage extends StatelessWidget {
 

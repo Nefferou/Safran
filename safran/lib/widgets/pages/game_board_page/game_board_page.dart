@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safran/widgets/components/game_board_template/game_board_template_3p.dart';
 
-import '../../../models/game.dart';
+import '../../../entities/game.dart';
 
 class GameBoardPage extends StatefulWidget {
 

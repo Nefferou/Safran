@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:safran/models/card/recruitment/thief_card.dart';
-import 'package:safran/models/game.dart';
+import 'package:safran/entities/card/recruitment/thief_card.dart';
+import 'package:safran/entities/game.dart';
 import '../utils/cards_verifier.dart';
 import '../utils/preset_util.dart';
 

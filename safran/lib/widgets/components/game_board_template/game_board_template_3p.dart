@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../models/game.dart';
+import '../../../entities/game.dart';
 import '../hands/main_hand.dart';
 import '../header/custom_header.dart';
 

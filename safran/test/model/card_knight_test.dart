@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:safran/models/card/triad/cursedKnight/war_knight_card.dart';
-import 'package:safran/models/card/triad/cursedKnight/famine_knight_card.dart';
-import 'package:safran/models/game.dart';
+import 'package:safran/entities/card/triad/cursedKnight/war_knight_card.dart';
+import 'package:safran/entities/card/triad/cursedKnight/famine_knight_card.dart';
+import 'package:safran/entities/game.dart';
 import '../utils/cards_verifier.dart';
 import '../utils/preset_util.dart';
 
