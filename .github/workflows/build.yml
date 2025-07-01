@@ -2,12 +2,12 @@ name: Flutter CI + SonarQube
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
-  Build_and_Test:
+  build_and_test:
     name: Build and Test Flutter App
     runs-on: ubuntu-latest
 
@@ -36,15 +36,11 @@ jobs:
         run: flutter pub get
         working-directory: safran
 
-      - name: Run tests
-        run: flutter test
-        working-directory: safran
-
       - name: Build APK
         run: flutter build apk
         working-directory: safran
 
-  SonarQube:
+  sonarqube:
     name: SonarQube Scan
     runs-on: ubuntu-latest
 

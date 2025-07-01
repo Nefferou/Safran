@@ -1,14 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:safran/models/battle_field.dart';
-import 'package:safran/models/card/card_factory.dart';
-import 'package:safran/models/card/constant/player_status-constant.dart';
-import 'package:safran/models/card/game_card.dart';
-import 'package:safran/models/card/recruitment/army/archer_card.dart';
-import 'package:safran/models/card/recruitment/army/guard_card.dart';
-import 'package:safran/models/card/recruitment/commander_card.dart';
-import 'package:safran/models/card/triad/cursedKnight/conquest_knight_card.dart';
-import 'package:safran/models/game.dart';
-import 'package:safran/models/player.dart';
+import 'package:safran/entities/battle_field.dart';
+import 'package:safran/services/card_factory.dart';
+import 'package:safran/core/constants/player_status_constant.dart';
+import 'package:safran/entities/card/game_card.dart';
+import 'package:safran/entities/card/recruitment/army/archer_card.dart';
+import 'package:safran/entities/card/recruitment/army/guard_card.dart';
+import 'package:safran/entities/card/recruitment/commander_card.dart';
+import 'package:safran/entities/card/triad/cursedKnight/conquest_knight_card.dart';
+import 'package:safran/entities/game.dart';
+import 'package:safran/entities/player.dart';
 
 import '../utils/fake_card.dart';
 import '../utils/fake_player.dart';
