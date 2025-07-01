@@ -42,6 +42,11 @@ jobs:
         run: |
           echo "CHANGELOG=$(git log -1 --pretty=format:'%h - %s (%an)')" >> $GITHUB_ENV
 
+      - name: Write changelog to file
+        run: |
+          echo "## Changelog for ${{ github.ref_name }}" > safran/CHANGELOG.md
+          git log -1 --pretty=format:"- %h: %s (%an)" >> safran/CHANGELOG.md
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
