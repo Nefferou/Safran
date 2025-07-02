@@ -36,12 +36,6 @@ jobs:
         run: flutter pub get
         working-directory: safran
 
-      - name: Clean Gradle caches
-        run: |
-          rm -rf ~/.gradle
-          rm -rf ~/.android
-          rm -rf ~/.pub-cache
-        
       - name: Build APK
         run: flutter build apk
         working-directory: safran
