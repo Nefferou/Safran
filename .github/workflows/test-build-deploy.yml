@@ -177,5 +177,5 @@ jobs:
         run: |
           curl -H "Content-Type: application/json" \
                -X POST \
-               -d '{"content": "**✅ Nouvelle version déployée : `${{ github.ref_name }}`**\n📝 *Changelog :* ${{ env.CHANGELOG }}"}' \
+               -d '{"content": "**Nouvelle version déployée : `${{ github.ref_name }}`**\n*Changelog :* ${{ env.CHANGELOG }}"}' \
                ${{ secrets.DISCORD_WEBHOOK }}
