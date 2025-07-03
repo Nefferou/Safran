@@ -11,12 +11,7 @@ class BasicButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       onPressed: () {
-        Navigator.push(
-          context,
-          PageRouteBuilder(
-            pageBuilder: (context, animation1, animation2) => redirectedPage,
-          ),
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (_) => redirectedPage));
       },
       child: Text(text),
     );
