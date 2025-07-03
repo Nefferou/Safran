@@ -158,10 +158,6 @@ class Player {
     return haveCardTypeInDeck(FamineKnightCard);
   }
 
-  haveWarKnightCard() {
-    return haveCardTypeInDeck(WarKnightCard);
-  }
-
   haveConquestKnightCard() {
     return haveCardTypeInDeck(ConquestKnightCard);
   }

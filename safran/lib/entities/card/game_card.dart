@@ -8,11 +8,6 @@ abstract class GameCard {
 
   GameCard(this.name, this.description, this.image);
 
-  @override
-  String toString() {
-    return "[$name]";
-  }
-
   canBePlayed(Game game) {
     return true;
   }

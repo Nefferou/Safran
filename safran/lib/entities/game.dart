@@ -296,17 +296,6 @@ class Game {
         .toList();
   }
 
-  getPlayerWithWarKnight() {
-    for (var player in players) {
-      if (player.haveWarKnightCard()) return player;
-    }
-    return null;
-  }
-
-  getPlayerIndexWithConquestKnight() {
-    return players.indexWhere((player) => player.haveConquestKnightCard());
-  }
-
   Player getCurrentPlayer() {
     return players[currentPlayerTurn];
   }
