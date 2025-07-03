@@ -15,6 +15,9 @@ class GameDiscovery {
         final datagram = socket.receive();
         if (datagram != null) {
           final data = utf8.decode(datagram.data);
+
+          print("📨 Paquet reçu de ${datagram.address.address}: $data");
+
           try {
             final json = jsonDecode(data);
             if (json['type'] == 'announce') {
@@ -26,7 +29,7 @@ class GameDiscovery {
               });
             }
           } catch (e) {
-            print("❌ Failed to parse JSON: \$e");
+            print("❌ Failed to parse JSON: $e");
           }
         }
       }

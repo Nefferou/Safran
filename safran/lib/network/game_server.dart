@@ -31,6 +31,15 @@ class GameServer {
     });
 
     print("🔊 Server started and broadcasting on UDP port 4567...");
+
+    final interfaces = await NetworkInterface.list();
+    for (var iface in interfaces) {
+      for (var addr in iface.addresses) {
+        if (addr.type == InternetAddressType.IPv4 && !addr.isLoopback) {
+          print('📡 Host IP: ${addr.address}');
+        }
+      }
+    }
   }
 
   void playerJoined() {
