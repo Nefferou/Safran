@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "740745311069",
+    "project_id": "safran-21292",
+    "storage_bucket": "safran-21292.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740745311069:android:97897596d8cd54c6112eb4",
+        "android_client_info": {
+          "package_name": "com.stormage.safran.safran"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAL0z_V32GlbLXTTTsUcoG5xMwq50VnlsA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
