@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../network/game_discovery.dart';
 import '../../../network/websocket_client_connection.dart';
 
@@ -13,19 +12,26 @@ class JoinGamePage extends StatefulWidget {
 class _JoinGamePageState extends State<JoinGamePage> {
   List<Map<String, dynamic>> games = [];
   final _connection = WebSocketClientConnection();
+  late GameDiscovery discovery;
 
   @override
   void initState() {
     super.initState();
-    final discovery = GameDiscovery(onGameFound: (game) {
-      print("🧩 Ajout de la partie: ${game['name']} @ ${game['ip']}");
-      setState(() {
-        if (!games.any((g) => g['ip'] == game['ip'])) {
+    discovery = GameDiscovery(onGameFound: (game) {
+      if (mounted && !games.any((g) => g['ip'] == game['ip'])) {
+        print("🧩 Ajout de la partie: ${game['name']} @ ${game['ip']}");
+        setState(() {
           games.add(game);
-        }
-      });
+        });
+      }
     });
     discovery.startListening();
+  }
+
+  @override
+  void dispose() {
+    discovery.stopListening();
+    super.dispose();
   }
 
   void connectToGame(String ip) {

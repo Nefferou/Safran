@@ -21,7 +21,7 @@ class GameServer {
     for (var iface in interfaces) {
       for (var addr in iface.addresses) {
         if (!addr.isLoopback) {
-          final broadcast = getBroadcastAddress(addr, InternetAddress("255.255.255.0")); // Assumes /24 subnet
+          final broadcast = getBroadcastAddress(addr, InternetAddress("255.255.255.0"));
           print('📡 Interface utilisée: ${iface.name} — IP: ${addr.address} → Broadcast: ${broadcast.address}');
 
           _broadcastTimer = Timer.periodic(Duration(seconds: 2), (timer) {
@@ -39,7 +39,7 @@ class GameServer {
             );
             print("📣 Message broadcasté sur ${broadcast.address}:4567");
           });
-          break; // Use the first valid interface
+          break;
         }
       }
     }
