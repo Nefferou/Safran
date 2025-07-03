@@ -15,18 +15,19 @@ class GameDiscovery {
         final datagram = socket.receive();
         if (datagram != null) {
           final data = utf8.decode(datagram.data);
-
           print("📨 Paquet reçu de ${datagram.address.address}: $data");
-
           try {
             final json = jsonDecode(data);
             if (json['type'] == 'announce') {
+              print("✅ Partie détectée: ${json['gameName']} (${json['currentPlayers']}/${json['maxPlayers']})");
               onGameFound({
                 "name": json['gameName'],
                 "maxPlayers": json['maxPlayers'],
                 "currentPlayers": json['currentPlayers'] ?? 1,
                 "ip": datagram.address.address,
               });
+            } else {
+              print("⚠️ Type inconnu: ${json['type']}");
             }
           } catch (e) {
             print("❌ Failed to parse JSON: $e");
