@@ -5,7 +5,7 @@ class FakePlayer extends Player {
   FakePlayer(super.name);
 
   @override
-  void play(Game game) {
+  void play(Game game, [String? Function()? readLine, String? Function()? readLine2]) {
     playCardWithoutTarget(game, 0);
   }
 }

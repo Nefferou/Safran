@@ -28,19 +28,19 @@ class Player {
       : status = PlayerStatusConstant.alive,
         isTheirTurn = false;
 
-  playCard(Game game, indexCard) {
+  playCard(Game game, indexCard, [String? Function()? readLine, String? Function()? readLine2]) {
     // Check if card require one target
     if (getCard(indexCard) is MageCard || getCard(indexCard) is FateHeraldCard) {
       stdout.write("Choose target : ");
-      int target = stdin.readLineSync() as int;
+      int target = readPlayerLine(readLine);
       playCardWithOneTarget(game, indexCard, target);
     }
     // Check if card require two target
     else if (getCard(indexCard) is ThiefCard) {
       stdout.write("Choose stealer target : ");
-      int stealerTarget = stdin.readLineSync() as int;
+      int stealerTarget = readPlayerLine(readLine);
       stdout.write("Choose stolen target : ");
-      int stolenTarget = stdin.readLineSync() as int;
+      int stolenTarget = readPlayerLine(readLine2);
       playCardWithTwoTargets(game, indexCard, stealerTarget, stolenTarget);
     }
     // Check if card doesn't require any target
@@ -126,14 +126,14 @@ class Player {
     Logger.info("$userName in paused");
   }
 
-  play(Game game) {
+  play(Game game, [String? Function()? readLine, String? Function()? readLine2]) {
     // Player chooses a card to play
     stdout.write("Entrez l'index de la carte à jouer : ");
-    int indexCard = stdin.readLineSync() as int;
+    int indexCard = readPlayerLine(readLine);
 
     while (!deck[indexCard].canBePlayed(game)) {
       stdout.write("Choisir un autre index de carte à jouer : ");
-      indexCard = stdin.readLineSync() as int;
+      indexCard = readPlayerLine(readLine2);
     }
 
     // Player plays the card
@@ -158,15 +158,16 @@ class Player {
     return haveCardTypeInDeck(FamineKnightCard);
   }
 
-  haveWarKnightCard() {
-    return haveCardTypeInDeck(WarKnightCard);
-  }
-
   haveConquestKnightCard() {
     return haveCardTypeInDeck(ConquestKnightCard);
   }
 
   haveOnlyKnightCardTypeInDeck() {
     return deck.every((card) => card is CursedKnightCard);
+  }
+
+  static int readPlayerLine([String? Function()? readLine]) {
+    final line = (readLine ?? stdin.readLineSync)();
+    return int.parse(line!);
   }
 }

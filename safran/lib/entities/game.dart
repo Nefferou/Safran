@@ -32,6 +32,7 @@ class Game {
     }
     currentPlayerTurn = -1;
     isSetup = false;
+    nbPlayerDieInARow = 0;
   }
 
   // Set up game
@@ -293,17 +294,6 @@ class Game {
             player.status == PlayerStatusConstant.alive &&
             player != players[currentPlayerTurn])
         .toList();
-  }
-
-  getPlayerWithWarKnight() {
-    for (var player in players) {
-      if (player.haveWarKnightCard()) return player;
-    }
-    return null;
-  }
-
-  getPlayerIndexWithConquestKnight() {
-    return players.indexWhere((player) => player.haveConquestKnightCard());
   }
 
   Player getCurrentPlayer() {
