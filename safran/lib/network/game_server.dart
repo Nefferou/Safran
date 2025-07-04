@@ -26,7 +26,7 @@ class GameServer {
       for (var addr in iface.addresses) {
         if (!addr.isLoopback) {
           final broadcast = getBroadcastAddress(addr, InternetAddress("255.255.255.0"));
-          print('📡 Interface utilisée: \${iface.name} — IP: \${addr.address} → Broadcast: \${broadcast.address}');
+          print('📡 Interface utilisée: ${iface.name} — IP: ${addr.address} → Broadcast: ${broadcast.address}');
 
           final timer = Timer.periodic(Duration(seconds: 2), (timer) {
             final message = jsonEncode({
@@ -41,7 +41,7 @@ class GameServer {
               broadcast,
               4567,
             );
-            print("📣 Message broadcasté sur \${broadcast.address}:4567");
+            // print("📣 Message broadcasté sur ${broadcast.address}:4567");
           });
 
           _broadcastTimers.add(timer);
@@ -62,7 +62,7 @@ class GameServer {
   void playerJoined() {
     if (currentPlayers < maxPlayers) {
       currentPlayers++;
-      print("👤 Nouveau joueur rejoint. Total: \$currentPlayers/\$maxPlayers");
+      print("👤 Nouveau joueur rejoint. Total: $currentPlayers/$maxPlayers");
     }
   }
 
