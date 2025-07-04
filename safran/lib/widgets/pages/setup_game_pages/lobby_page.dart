@@ -1,20 +1,18 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../../../network/game_server.dart';
-import '../../../network/websocket_host_server.dart';
+import '../../../network/websocket_client_connection.dart';
 
 class LobbyPage extends StatefulWidget {
   final bool isHost;
   final String playerIp;
   final GameServer? gameServer;
-  final WebSocketHostServer? wsServer;
 
   const LobbyPage({
     Key? key,
     required this.isHost,
     required this.playerIp,
     this.gameServer,
-    this.wsServer,
   }) : super(key: key);
 
   @override
@@ -22,6 +20,7 @@ class LobbyPage extends StatefulWidget {
 }
 
 class _LobbyPageState extends State<LobbyPage> {
+  late final WebSocketClientConnection _clientConnection;
   List<String> _players = [];
   late bool _isHost;
   bool _hasShutdown = false;
@@ -30,28 +29,25 @@ class _LobbyPageState extends State<LobbyPage> {
   void initState() {
     super.initState();
     _isHost = widget.isHost;
+    _clientConnection = WebSocketClientConnection();
 
-    // Ajoute soi-même à la liste au démarrage
-    _players.add(widget.playerIp);
-
-    // Attache le handler de message
-    widget.wsServer?.onMessageReceived = _handleMessageFromServer;
+    // Se connecter au serveur WebSocket
+    _clientConnection.connect(widget.playerIp);
+    _clientConnection.onMessageReceived = _handleMessage;
   }
 
-  void _handleMessageFromServer(String message) {
+  void _handleMessage(String message) {
     final data = jsonDecode(message);
 
     if (data['type'] == 'players_update') {
       setState(() {
         _players = List<String>.from(data['players']);
       });
-    }
-
-    if (data['type'] == 'promote_to_host') {
+    } else if (data['type'] == 'promote_to_host') {
       setState(() {
         _isHost = true;
       });
-      print("👑 Ce client devient le nouveau host !");
+      print("👑 Vous êtes maintenant l'hôte !");
     }
   }
 
@@ -59,61 +55,49 @@ class _LobbyPageState extends State<LobbyPage> {
     if (_hasShutdown) return;
     _hasShutdown = true;
 
+    _clientConnection.close();
     if (_isHost) {
       widget.gameServer?.stop();
-      widget.wsServer?.stop();
-      print("🧼 Host a quitté, serveurs arrêtés.");
+      print("🧼 Hôte a quitté. Serveur arrêté.");
     }
-  }
-
-  Future<bool> _onWillPop() async {
-    await shutdownServersIfNeeded();
-    Navigator.pop(context);
-    return false;
   }
 
   @override
   void dispose() {
     shutdownServersIfNeeded();
-    widget.wsServer?.onMessageReceived = null;
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onWillPop,
+      onWillPop: () async {
+        await shutdownServersIfNeeded();
+        Navigator.pop(context);
+        return false;
+      },
       child: Scaffold(
-        appBar: AppBar(title: const Text("Lobby")),
+        appBar: AppBar(title: const Text('Lobby')),
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
-              Text("Votre IP : ${widget.playerIp}", style: const TextStyle(fontSize: 16)),
-              if (_isHost)
-                const Padding(
-                  padding: EdgeInsets.only(top: 8.0),
-                  child: Text("(vous êtes l’hôte)", style: TextStyle(color: Colors.grey)),
-                ),
-              const SizedBox(height: 24),
-              const Text("🧑 Joueurs connectés",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              Text("Votre IP: ${widget.playerIp}"),
               const SizedBox(height: 12),
+              if (_isHost)
+                const Text("(Vous êtes l'hôte)", style: TextStyle(color: Colors.grey)),
+              const SizedBox(height: 24),
+              const Text("Joueurs connectés:", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               Expanded(
                 child: ListView.builder(
                   itemCount: _players.length,
-                  itemBuilder: (context, index) {
-                    final ip = _players[index];
-                    final isMe = ip == widget.playerIp;
-                    return ListTile(
-                      title: Text(ip),
-                      trailing: isMe ? const Text("Moi") : null,
-                    );
-                  },
+                  itemBuilder: (context, index) => ListTile(
+                    title: Text(_players[index]),
+                    trailing: _players[index] == widget.playerIp ? const Text("Moi") : null,
+                  ),
                 ),
-              ),
+              )
             ],
           ),
         ),

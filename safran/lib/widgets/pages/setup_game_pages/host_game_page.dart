@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-
 import '../../../network/game_server.dart';
 import '../../../network/websocket_host_server.dart';
 import 'lobby_page.dart';
@@ -22,13 +21,13 @@ class _HostGamePageState extends State<HostGamePage> {
 
   void startHost() async {
     if (_isStarting) return;
-    _isStarting = true;
+    setState(() => _isStarting = true);
 
     try {
       _gameServer = GameServer(gameName: gameName, maxPlayers: maxPlayers);
       await _gameServer!.start();
 
-      _wsServer ??= WebSocketHostServer();
+      _wsServer = WebSocketHostServer();
       _wsServer!.attachGameServer(_gameServer!);
       await _wsServer!.start();
 
@@ -45,27 +44,23 @@ class _HostGamePageState extends State<HostGamePage> {
             isHost: true,
             playerIp: hostIp,
             gameServer: _gameServer,
-            wsServer: _wsServer,
           ),
         ),
       );
 
-      // Reset complet après retour du Lobby
       setState(() {
         gameName = '';
         maxPlayers = 3;
         _gameServer = null;
         _wsServer = null;
-        _nameController.text = '';
+        _nameController.clear();
         _isStarting = false;
       });
     } catch (e) {
       print("🚨 Erreur dans startHost: $e");
       _gameServer?.stop();
       _wsServer?.stop();
-      setState(() {
-        _isStarting = false;
-      });
+      setState(() => _isStarting = false);
     }
   }
 
