@@ -1,29 +1,39 @@
-import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/status.dart' as status;
+import 'dart:io';
 
 class WebSocketClientConnection {
-  late IOWebSocketChannel _channel;
+  WebSocket? _socket;
+  bool isConnected = false;
 
-  void connect(String ip, {int port = 8080}) {
-    final url = 'ws://$ip:$port';
-    print('🔌 Connexion à $url');
-    _channel = IOWebSocketChannel.connect(url);
+  void connect(String ip) async {
+    if (isConnected) {
+      print("🔁 Déjà connecté à $ip, annulation de la reconnexion.");
+      return;
+    }
 
-    _channel.stream.listen(
-          (data) => print('📨 Message du serveur : $data'),
-      onDone: () => print('🚪 Connexion fermée'),
-      onError: (e) => print('⚠️ Erreur de connexion : $e'),
-    );
+    try {
+      _socket = await WebSocket.connect("ws://$ip:8080");
+      isConnected = true;
+      print("✅ Connecté à $ip");
 
-    // Exemple d'envoi
-    _channel.sink.add('Hello depuis le client');
-  }
-
-  void send(String message) {
-    _channel.sink.add(message);
+      _socket!.listen(
+            (data) => print("📩 Message reçu: $data"),
+        onDone: () {
+          print("🛑 Déconnecté");
+          isConnected = false;
+        },
+        onError: (e) {
+          print("❌ Erreur WebSocket: $e");
+          isConnected = false;
+        },
+      );
+    } catch (e) {
+      print("❌ Échec de connexion à $ip: $e");
+      isConnected = false;
+    }
   }
 
   void disconnect() {
-    _channel.sink.close(status.goingAway);
+    _socket?.close();
+    isConnected = false;
   }
 }

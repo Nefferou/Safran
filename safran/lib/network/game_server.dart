@@ -7,12 +7,16 @@ class GameServer {
   final String gameName;
   final int maxPlayers;
   RawDatagramSocket? _socket;
-  Timer? _broadcastTimer;
+  final List<Timer> _broadcastTimers = [];
   int currentPlayers = 1;
+  bool _isRunning = false;
 
   GameServer({required this.gameName, required this.maxPlayers});
 
   Future<void> start() async {
+    if (_isRunning) return;
+    _isRunning = true;
+
     _socket = await RawDatagramSocket.bind(InternetAddress.anyIPv4, 4567);
     _socket!.broadcastEnabled = true;
     print("🛠 Socket créée et broadcast activé");
@@ -22,9 +26,9 @@ class GameServer {
       for (var addr in iface.addresses) {
         if (!addr.isLoopback) {
           final broadcast = getBroadcastAddress(addr, InternetAddress("255.255.255.0"));
-          print('📡 Interface utilisée: ${iface.name} — IP: ${addr.address} → Broadcast: ${broadcast.address}');
+          print('📡 Interface utilisée: \${iface.name} — IP: \${addr.address} → Broadcast: \${broadcast.address}');
 
-          _broadcastTimer = Timer.periodic(Duration(seconds: 2), (timer) {
+          final timer = Timer.periodic(Duration(seconds: 2), (timer) {
             final message = jsonEncode({
               "type": "announce",
               "gameName": gameName,
@@ -37,9 +41,10 @@ class GameServer {
               broadcast,
               4567,
             );
-            print("📣 Message broadcasté sur ${broadcast.address}:4567");
+            print("📣 Message broadcasté sur \${broadcast.address}:4567");
           });
-          break;
+
+          _broadcastTimers.add(timer);
         }
       }
     }
@@ -57,12 +62,19 @@ class GameServer {
   void playerJoined() {
     if (currentPlayers < maxPlayers) {
       currentPlayers++;
-      print("👤 Nouveau joueur rejoint. Total: $currentPlayers/$maxPlayers");
+      print("👤 Nouveau joueur rejoint. Total: \$currentPlayers/\$maxPlayers");
     }
   }
 
   void stop() {
-    _broadcastTimer?.cancel();
+    if (!_isRunning) return;
+    _isRunning = false;
+
+    for (final timer in _broadcastTimers) {
+      timer.cancel();
+    }
+    _broadcastTimers.clear();
+
     _socket?.close();
     print("🛑 Server stopped");
   }

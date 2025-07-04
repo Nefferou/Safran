@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../network/game_discovery.dart';
 import '../../../network/websocket_client_connection.dart';
+import 'lobby_page.dart';
 
 class JoinGamePage extends StatefulWidget {
   const JoinGamePage({super.key});
@@ -35,8 +36,14 @@ class _JoinGamePageState extends State<JoinGamePage> {
   }
 
   void connectToGame(String ip) {
-    print("🔗 Connexion à la partie @ ${ip}");
+    print("🔗 Connexion à la partie @ $ip");
     _connection.connect(ip);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => LobbyPage(isHost: false, playerIp: ip),
+      ),
+    );
   }
 
   @override
