@@ -46,7 +46,7 @@ class Dealer {
     if(indexCard == -1) {
       cards = takeRandomCardToPlayer(player);
       while (!cards.canBePlayed(player)) {
-        indexCard = takeRandomCardToPlayer(player);
+        cards = takeRandomCardToPlayer(player);
       }
     } else {
       cards = takeCardToPlayer(player, indexCard);
