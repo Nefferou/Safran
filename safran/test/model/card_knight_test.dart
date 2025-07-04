@@ -50,7 +50,7 @@ void main() {
 
       expect(
           knightGame.players[1].deck[indexCardWarKnight]
-              .canBePlayed(knightGame.players[0]),
+              .canBePlayed(knightGame.players[1]),
           isFalse);
     });
   });
