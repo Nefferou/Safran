@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import '../../../network/game_server.dart';
 import '../../../network/websocket_host_server.dart';
@@ -21,20 +23,36 @@ class LobbyPage extends StatefulWidget {
 }
 
 class _LobbyPageState extends State<LobbyPage> {
-  final List<String> players = [];
+  List<String> players = [];
   bool _hasShutdown = false;
+  late bool isHostLocal;
 
   @override
   void initState() {
     super.initState();
-    players.add(widget.playerIp);
+    isHostLocal = widget.isHost;
+
+    widget.wsServer?.onMessage = (String message) {
+      final data = jsonDecode(message);
+      if (data['type'] == 'players_update') {
+        setState(() {
+          players = List<String>.from(data['players']);
+        });
+      }
+      if (data['type'] == 'promote_to_host') {
+        setState(() {
+          isHostLocal = true;
+        });
+        print("👑 Ce client devient le nouveau host !");
+      }
+    };
   }
 
   Future<void> shutdownServersIfNeeded() async {
     if (_hasShutdown) return;
     _hasShutdown = true;
 
-    if (widget.isHost) {
+    if (isHostLocal) {
       widget.gameServer?.stop();
       widget.wsServer?.stop();
       print("🧼 Host a quitté, serveurs arrêtés.");
@@ -49,7 +67,7 @@ class _LobbyPageState extends State<LobbyPage> {
 
   @override
   void dispose() {
-    shutdownServersIfNeeded(); // Sécurité en cas de destruction
+    shutdownServersIfNeeded();
     super.dispose();
   }
 
@@ -68,11 +86,22 @@ class _LobbyPageState extends State<LobbyPage> {
               Text("🧑 Joueurs connectés", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               SizedBox(height: 10),
               Text("IP: ${widget.playerIp}", style: TextStyle(fontSize: 16)),
-              if (widget.isHost)
+              if (isHostLocal)
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Text("(vous êtes l’hôte)", style: TextStyle(color: Colors.grey)),
                 ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: players.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(players[index]),
+                      leading: Icon(Icons.person),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),

@@ -1,25 +1,20 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/material.dart';
 
 import 'game_server.dart';
 
 class WebSocketHostServer {
   HttpServer? _server;
   final List<WebSocket> _clients = [];
-  final Map<WebSocket, String> _clientIps = {};
   GameServer? _gameServer;
-  BuildContext? _context;
   bool _isRunning = false;
   String? currentHostIp;
 
+  Function(String message)? onMessage;
+
   void attachGameServer(GameServer server) {
     _gameServer = server;
-  }
-
-  void attachContext(BuildContext context) {
-    _context = context;
   }
 
   Future<void> start() async {
@@ -39,23 +34,18 @@ class WebSocketHostServer {
           final ip = request.connectionInfo?.remoteAddress.address ?? "unknown";
           print("🔌 Nouveau client WebSocket connecté: $ip");
 
-          if (_clientIps.containsValue(ip)) {
-            print("🚫 Client avec IP $ip déjà connecté.");
-            return;
-          }
-
           _clients.add(socket);
-          _clientIps[socket] = ip;
           _gameServer?.playerJoined();
-
-          currentHostIp ??= ip;
+          if (currentHostIp == null) currentHostIp = ip;
 
           socket.add(jsonEncode({"type": "welcome", "ip": ip}));
+
           broadcastPlayerList();
 
           socket.listen(
-            (data) {
+                (data) {
               print("📥 Message reçu du client: $data");
+              if (onMessage != null) onMessage!(data);
               for (var client in _clients) {
                 if (client != socket) {
                   client.add(data);
@@ -65,29 +55,23 @@ class WebSocketHostServer {
             onDone: () {
               print("❌ Client déconnecté: $ip");
               _clients.remove(socket);
-              _clientIps.remove(socket);
 
-              if (ip == currentHostIp && _clients.isNotEmpty) {
+              if (_clients.isNotEmpty && ip == currentHostIp) {
                 final newHost = _clients.first;
-                final newHostIp = _clientIps[newHost];
-                if (newHostIp != null) {
-                  currentHostIp = newHostIp;
-                  newHost.add(jsonEncode({"type": "promote_to_host"}));
-                  print("👑 Promotion du nouveau host: $newHostIp");
-                }
+                currentHostIp = "unknown";
+                newHost.add(jsonEncode({"type": "promote_to_host"}));
+                print("👑 Promotion du nouveau host");
+              }
+
+              if (_clients.isEmpty) {
+                stop();
               }
 
               broadcastPlayerList();
-
-              if (_clients.isEmpty) {
-                print("🧹 Plus aucun joueur, arrêt du serveur.");
-                stop();
-              }
             },
             onError: (e) {
               print("💥 Erreur WebSocket: $e");
               _clients.remove(socket);
-              _clientIps.remove(socket);
               broadcastPlayerList();
             },
           );
@@ -102,8 +86,10 @@ class WebSocketHostServer {
   }
 
   void broadcastPlayerList() {
-    final ips = _clientIps.values.toList();
-    final message = jsonEncode({"type": "players_update", "players": ips});
+    final message = jsonEncode({
+      "type": "players_update",
+      "players": _clients.map((_) => _.hashCode.toString()).toList(),
+    });
     for (var client in _clients) {
       client.add(message);
     }
@@ -120,7 +106,6 @@ class WebSocketHostServer {
       client.close();
     }
     _clients.clear();
-    _clientIps.clear();
     _server?.close();
     print("🛑 WebSocket Server arrêté");
   }

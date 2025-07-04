@@ -30,7 +30,6 @@ class _HostGamePageState extends State<HostGamePage> {
 
       _wsServer ??= WebSocketHostServer();
       _wsServer!.attachGameServer(_gameServer!);
-      _wsServer!.attachContext(context);
       await _wsServer!.start();
 
       final interfaces = await NetworkInterface.list(type: InternetAddressType.IPv4);
