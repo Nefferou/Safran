@@ -140,110 +140,146 @@ void main() {
     });
 
     test("Game is not setup with less than 3 players", () {
-      try {
-        Game game = setUpWithNbPlayer([playerTest1, playerTest2]);
-
-        // Fail if the exception is not thrown
-        fail("Exception was expected but not thrown.");
-      } catch (e) {
-        expect(e.toString(),
-            "Exception: Invalid number of players (3-6), Actual: 2");
-      }
+      expect(
+            () => setUpWithNbPlayer([playerTest1, playerTest2]),
+        throwsA(
+          predicate(
+                (e) =>
+            e is Exception &&
+                e.toString().contains('Invalid number of players (3-6), Actual: 2'),
+          ),
+        ),
+      );
     });
     test("Game is not setup with more than 6 players", () {
-      try {
-        Game game = setUpWithNbPlayer([
-          playerTest1,
-          playerTest2,
-          playerTest3,
-          playerTest4,
-          playerTest5,
-          playerTest6,
-          playerTest6,
-          playerTest6
-        ]);
-
-        // Fail if the exception is not thrown
-        fail("Exception was expected but not thrown.");
-      } catch (e) {
-        expect(e.toString(),
-            "Exception: Invalid number of players (3-6), Actual: 8");
-      }
+      expect(
+            () => setUpWithNbPlayer([
+              playerTest1,
+              playerTest2,
+              playerTest3,
+              playerTest4,
+              playerTest5,
+              playerTest6,
+              playerTest6,
+              playerTest6
+            ]),
+        throwsA(
+          predicate(
+                (e) =>
+            e is Exception &&
+                e.toString().contains('Invalid number of players (3-6), Actual: 8'),
+          ),
+        ),
+      );
     });
 
     test("Game with deck size not divisible by number of players + 1", () {
-      try {
-        // Create a game with 3 players
-        Game game = Game([playerTest1, playerTest2, playerTest3]);
-        game.playOrder = true;
-        game.battleMode = false;
-        game.isInPause = false;
-        game.isGameOver = false;
-        game.nbCardGame = 28;
-        game.currentPlayerTurn = 0;
-        game.battleField = BattleField();
-        game.cardFactory = CardFactory(game);
+      // Create a game with 3 players
+      Game game = Game([playerTest1, playerTest2, playerTest3]);
+      game.playOrder = true;
+      game.battleMode = false;
+      game.isInPause = false;
+      game.isGameOver = false;
+      game.nbCardGame = 28;
+      game.currentPlayerTurn = 0;
+      game.battleField = BattleField();
+      game.cardFactory = CardFactory(game);
 
-        // Create a deck for 3 players with an invalid size (27 cards)
-        List<GameCard> deck = game.cardFactory.createDeck(2, 3, 5, 5);
-        game.dealCards(deck);
+      // Create a deck for 3 players with an invalid size (27 cards)
+      List<GameCard> deck = game.cardFactory.createDeck(2, 3, 5, 5);
 
-        // Fail if the exception is not thrown
-        fail("Exception was expected but not thrown.");
-      } catch (e) {
-        expect(e.toString(),
-            "Exception: Deck size is not valid. It must be divisible by the number of players plus one for the battle field card");
-      }
+      expect(
+            () => game.dealCards(deck),
+        throwsA(
+          predicate(
+                (e) =>
+            e is Exception &&
+                e.toString().contains('Deck size is not valid. It must be divisible by the number of players plus one for the battle field card'),
+          ),
+        ),
+      );
     });
     test("Game with empty deck", () {
-      try {
-        // Create a game with 3 players
-        Game game = Game([playerTest1, playerTest2, playerTest3]);
-        game.playOrder = true;
-        game.battleMode = false;
-        game.isInPause = false;
-        game.isGameOver = false;
-        game.nbCardGame = 28;
-        game.currentPlayerTurn = 0;
-        game.battleField = BattleField();
-        game.cardFactory = CardFactory(game);
+      // Create a game with 3 players
+      Game game = Game([playerTest1, playerTest2, playerTest3]);
+      game.playOrder = true;
+      game.battleMode = false;
+      game.isInPause = false;
+      game.isGameOver = false;
+      game.nbCardGame = 28;
+      game.currentPlayerTurn = 0;
+      game.battleField = BattleField();
+      game.cardFactory = CardFactory(game);
 
-        // Create an empty deck
-        List<GameCard> deck = [];
-        game.dealCards(deck);
-
-        // Fail if the exception is not thrown
-        fail("Exception was expected but not thrown.");
-      } catch (e) {
-        expect(e.toString(), "Exception: Deck is empty");
-      }
+      // Create an empty deck
+      List<GameCard> deck = [];
+      expect(
+            () => game.dealCards(deck),
+        throwsA(
+          predicate(
+                (e) =>
+            e is Exception &&
+                e.toString().contains('Deck is empty'),
+          ),
+        ),
+      );
     });
     test("Game with card not equally distributed", () {
-      try {
-        // Add one card to one player to make the distribution unequal
-        playerTest1.deck.add(CommanderCard());
+      // Add one card to one player to make the distribution unequal
+      playerTest1.deck.add(CommanderCard());
 
-        // Create a game with 3 players
-        Game game = Game([playerTest1, playerTest2, playerTest3]);
-        game.playOrder = true;
-        game.battleMode = false;
-        game.isInPause = false;
-        game.isGameOver = false;
-        game.nbCardGame = 28;
-        game.currentPlayerTurn = 0;
-        game.battleField = BattleField();
-        game.cardFactory = CardFactory(game);
+      // Create a game with 3 players
+      Game game = Game([playerTest1, playerTest2, playerTest3]);
+      game.playOrder = true;
+      game.battleMode = false;
+      game.isInPause = false;
+      game.isGameOver = false;
+      game.nbCardGame = 28;
+      game.currentPlayerTurn = 0;
+      game.battleField = BattleField();
+      game.cardFactory = CardFactory(game);
 
-        // Create a deck for 3 players
-        List<GameCard> deck = game.cardFactory.createDeck(3, 3, 5, 5);
-        game.dealCards(deck);
+      // Create a deck for 3 players
+      List<GameCard> deck = game.cardFactory.createDeck(3, 3, 5, 5);
 
-        // Fail if the exception is not thrown
-        fail("Exception was expected but not thrown.");
-      } catch (e) {
-        expect(e.toString(),
-            "Exception: Cards are not equally distributed among players");
-      }
+      expect(
+            () => game.dealCards(deck),
+        throwsA(
+          predicate(
+                (e) =>
+            e is Exception &&
+                e.toString().contains('Cards are not equally distributed among players'),
+          ),
+        ),
+      );
+    });
+    test("Army Group Dont Have Good Size ", () {
+      CardFactory factory = CardFactory(canPlayedCardGame);
+
+      expect(
+            () => factory.createRecruitmentCards(2, 7, 0, 0),
+        throwsA(
+          predicate(
+                (e) =>
+            e is Exception &&
+                e.toString().contains('Army card count must be a multiple of 3'),
+          ),
+        ),
+      );
+    });
+    test("Mage Group Dont Have Good Size ", () {
+      CardFactory factory = CardFactory(canPlayedCardGame);
+
+      expect(
+            () => factory.createRecruitmentCards(2, 6, 9, 0),
+        throwsA(
+          predicate(
+                (e) =>
+            e is Exception &&
+                e.toString().contains('Mage card count must be a multiple of 5'),
+          ),
+        ),
+      );
     });
   });
 
