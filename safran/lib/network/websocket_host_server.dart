@@ -41,7 +41,6 @@ class WebSocketHostServer {
         _clientIps[socket] = ip;
         _gameServer?.playerJoined();
 
-        // Premier arrivé = host
         if (currentHostIp == null) {
           currentHostIp = ip;
           print("👑 Hôte initial: $ip");
