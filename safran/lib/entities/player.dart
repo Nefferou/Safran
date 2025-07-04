@@ -6,7 +6,6 @@ import 'package:safran/services/dealer.dart';
 import 'package:safran/entities/card/recruitment/mage/mage_card.dart';
 import 'package:safran/entities/card/recruitment/thief_card.dart';
 import 'package:safran/entities/card/triad/cursedKnight/conquest_knight_card.dart';
-import 'package:safran/entities/card/triad/cursedKnight/war_knight_card.dart';
 import 'package:safran/entities/card/triad/fateHerald/fate_herald_card.dart';
 import 'package:safran/services/logger.dart';
 
@@ -16,6 +15,8 @@ import '../entities/card/triad/cursedKnight/famine_knight_card.dart';
 import 'game.dart';
 
 class Player {
+  late int Function() readPlayerLine = _defaultReadPlayerLine;
+
   String userName;
   bool isTheirTurn;
   bool isInPause = false;
@@ -28,19 +29,19 @@ class Player {
       : status = PlayerStatusConstant.alive,
         isTheirTurn = false;
 
-  playCard(Game game, indexCard, [String? Function()? readLine, String? Function()? readLine2]) {
+  playCard(Game game, indexCard) {
     // Check if card require one target
     if (getCard(indexCard) is MageCard || getCard(indexCard) is FateHeraldCard) {
       stdout.write("Choose target : ");
-      int target = readPlayerLine(readLine);
+      int target = readPlayerLine();
       playCardWithOneTarget(game, indexCard, target);
     }
     // Check if card require two target
     else if (getCard(indexCard) is ThiefCard) {
       stdout.write("Choose stealer target : ");
-      int stealerTarget = readPlayerLine(readLine);
+      int stealerTarget = readPlayerLine();
       stdout.write("Choose stolen target : ");
-      int stolenTarget = readPlayerLine(readLine2);
+      int stolenTarget = readPlayerLine();
       playCardWithTwoTargets(game, indexCard, stealerTarget, stolenTarget);
     }
     // Check if card doesn't require any target
@@ -102,6 +103,7 @@ class Player {
   discardCard(Game game, [int indexCard = -1]) {
     Logger.info("$userName discard a card");
 
+    game.handleCardCanBePlayed(this);
     Dealer.transferCardPlayerToBattleField(
         this, indexCard, game.battleField);
   }
@@ -126,14 +128,14 @@ class Player {
     Logger.info("$userName in paused");
   }
 
-  play(Game game, [String? Function()? readLine, String? Function()? readLine2]) {
+  play(Game game) {
     // Player chooses a card to play
     stdout.write("Entrez l'index de la carte à jouer : ");
-    int indexCard = readPlayerLine(readLine);
+    int indexCard = readPlayerLine();
 
-    while (!deck[indexCard].canBePlayed(game)) {
+    while (!deck[indexCard].canBePlayed(this)) {
       stdout.write("Choisir un autre index de carte à jouer : ");
-      indexCard = readPlayerLine(readLine2);
+      indexCard = readPlayerLine();
     }
 
     // Player plays the card
@@ -166,8 +168,8 @@ class Player {
     return deck.every((card) => card is CursedKnightCard);
   }
 
-  static int readPlayerLine([String? Function()? readLine]) {
-    final line = (readLine ?? stdin.readLineSync)();
+  static int _defaultReadPlayerLine() {
+    final line = (stdin.readLineSync)();
     return int.parse(line!);
   }
 }

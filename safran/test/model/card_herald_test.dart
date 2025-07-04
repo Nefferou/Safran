@@ -18,7 +18,7 @@ void main() {
     customGame = PresetUtil.presetGameWithPlayersEqualyDealed();
   });
 
-  group("Card Herald", () {
+  group("Card Herald tests", () {
     test("Card Herald Disease", () {
       CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
       CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);

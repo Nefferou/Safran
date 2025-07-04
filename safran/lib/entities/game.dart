@@ -222,6 +222,7 @@ class Game {
     if (player.haveFamineKnightCard()) {
       player.discardCard(this);
     }
+    handleCardCanBePlayed(player);
   }
 
   void handleConquestKnight() {
@@ -298,5 +299,11 @@ class Game {
 
   Player getCurrentPlayer() {
     return players[currentPlayerTurn];
+  }
+
+  handleCardCanBePlayed(Player player) {
+    for (var card in player.deck) {
+      card.canPlay = card.canBePlayed(player);
+    }
   }
 }

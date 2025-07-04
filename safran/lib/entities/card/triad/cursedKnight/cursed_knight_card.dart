@@ -1,4 +1,5 @@
 import '../../../../entities/game.dart';
+import '../../../player.dart';
 import '../triad_card.dart';
 
 abstract class CursedKnightCard extends TriadCard {
@@ -8,8 +9,8 @@ abstract class CursedKnightCard extends TriadCard {
       : isPlayed = false;
 
   @override
-  canBePlayed(Game game) {
-    return game.getCurrentPlayer().haveOnlyKnightCardTypeInDeck();
+  canBePlayed(Player player) {
+    return player.haveOnlyKnightCardTypeInDeck();
   }
 
   @override

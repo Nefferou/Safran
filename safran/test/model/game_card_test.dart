@@ -10,7 +10,7 @@ void main() {
     targetNumber = 2;
   });
 
-  group("Game Cards", () {
+  group("Game Cards tests", () {
     test("have incorecte target number", ()  {
       expect(
             () => GameCard.correctNbTargets(targetNumber, targets),

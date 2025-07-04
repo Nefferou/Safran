@@ -18,7 +18,7 @@ void main() {
     customGame = PresetUtil.presetGameWithPlayersEqualyDealed();
   });
 
-  group("Card Saint", () {
+  group("Card Saint tests", () {
     test("Card Saint Healing", () {
       CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
       CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
