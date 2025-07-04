@@ -5,31 +5,32 @@ class CardInfo {
   final bool canPlay;
 
   CardInfo(this.name, this.description, this.image, this.canPlay);
+  CardInfo.playabled(this.name, this.description, this.image): canPlay = true;
 
   // Recruitment cards
-  static CardInfo commander = CardInfo("Commandant", "", "", true);
+  static CardInfo commander = CardInfo.playabled("Commandant", "", "");
 
-  static CardInfo guard = CardInfo("Garde", "", "", true);
-  static CardInfo archer = CardInfo("Archer", "", "", true);
-  static CardInfo swordsman = CardInfo("Epeiste", "", "", true);
+  static CardInfo guard = CardInfo.playabled("Garde", "", "");
+  static CardInfo archer = CardInfo.playabled("Archer", "", "");
+  static CardInfo swordsman = CardInfo.playabled("Epeiste", "", "");
 
-  static CardInfo geomancer = CardInfo("Geomancien", "", "", true);
-  static CardInfo aeromancer = CardInfo("Aeromancien", "", "", true);
-  static CardInfo arcanist = CardInfo("Arcaniste", "", "", true);
+  static CardInfo geomancer = CardInfo.playabled("Geomancien", "", "");
+  static CardInfo aeromancer = CardInfo.playabled("Aeromancien", "", "");
+  static CardInfo arcanist = CardInfo.playabled("Arcaniste", "", "");
 
-  static CardInfo thief = CardInfo("Voleur", "", "", true);
+  static CardInfo thief = CardInfo.playabled("Voleur", "", "");
 
   // Herald cards
-  static CardInfo diseaseHerald = CardInfo("Messager de la Maladie", "", "", true);
-  static CardInfo chaosHerald = CardInfo("Messager du Chaos", "", "", true);
-  static CardInfo powerHerald = CardInfo("Messager du Pouvoir", "", "", true);
-  static CardInfo sufferingHerald = CardInfo("Messager de la Souffrance", "", "", true);
+  static CardInfo diseaseHerald = CardInfo.playabled("Messager de la Maladie", "", "");
+  static CardInfo chaosHerald = CardInfo.playabled("Messager du Chaos", "", "");
+  static CardInfo powerHerald = CardInfo.playabled("Messager du Pouvoir", "", "");
+  static CardInfo sufferingHerald = CardInfo.playabled("Messager de la Souffrance", "", "");
 
   // Saint cards
-  static CardInfo abundanceSaint = CardInfo("Saint de l'Abondance", "", "", true);
-  static CardInfo healingSaint = CardInfo("Saint de la Guerison", "", "", true);
-  static CardInfo prosperitySaint = CardInfo("Saint de la Prosperite", "", "", true);
-  static CardInfo peaceSaint = CardInfo("Saint de la Paix", "", "", true);
+  static CardInfo abundanceSaint = CardInfo.playabled("Saint de l'Abondance", "", "");
+  static CardInfo healingSaint = CardInfo.playabled("Saint de la Guerison", "", "");
+  static CardInfo prosperitySaint = CardInfo.playabled("Saint de la Prosperite", "", "");
+  static CardInfo peaceSaint = CardInfo.playabled("Saint de la Paix", "", "");
 
   // Knight cards
   static CardInfo conquestKnight = CardInfo("Cavalier de la Conquete", "", "", false);
