@@ -16,7 +16,7 @@ void main() {
     customGame = PresetUtil.presetGameWithPlayersEqualyDealed();
   });
 
-  group("Player", () {
+  group("Player tests", () {
     test("Card Not in Deck", () {
       expect(customGame.players[0].getIndexCardInDeck(AbundanceSaintCard), -1);
     });

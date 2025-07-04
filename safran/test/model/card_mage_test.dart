@@ -13,7 +13,7 @@ void main() {
     customGame = PresetUtil.presetGameWithPlayersEqualyDealed();
   });
 
-  group("Cards Mage", () {
+  group("Cards Mage tests", () {
     test("Card Geomancer", () {
       CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
       CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);

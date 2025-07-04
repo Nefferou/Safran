@@ -13,7 +13,7 @@ void main() {
     armyGame = PresetUtil.presetArmy();
   });
 
-  group("Cards Army", () {
+  group("Cards Army tests", () {
     test("Card Guard (Counter OK)", () {
       CardsVerifier.verifyPlayerNbCard(armyGame.players[0], 4);
       CardsVerifier.verifyPlayerNbCard(armyGame.players[1], 4);

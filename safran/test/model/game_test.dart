@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:safran/entities/battle_field.dart';
+import 'package:safran/entities/card/recruitment/army/swordsman_card.dart';
 import 'package:safran/services/card_factory.dart';
 import 'package:safran/core/constants/player_status_constant.dart';
 import 'package:safran/entities/card/game_card.dart';
@@ -10,8 +11,10 @@ import 'package:safran/entities/card/triad/cursedKnight/conquest_knight_card.dar
 import 'package:safran/entities/game.dart';
 import 'package:safran/entities/player.dart';
 
+import '../utils/cards_verifier.dart';
 import '../utils/fake_card.dart';
 import '../utils/fake_player.dart';
+import '../utils/preset_util.dart';
 
 void main() {
   late Player playerTest1;
@@ -25,6 +28,8 @@ void main() {
   late FakePlayer testPlayer2;
   late FakePlayer testPlayer3;
 
+  late Game canPlayedCardGame;
+
   setUp(() {
     playerTest1 = Player("PlayerTest1");
     playerTest2 = Player("PlayerTest2");
@@ -36,6 +41,8 @@ void main() {
     testPlayer1 = FakePlayer("Player1");
     testPlayer2 = FakePlayer("Player2");
     testPlayer3 = FakePlayer("Player3");
+
+    canPlayedCardGame = PresetUtil.presetCanPlayCard();
   });
 
   setUpWithNbPlayer(List<Player> players) {
@@ -420,6 +427,33 @@ void main() {
       // Game is over
       expect(game.isGameOver, isTrue);
       expect(game.winCondition, "Draw: 3 players eliminated after a chain of deaths");
+    });
+  });
+
+  group("Can Play Card Tests", () {
+    test("Check Can Play State", () {
+      expect(canPlayedCardGame.players[0].deck.where((card) => !card.canPlay).length, 2);
+      CardsVerifier.verifyPlayerNbCard(canPlayedCardGame.players[0], 3);
+
+      int indexCard =
+        CardsVerifier.getIndexCardByType(canPlayedCardGame.players[0], SwordsmanCard);
+
+      canPlayedCardGame.players[0].playCard(canPlayedCardGame, indexCard);
+
+      canPlayedCardGame.handleFamineKnight(canPlayedCardGame.players[0]);
+
+      CardsVerifier.verifyPlayerNbCard(canPlayedCardGame.players[0], 2);
+      expect(canPlayedCardGame.players[0].deck.where((card) => !card.canPlay).length, 0);
+    });
+
+    test("Check Can Play with Famine", () {
+      expect(canPlayedCardGame.players[1].deck.where((card) => !card.canPlay).length, 1);
+      CardsVerifier.verifyPlayerNbCard(canPlayedCardGame.players[1], 2);
+
+      canPlayedCardGame.handleFamineKnight(canPlayedCardGame.players[1]);
+
+      CardsVerifier.verifyPlayerNbCard(canPlayedCardGame.players[1], 1);
+      expect(canPlayedCardGame.players[1].deck.where((card) => !card.canPlay).length, 0);
     });
   });
 }

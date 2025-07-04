@@ -14,7 +14,7 @@ void main() {
     robGame = PresetUtil.presetRobPlagueKnight();
   });
 
-  group("Card Thief", () {
+  group("Card Thief tests", () {
     test("Card Thielf Standard play", () {
       CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
       CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);

@@ -122,7 +122,6 @@ class Game {
       if (checkEndGame()) break;
       if (skipIfDead(currentPlayer)) continue;
 
-      setCardCanBePlayed(currentPlayer);
       handleFamineKnight(currentPlayer);
       playTurn(currentPlayer);
       eliminateAllPlayersWithoutCards();
@@ -222,8 +221,8 @@ class Game {
   void handleFamineKnight(Player player) {
     if (player.haveFamineKnightCard()) {
       player.discardCard(this);
-      setCardCanBePlayed(player);
     }
+    handleCardCanBePlayed(player);
   }
 
   void handleConquestKnight() {
@@ -302,9 +301,9 @@ class Game {
     return players[currentPlayerTurn];
   }
 
-  setCardCanBePlayed(Player player) {
-    player.deck.forEach((card) {
+  handleCardCanBePlayed(Player player) {
+    for (var card in player.deck) {
       card.canPlay = card.canBePlayed(player);
-    });
+    }
   }
 }

@@ -14,7 +14,7 @@ void main() {
     knightGame = PresetUtil.presetCanPlayKnight();
   });
 
-  group("Cursed Knight Card", () {
+  group("Cursed Knight Card tests", () {
     test("Famine Knight Card", () {
       CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
       CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);

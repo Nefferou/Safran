@@ -103,6 +103,7 @@ class Player {
   discardCard(Game game, [int indexCard = -1]) {
     Logger.info("$userName discard a card");
 
+    game.handleCardCanBePlayed(this);
     Dealer.transferCardPlayerToBattleField(
         this, indexCard, game.battleField);
   }
