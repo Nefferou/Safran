@@ -28,7 +28,7 @@ class GameServer {
           final broadcast = getBroadcastAddress(addr, InternetAddress("255.255.255.0"));
           print('📡 Interface utilisée: ${iface.name} — IP: ${addr.address} → Broadcast: ${broadcast.address}');
 
-          final timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+          final timer = Timer.periodic(Duration(seconds: 2), (timer) {
             final message = jsonEncode({
               "type": "announce",
               "gameName": gameName,
@@ -36,12 +36,12 @@ class GameServer {
               "currentPlayers": currentPlayers
             });
 
-            _socket?.send(
+            _socket!.send(
               utf8.encode(message),
               broadcast,
               4567,
             );
-            print("📣 Message broadcasté sur ${broadcast.address}:4567");
+            // print("📣 Message broadcasté sur ${broadcast.address}:4567");
           });
 
           _broadcastTimers.add(timer);
@@ -76,7 +76,7 @@ class GameServer {
     _broadcastTimers.clear();
 
     _socket?.close();
-    _socket = null;
+
     print("🛑 Server stopped");
   }
 }

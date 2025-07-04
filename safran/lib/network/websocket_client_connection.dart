@@ -2,38 +2,48 @@ import 'dart:io';
 
 class WebSocketClientConnection {
   WebSocket? _socket;
-  void Function(String)? onMessageReceived;
+  bool isConnected = false;
 
-  Future<void> connect(String ip) async {
+  void connect(String ip) async {
+    if (isConnected) {
+      print("🔁 Déjà connecté à $ip, annulation de la reconnexion.");
+      return;
+    }
+
+
     try {
-      _socket = await WebSocket.connect('ws://$ip:8080');
-      print("🔌 Connecté à $ip");
+      _socket = await WebSocket.connect("ws://$ip:8080");
+      isConnected = true;
+      print("✅ Connecté à $ip");
 
       _socket!.listen(
-            (data) {
-          print("📥 Message reçu: $data");
-          if (onMessageReceived != null) {
-            onMessageReceived!(data);
-          }
-        },
+            (data) => print("📩 Message reçu: $data"),
+
+
+
+
+
         onDone: () {
-          print("❌ Déconnecté du serveur WebSocket");
+          print("🛑 Déconnecté");
+          isConnected = false;
         },
         onError: (e) {
-          print("💥 Erreur WebSocket: $e");
+          print("❌ Erreur WebSocket: $e");
+          isConnected = false;
         },
       );
     } catch (e) {
-      print("❌ Échec de la connexion WebSocket: $e");
+      print("❌ Échec de connexion à $ip: $e");
+      isConnected = false;
     }
   }
 
-  void send(String message) {
-    _socket?.add(message);
-  }
+  void disconnect() {
 
-  void close() {
+
+
+
     _socket?.close();
-    print("🛑 Connexion WebSocket fermée");
+    isConnected = false;
   }
 }

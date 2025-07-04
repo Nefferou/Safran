@@ -7,12 +7,12 @@ class JoinGamePage extends StatefulWidget {
   const JoinGamePage({super.key});
 
   @override
-  State<JoinGamePage> createState() => _JoinGamePageState();
+  _JoinGamePageState createState() => _JoinGamePageState();
 }
 
 class _JoinGamePageState extends State<JoinGamePage> {
   List<Map<String, dynamic>> games = [];
-  final WebSocketClientConnection _connection = WebSocketClientConnection();
+  final _connection = WebSocketClientConnection();
   late GameDiscovery discovery;
 
   @override
@@ -20,7 +20,10 @@ class _JoinGamePageState extends State<JoinGamePage> {
     super.initState();
     discovery = GameDiscovery(onGameFound: (game) {
       if (mounted && !games.any((g) => g['ip'] == game['ip'])) {
-        setState(() => games.add(game));
+        print("🧩 Ajout de la partie: ${game['name']} @ ${game['ip']}");
+        setState(() {
+          games.add(game);
+        });
       }
     });
     discovery.startListening();
@@ -32,16 +35,17 @@ class _JoinGamePageState extends State<JoinGamePage> {
     super.dispose();
   }
 
-  void connectToGame(Map<String, dynamic> game) {
-    _connection.connect(game['ip']);
+  void connectToGame(String ip) {
+    print("🔗 Connexion à la partie @ $ip");
+    _connection.connect(ip);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => LobbyPage(
-          isHost: false,
-          playerIp: game['ip'],
-          gameServer: null,
-        ),
+        builder: (_) => LobbyPage(isHost: false, playerIp: ip),
+
+
+
+
       ),
     );
   }
@@ -49,7 +53,7 @@ class _JoinGamePageState extends State<JoinGamePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Rejoindre une partie")),
+      appBar: AppBar(title: Text("Rejoindre une partie")),
       body: ListView.builder(
         itemCount: games.length,
         itemBuilder: (context, index) {
@@ -57,7 +61,7 @@ class _JoinGamePageState extends State<JoinGamePage> {
           return ListTile(
             title: Text(game['name']),
             subtitle: Text("${game['currentPlayers']}/${game['maxPlayers']} joueurs"),
-            onTap: () => connectToGame(game),
+            onTap: () => connectToGame(game['ip']),
           );
         },
       ),

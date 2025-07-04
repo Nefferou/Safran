@@ -1,15 +1,19 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+
 import 'game_server.dart';
 
 class WebSocketHostServer {
   HttpServer? _server;
   final List<WebSocket> _clients = [];
-  final Map<WebSocket, String> _clientIps = {};
+
   GameServer? _gameServer;
   bool _isRunning = false;
   String? currentHostIp;
+
+  /// ✅ Callback externe que la page Lobby peut assigner
+  void Function(String message)? onMessageReceived;
 
   void attachGameServer(GameServer server) {
     _gameServer = server;
@@ -35,10 +39,10 @@ class WebSocketHostServer {
 
         final socket = await WebSocketTransformer.upgrade(request);
         final ip = request.connectionInfo?.remoteAddress.address ?? "unknown";
-        print("🔌 Client connecté: $ip");
+        print("🔌 Nouveau client connecté: $ip");
 
         _clients.add(socket);
-        _clientIps[socket] = ip;
+
         _gameServer?.playerJoined();
 
         if (currentHostIp == null) {
@@ -48,22 +52,47 @@ class WebSocketHostServer {
         }
 
         socket.add(jsonEncode({"type": "welcome", "ip": ip}));
-        _broadcastPlayerList();
+        broadcastPlayerList();
 
         socket.listen(
-              (data) {
+          (data) {
             print("📥 Message reçu de $ip: $data");
-            // Broadcast aux autres clients
+
+            // ✅ Appeler la fonction côté UI si définie
+            if (onMessageReceived != null) {
+              onMessageReceived!(data);
+            }
+
+            // Propager aux autres clients
             for (var client in _clients) {
               if (client != socket) {
                 client.add(data);
               }
             }
           },
-          onDone: () => _handleDisconnect(socket),
+          onDone: () {
+            print("❌ Déconnexion de $ip");
+            _clients.remove(socket);
+
+            if (ip == currentHostIp) {
+              if (_clients.isNotEmpty) {
+                final newHost = _clients.first;
+                currentHostIp = newHost.closeCode?.toString() ?? "unknown";
+                newHost.add(jsonEncode({"type": "promote_to_host"}));
+                print("👑 Nouveau host: $currentHostIp");
+              } else {
+                print("🧼 Dernier joueur quitté, arrêt serveur");
+                stop();
+                return;
+              }
+            }
+
+            broadcastPlayerList();
+          },
           onError: (error) {
-            print("💥 Erreur WebSocket avec $ip: $error");
-            _handleDisconnect(socket);
+            print("💥 Erreur WebSocket: $error");
+            _clients.remove(socket);
+            broadcastPlayerList();
           },
         );
       });
@@ -73,36 +102,18 @@ class WebSocketHostServer {
     }
   }
 
-  void _handleDisconnect(WebSocket socket) {
-    final ip = _clientIps[socket] ?? "unknown";
-    print("❌ Client déconnecté: $ip");
+  void broadcastPlayerList() {
+    final message = jsonEncode({
+      "type": "players_update",
+      "players": _clients
+          .map((_) => "Client")
+          .toList() // Remplace par de vraies IP si possible
+    });
 
-    _clients.remove(socket);
-    _clientIps.remove(socket);
-
-    if (ip == currentHostIp) {
-      if (_clients.isNotEmpty) {
-        final newHost = _clients.first;
-        currentHostIp = _clientIps[newHost] ?? "unknown";
-        newHost.add(jsonEncode({"type": "promote_to_host"}));
-        print("👑 Nouveau hôte: $currentHostIp");
-      } else {
-        print("🧼 Tous les joueurs sont partis, arrêt du serveur");
-        stop();
-        return;
-      }
-    }
-
-    _broadcastPlayerList();
-  }
-
-  void _broadcastPlayerList() {
-    final ips = _clients.map((c) => _clientIps[c] ?? "unknown").toList();
-    final message = jsonEncode({"type": "players_update", "players": ips});
     for (var client in _clients) {
       client.add(message);
     }
-    print("📡 Mise à jour joueurs: $ips");
+    print("📡 Mise à jour joueurs envoyée");
   }
 
   void stop() {
@@ -116,7 +127,7 @@ class WebSocketHostServer {
       client.close();
     }
     _clients.clear();
-    _clientIps.clear();
+
     _server?.close();
     _server = null;
     currentHostIp = null;
