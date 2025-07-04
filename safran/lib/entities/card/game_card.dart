@@ -1,14 +1,17 @@
 import 'package:safran/entities/game.dart';
 
+import '../player.dart';
+
 abstract class GameCard {
 
   final String name;
   final String description;
   final String image;
+  bool canPlay;
 
-  GameCard(this.name, this.description, this.image);
+  GameCard(this.name, this.description, this.image, this.canPlay);
 
-  canBePlayed(Game game) {
+  canBePlayed(Player player) {
     return true;
   }
 

@@ -2,37 +2,38 @@ class CardInfo {
   final String name;
   final String description;
   final String image;
+  final bool canPlay;
 
-  CardInfo(this.name, this.description, this.image);
+  CardInfo(this.name, this.description, this.image, this.canPlay);
 
   // Recruitment cards
-  static CardInfo commander = CardInfo("Commandant", "", "");
+  static CardInfo commander = CardInfo("Commandant", "", "", true);
 
-  static CardInfo guard = CardInfo("Garde", "", "");
-  static CardInfo archer = CardInfo("Archer", "", "");
-  static CardInfo swordsman = CardInfo("Epeiste", "", "");
+  static CardInfo guard = CardInfo("Garde", "", "", true);
+  static CardInfo archer = CardInfo("Archer", "", "", true);
+  static CardInfo swordsman = CardInfo("Epeiste", "", "", true);
 
-  static CardInfo geomancer = CardInfo("Geomancien", "", "");
-  static CardInfo aeromancer = CardInfo("Aeromancien", "", "");
-  static CardInfo arcanist = CardInfo("Arcaniste", "", "");
+  static CardInfo geomancer = CardInfo("Geomancien", "", "", true);
+  static CardInfo aeromancer = CardInfo("Aeromancien", "", "", true);
+  static CardInfo arcanist = CardInfo("Arcaniste", "", "", true);
 
-  static CardInfo thief = CardInfo("Voleur", "", "");
+  static CardInfo thief = CardInfo("Voleur", "", "", true);
 
   // Herald cards
-  static CardInfo diseaseHerald = CardInfo("Messager de la Maladie", "", "");
-  static CardInfo chaosHerald = CardInfo("Messager du Chaos", "", "");
-  static CardInfo powerHerald = CardInfo("Messager du Pouvoir", "", "");
-  static CardInfo sufferingHerald = CardInfo("Messager de la Souffrance", "", "");
+  static CardInfo diseaseHerald = CardInfo("Messager de la Maladie", "", "", true);
+  static CardInfo chaosHerald = CardInfo("Messager du Chaos", "", "", true);
+  static CardInfo powerHerald = CardInfo("Messager du Pouvoir", "", "", true);
+  static CardInfo sufferingHerald = CardInfo("Messager de la Souffrance", "", "", true);
 
   // Saint cards
-  static CardInfo abundanceSaint = CardInfo("Saint de l'Abondance", "", "");
-  static CardInfo healingSaint = CardInfo("Saint de la Guerison", "", "");
-  static CardInfo prosperitySaint = CardInfo("Saint de la Prosperite", "", "");
-  static CardInfo peaceSaint = CardInfo("Saint de la Paix", "", "");
+  static CardInfo abundanceSaint = CardInfo("Saint de l'Abondance", "", "", true);
+  static CardInfo healingSaint = CardInfo("Saint de la Guerison", "", "", true);
+  static CardInfo prosperitySaint = CardInfo("Saint de la Prosperite", "", "", true);
+  static CardInfo peaceSaint = CardInfo("Saint de la Paix", "", "", true);
 
   // Knight cards
-  static CardInfo conquestKnight = CardInfo("Cavalier de la Conquete", "", "");
-  static CardInfo famineKnight = CardInfo("Cavalier de la Famine", "", "");
-  static CardInfo plagueKnight = CardInfo("Cavalier de la Peste", "", "");
-  static CardInfo warKnight = CardInfo("Cavalier de la Guerre", "", "");
+  static CardInfo conquestKnight = CardInfo("Cavalier de la Conquete", "", "", false);
+  static CardInfo famineKnight = CardInfo("Cavalier de la Famine", "", "", false);
+  static CardInfo plagueKnight = CardInfo("Cavalier de la Peste", "", "", false);
+  static CardInfo warKnight = CardInfo("Cavalier de la Guerre", "", "", false);
 }
