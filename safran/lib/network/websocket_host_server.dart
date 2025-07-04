@@ -6,13 +6,11 @@ import 'game_server.dart';
 
 class WebSocketHostServer {
   HttpServer? _server;
-  final List<WebSocket> _clients = [];
-
+  final List<_ClientInfo> _clients = [];
   GameServer? _gameServer;
   bool _isRunning = false;
   String? currentHostIp;
 
-  /// ✅ Callback externe que la page Lobby peut assigner
   void Function(String message)? onMessageReceived;
 
   void attachGameServer(GameServer server) {
@@ -20,11 +18,7 @@ class WebSocketHostServer {
   }
 
   Future<void> start() async {
-    if (_isRunning) {
-      print("⚠️ WebSocketHostServer déjà en cours.");
-      return;
-    }
-
+    if (_isRunning) return;
     try {
       _server = await HttpServer.bind(InternetAddress.anyIPv4, 8080);
       _isRunning = true;
@@ -39,10 +33,11 @@ class WebSocketHostServer {
 
         final socket = await WebSocketTransformer.upgrade(request);
         final ip = request.connectionInfo?.remoteAddress.address ?? "unknown";
+
         print("🔌 Nouveau client connecté: $ip");
 
-        _clients.add(socket);
-
+        final client = _ClientInfo(socket, ip);
+        _clients.add(client);
         _gameServer?.playerJoined();
 
         if (currentHostIp == null) {
@@ -55,33 +50,27 @@ class WebSocketHostServer {
         broadcastPlayerList();
 
         socket.listen(
-          (data) {
+              (data) {
             print("📥 Message reçu de $ip: $data");
+            if (onMessageReceived != null) onMessageReceived!(data);
 
-            // ✅ Appeler la fonction côté UI si définie
-            if (onMessageReceived != null) {
-              onMessageReceived!(data);
-            }
-
-            // Propager aux autres clients
-            for (var client in _clients) {
-              if (client != socket) {
-                client.add(data);
+            for (var c in _clients) {
+              if (c.socket != socket) {
+                c.socket.add(data);
               }
             }
           },
           onDone: () {
             print("❌ Déconnexion de $ip");
-            _clients.remove(socket);
+            _clients.removeWhere((c) => c.socket == socket);
 
             if (ip == currentHostIp) {
               if (_clients.isNotEmpty) {
                 final newHost = _clients.first;
-                currentHostIp = newHost.closeCode?.toString() ?? "unknown";
-                newHost.add(jsonEncode({"type": "promote_to_host"}));
+                currentHostIp = newHost.ip;
+                newHost.socket.add(jsonEncode({"type": "promote_to_host"}));
                 print("👑 Nouveau host: $currentHostIp");
               } else {
-                print("🧼 Dernier joueur quitté, arrêt serveur");
                 stop();
                 return;
               }
@@ -91,7 +80,7 @@ class WebSocketHostServer {
           },
           onError: (error) {
             print("💥 Erreur WebSocket: $error");
-            _clients.remove(socket);
+            _clients.removeWhere((c) => c.socket == socket);
             broadcastPlayerList();
           },
         );
@@ -103,35 +92,40 @@ class WebSocketHostServer {
   }
 
   void broadcastPlayerList() {
+    final players = _clients.map((c) => c.ip).toList();
+
     final message = jsonEncode({
       "type": "players_update",
-      "players": _clients
-          .map((_) => "Client")
-          .toList() // Remplace par de vraies IP si possible
+      "players": players,
+      "host": currentHostIp
     });
 
     for (var client in _clients) {
-      client.add(message);
+      client.socket.add(message);
     }
-    print("📡 Mise à jour joueurs envoyée");
+    print("📡 Mise à jour joueurs envoyée: $message");
   }
 
   void stop() {
-    if (!_isRunning) {
-      print("⚠️ WebSocketHostServer déjà arrêté.");
-      return;
-    }
+    if (!_isRunning) return;
 
     _isRunning = false;
     for (var client in _clients) {
-      client.close();
+      client.socket.close();
     }
     _clients.clear();
-
     _server?.close();
     _server = null;
     currentHostIp = null;
 
     print("🛑 WebSocket Server arrêté");
   }
+}
+
+/// Structure interne pour stocker une socket avec son IP
+class _ClientInfo {
+  final WebSocket socket;
+  final String ip;
+
+  _ClientInfo(this.socket, this.ip);
 }

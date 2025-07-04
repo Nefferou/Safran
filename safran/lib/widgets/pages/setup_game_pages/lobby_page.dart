@@ -22,8 +22,8 @@ class LobbyPage extends StatefulWidget {
 }
 
 class _LobbyPageState extends State<LobbyPage> {
-
   List<String> _players = [];
+  String? _hostIp;
   late bool _isHost;
   bool _hasShutdown = false;
 
@@ -31,12 +31,8 @@ class _LobbyPageState extends State<LobbyPage> {
   void initState() {
     super.initState();
     _isHost = widget.isHost;
+    _players = [widget.playerIp];
 
-
-    // Ajoute soi-même à la liste au démarrage
-    _players.add(widget.playerIp);
-
-    // Attache le handler de message
     widget.wsServer?.onMessageReceived = _handleMessageFromServer;
   }
 
@@ -44,8 +40,12 @@ class _LobbyPageState extends State<LobbyPage> {
     final data = jsonDecode(message);
 
     if (data['type'] == 'players_update') {
+      final newPlayers = List<String>.from(data['players']);
+      final newHost = data['host'] as String?;
+
       setState(() {
-        _players = List<String>.from(data['players']);
+        _players = newPlayers;
+        _hostIp = newHost;
       });
     }
 
@@ -60,7 +60,6 @@ class _LobbyPageState extends State<LobbyPage> {
   Future<void> shutdownServersIfNeeded() async {
     if (_hasShutdown) return;
     _hasShutdown = true;
-
 
     if (_isHost) {
       widget.gameServer?.stop();
@@ -84,12 +83,14 @@ class _LobbyPageState extends State<LobbyPage> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> sortedPlayers = [..._players];
+    if (_hostIp != null && sortedPlayers.contains(_hostIp)) {
+      sortedPlayers.remove(_hostIp);
+      sortedPlayers.insert(0, _hostIp!);
+    }
+
     return WillPopScope(
       onWillPop: _onWillPop,
-
-
-
-
       child: Scaffold(
         appBar: AppBar(title: const Text("Lobby")),
         body: Padding(
@@ -110,13 +111,21 @@ class _LobbyPageState extends State<LobbyPage> {
               const SizedBox(height: 12),
               Expanded(
                 child: ListView.builder(
-                  itemCount: _players.length,
+                  itemCount: sortedPlayers.length,
                   itemBuilder: (context, index) {
-                    final ip = _players[index];
+                    final ip = sortedPlayers[index];
                     final isMe = ip == widget.playerIp;
+                    final isHost = ip == _hostIp;
+
                     return ListTile(
                       title: Text(ip),
-                      trailing: isMe ? const Text("Moi") : null,
+                      subtitle: isHost
+                          ? isMe
+                          ? const Text("👑 Vous êtes l’hôte", style: TextStyle(color: Colors.orange))
+                          : const Text("👑 Hôte", style: TextStyle(color: Colors.orange))
+                          : isMe
+                          ? const Text("Vous", style: TextStyle(color: Colors.grey))
+                          : null,
                     );
                   },
                 ),
