@@ -5,7 +5,7 @@ on:
     branches: [ dev ]
 
 jobs:
-  test :
+  test:
     name: Test
     runs-on: ubuntu-latest
 
@@ -46,7 +46,6 @@ jobs:
     name: Build APK & AAB
     runs-on: ubuntu-latest
     needs: test
-    if: false # Set to true if you want to run the build step
 
     steps:
       - name: Checkout code
@@ -78,26 +77,19 @@ jobs:
   versioning:
     name: Create Dev Version Tag
     runs-on: ubuntu-latest
-    # needs: build
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Set up Git user
+      - name: Read version
+        id: read_version
+        run: |
+          VERSION=$(grep '^version:' safran/pubspec.yaml | cut -d' ' -f2 | cut -d+ -f1)
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create dev tag
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-
-      - name: Bump version based on PR label in commit
-        run: |
-          chmod +x scripts/bump_version.sh
-          LABEL=$(git log -1 --pretty=%B | grep -oE 'fix|feature|major' | head -1)
-          ./scripts/bump_version.sh "$LABEL" -dev
-          NEW_VERSION=$(grep version safran/pubspec.yaml | cut -d' ' -f2 | cut -d+ -f1)
-          git commit -am "ci: bump version $NEW_VERSION-dev"
-          git tag v${NEW_VERSION}-dev
-          git push origin HEAD --tags
+          git tag "v${{ steps.read_version.outputs.VERSION }}-dev"
+          git push origin "v${{ steps.read_version.outputs.VERSION }}-dev"

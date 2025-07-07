@@ -1,26 +1,55 @@
-name: Validate Version Label
+name: Validate and Bump Version
 
 on:
   pull_request:
-    branches: [ dev ]
-    types: [ opened, labeled, unlabeled, synchronize, reopened ]
+    branches:
+      - dev
 
 jobs:
-  validate-label:
+  check-label:
+    name: Check PR Label
+    runs-on: ubuntu-latest
+    outputs:
+      label: ${{ steps.extract-label.outputs.label }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Install GitHub CLI
+        run: sudo apt-get install gh -y
+
+      - name: Check for a single valid label
+        id: extract-label
+        run: |
+          LABELS=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
+          echo "Labels found: $LABELS"
+
+          VALID_LABEL=$(echo "$LABELS" | grep -E '^(fix|feature|major)$' || true)
+          COUNT=$(echo "$VALID_LABEL" | wc -l)
+
+          if [ "$COUNT" -ne 1 ]; then
+            echo "Il doit y avoir un seul label parmi : fix, feature, major (trouvé: $COUNT)"
+            exit 1
+          fi
+
+          echo "Label valide: $VALID_LABEL"
+          echo "label=$VALID_LABEL" >> $GITHUB_OUTPUT
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  bump-version:
+    name: Bump Version
+    needs: check-label
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Check PR for version label
+      - name: Bump version in pubspec.yaml
+        id: bump
         run: |
-          LABELS=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
-          echo "PR labels: $LABELS"
-          if echo "$LABELS" | grep -qE '\b(fix|feature|major)\b'; then
-            echo "Valid label found"
-          else
-            echo "PR must include one of the following labels: fix, feature, major"
-            exit 1
-          fi
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          chmod +x ./bump_version.sh
+          ./bump_version.sh "${{ needs.check-label.outputs.label }}" -dev
