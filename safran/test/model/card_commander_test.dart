@@ -11,7 +11,7 @@ void main() {
     customGame = PresetUtil.presetGameWithPlayersEqualyDealed();
   });
 
-  group("Card Commander", () {
+  group("Card Commander tests", () {
     test("Card Commander", () {
       CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
       CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);

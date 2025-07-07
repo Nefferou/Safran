@@ -14,7 +14,7 @@ void main() {
     knightGame = PresetUtil.presetCanPlayKnight();
   });
 
-  group("Cursed Knight Card", () {
+  group("Cursed Knight Card tests", () {
     test("Famine Knight Card", () {
       CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
       CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
@@ -35,7 +35,7 @@ void main() {
 
       expect(
           knightGame.players[0].deck[indexCardWarKnight]
-              .canBePlayed(knightGame),
+              .canBePlayed(knightGame.players[0]),
           isTrue);
     });
 
@@ -50,7 +50,7 @@ void main() {
 
       expect(
           knightGame.players[1].deck[indexCardWarKnight]
-              .canBePlayed(knightGame),
+              .canBePlayed(knightGame.players[1]),
           isFalse);
     });
   });

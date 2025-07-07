@@ -2,8 +2,9 @@ class CardInfo {
   final String name;
   final String description;
   final String image;
+  final bool canPlay;
 
-  CardInfo(this.name, this.description, this.image);
+  CardInfo(this.name, this.description, this.image, [this.canPlay = true]);
 
   // Recruitment cards
   static CardInfo commander = CardInfo("Commandant", "", "");
@@ -31,8 +32,8 @@ class CardInfo {
   static CardInfo peaceSaint = CardInfo("Saint de la Paix", "", "");
 
   // Knight cards
-  static CardInfo conquestKnight = CardInfo("Cavalier de la Conquete", "", "");
-  static CardInfo famineKnight = CardInfo("Cavalier de la Famine", "", "");
-  static CardInfo plagueKnight = CardInfo("Cavalier de la Peste", "", "");
-  static CardInfo warKnight = CardInfo("Cavalier de la Guerre", "", "");
+  static CardInfo conquestKnight = CardInfo("Cavalier de la Conquete", "", "", false);
+  static CardInfo famineKnight = CardInfo("Cavalier de la Famine", "", "", false);
+  static CardInfo plagueKnight = CardInfo("Cavalier de la Peste", "", "", false);
+  static CardInfo warKnight = CardInfo("Cavalier de la Guerre", "", "", false);
 }
