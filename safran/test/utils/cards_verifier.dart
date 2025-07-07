@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:safran/models/battleField.dart';
-import 'package:safran/models/player.dart';
+import 'package:safran/entities/battle_field.dart';
+import 'package:safran/entities/player.dart';
 
 class CardsVerifier {
   static verifyPlayerNbCard(Player player, int playerNbCard) {
