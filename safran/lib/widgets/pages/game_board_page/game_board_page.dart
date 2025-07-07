@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:safran/widgets/components/game_board_template/game_board_template_3p.dart';
 import 'package:safran/widgets/pages/setings_page/settings_page.dart';
 
-import '../../../models/game.dart';
+import '../../../entities/game.dart';
 import '../../components/game_board_template/game_board_template_4p.dart';
 import '../../components/game_board_template/game_board_template_5p.dart';
 import '../../components/game_board_template/game_board_template_6p.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:safran/models/card/game_card.dart';
+import 'package:safran/entities/card/game_card.dart';
 
 class OpponentHand extends StatefulWidget {
   final List<GameCard> cards;

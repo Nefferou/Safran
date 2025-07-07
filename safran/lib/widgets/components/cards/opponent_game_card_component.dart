@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
-import '../../../models/card/game_card.dart';
+import '../../../entities/card/game_card.dart';
 
 class OpponentGameCardComponent extends StatefulWidget {
 
