@@ -1,24 +1,22 @@
-name: Validate PR Labels
+name: Validate Version Label
 
 on:
   pull_request:
-    types: [opened, labeled, unlabeled, synchronize, reopened]
-    branches:
-      - dev
+    branches: [ dev ]
+    types: [ opened, labeled, unlabeled, synchronize, reopened ]
 
 jobs:
-  validate-version-label:
+  validate-label:
     runs-on: ubuntu-latest
     steps:
-      - name: Require version label
+      - name: Check PR for version label
         run: |
           LABELS=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
-          echo "PR Labels: $LABELS"
-
+          echo "PR labels: $LABELS"
           if echo "$LABELS" | grep -qE '\b(fix|feature|major)\b'; then
-            echo "Valid version label found"
+            echo "Valid label found"
           else
-            echo "Missing version label (fix, feature, major)"
+            echo "PR must include one of the following labels: fix, feature, major"
             exit 1
           fi
         env:

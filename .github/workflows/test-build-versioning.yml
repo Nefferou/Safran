@@ -1,0 +1,100 @@
+name: Dev Branch CI/CD
+
+on:
+  push:
+    branches: [ dev ]
+
+jobs:
+  test :
+    name: Test
+    runs-on: ubuntu-latest
+
+    outputs:
+      coverage_path: ${{ steps.set-output.outputs.coverage_path }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.3'
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: ${{ runner.os }}-pub-
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: safran
+
+      - name: Run tests
+        run: flutter test
+        working-directory: safran
+
+  build:
+    name: Build APK & AAB
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.3'
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: safran
+
+      - name: Build APK
+        run: flutter build apk --release
+        working-directory: safran
+
+      - name: Build App Bundle
+        run: flutter build appbundle
+        working-directory: safran
+
+  versioning:
+    name: Create Dev Version Tag
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Git user
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+      - name: Bump version based on PR label in commit
+        run: |
+          chmod +x scripts/bump_version.sh
+          LABEL=$(git log -1 --pretty=%B | grep -oE 'fix|feature|major' | head -1)
+          ./scripts/bump_version.sh "$LABEL" -dev
+          NEW_VERSION=$(grep version safran/pubspec.yaml | cut -d' ' -f2 | cut -d+ -f1)
+          git commit -am "ci: bump version $NEW_VERSION-dev"
+          git tag v${NEW_VERSION}-dev
+          git push origin HEAD --tags

@@ -1,10 +1,8 @@
-name: Flutter CI + Deploy
+name: Main Branch CI/CD
 
 on:
   push:
-    branches: [ main, dev ]
-  pull_request:
-    branches: [ dev ]
+    branches: [ main ]
 
 jobs:
   test_and_coverage:
@@ -137,13 +135,12 @@ jobs:
           path: safran/build/app/outputs/bundle/release/app-release.aab
 
   versioning:
-    name: Version Bump & Tag
+    name: Create Release Version Tag
     runs-on: ubuntu-latest
-    needs: [ build ]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
+    needs: build
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -152,33 +149,20 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-      - name: Extract PR labels from last merge commit
-        id: label_check
-        run: |
-          LABELS=$(git log -1 --pretty=%B | grep -oE 'fix|feature|major' | head -1)
-          echo "Detected label: $LABELS"
-          if [[ -z "$LABELS" ]]; then
-            echo "Aucun label de version détecté dans le message de merge."
-            exit 1
-          fi
-          echo "label=$LABELS" >> $GITHUB_OUTPUT
-
-      - name: Bump version based on label
+      - name: Bump version release
         run: |
           chmod +x scripts/bump_version.sh
-          ./scripts/bump_version.sh ${{ steps.label_check.outputs.label }} -dev
-
-      - name: Commit bumped version
-        run: |
-          git commit -am "ci: bump version based on label"
-          git tag "v$(grep version safran/pubspec.yaml | awk '{print $2}' | cut -d+ -f1)-dev"
-          git push origin HEAD:dev --tags
+          LABEL=$(git log -1 --pretty=%B | grep -oE 'fix|feature|major' | head -1)
+          ./scripts/bump_version.sh "$LABEL"
+          VERSION=$(grep version safran/pubspec.yaml | cut -d' ' -f2 | cut -d+ -f1)
+          git commit -am "ci: bump version $VERSION"
+          git tag v$VERSION
+          git push origin HEAD --tags
 
   deploy:
     name: Deploy to Firebase
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout code
