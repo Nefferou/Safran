@@ -46,6 +46,7 @@ jobs:
     name: Build APK & AAB
     runs-on: ubuntu-latest
     needs: test
+    if: false # Set to true if you want to run the build step
 
     steps:
       - name: Checkout code
