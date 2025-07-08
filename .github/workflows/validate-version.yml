@@ -49,6 +49,9 @@ jobs:
     needs: check-label
     runs-on: ubuntu-latest
     steps:
+      - name: Echo file paths
+      - run: ls
+
       - name: Make bump_version.sh executable
         run: chmod +x scripts/bump_version.sh
 
