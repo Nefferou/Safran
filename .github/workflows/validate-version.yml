@@ -8,41 +8,23 @@ on:
 
 jobs:
   check-label:
-    name: Check PR Label
     runs-on: ubuntu-latest
-    outputs:
-      label: ${{ steps.extract-label.outputs.label }}
     steps:
-      - name: Extract valid version label
-        id: extract-label
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check PR for version label
+        run: |
+          LABELS=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
+          echo "PR labels: $LABELS"
+          if echo "$LABELS" | grep -qE '\b(fix|feature|major)\b'; then
+            echo "Valid label found"
+          else
+            echo "PR must include one of the following labels: fix, feature, major"
+            exit 1
+          fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          OWNER=${{ github.repository_owner }}
-          REPO=$(echo "${{ github.repository }}" | cut -d'/' -f2)
-
-          LABELS=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
-            https://api.github.com/repos/$OWNER/$REPO/issues/$PR_NUMBER \
-            | jq -r '.labels[].name')
-
-          echo "🔍 Labels trouvés : $LABELS"
-
-          VALID_LABEL=$(echo "$LABELS" | grep -E '^(fix|feature|major)$' || true)
-          COUNT=$(echo "$VALID_LABEL" | wc -l)
-
-          if [ "$COUNT" -eq 0 ]; then
-            echo "❌ Aucun label valide trouvé sur la PR."
-            exit 1
-          fi
-
-          if [ "$COUNT" -gt 1 ]; then
-            echo "❌ Plusieurs labels valides détectés. Un seul est autorisé."
-            exit 1
-          fi
-
-          echo "✅ Label valide : $VALID_LABEL"
-          echo "label=$VALID_LABEL" >> $GITHUB_OUTPUT
 
   bump-version:
     name: Bump Version
