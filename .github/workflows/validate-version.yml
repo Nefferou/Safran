@@ -43,9 +43,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Make bump_version.sh executable
-        run: chmod +x ./script/bump_version.sh
+        run: chmod +x ./scripts/bump_version.sh
 
       - name: Bump version in pubspec.yaml
         id: bump
         run: |
-          ./script/bump_version.sh "${{ needs.check-label.outputs.label }}"
+          ./scripts/bump_version.sh "${{ needs.check-label.outputs.label }}"
