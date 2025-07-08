@@ -1,23 +1,55 @@
-name: Validate Version Label
+name: Check Label and Bump Version
 
 on:
   pull_request:
-    branches: [ dev ]
-    types: [ opened, labeled, unlabeled, synchronize, reopened ]
+    types: [ opened, labeled, unlabeled, synchronize, reopened, ready_for_review ]
+    branches:
+      - dev
 
 jobs:
-  validate-label:
+  check-label:
     runs-on: ubuntu-latest
+    outputs:
+      label: ${{ steps.extract.outputs.label }}
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Check PR for version label
+        id: extract
         run: |
           LABELS=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
           echo "PR labels: $LABELS"
           if echo "$LABELS" | grep -qE '\b(fix|feature|major)\b'; then
-            echo "Valid label found"
+            VALID_LABEL=$LABELS
           else
-            echo "PR must include one of the following labels: fix, feature, major"
+            echo "Labels require : fix, feature, major"
             exit 1
           fi
+          echo "label=$VALID_LABEL" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  bump-version:
+    name: Bump Version
+    needs: check-label
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Make script executable
+        run: chmod +x ./bump_version.sh
+        working-directory: scripts
+
+      - name: Bump version in pubspec
+        run: |
+          ./bump_version.sh "${{ needs.check-label.outputs.label }}"
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add --all
+          git commit -m "Bump version"
+          git push
+        working-directory: scripts

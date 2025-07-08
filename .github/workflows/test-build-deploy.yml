@@ -1,8 +1,9 @@
-name: Main Branch CI/CD
+name: Deployment new version
 
 on:
   push:
-    branches: [ main ]
+    tags:
+      - v*.*.*
 
 jobs:
   test_and_coverage:
@@ -133,33 +134,6 @@ jobs:
         with:
           name: flutter-aab
           path: safran/build/app/outputs/bundle/release/app-release.aab
-
-  versioning:
-    name: Create Release Version Tag
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up Git user
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-
-      - name: Bump version release
-        run: |
-          chmod +x scripts/bump_version.sh
-          LABEL=$(git log -1 --pretty=%B | grep -oE 'fix|feature|major' | head -1)
-          ./scripts/bump_version.sh "$LABEL"
-          VERSION=$(grep version safran/pubspec.yaml | cut -d' ' -f2 | cut -d+ -f1)
-          git commit -am "ci: bump version $VERSION"
-          git tag v$VERSION
-          git push origin HEAD --tags
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
     name: Deploy to Firebase
