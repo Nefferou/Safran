@@ -21,6 +21,7 @@ jobs:
           LABELS=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
           echo "PR labels: $LABELS"
           if echo "$LABELS" | grep -qE '\b(fix|feature|major)\b'; then
+            VALID_LABEL=$LABELS
             echo "Valid label found"
           else
             echo "PR must include one of the following labels: fix, feature, major"
