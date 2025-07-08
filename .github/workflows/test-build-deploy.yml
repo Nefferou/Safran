@@ -3,7 +3,7 @@ name: Deployment new version
 on:
   push:
     tags:
-      - v*.*.*
+      - v*.*.*-*
 
 jobs:
   test_and_coverage:
