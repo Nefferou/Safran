@@ -51,7 +51,7 @@ jobs:
     steps:
       - name: Make bump_version.sh executable
         run: |
-          ls -la
+          pwd
           chmod +x ../scripts/bump_version.sh
 
       - name: Bump version in pubspec.yaml
