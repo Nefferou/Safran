@@ -49,15 +49,10 @@ jobs:
     needs: check-label
     runs-on: ubuntu-latest
     steps:
-      - name: Echo file paths
-        run: |
-          echo "Current directory: $(pwd)"
-          echo "Files in current directory:"
-          ls -la ../
-        working-directory: safran
-
       - name: Make bump_version.sh executable
         run: chmod +x ../scripts/bump_version.sh
 
       - name: Bump version in pubspec.yaml
-        run: ../scripts/bump_version.sh "${{ needs.check-label.outputs.label }}"
+        run: |
+          ls -la
+          ../scripts/bump_version.sh "${{ needs.check-label.outputs.label }}"
