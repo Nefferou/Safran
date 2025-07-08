@@ -13,28 +13,31 @@ jobs:
     outputs:
       label: ${{ steps.extract-label.outputs.label }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install GitHub CLI
-        run: sudo apt-get install gh -y
-
       - name: Extract valid version label
         id: extract-label
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          LABELS=$(echo "${{ toJson(github.event.pull_request.labels) }}" | jq -r '.[].name')
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          OWNER=${{ github.repository_owner }}
+          REPO=$(echo "${{ github.repository }}" | cut -d'/' -f2)
+
+          LABELS=$(curl -s -H "Authorization: Bearer $GH_TOKEN" \
+            https://api.github.com/repos/$OWNER/$REPO/issues/$PR_NUMBER \
+            | jq -r '.labels[].name')
+
           echo "🔍 Labels trouvés : $LABELS"
 
           VALID_LABEL=$(echo "$LABELS" | grep -E '^(fix|feature|major)$' || true)
           COUNT=$(echo "$VALID_LABEL" | wc -l)
 
           if [ "$COUNT" -eq 0 ]; then
-            echo "Aucun label valide trouvé sur la PR."
+            echo "❌ Aucun label valide trouvé sur la PR."
             exit 1
           fi
 
           if [ "$COUNT" -gt 1 ]; then
-            echo "Plusieurs labels valides détectés. Un seul est autorisé."
+            echo "❌ Plusieurs labels valides détectés. Un seul est autorisé."
             exit 1
           fi
 
