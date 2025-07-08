@@ -53,13 +53,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Make bump_version.sh executable
-        run: |
-          cd ../../../..
-          tree -L 5
-          pwd
-          chmod +x ../scripts/bump_version.sh
+        run: chmod +x ./bump_version.sh
+        working-directory: scripts
 
       - name: Bump version in pubspec.yaml
-        run: |
-          ls -la
-          ../scripts/bump_version.sh "${{ needs.check-label.outputs.label }}"
+        run: ./bump_version.sh "${{ needs.check-label.outputs.label }}"
+        working-directory: scripts
