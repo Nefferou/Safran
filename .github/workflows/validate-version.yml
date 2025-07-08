@@ -16,6 +16,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Check PR for version label
+        id: extract
         run: |
           LABELS=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
           echo "PR labels: $LABELS"
