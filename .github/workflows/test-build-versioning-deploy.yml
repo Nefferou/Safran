@@ -87,14 +87,14 @@ jobs:
           path: safran/build/app/outputs/bundle/release/app-release.aab
 
   versioning:
-    name: Create Version Tag
+    name: Create release version
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Create dev version tag
+      - name: Create release version tag
         run: |
           VERSION_FILE="pubspec.yaml"
           VERSION=$(grep '^version:' "$VERSION_FILE" | cut -d' ' -f2 | cut -d'+' -f1)
@@ -111,7 +111,7 @@ jobs:
   deploy:
     name: Deploy to Firebase
     runs-on: ubuntu-latest
-    needs: build
+    needs: versioning
 
     steps:
       - name: Checkout code

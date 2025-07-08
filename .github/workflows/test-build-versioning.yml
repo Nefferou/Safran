@@ -124,7 +124,7 @@ jobs:
         working-directory: safran
 
   versioning:
-    name: Create Version Tag
+    name: Create dev version
     needs: build
     runs-on: ubuntu-latest
     steps:
