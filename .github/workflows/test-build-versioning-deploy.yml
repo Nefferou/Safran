@@ -147,7 +147,10 @@ jobs:
       - name: Notify Discord
         if: success()
         run: |
+          VERSION_FILE="pubspec.yaml"
+          VERSION=$(grep '^version:' "$VERSION_FILE" | cut -d' ' -f2 | cut -d'+' -f1)
+          TAG="v${VERSION}-release"
           curl -H "Content-Type: application/json" \
                -X POST \
-               -d '{"content": "**Nouvelle version déployée : `${{ github.ref_name }}`**\n*Changelog :* ${{ env.CHANGELOG }}"}' \
+               -d '{"content": "**Nouvelle version déployée : `$TAG`**\n*Changelog :* ${{ env.CHANGELOG }}"}' \
                ${{ secrets.DISCORD_WEBHOOK }}
