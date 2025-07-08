@@ -2,7 +2,7 @@ name: Check Label and Bump Version
 
 on:
   pull_request:
-    types: [opened, labeled, unlabeled, synchronize, reopened, ready_for_review]
+    types: [ opened, labeled, unlabeled, synchronize, reopened, ready_for_review ]
     branches:
       - dev
 
@@ -50,6 +50,6 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add --all
-          git commit -m "Bump version for PR #${{ github.event.pull_request.number }}"
+          git commit -m "Bump version"
           git push
         working-directory: scripts
