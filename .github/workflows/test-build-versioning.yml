@@ -81,18 +81,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Read version
-        id: read_version
-        run: |
-          VERSION=$(grep '^version:' safran/pubspec.yaml | cut -d' ' -f2 | cut -d+ -f1)
-          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
-        working-directory: safran
-
       - name: Create dev tag
         run: |
-          VERSION_FILE="../../safran/pubspec.yaml"
+          VERSION_FILE="pubspec.yaml"
           VERSION=$(grep '^version:' "$VERSION_FILE" | cut -d' ' -f2 | cut -d'+' -f1)
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git tag "v${VERSION}-dev"
           git push origin "v${VERSION}-dev"
+        working-directory: safran
