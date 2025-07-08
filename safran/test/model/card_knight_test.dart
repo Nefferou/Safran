@@ -15,7 +15,7 @@ void main() {
   });
 
   group("Cursed Knight Card tests", () {
-    /*test("Famine Knight Card", () {
+    test("Famine Knight Card", () {
       CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
       CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
       CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[1], FamineKnightCard);
@@ -24,7 +24,7 @@ void main() {
 
       CardsVerifier.verifyPlayerNbCard(customGame.players[1], 10);
       CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 5);
-    });*/
+    });
 
     test("Can play Cursed Knight", () {
       CardsVerifier.verifyIfCardTypeIsInDeck(
