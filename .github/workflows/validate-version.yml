@@ -52,7 +52,7 @@ jobs:
       - name: Make bump_version.sh executable
         run: |
           cd ../../../..
-          tree
+          tree -L 5
           pwd
           chmod +x ../scripts/bump_version.sh
 
