@@ -1,8 +1,8 @@
-name: Dev Branch CI/CD
+name: Test, Build and Create version
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ dev , main ]
 
 jobs:
   test:
@@ -86,8 +86,20 @@ jobs:
         run: |
           VERSION_FILE="pubspec.yaml"
           VERSION=$(grep '^version:' "$VERSION_FILE" | cut -d' ' -f2 | cut -d'+' -f1)
+          
+          if [[ "${GITHUB_REF}" == "refs/heads/dev" ]]; then
+            SUFFIX="-dev"
+          elif [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
+            SUFFIX="-release"
+          else
+            SUFFIX="-error"
+          fi
+
+          TAG="v${VERSION}${SUFFIX}"
+
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git tag "v${VERSION}-dev"
-          git push origin "v${VERSION}-dev"
+
+          git tag "$TAG"
+          git push origin "$TAG"
         working-directory: safran
