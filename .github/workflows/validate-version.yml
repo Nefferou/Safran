@@ -9,6 +9,8 @@ on:
 jobs:
   check-label:
     runs-on: ubuntu-latest
+    outputs:
+      label: ${{ steps.extract.outputs.label }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -23,6 +25,8 @@ jobs:
             echo "PR must include one of the following labels: fix, feature, major"
             exit 1
           fi
+          
+          echo "label=$VALID_LABEL" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
