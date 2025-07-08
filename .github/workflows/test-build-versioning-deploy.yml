@@ -153,8 +153,8 @@ jobs:
           VERSION=$(grep '^version:' "$VERSION_FILE" | cut -d' ' -f2 | cut -d'+' -f1)
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git tag "v${VERSION}-dev"
-          git push origin "v${VERSION}-dev"
+          git tag "v${VERSION}"
+          git push origin "v${VERSION}"
 
   deploy:
     name: Deploy to Firebase

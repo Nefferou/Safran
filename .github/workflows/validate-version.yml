@@ -21,28 +21,24 @@ jobs:
       - name: Extract valid version label
         id: extract-label
         run: |
-          # Récupérer tous les labels de la PR
-          LABELS=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
+          LABELS=$(echo "${{ toJson(github.event.pull_request.labels) }}" | jq -r '.[].name')
           echo "🔍 Labels trouvés : $LABELS"
-          
-          # Filtrer ceux qui sont valides
+
           VALID_LABEL=$(echo "$LABELS" | grep -E '^(fix|feature|major)$' || true)
           COUNT=$(echo "$VALID_LABEL" | wc -l)
-          
+
           if [ "$COUNT" -eq 0 ]; then
-            echo "Aucun label valide (fix, feature, major) trouvé sur la PR."
+            echo "Aucun label valide trouvé sur la PR."
             exit 1
           fi
-          
+
           if [ "$COUNT" -gt 1 ]; then
-            echo "Plusieurs labels valides détectés. Un seul label est autorisé (fix, feature ou major)."
+            echo "Plusieurs labels valides détectés. Un seul est autorisé."
             exit 1
           fi
-          
-          echo "Label valide : $VALID_LABEL"
+
+          echo "✅ Label valide : $VALID_LABEL"
           echo "label=$VALID_LABEL" >> $GITHUB_OUTPUT
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   bump-version:
     name: Bump Version
