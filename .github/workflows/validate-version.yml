@@ -1,4 +1,4 @@
-name: Validate and Bump Version
+name: Check Label and Bump Version
 
 on:
   pull_request:
@@ -22,12 +22,10 @@ jobs:
           echo "PR labels: $LABELS"
           if echo "$LABELS" | grep -qE '\b(fix|feature|major)\b'; then
             VALID_LABEL=$LABELS
-            echo "Valid label found"
           else
-            echo "PR must include one of the following labels: fix, feature, major"
+            echo "Labels require : fix, feature, major"
             exit 1
           fi
-          
           echo "label=$VALID_LABEL" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -40,10 +38,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Make bump_version.sh executable
+      - name: Make script executable
         run: chmod +x ./bump_version.sh
         working-directory: scripts
 
-      - name: Bump version in pubspec.yaml
+      - name: Bump version in pubspec
         run: ./bump_version.sh "${{ needs.check-label.outputs.label }}"
         working-directory: scripts
