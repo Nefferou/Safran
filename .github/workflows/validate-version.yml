@@ -2,6 +2,7 @@ name: Validate and Bump Version
 
 on:
   pull_request:
+    types: [opened, labeled, unlabeled, synchronize, reopened, ready_for_review]
     branches:
       - dev
 
