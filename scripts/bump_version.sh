@@ -1,13 +1,14 @@
 #!/bin/bash
-set -e
 
+# Par défaut, chemin du fichier pubspec
+VERSION_FILE="../safran/pubspec.yaml"
+
+# Le type de bump à faire : fix (patch), feature (minor), major
 LABEL=$1
-SUFFIX=$2  # ex: "-dev" ou vide
 
-# Lire la version actuelle
-VERSION_FILE="safran/pubspec.yaml"
-CURRENT_VERSION=$(grep '^version:' $VERSION_FILE | cut -d' ' -f2 | cut -d+ -f1)
-IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
+# Lire version actuelle (ex: 1.2.3)
+VERSION=$(grep '^version:' "$VERSION_FILE" | cut -d' ' -f2 | cut -d'+' -f1)
+IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
 
 # Appliquer le bump selon le label
 case "$LABEL" in
@@ -24,16 +25,15 @@ case "$LABEL" in
     PATCH=0
     ;;
   *)
-    echo "❌ Label non reconnu. Utilise fix, feature ou major."
+    echo "Type de bump inconnu. Utilise : fix, feature, major"
     exit 1
     ;;
 esac
 
-# Construire la nouvelle version
+# Nouvelle version
 NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
 
-# Écrire la nouvelle version dans pubspec.yaml
-sed -i "s/^version: .*/version: ${NEW_VERSION}+1/" "$VERSION_FILE"
+# Remplacer dans pubspec.yaml (on garde le build number à +1)
+sed -i.bak "s/^version: .*/version: ${NEW_VERSION}+1/" "$VERSION_FILE"
 
-echo "✅ Nouvelle version: $NEW_VERSION$SUFFIX"
-echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+echo "Version bumpée : $NEW_VERSION"

@@ -1,41 +1,31 @@
-name: Validate and Bump Version
+name: Check Label and Bump Version
 
 on:
   pull_request:
+    types: [opened, labeled, unlabeled, synchronize, reopened, ready_for_review]
     branches:
       - dev
 
 jobs:
   check-label:
-    name: Check PR Label
     runs-on: ubuntu-latest
     outputs:
-      label: ${{ steps.extract-label.outputs.label }}
+      label: ${{ steps.extract.outputs.label }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Check out code
-        uses: actions/checkout@v4
-
-      - name: Install GitHub CLI
-        run: sudo apt-get install gh -y
-
-      - name: Check for a single valid label
-        id: extract-label
+      - name: Check PR for version label
+        id: extract
         run: |
           LABELS=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
-          echo "Labels found: $LABELS"
-
-          VALID_LABEL=$(echo "$LABELS" | grep -E '^(fix|feature|major)$' || true)
-          COUNT=$(echo "$VALID_LABEL" | wc -l)
-
-          if [ "$COUNT" -ne 1 ]; then
-            echo "Il doit y avoir un seul label parmi : fix, feature, major (trouvé: $COUNT)"
+          echo "PR labels: $LABELS"
+          if echo "$LABELS" | grep -qE '\b(fix|feature|major)\b'; then
+            VALID_LABEL=$LABELS
+          else
+            echo "Labels require : fix, feature, major"
             exit 1
           fi
-
-          echo "Label valide: $VALID_LABEL"
           echo "label=$VALID_LABEL" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -48,8 +38,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Bump version in pubspec.yaml
-        id: bump
-        run: |
-          chmod +x ./bump_version.sh
-          ./bump_version.sh "${{ needs.check-label.outputs.label }}" -dev
+      - name: Make script executable
+        run: chmod +x ./bump_version.sh
+        working-directory: scripts
+
+      - name: Bump version in pubspec
+        run: ./bump_version.sh "${{ needs.check-label.outputs.label }}"
+        working-directory: scripts
