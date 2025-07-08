@@ -146,12 +146,13 @@ jobs:
         run: |
           VERSION=$(grep '^version:' safran/pubspec.yaml | cut -d' ' -f2 | cut -d+ -f1)
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        working-directory: safran
 
       - name: Create dev tag
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git tag "v${{ steps.read_version.outputs.VERSION }}-dev"
+          git tag "v${{ steps.read_version.outputs.VERSION }}"
           git push origin "v${{ steps.read_version.outputs.VERSION }}"
 
   deploy:

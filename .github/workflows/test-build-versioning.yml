@@ -86,6 +86,7 @@ jobs:
         run: |
           VERSION=$(grep '^version:' safran/pubspec.yaml | cut -d' ' -f2 | cut -d+ -f1)
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+        working-directory: safran
 
       - name: Create dev tag
         run: |
