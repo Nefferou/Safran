@@ -15,9 +15,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Check out code
-        uses: actions/checkout@v4
-
       - name: Install GitHub CLI
         run: sudo apt-get install gh -y
 
@@ -26,15 +23,15 @@ jobs:
         run: |
           LABELS=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
           echo "Labels found: $LABELS"
-
+          
           VALID_LABEL=$(echo "$LABELS" | grep -E '^(fix|feature|major)$' || true)
           COUNT=$(echo "$VALID_LABEL" | wc -l)
-
+          
           if [ "$COUNT" -ne 1 ]; then
             echo "Il doit y avoir un seul label parmi : fix, feature, major (trouvé: $COUNT)"
             exit 1
           fi
-
+          
           echo "Label valide: $VALID_LABEL"
           echo "label=$VALID_LABEL" >> $GITHUB_OUTPUT
         env:
@@ -45,11 +42,10 @@ jobs:
     needs: check-label
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Make bump_version.sh executable
+        run: chmod +x ./bump_version.sh
 
       - name: Bump version in pubspec.yaml
         id: bump
         run: |
-          chmod +x ./bump_version.sh
-          ./bump_version.sh "${{ needs.check-label.outputs.label }}" -dev
+          ./bump_version.sh "${{ needs.check-label.outputs.label }}"
