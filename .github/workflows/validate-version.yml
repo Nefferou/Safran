@@ -50,7 +50,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Make bump_version.sh executable
-        run: chmod +x ../scripts/bump_version.sh
+        run: |
+          ls -la
+          chmod +x ../scripts/bump_version.sh
 
       - name: Bump version in pubspec.yaml
         run: |
