@@ -43,9 +43,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Make bump_version.sh executable
-        run: chmod +x ../../scripts/bump_version.sh
+        run: chmod +x ./scripts/bump_version.sh
+        working-directory: safran
 
       - name: Bump version in pubspec.yaml
+        working-directory: safran
         id: bump
         run: |
-          ../../scripts/bump_version.sh "${{ needs.check-label.outputs.label }}"
+          ./scripts/bump_version.sh "${{ needs.check-label.outputs.label }}"
