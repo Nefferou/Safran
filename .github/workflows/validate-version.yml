@@ -51,6 +51,7 @@ jobs:
     steps:
       - name: Make bump_version.sh executable
         run: |
+          cd ../..
           pwd
           chmod +x ../scripts/bump_version.sh
 
