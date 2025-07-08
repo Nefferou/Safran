@@ -2,10 +2,7 @@ name: Deployment new version
 
 on:
   push:
-    tags:
-      - v*.*.*
-      - v*.*.*-dev
-      - v*.*.*-release
+    branches: [ main ]
 
 jobs:
   test_and_coverage:
@@ -88,6 +85,28 @@ jobs:
         with:
           name: flutter-aab
           path: safran/build/app/outputs/bundle/release/app-release.aab
+
+  versioning:
+    name: Create Version Tag
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create dev version tag
+        run: |
+          VERSION_FILE="pubspec.yaml"
+          VERSION=$(grep '^version:' "$VERSION_FILE" | cut -d' ' -f2 | cut -d'+' -f1)
+
+          TAG="v${VERSION}-release"
+
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git tag "$TAG"
+          git push origin "$TAG"
+        working-directory: safran
 
   deploy:
     name: Deploy to Firebase

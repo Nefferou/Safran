@@ -2,7 +2,7 @@ name: Test, Build and Create version
 
 on:
   push:
-    branches: [ dev , main ]
+    branches: [ dev ]
 
 jobs:
   test_and_coverage:
@@ -131,20 +131,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Create dev tag
+      - name: Create dev version tag
         run: |
           VERSION_FILE="pubspec.yaml"
           VERSION=$(grep '^version:' "$VERSION_FILE" | cut -d' ' -f2 | cut -d'+' -f1)
-          
-          if [[ "${GITHUB_REF}" == "refs/heads/dev" ]]; then
-            SUFFIX="-dev"
-          elif [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
-            SUFFIX="-release"
-          else
-            SUFFIX="-error"
-          fi
 
-          TAG="v${VERSION}${SUFFIX}"
+          TAG="v${VERSION}-dev"
 
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
