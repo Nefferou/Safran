@@ -1,4 +1,4 @@
-name: Deployment new version
+name: Test, Build, Create and Deploy release
 
 on:
   push:
