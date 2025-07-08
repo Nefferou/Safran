@@ -43,5 +43,11 @@ jobs:
         working-directory: scripts
 
       - name: Bump version in pubspec
-        run: ./bump_version.sh "${{ needs.check-label.outputs.label }}"
+        run: |
+          ./bump_version.sh "${{ needs.check-label.outputs.label }}"
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add pubspec.yaml
+          git commit -m "Bump version for PR #${{ github.event.pull_request.number }}" pubspec.yaml
+          git push
         working-directory: scripts
