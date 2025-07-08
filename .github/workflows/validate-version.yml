@@ -18,21 +18,28 @@ jobs:
       - name: Install GitHub CLI
         run: sudo apt-get install gh -y
 
-      - name: Check for a single valid label
+      - name: Extract valid version label
         id: extract-label
         run: |
+          # Récupérer tous les labels de la PR
           LABELS=$(gh pr view ${{ github.event.pull_request.number }} --json labels --jq '.labels[].name')
-          echo "Labels found: $LABELS"
+          echo "🔍 Labels trouvés : $LABELS"
           
+          # Filtrer ceux qui sont valides
           VALID_LABEL=$(echo "$LABELS" | grep -E '^(fix|feature|major)$' || true)
           COUNT=$(echo "$VALID_LABEL" | wc -l)
           
-          if [ "$COUNT" -ne 1 ]; then
-            echo "Il doit y avoir un seul label parmi : fix, feature, major (trouvé: $COUNT)"
+          if [ "$COUNT" -eq 0 ]; then
+            echo "Aucun label valide (fix, feature, major) trouvé sur la PR."
             exit 1
           fi
           
-          echo "Label valide: $VALID_LABEL"
+          if [ "$COUNT" -gt 1 ]; then
+            echo "Plusieurs labels valides détectés. Un seul label est autorisé (fix, feature ou major)."
+            exit 1
+          fi
+          
+          echo "Label valide : $VALID_LABEL"
           echo "label=$VALID_LABEL" >> $GITHUB_OUTPUT
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -42,38 +49,10 @@ jobs:
     needs: check-label
     runs-on: ubuntu-latest
     steps:
-      - name: Bump version in pubspec.yaml
+      - name: Make bump_version.sh executable
+        run: chmod +x ./bump_version.sh
         working-directory: scripts
-        id: bump
-        run: |
-          VERSION_FILE="../safran/pubspec.yaml"
-          LABEL=$1
-          
-          VERSION=$(grep '^version:' "$VERSION_FILE" | cut -d' ' -f2 | cut -d'+' -f1)
-          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
-          
-          case "$LABEL" in
-          fix)
-          PATCH=$((PATCH + 1))
-          ;;
-          feature)
-          MINOR=$((MINOR + 1))
-          PATCH=0
-          ;;
-          major)
-          MAJOR=$((MAJOR + 1))
-          MINOR=0
-          PATCH=0
-          ;;
-          *)
-          echo "Type de bump inconnu. Utilise: fix, feature, major"
-          exit 1
-          ;;
-          esac
-          
-          # Nouvelle version
-          NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
-        
-          # Remplacer dans pubspec.yaml (on garde le build number à +1)
-          sed -i.bak "s/^version:
-          .*/version: ${NEW_VERSION}+1/" "$VERSION_FILE"
+
+      - name: Bump version in pubspec.yaml
+        run: ./bump_version.sh "${{ needs.check-label.outputs.label }}"
+        working-directory: scripts
