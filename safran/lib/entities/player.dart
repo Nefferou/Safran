@@ -90,12 +90,14 @@ class Player {
     return card;
   }
 
-  takeRandomCard() {
+  takeRandomCard(bool canBeSelected) {
     int deckLength = deck.length;
     int randomIndex = Random().nextInt(deckLength);
 
     GameCard card = deck.elementAt(randomIndex);
-    deck.removeAt(randomIndex);
+    if (canBeSelected || card.canBePlayed(this)) {
+      deck.removeAt(randomIndex);
+    }
 
     return card;
   }

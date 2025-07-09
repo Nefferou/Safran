@@ -6,24 +6,23 @@ import '../utils/cards_verifier.dart';
 import '../utils/preset_util.dart';
 
 void main() {
-  late Game customGame;
   late Game knightGame;
 
   setUp(() {
-    customGame = PresetUtil.presetGameWithPlayersEqualyDealed();
     knightGame = PresetUtil.presetCanPlayKnight();
   });
 
   group("Cursed Knight Card tests", () {
     test("Famine Knight Card", () {
-      CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
-      CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
-      CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[1], FamineKnightCard);
+      CardsVerifier.verifyPlayerNbCard(knightGame.players[1], 3);
+      CardsVerifier.verifyBattleFieldNbCard(knightGame.battleField, 4);
+      CardsVerifier.verifyIfCardTypeIsInDeck(knightGame.players[1], FamineKnightCard);
 
-      customGame.handleFamineKnight(customGame.players[1]);
+      knightGame.handleFamineKnight(knightGame.players[1]);
 
-      CardsVerifier.verifyPlayerNbCard(customGame.players[1], 10);
-      CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 5);
+      CardsVerifier.verifyPlayerNbCard(knightGame.players[1], 2);
+      CardsVerifier.verifyIfCardTypeIsInDeck(knightGame.players[1], FamineKnightCard);
+      CardsVerifier.verifyBattleFieldNbCard(knightGame.battleField, 5);
     });
 
     test("Can play Cursed Knight", () {
