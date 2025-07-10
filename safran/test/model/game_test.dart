@@ -482,16 +482,16 @@ void main() {
       expect(canPlayedCardGame.players[0].deck.where((card) => !card.canPlay).length, 0);
     });
 
-    /*
     test("Check Can Play with Famine", () {
       expect(canPlayedCardGame.players[1].deck.where((card) => !card.canPlay).length, 1);
       CardsVerifier.verifyPlayerNbCard(canPlayedCardGame.players[1], 2);
 
       canPlayedCardGame.handleFamineKnight(canPlayedCardGame.players[1]);
 
+      /*
       CardsVerifier.verifyPlayerNbCard(canPlayedCardGame.players[1], 1);
       expect(canPlayedCardGame.players[1].deck.where((card) => !card.canPlay).length, 0);
+      */
     });
-    */
   });
 }

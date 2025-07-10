@@ -15,8 +15,8 @@ class Dealer {
     return takenCard;
   }
 
-  static takeRandomCardToPlayer(Player player) {
-    GameCard takenCard = player.takeRandomCard();
+  static takeRandomCardToPlayer(Player player, {bool canBeSelected = true}) {
+    GameCard takenCard = player.takeRandomCard(canBeSelected);
     return takenCard;
   }
 
@@ -44,9 +44,9 @@ class Dealer {
   static transferCardPlayerToBattleField(Player player, int indexCard, BattleField battleField) {
     GameCard cards;
     if(indexCard == -1) {
-      cards = takeRandomCardToPlayer(player);
+      cards = takeRandomCardToPlayer(player, canBeSelected: false);
       while (!cards.canBePlayed(player)) {
-        cards = takeRandomCardToPlayer(player);
+        cards = takeRandomCardToPlayer(player, canBeSelected: false);
       }
     } else {
       cards = takeCardToPlayer(player, indexCard);
