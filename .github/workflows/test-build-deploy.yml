@@ -1,0 +1,132 @@
+name: Deployment new version
+
+on:
+  push:
+    tags:
+      - v*.*.*-*
+
+jobs:
+  test_and_coverage:
+    name: Test & Coverage
+    runs-on: ubuntu-latest
+
+    outputs:
+      coverage_path: ${{ steps.set-output.outputs.coverage_path }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.3'
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.pub-cache
+          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: ${{ runner.os }}-pub-
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: safran
+
+      - name: Run tests with coverage
+        run: flutter test
+        working-directory: safran
+
+  build:
+    name: Build APK & AAB
+    runs-on: ubuntu-latest
+    needs: test_and_coverage
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.3'
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install dependencies
+        run: flutter pub get
+        working-directory: safran
+
+      - name: Build APK
+        run: flutter build apk --release
+        working-directory: safran
+
+      - name: Build App Bundle
+        run: flutter build appbundle
+        working-directory: safran
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-apk
+          path: safran/build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Upload AAB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-aab
+          path: safran/build/app/outputs/bundle/release/app-release.aab
+
+  deploy:
+    name: Deploy to Firebase
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download APK
+        uses: actions/download-artifact@v4
+        with:
+          name: flutter-apk
+          path: safran/build/app/outputs/flutter-apk/
+
+      - name: Download AAB
+        uses: actions/download-artifact@v4
+        with:
+          name: flutter-aab
+          path: safran/build/app/outputs/bundle/release/
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          echo "CHANGELOG=$(git log -1 --pretty=format:'%h - %s (%an)')" >> $GITHUB_ENV
+
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      - name: Deploy APK to Firebase App Distribution
+        run: |
+          firebase appdistribution:distribute safran/build/app/outputs/flutter-apk/app-release.apk \
+            --app ${{ secrets.FIREBASE_APP_ID }} \
+            --token ${{ secrets.FIREBASE_TOKEN }} \
+            --groups "safran-test"
+
+      - name: Notify Discord
+        if: success()
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{"content": "**Nouvelle version déployée : `${{ github.ref_name }}`**\n*Changelog :* ${{ env.CHANGELOG }}"}' \
+               ${{ secrets.DISCORD_WEBHOOK }}

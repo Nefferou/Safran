@@ -8,17 +8,17 @@ import '../../../entities/game.dart';
 import '../../pages/setings_page/settings_page.dart';
 import '../cards/game_card_component.dart';
 
-class GameBoardTemplate3P extends StatefulWidget {
+class GameBoardTemplate6P extends StatefulWidget {
   final Game game;
-  const GameBoardTemplate3P({super.key, required this.game});
+  const GameBoardTemplate6P({super.key, required this.game});
 
   @override
-  State<GameBoardTemplate3P> createState() => _GameBoardTemplate3PState();
+  State<GameBoardTemplate6P> createState() => _GameBoardTemplate6PState();
 }
 
-class _GameBoardTemplate3PState extends State<GameBoardTemplate3P> {
-  static const double handWidth = 400;
-  static const double handHeight = 180;
+class _GameBoardTemplate6PState extends State<GameBoardTemplate6P> {
+  static const double handWidth = 80;
+  static const double handHeight = 200;
 
   @override
   Widget build(BuildContext context) {
@@ -80,14 +80,14 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3P> {
                     GameCardComponent(
                         card: widget.game.battleField.getUpCard())
                   ],
-                  quarterTurns: 0,
+                  quarterTurns: 1,
                 ),
               ),
 
               // --- Left Opponent ---
               Positioned(
-                top: 0,
-                right: MediaQuery.of(context).size.width / 2,
+                top: 25,
+                right: MediaQuery.of(context).size.width / (1.25),
                 left: 0,
                 child: Transform.scale(
                   scale: scale,
@@ -100,11 +100,11 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3P> {
                 ),
               ),
 
-              // --- Right Opponent ---
+              // --- Middle-Left Opponent ---
               Positioned(
-                top: 0,
-                right: 0,
-                left: MediaQuery.of(context).size.width / 2,
+                top: -12.5,
+                right: MediaQuery.of(context).size.width / (2.5),
+                left: 0,
                 child: Transform.scale(
                   scale: scale,
                   alignment: Alignment.topRight,
@@ -112,6 +112,54 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3P> {
                     widget.game.players[2].userName,
                     widget.game.players[2].deck,
                     quarterTurns: 3,
+                  ),
+                ),
+              ),
+
+              // --- Middle Opponent ---
+              Positioned(
+                top: -50,
+                right: 0,
+                left: 0,
+                child: Transform.scale(
+                  scale: scale,
+                  alignment: Alignment.topRight,
+                  child: _buildOpponentColumn(
+                    widget.game.players[3].userName,
+                    widget.game.players[3].deck,
+                    quarterTurns: 2,
+                  ),
+                ),
+              ),
+
+              // --- Middle-Right Opponent ---
+              Positioned(
+                top: -12.5,
+                right: 0,
+                left: MediaQuery.of(context).size.width / (2.5),
+                child: Transform.scale(
+                  scale: scale,
+                  alignment: Alignment.topRight,
+                  child: _buildOpponentColumn(
+                    widget.game.players[4].userName,
+                    widget.game.players[4].deck,
+                    quarterTurns: 2,
+                  ),
+                ),
+              ),
+
+              // --- Right Opponent ---
+              Positioned(
+                top: 25,
+                right: 0,
+                left: MediaQuery.of(context).size.width / (1.25),
+                child: Transform.scale(
+                  scale: scale,
+                  alignment: Alignment.topRight,
+                  child: _buildOpponentColumn(
+                    widget.game.players[5].userName,
+                    widget.game.players[5].deck,
+                    quarterTurns: 2,
                   ),
                 ),
               ),
