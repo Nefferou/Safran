@@ -39,7 +39,7 @@ jobs:
         working-directory: safran
 
       - name: Run tests with coverage
-        run: flutter test
+        run: flutter test --coverage
         working-directory: safran
 
       - name: Set output path
