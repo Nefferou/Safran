@@ -11,7 +11,7 @@ L’application permet aux utilisateurs de jouer aussi bien en local (Bluetooth 
 - Des classements et statistiques,
 - Des achats intégrés futurs.
 
-L’objectif est d’offrir une expérience utilisateur fluide, amusante et innovante, avec des règles inédites favorisant la rejouabilité et l’accessibilité.
+L’objectif est de proposer une expérience ludique, fluide et innovante, avec des règles originales favorisant à la fois la rejouabilité et l’accessibilité.
 
 Ce projet a pour vocation de s’inscrire dans un écosystème de jeux mobiles modernes. À terme, il pourra être enrichi par de nouveaux modes de jeu, des événements communautaires, ou une monétisation progressive via des achats intégrés.
 
@@ -37,7 +37,7 @@ L’application est conçue pour répondre aux attentes de plusieurs profils :
 - **Créateurs de contenu** : parties spectateurs, événements, tournois.
 - **Jeunes adultes en mobilité** : sessions de 5-10 minutes, prise en main instantanée.
 
-Objectif stratégique : se positionner à la croisée des jeux casual et compétitifs.
+L’objectif stratégique est de positionner l’application à l’intersection entre les jeux casual et compétitifs.
 
 ### Contexte de Réalisation
 
@@ -80,29 +80,29 @@ Défini dans le fichier `test-build-versioning-deploy.yml` :
 ### Configuration de la CI
 
 CI centralisée sur GitHub Actions, avec 3 workflows :
-- `validate-version.yml` : vérifie le label de la PR et incrémente la version du `pubspec.yml`
-- `test-build-versioning.yml` : test + build sur `dev`
-- `test-build-versioning-deploy.yml` : build + test + déploiement sur `main`
+- `validate-version.yml` : vérifie le label de la PR et incrémente la version du `pubspec.yaml`
+- `test-build-versioning.yml` : exécution des tests et compilation sur `dev`
+- `test-build-versioning-deploy.yml` : exécution des tests, compilation et déploiement sur `main`
 
 ### Logique des pipelines
 
 - **validate-version.yml** (PR sur `dev`) :
-  - `fix` → patch (*.*.+1)
-  - `feature/minor` → mineure (*.+1.0)
-  - `major` → majeure (+1.0.0)
+  - `fix` → patch (x.y.z+1)
+  - `feature/minor` → mineure (x.y+1.0)
+  - `major` → majeure (x+1.0.0)
 <img width="1312" height="247" alt="image" src="https://github.com/user-attachments/assets/60b2286f-32f8-46a1-8632-f478463fd68f" />
 
 - **test-build-versioning.yml** (push sur `dev`) :
   - Tests unitaires
   - Génération de l’APK de développement
-  - Créer un tag de version avec le suffixe `-dev`
+  - Un tag de version est automatiquement créé avec le suffixe `-dev` (ex : `v1.0.5-dev`)
 <img width="1309" height="248" alt="image" src="https://github.com/user-attachments/assets/73a49430-0c31-4d83-aaa2-3156806b7a9a" />
 
 - **test-build-versioning-deploy.yml** (push sur `main`) :
   - Exécution des tests
   - Envoi du coverage à Sonar
   - Build final de l’APK
-  - Créer un tag de version avec le suffixe `-release`
+  - Un tag de version est automatiquement créé avec le suffixe `-release` (ex : `v1.0.5-release`)
   - Déploiement sur Firebase App Distribution
   - Notification App Tester
 <img width="1293" height="346" alt="image" src="https://github.com/user-attachments/assets/b88f1abe-c47c-4e36-8e03-f5398095d594" />
