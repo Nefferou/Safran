@@ -137,7 +137,7 @@ jobs:
           VERSION=$(grep '^version:' "$VERSION_FILE" | cut -d' ' -f2 | cut -d'+' -f1)
           
           if [[ "${GITHUB_REF}" == "refs/heads/dev" ]]; then
-            SUFFIX="-dev"
+            SUFFIX="-snapshot"
           elif [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
             SUFFIX="-release"
           else

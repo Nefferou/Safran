@@ -133,3 +133,50 @@ Le niveau de conformité **AA** a été retenu, car il offre un **équilibre per
 | **Compatibilité partielle avec les lecteurs d’écran** | Éléments critiques annotés avec `Semantics` pour permettre leur lecture par VoiceOver ou TalkBack.                               |
 
 `TODO : Image de l'interface mode claire, sombre et daltonien (si possible avec les icônes explicites)`
+
+## 11. Historique des versions
+
+### Versioning
+
+Le projet utilise un schéma de versionnage **sémantique** au format `x.y.z`, où :
+
+- `x` représente une version **majeure**,
+- `y` une version **mineure**,
+- `z` un **correctif**.
+
+La gestion du versioning est **automatisée** via le pipeline `validate-version.yml`. Lors de chaque PR vers `dev`, un tag (`fix`, `feature`, `major`) détermine l’incrémentation :
+
+- `fix` ➜ `z+1`,
+- `feature` ➜ `y+1.0`,
+- `major` ➜ `x+1.0.0`.
+
+En complément, la CI ajoute automatiquement un **suffixe** au tag selon la branche :
+
+- `-snapshot` (branche `dev`) pour les versions de test,
+- `-release` (branche `main`) pour les versions distribuées.
+
+Le numéro de version est défini dans le fichier `pubspec.yaml`, utilisé par Flutter et mis à jour automatiquement par la CI/CD.
+
+### Journal de modifications (changelog)
+
+| Version        | Date       | Auteur           | Changements principaux                                                                |
+|----------------|------------|------------------|---------------------------------------------------------------------------------------|
+| 0.9.2-snapshot | 08/07/2025 | Julien FERTILATI | Stabilisation du pipeline CI/CD avec gestion automatisée du versioning                |
+| 0.9.1-snapshot | 04/07/2025 | Guilhem MAGAUD   | Ajout de tests unitaires ciblant les composants de jeu (cartes)                       |
+| 0.9.0-snapshot | 03/07/2025 | Julien FERTILATI | Intégration de Firebase App Distribution pour le déploiement automatisé               |
+| 0.8.0-snapshot | 27/06/2025 | Julien FERTILATI | Ajout de la mécanique de victoire par conquête + correction de bugs sur règles de jeu |
+| 0.7.1-snapshot | 23/06/2025 | Anthony VIANO    | Création des templates d’interface responsive pour 3 à 6 joueurs                      |
+| 0.7.0-snapshot | 24/06/2025 | Julien FERTILATI | Intégration de SonarCloud pour analyse de qualité + premiers tests automatisés        |
+| 0.6.0-snapshot | 13/06/2025 | Guilhem MAGAUD   | Mise en place de la base Flutter : architecture, composants de base et navigation     |
+| 0.1.0-snapshot | 03/02/2025 | Julien FERTILATI | Initialisation du projet avec dépôt, structure, premières règles et documentation     |
+
+### Outils de suivi utilisés
+
+| Outil              | Rôle dans le projet                                                                                                      |
+|--------------------|--------------------------------------------------------------------------------------------------------------------------|
+| **GitHub**         | Suivi des commits, gestion des branches, pull requests et historique de version                                          |
+| **ClickUp**        | Suivi de l’avancement, gestion des tâches, organisation des réunions, planification agile et documentation collaborative |
+| **SonarCloud**     | Analyse de la qualité du code, détection des bugs et suivis des régressions                                              |
+| **GitHub Actions** | Exécution des tests, contrôle du versioning et automatisation du déploiement                                             |
+| **Firebase**       | Distribution des APK pour tests via App Distribution, notifications aux testeurs                                         |
+
