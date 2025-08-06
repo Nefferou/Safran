@@ -11,7 +11,7 @@ L’application permet aux utilisateurs de jouer aussi bien en local (Bluetooth 
 - Des classements et statistiques,
 - Des achats intégrés futurs.
 
-L’objectif est de proposer une expérience ludique, fluide et innovante, avec des règles originales favorisant à la fois la rejouabilité et l’accessibilité.
+L’objectif est de proposer une expérience ludique, fluide et innovante, avec des règles originales favorisant à la fois la jouabilité et l’accessibilité.
 
 Ce projet a pour vocation de s’inscrire dans un écosystème de jeux mobiles modernes. À terme, il pourra être enrichi par de nouveaux modes de jeu, des événements communautaires, ou une monétisation progressive via des achats intégrés.
 
@@ -58,12 +58,12 @@ Automatiser la mise à disposition des versions Android (APK) pour testeurs via 
 
 ### Outils utilisés
 
-| Outil             | Rôle                                                                 |
-|-------------------|----------------------------------------------------------------------|
-| GitHub Actions    | Automatiser les étapes de build et déploiement                       |
-| Flutter           | Compilation de l’APK Android (`flutter build apk`)                  |
-| Firebase          | Déploiement et distribution automatique via App Distribution         |
-| App Tester        | Accès aux dernières APK pour testeurs via Firebase                   |
+| Outil          | Rôle                                                         |
+|----------------|--------------------------------------------------------------|
+| GitHub Actions | Automatiser les étapes de build et déploiement               |
+| Flutter        | Compilation de l’APK Android (`flutter build apk`)           |
+| Firebase       | Déploiement et distribution automatique via App Distribution |
+| App Tester     | Accès aux dernières APK pour testeurs via Firebase           |
 
 ### Mise en œuvre
 
@@ -90,13 +90,15 @@ CI centralisée sur GitHub Actions, avec 3 workflows :
   - `fix` → patch (x.y.z+1)
   - `feature/minor` → mineure (x.y+1.0)
   - `major` → majeure (x+1.0.0)
-<img width="1312" height="247" alt="image" src="https://github.com/user-attachments/assets/60b2286f-32f8-46a1-8632-f478463fd68f" />
+
+`TODO : Image workflow validate-version.yml` 
 
 - **test-build-versioning.yml** (push sur `dev`) :
   - Tests unitaires
   - Génération de l’APK de développement
   - Un tag de version est automatiquement créé avec le suffixe `-dev` (ex : `v1.0.5-dev`)
-<img width="1309" height="248" alt="image" src="https://github.com/user-attachments/assets/73a49430-0c31-4d83-aaa2-3156806b7a9a" />
+
+`TODO : Image workflow test-build-versioning.yml`
 
 - **test-build-versioning-deploy.yml** (push sur `main`) :
   - Exécution des tests
@@ -105,7 +107,29 @@ CI centralisée sur GitHub Actions, avec 3 workflows :
   - Un tag de version est automatiquement créé avec le suffixe `-release` (ex : `v1.0.5-release`)
   - Déploiement sur Firebase App Distribution
   - Notification App Tester
-<img width="1293" height="346" alt="image" src="https://github.com/user-attachments/assets/b88f1abe-c47c-4e36-8e03-f5398095d594" />
-<img width="1304" height="306" alt="image" src="https://github.com/user-attachments/assets/17c64f45-730c-40e3-9768-12d3c6a6ee66" />
 
+`TODO : Image workflow test-build-versioning-deploy.yml`  
+`TODO : Image des artifacts du workflow`
 
+## 10. Accessibilité
+
+### Normes appliquées
+
+Le projet se conforme aux recommandations du **WCAG 2.1 niveau AA**, qui représente aujourd’hui le **standard international de référence** en matière d’accessibilité numérique pour le web et les applications mobiles.
+
+Le choix de la version **2.1** plutôt que la 2.0 s’explique par l’ajout de critères mieux adaptés aux **usages mobiles**, aux **troubles cognitifs** et à la **basse vision**. Ces apports sont essentiels dans le cadre d’une application Flutter destinée à une utilisation tactile sur smartphone et tablette.
+
+Le niveau de conformité **AA** a été retenu, car il offre un **équilibre pertinent entre exigence et faisabilité** : il couvre efficacement les besoins des personnes malvoyantes, daltoniennes, ou ayant des difficultés de compréhension, sans imposer les contraintes très strictes du niveau AAA (comme l’évitement complet d’animations ou la navigation 100 % vocale/clavier).
+
+### Fonctionnalités dédiées
+
+| Fonctionnalité                                        | Description                                                                                                                      |
+|-------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------|
+| **Mode sombre et clair**                              | Deux thèmes (light/dark) accessibles depuis les paramètres, pour s’adapter à la lumière ambiante et réduire la fatigue visuelle. |
+| **Mode daltonien**                                    | Filtre de couleur unique basé sur une palette "colorblind safe" (CUD) pour éviter les confusions rouge/vert/bleu.                |
+| **Taille de texte adaptable**                         | Texte compatible avec les préférences d’accessibilité du système pour les utilisateurs malvoyants.                               |
+| **Navigation tactile simplifiée**                     | Actions réalisables par simple tap, sans geste complexe, facilitant l’usage pour les personnes à motricité réduite.              |
+| **Icônes explicites et feedback visuel**              | Boutons accompagnés de texte et d’icônes, avec surbrillance ou confirmation visuelle à l’interaction.                            |
+| **Compatibilité partielle avec les lecteurs d’écran** | Éléments critiques annotés avec `Semantics` pour permettre leur lecture par VoiceOver ou TalkBack.                               |
+
+`TODO : Image de l'interface mode claire, sombre et daltonien (si possible avec les icônes explicites)`
