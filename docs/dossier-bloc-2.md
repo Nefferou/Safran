@@ -111,6 +111,8 @@ CI centralisée sur GitHub Actions, avec 3 workflows :
 `TODO : Image workflow test-build-versioning-deploy.yml`  
 `TODO : Image des artifacts du workflow`
 
+---
+
 ## 8. Cahier de recettes
 
 > Tous les tests ci-dessous permettent de vérifier les règles métiers, les conditions de victoire, les erreurs de configuration et les effets des cartes du jeu. 
@@ -152,6 +154,8 @@ CI centralisée sur GitHub Actions, avec 3 workflows :
 
 `TODO : Image du tableau de couverture des tests SonarCloud`
 
+---
+
 ## 10. Accessibilité
 
 ### Normes appliquées
@@ -174,6 +178,8 @@ Le niveau de conformité **AA** a été retenu, car il offre un **équilibre per
 | **Compatibilité partielle avec les lecteurs d’écran** | Éléments critiques annotés avec `Semantics` pour permettre leur lecture par VoiceOver ou TalkBack.                               |
 
 `TODO : Image de l'interface mode claire, sombre et daltonien (si possible avec les icônes explicites)`
+
+---
 
 ## 11. Historique des versions
 
@@ -221,3 +227,97 @@ Le numéro de version est défini dans le fichier `pubspec.yaml`, utilisé par F
 | **GitHub Actions** | Exécution des tests, contrôle du versioning et automatisation du déploiement                                             |
 | **Firebase**       | Distribution des APK pour tests via App Distribution, notifications aux testeurs                                         |
 
+---
+
+## 14. Plan de correction des bugs
+
+### Méthodologie
+
+#### Détection des bugs
+Les bugs sont détectés soit lors des tests fonctionnels effectués pendant le développement, soit plus tard par les bêta-testeurs ou les utilisateurs. Pour permettre à l'utilisateur de signaler un bug, un formulaire est mis à disposition avec :
+- Un champ **description** pour expliquer le bug
+- Un champ **image** (optionnel) pour joindre une capture écran
+
+Une fois le formulaire rempli, un e-mail est envoyé à l'équipe de développement contenant la description du bug et l'éventuelle image. Un ticket est alors ouvert avec un **identifiant unique** et une **description détaillée** du problème.
+
+#### Qualification et priorisation
+Chaque bug est évalué par l'équipe, selon deux critères :
+- **Sévérité** : insignifiante / mineure / majeure / bloquante
+- **Priorité** : basse / normale / haute / urgente
+
+Ce double classement permet de déterminer l'ordre de traitement des bugs.
+
+`TODO : Image de la grille de priorisation des bugs`
+
+#### Reproduction du problème
+Dans le ticket, une section **"Repro-step"** (scénario de reproduction) est renseignée pour permettre à n'importe quel développeur de reproduire l'anomalie.
+Cette section peut être enrichie par :
+- Captures d'écran
+- Extraits de logs
+
+Si le bug a été signalé par un utilisateur, un développeur se charge d'en vérifier la reproductibilité et documente le ticket en conséquence.
+
+#### Analyse et diagnostic
+Le développeur en charge du ticket identifie la **cause racine** du bug et évalue s'il peut avoir des impacts sur d'autres parties du code. Cette analyse permet d'éviter les régressions.
+
+#### Correction
+Une fois la cause identifiée, le développeur corrige le bug dans l'environnement de développement.
+Une **revue de code** est ensuite réalisée par un deuxième développeur afin de :
+- Valider le respect des normes de développement
+- Vérifier qu'aucune autre fonctionnalité n'est impactée par le bug et / ou la correction effectuée
+
+#### Validation
+Après validation technique :
+- Les **tests unitaires et d'intégration** sont relancés
+- Un troisième développeur effectue un **test fonctionnel** du correctif
+
+Les fonctionnalités liées sont également testées pour écarter tout effet de bord.
+
+#### Mise en production
+Lorsque le correctif est validé :
+- Une branche de correctifs est créée à partir de `dev` vers `main`
+- Le correctif est déployé via le pipeline CI/CD
+- Un **changelog** est mis à jour pour décrire les fix
+
+#### Suivi post-déploiement
+Après mise en production :
+- Le comportement de l'application est **monitoré** (logs, erreurs)
+- Si aucune anomalie n'est détectée pendant **2 semaines**, le ticket est fermé
+
+### Outils de suivi utilisés
+
+- **ClickUp** : gestion des tickets, suivi de l'avancement, affectation
+- **GitHub** : suivi des commits liés aux bugs et automatisation via GitHub Actions
+- **SonarCloud** : détection des bugs, duplications, vulnérabilités dans le code via analyse statique, suivi du taux de couverture des tests unitaires et du pourcentage de tests passés
+- **Prometheus / Grafana** : supervision technique post-mise en production
+
+Workflow du ticket dans ClickUp : `A Qualifier` → `En cours` → `Test` → `Corrigé` → `Fermé`
+
+`TODO : Image du workflow de ticket dans ClickUp`
+
+### Exemple de bug traité
+
+**Titre** : "La condition d'égalité (match nul) ne se déclenche pas malgré l'élimination simultanée de 3 joueurs"
+
+**Signalement** : détecté lors d’un test automatisé (test unitaire `Tie`)
+
+**Repro-step** :
+1. Créer un jeu avec 3 joueurs (P1, P2, P3)
+2. Définir leurs decks comme suit :
+    - P1 : [ArcherCard(), FakeCard()]
+    - P2 : [GuardCard()]
+    - P3 : [ConquestKnightCard(), FakeCard(), FakeCard()]
+3. Lancer la partie avec `game.startGame(0)`
+
+**Résultat attendu** : `game.isGameOver == true` et `game.winCondition == "Draw: 3 players eliminated after a chain of deaths"`
+
+**Résultat obtenu** : l'état `isGameOver` restait à `false` ou `winCondition` était vide
+
+**Analyse** : le moteur de règles ne gérait pas correctement l’élimination en chaîne de plusieurs joueurs dans le même tour. L'état de fin de partie n'était déclenché que si un seul joueur survivait.
+
+**Correction** :
+- Ajout d'une logique de détection d'égalité dans la boucle principale du jeu (`Game.checkEndCondition()`)
+- Mise à jour de la méthode `evaluateWinCondition()` pour prendre en compte le scénario de multiple égalité
+
+**Validation** :
+- Relance du test unitaire `Tie` : ✅
