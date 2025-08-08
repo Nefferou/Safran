@@ -111,6 +111,47 @@ CI centralisée sur GitHub Actions, avec 3 workflows :
 `TODO : Image workflow test-build-versioning-deploy.yml`  
 `TODO : Image des artifacts du workflow`
 
+## 8. Cahier de recettes
+
+> Tous les tests ci-dessous permettent de vérifier les règles métiers, les conditions de victoire, les erreurs de configuration et les effets des cartes du jeu. 
+> La mention "Conforme" est attribuée lorsque aucune erreur n’est détectée, et que le résultat correspond à l'attendu.
+
+### Liste des scénarios
+
+| Fonctionnalité testée              | Scénario de test                                              | Résultat attendu                                             | Résultat obtenu | Statut |
+|------------------------------------|---------------------------------------------------------------|--------------------------------------------------------------|-----------------|--------|
+| Connexion à une partie             | Un joueur entre un code de session                            | La connexion réussit et le joueur rejoint la partie          | Non implémenté  | ❌      |
+| Création de lobby P2P local        | Un joueur crée une session locale                             | La session est disponible en réseau local                    | Non implémenté  | ❌      |
+| Création de lobby P2P en ligne     | Un joueur crée une session en ligne                           | La session est disponible en ligne                           | Non implémenté  | ❌      |
+| Recherche d’un lobby local         | Un joueur cherche une partie disponible dans son réseau local | Les sessions en réseau local apparaissent                    | Non implémenté  | ❌      |
+| Recherche d’un lobby en ligne      | Un joueur cherche une partie disponible en ligne              | Les sessions en ligne apparaissent                           | Non implémenté  | ❌      |
+| Reconnexion après coupure          | Un joueur se reconnecte après une déconnexion                 | La session reprend à l’état précédent                        | Non implémenté  | ❌      |
+| Sélection de carte                 | Le joueur sélectionne une carte valide pendant son tour       | La carte est jouée et l'effet est appliqué                   | Conforme        | ✅      |
+| Mécanique de victoire par conquête | Tous les territoires adverses sont conquis                    | La partie se termine avec une victoire                       | Conforme        | ✅      |
+| Notification de nouvelle version   | Une nouvelle version est déployée sur Firebase                | Les testeurs reçoivent une notification via App Tester       | Conforme        | ✅      |
+| Historique des parties             | L'utilisateur consulte ses parties précédentes                | Les détails des parties jouées s’affichent correctement      | Non implémenté  | ❌      |
+| Création d'une partie (3 joueurs)  | Lancement d'une partie avec 3 joueurs                         | 3 joueurs, 20 cartes/joueur, 1 carte champ de bataille       | Conforme        | ✅      |
+| Création d'une partie (4 joueurs)  | Lancement d'une partie avec 4 joueurs                         | 4 joueurs, 15 cartes/joueur, 1 carte champ de bataille       | Conforme        | ✅      |
+| Création d'une partie (5 joueurs)  | Lancement d'une partie avec 5 joueurs                         | 5 joueurs, 12 cartes/joueur, 1 carte champ de bataille       | Conforme        | ✅      |
+| Création d'une partie (6 joueurs)  | Lancement d'une partie avec 6 joueurs                         | 6 joueurs, 10 cartes/joueur, 1 carte champ de bataille       | Conforme        | ✅      |
+| Échec si moins de 3 joueurs        | Tentative de créer une partie à 2 joueurs                     | Exception levée : nombre de joueurs invalide                 | Conforme        | ✅      |
+| Échec si plus de 6 joueurs         | Tentative de créer une partie à 8 joueurs                     | Exception levée : nombre de joueurs invalide                 | Conforme        | ✅      |
+| Échec si deck vide                 | Distribution des cartes avec un paquet vide                   | Exception levée : deck vide                                  | Conforme        | ✅      |
+| Mécanique pause et exclusion       | Un joueur se met en pause puis est exclu                      | Le joueur est exclu et le jeu continue                       | Conforme        | ✅      |
+| Victoire unique                    | Tous les joueurs sauf un sont éliminés                        | Le dernier joueur est déclaré gagnant                        | Conforme        | ✅      |
+| Égalité                            | Trois joueurs sont éliminés simultanément                     | La partie se termine sur une égalité                         | Conforme        | ✅      |
+| Effet d’une carte jouée            | Jouer une carte avec effet et cible                           | Effet appliqué, état modifié pour la cible                   | Conforme        | ✅      |
+| Contre d'une carte                 | Jouer une carte avec un effet de contre (applicable)          | Effet appliqué, joueur contré défausse                       | Conforme        | ✅      |
+| Contre incorrect                   | Jouer une carte avec un effet de contre (non applicable)      | Effet non appliqué                                           | Conforme        | ✅      |
+
+### Bilan de la couverture actuelle
+
+| Total des tests définis | Tests passés | Tests en échec |
+|-------------------------|--------------|----------------|
+| 47                      | 47           | 0              |
+
+`TODO : Image du tableau de couverture des tests SonarCloud`
+
 ## 10. Accessibilité
 
 ### Normes appliquées
