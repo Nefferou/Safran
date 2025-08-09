@@ -113,7 +113,7 @@ CI centralisée sur GitHub Actions, avec 3 workflows :
 
 ---
 
-## 8. Cahier de recettes
+## 8. Jeu de test unitaire
 
 > Tous les tests ci-dessous permettent de vérifier les règles métiers, les conditions de victoire, les erreurs de configuration et les effets des cartes du jeu. 
 > La mention "Conforme" est attribuée lorsque aucune erreur n’est détectée, et que le résultat correspond à l'attendu.
@@ -122,16 +122,8 @@ CI centralisée sur GitHub Actions, avec 3 workflows :
 
 | Fonctionnalité testée              | Scénario de test                                              | Résultat attendu                                             | Résultat obtenu | Statut |
 |------------------------------------|---------------------------------------------------------------|--------------------------------------------------------------|-----------------|--------|
-| Connexion à une partie             | Un joueur entre un code de session                            | La connexion réussit et le joueur rejoint la partie          | Non implémenté  | ❌      |
-| Création de lobby P2P local        | Un joueur crée une session locale                             | La session est disponible en réseau local                    | Non implémenté  | ❌      |
-| Création de lobby P2P en ligne     | Un joueur crée une session en ligne                           | La session est disponible en ligne                           | Non implémenté  | ❌      |
-| Recherche d’un lobby local         | Un joueur cherche une partie disponible dans son réseau local | Les sessions en réseau local apparaissent                    | Non implémenté  | ❌      |
-| Recherche d’un lobby en ligne      | Un joueur cherche une partie disponible en ligne              | Les sessions en ligne apparaissent                           | Non implémenté  | ❌      |
-| Reconnexion après coupure          | Un joueur se reconnecte après une déconnexion                 | La session reprend à l’état précédent                        | Non implémenté  | ❌      |
 | Sélection de carte                 | Le joueur sélectionne une carte valide pendant son tour       | La carte est jouée et l'effet est appliqué                   | Conforme        | ✅      |
 | Mécanique de victoire par conquête | Tous les territoires adverses sont conquis                    | La partie se termine avec une victoire                       | Conforme        | ✅      |
-| Notification de nouvelle version   | Une nouvelle version est déployée sur Firebase                | Les testeurs reçoivent une notification via App Tester       | Conforme        | ✅      |
-| Historique des parties             | L'utilisateur consulte ses parties précédentes                | Les détails des parties jouées s’affichent correctement      | Non implémenté  | ❌      |
 | Création d'une partie (3 joueurs)  | Lancement d'une partie avec 3 joueurs                         | 3 joueurs, 20 cartes/joueur, 1 carte champ de bataille       | Conforme        | ✅      |
 | Création d'une partie (4 joueurs)  | Lancement d'une partie avec 4 joueurs                         | 4 joueurs, 15 cartes/joueur, 1 carte champ de bataille       | Conforme        | ✅      |
 | Création d'une partie (5 joueurs)  | Lancement d'une partie avec 5 joueurs                         | 5 joueurs, 12 cartes/joueur, 1 carte champ de bataille       | Conforme        | ✅      |
@@ -226,6 +218,21 @@ Le numéro de version est défini dans le fichier `pubspec.yaml`, utilisé par F
 | **SonarCloud**     | Analyse de la qualité du code, détection des bugs et suivis des régressions                                              |
 | **GitHub Actions** | Exécution des tests, contrôle du versioning et automatisation du déploiement                                             |
 | **Firebase**       | Distribution des APK pour tests via App Distribution, notifications aux testeurs                                         |
+
+---
+
+## 13. Cahier de recettes
+
+| Fonctionnalité testée              | Scénario de test                                              | Résultat attendu                                             | Résultat obtenu | Statut |
+|------------------------------------|---------------------------------------------------------------|--------------------------------------------------------------|-----------------|--------|
+| Connexion à une partie             | Un joueur entre un code de session                            | La connexion réussit et le joueur rejoint la partie          | Non implémenté  | ❌      |
+| Création de lobby P2P local        | Un joueur crée une session locale                             | La session est disponible en réseau local                    | Non implémenté  | ❌      |
+| Création de lobby P2P en ligne     | Un joueur crée une session en ligne                           | La session est disponible en ligne                           | Non implémenté  | ❌      |
+| Recherche d’un lobby local         | Un joueur cherche une partie disponible dans son réseau local | Les sessions en réseau local apparaissent                    | Non implémenté  | ❌      |
+| Recherche d’un lobby en ligne      | Un joueur cherche une partie disponible en ligne              | Les sessions en ligne apparaissent                           | Non implémenté  | ❌      |
+| Reconnexion après coupure          | Un joueur se reconnecte après une déconnexion                 | La session reprend à l’état précédent                        | Non implémenté  | ❌      |
+| Notification de nouvelle version   | Une nouvelle version est déployée sur Firebase                | Les testeurs reçoivent une notification via App Tester       | Conforme        | ✅      |
+| Historique des parties             | L'utilisateur consulte ses parties précédentes                | Les détails des parties jouées s’affichent correctement      | Non implémenté  | ❌      |
 
 ---
 
