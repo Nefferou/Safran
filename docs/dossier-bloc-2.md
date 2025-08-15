@@ -113,6 +113,40 @@ CI centralisée sur GitHub Actions, avec 3 workflows :
 
 ---
 
+## 4. Critères de qualité et de performance
+
+### 1. Indicateurs suivis
+
+- **Indicateur de sécurité du code** : % de lignes de code protégées contre un piratage  
+- **Fiabilité du code** : % de lignes renvoyant un résultat différent de celui attendu  
+- **Couverture du code** : % de lignes de code testées  
+- **Maintenabilité du code** : % de lignes de code qui ne sont plus à jour avec la technologie utilisée (nombre de lignes obsolètes)  
+- **Duplication du code** : % de lignes dupliquées dans le code  
+
+### Indicateurs disponibles après déploiement sur Play Store & App Store :
+- **Notes des utilisateurs** : note sur 5 donnée par les utilisateurs  
+- **Nombre de téléchargements et comptes actifs**  
+- **Taux de désinstallation** : % de personnes ayant désinstallé l’application  
+- **Répartition par pays, appareil et version** : % d’installations par pays, par appareil et par version de téléphone  
+- **Performance technique** : taux de crash de l’application avec rapport associé, temps de lancement moyen de l’application  
+- **Comportement des joueurs** : % de rétention des joueurs à 1, 7 et 30 jours, temps d’utilisation par session utilisateur  
+- **% de conversion** : nombre de personnes installant l’application par rapport au nombre de personnes visitant la page de l’application  
+
+### 2. Seuils de performance
+
+- **Indicateur de sécurité du code** : 100%  
+- **Fiabilité du code** : 100%  
+- **Couverture du code** : 96.5%  
+- **Maintenabilité du code** : 100%  
+- **Duplication du code** : 0%  
+
+### 3. Outils de mesure
+
+- **SonarQube** : pour les statistiques sur le code  
+- **Google Play Console** & **Apple App Store Connect** : pour les statistiques utilisateurs  
+
+---
+
 ## 5. Architecture logicielle structurée
 
 ### Modèle architectural choisi
