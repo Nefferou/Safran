@@ -113,6 +113,33 @@ CI centralisée sur GitHub Actions, avec 3 workflows :
 
 ---
 
+## 5. Architecture logicielle structurée
+
+### Modèle architectural choisi
+
+| **Cible** | **Architecture** | **Justifications** |
+|-----------|------------------|--------------------|
+| **Écosystème global** | **Client-Server** | - Gestion centralisée des données (scores, statistiques, matchmaking) : un serveur unique assure l’intégrité des informations et la persistance des données.<br>- Sécurité et contrôle : Les données sensibles (identifiants, progression) sont traitées et stockées de manière sécurisée côté serveur.<br>- Évolutivité : Il est plus facile de faire évoluer la logique métier (back-end) sans imposer de mises à jour constantes sur tous les clients. |
+| **Application mobile** | **Component-Based Architecture** | - Découpage logique : L’application est découpée en composants (modules) clairement définis (ex. module de gestion de session, module d’animation UI, module d’IA si nécessaire) afin de mieux organiser le code.<br>- Maintenance allégée : Les composants étant faiblement couplés, il est plus simple de remplacer ou de mettre à jour un composant sans impacter toute l’application.<br>- Collaboration : Plusieurs développeurs peuvent travailler simultanément sur des composants différents de manière indépendante. |
+| **Application mobile** | **Peer-to-Peer** | - Mode local (Bluetooth/Wi-Fi) : Permet à des joueurs proches de se connecter directement entre leurs appareils sans passer par un serveur central.<br>- Réduction de la latence dans les parties locales, car la communication ne transite pas par Internet.<br>- Résilience : En cas de coupure réseau, le P2P local peut continuer à fonctionner. |
+| **API** | **MVC** | - Séparation des responsabilités : contrôleurs pour l’interface HTTP (routing/DTO), services pour la logique métier, repositories/DAO pour la persistance — code plus lisible et modulable.<br>- Testabilité : le domaine se teste sans HTTP ni base de données, et les contrôleurs se vérifient par tests d’intégration ciblés.<br>- Évolutivité : on peut faire évoluer la couche transport (REST → GraphQL/gRPC) ou remplacer une base de données/tiers sans impacter la logique métier.<br>- Contrats d’API explicites : DTO/serializers et contrôleurs structurent la documentation, le versionnage et les dépréciations. |
+| **API** | **Middleware** | - Préoccupations transverses centralisées : authentification/autorisation (JWT/OAuth2), CORS, rate limiting, compression, caching HTTP/ETag, i18n, headers de sécurité.<br>- Observabilité et qualité : logging structuré, corrélation (traceId), métriques et APM uniformes pour toutes les requêtes/réponses.<br>- Gestion des erreurs homogène : un middleware d’erreurs transforme les exceptions en réponses JSON standardisées (codes, messages, détails traçables).<br>- Performance et sécurité : filtres précoces (validation, anti-abus) stoppent les requêtes invalides avant la logique métier et réduisent la charge.<br>- Composabilité : activation/désactivation de briques par environnement (dev/stage/prod) sans modifier les contrôleurs/services.<br>- Conformité et maintenance : politiques de sécurité et de conformité appliquées de façon uniforme, facilitant les audits et les mises à jour. |
+
+---
+
+## 7. Framework et paradigmes utilisés
+
+| **Technologies utilisées** | **Raisons du choix** | **Paradigmes de développement** |
+|----------------------------|----------------------|----------------------------------|
+| **Flutter (Dart)** – Application mobile multiplateforme | - Développement unique pour Android et iOS, réduisant le coût et le temps de développement.<br>- Performance proche du natif grâce au moteur de rendu Flutter.<br>- Large écosystème de widgets et communauté active.<br>- Hot reload pour un cycle de développement rapide. | - Programmation orientée objet (POO) avec classes et héritage.<br>- Approche déclarative pour la construction d’UI.<br>- Architecture Orientée Composants possible pour séparer la logique et la présentation. |
+| **ExpressJS (Node.js)** – API backend | - Framework minimaliste et flexible pour Node.js.<br>- Large écosystème de middlewares.<br>- Facile à intégrer avec des bases de données et services externes.<br>- Rapidité de développement et bonne scalabilité horizontale. | - Architecture MVC avec pipeline de middlewares.<br>- Programmation orientée événement.<br>- Asynchrone/non-bloquant via Promises/async-await. |
+| **Prometheus & Grafana** – Monitoring et observabilité | - Prometheus : collecte métriques précises, langage de requêtes puissant (PromQL).<br>- Grafana : visualisations personnalisables et intégration avec de multiples sources de données.<br>- Open-source, flexible et extensible. | - Paradigme événementiel pour l’alerte (alerting rules).<br>- Monitoring basé sur la collecte pull de métriques et dashboards dynamiques. |
+| **MySQL** – Base de données serveur | - Système de gestion de base relationnelle éprouvé.<br>- Bon support des transactions et intégrité référentielle.<br>- Large compatibilité avec outils et ORM. | - Paradigme relationnel (SQL).<br>- Modélisation en tables et relations normalisées. |
+| **SQLite** – Base de données locale mobile | - Léger, embarqué, aucune configuration serveur.<br>- Parfait pour stockage local offline et synchronisation différée.<br>- Intégré nativement avec Flutter via packages. | - Paradigme relationnel (SQL).<br>- Base locale embarquée. |
+| **GitHub Actions & Docker** – CI/CD et déploiement | - GitHub Actions : automatisation des tests, builds, déploiements.<br>- Docker : uniformisation des environnements et isolation applicative.<br>- Déploiement reproductible et portable sur différentes plateformes. | - Paradigme DevOps (CI/CD).<br>- Infrastructure as Code via Dockerfiles et workflows YAML.<br>- Automatisation des processus de build/test/deploy. |
+
+---
+
 ## 8. Jeu de test unitaire
 
 > Tous les tests ci-dessous permettent de vérifier les règles métiers, les conditions de victoire, les erreurs de configuration et les effets des cartes du jeu. 
