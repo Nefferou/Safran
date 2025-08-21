@@ -1,5 +1,7 @@
 const repo = require('../repositories/user.repository');
 const HttpError = require("../utils/http_errors");
+const { metrics } = require('../instrumentation/metrics');
+const {userExistsError} = require("../utils/errors_constants");
 
 exports.getUsers = async () => await repo.getUsers();
 
@@ -7,9 +9,10 @@ exports.getUserById = async (id) => await repo.getUserById(id);
 
 exports.createUser = async (userData) => {
     const existing = await repo.getUserByEmail(userData.email);
-    if (existing) throw new HttpError(400, 'USER_EXISTS', 'User with this email already exists');
+    if (existing) throw new HttpError(userExistsError.status, userExistsError.code, userExistsError.message);
     const {hashPassword} = require('../utils/password_handler');
     userData.password = await hashPassword(userData.password);
+    metrics.usersCreatedTotal.inc();
     return await repo.createUser(userData);
 }
 

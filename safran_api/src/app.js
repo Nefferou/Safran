@@ -6,7 +6,7 @@ const notFound = require('./middlewares/not_found');
 const errorHandler = require('./middlewares/error_handler');
 const authJwt = require('./middlewares/auth_jwt');
 const env = require('./config/env');
-const { metricsRouter } = require('./instrumentation/metrics');
+const { metricsRouter, metricsMiddleware } = require('./instrumentation/metrics');
 
 const app = express();
 
@@ -16,6 +16,7 @@ app.use(cors());
 // Metrics
 if (env.metricsEnabled) {
     app.use('/metrics', metricsRouter);
+    app.use(metricsMiddleware);
 }
 
 // Health
