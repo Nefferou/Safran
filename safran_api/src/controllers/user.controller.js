@@ -8,9 +8,6 @@ exports.getUsers = asyncHandler(async (req, res) => {
 
 exports.getUserById = asyncHandler(async (req, res) => {
     const user = await userService.getUserById(req.params.id);
-    if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-    }
     res.status(200).json(user);
 });
 
@@ -21,16 +18,10 @@ exports.createUser = asyncHandler(async (req, res) => {
 
 exports.updateUser = asyncHandler(async (req, res) => {
     const updatedUser = await userService.updateUser(req.params.id, req.body);
-    if (!updatedUser) {
-        return res.status(404).json({ message: 'User not found' });
-    }
     res.status(200).json(updatedUser);
 });
 
 exports.deleteUser = asyncHandler(async (req, res) => {
-    const deletedUser = await userService.deleteUser(req.params.id);
-    if (!deletedUser) {
-        return res.status(404).json({ message: 'User not found' });
-    }
-    res.status(204).send();
+    const result = await userService.deleteUser(req.params.id);
+    res.status(204).json(result);
 });

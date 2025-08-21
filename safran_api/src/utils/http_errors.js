@@ -6,4 +6,4 @@ class HttpError extends Error {
         this.publicMessage = publicMessage;
     }
 }
-module.exports = { HttpError };
+module.exports = HttpError;
