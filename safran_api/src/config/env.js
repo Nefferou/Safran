@@ -15,6 +15,10 @@ const env = {
 
     // JWT configuration
     bcryptRounds: Number(process.env.BCRYPT_ROUNDS || 10),
+    jwtSecret: process.env.JWT_SECRET|| 'default_secret',
+    jwtExpiration: process.env.JWT_EXPIRATION || '1h',
+    jwtIssuer: process.env.JWT_ISSUER || 'safran_api',
+    jwtAudience: process.env.JWT_AUDIENCE || 'safran_users',
 };
 
 module.exports = env;

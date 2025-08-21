@@ -1,6 +1,17 @@
 const repo = require('../repositories/user.repository');
 const { hashPassword, comparePassword } = require('../utils/password_handler');
 const HttpError = require("../utils/http_errors");
+const { generateToken } = require("../utils/jwt");
+
+const authResponse = (user) => {
+    const token = generateToken({ sub: String(user.id), email: user.email, username: user.username });
+    return {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        token
+    };
+}
 
 exports.register = async (userData) => {
     const { email, password, username } = userData;
@@ -12,7 +23,9 @@ exports.register = async (userData) => {
 
     const hashedPassword = await hashPassword(password);
 
-    return await repo.createUser({email, password: hashedPassword, username})
+    const newUser = await repo.createUser({email, password: hashedPassword, username});
+
+    return authResponse(newUser);
 }
 
 exports.login = async (userData) => {
@@ -28,5 +41,5 @@ exports.login = async (userData) => {
         throw new HttpError(401, 'INVALID_CREDENTIALS', 'Invalid email or password');
     }
 
-    return { id: user.id, email: user.email };
+    return authResponse(user);
 }
