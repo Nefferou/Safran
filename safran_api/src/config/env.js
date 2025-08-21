@@ -4,6 +4,7 @@ const env = {
     nodeEnv: process.env.NODE_ENV || 'development',
     port: Number(process.env.PORT || 3000),
     metricsEnabled: String(process.env.METRICS_ENABLED || 'true') === 'true',
+    swaggerEnabled: String(process.env.SWAGGER_ENABLED || 'true') === 'true',
 
     // Database configuration
     dbHost: process.env.DB_HOST || 'localhost',
