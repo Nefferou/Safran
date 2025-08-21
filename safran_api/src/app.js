@@ -5,6 +5,7 @@ const authRoutes = require('./routes/v1/auth.routes');
 const notFound = require('./middlewares/not_found');
 const errorHandler = require('./middlewares/error_handler');
 const authJwt = require('./middlewares/auth_jwt');
+const metricsAuth = require('./middlewares/metrics_auth');
 const env = require('./config/env');
 const { metricsRouter, metricsMiddleware } = require('./instrumentation/metrics');
 
@@ -15,7 +16,7 @@ app.use(cors());
 
 // Metrics
 if (env.metricsEnabled) {
-    app.use('/metrics', metricsRouter);
+    app.use('/metrics', metricsAuth, metricsRouter);
     app.use(metricsMiddleware);
 }
 

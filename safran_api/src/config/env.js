@@ -19,6 +19,9 @@ const env = {
     jwtExpiration: process.env.JWT_EXPIRATION || '1h',
     jwtIssuer: process.env.JWT_ISSUER || 'safran_api',
     jwtAudience: process.env.JWT_AUDIENCE || 'safran_users',
+
+    // Metrics
+    metricsToken: process.env.METRICS_TOKEN || 'metrics_token',
 };
 
 module.exports = env;
