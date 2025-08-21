@@ -12,6 +12,9 @@ const env = {
     dbPassword: process.env.DB_PASSWORD || '',
     dbName: process.env.DB_NAME || 'safran',
     dbConnLimit: Number(process.env.DB_CONN_LIMIT || 10),
+
+    // JWT configuration
+    bcryptRounds: Number(process.env.BCRYPT_ROUNDS || 10),
 };
 
 module.exports = env;

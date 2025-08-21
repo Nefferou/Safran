@@ -6,14 +6,16 @@ exports.getUsers = async () => {
     return rows;
 }
 
-exports.getUserById = async (id) => {
-    const [rows] = await pool.query('SELECT id, email, username FROM users WHERE id = ?', [id]);
+exports.getUserById = async (id, withPassword = false ) => {
+    const fields = withPassword ? 'id, email, username, password' : 'id, email, username';
+    const [rows] = await pool.query(`SELECT ${fields} FROM users WHERE id = ?`, [id]);
     if (rows.length === 0) throw new HttpError(404, 'USER_NOT_FOUND', `User with ID ${id} not found`);
     return rows[0];
 }
 
-exports.getUserByEmail = async (email) => {
-    const [rows] = await pool.query('SELECT id, email, username FROM users WHERE email = ?', [email]);
+exports.getUserByEmail = async (email, withPassword = false ) => {
+    const fields = withPassword ? 'id, email, username, password' : 'id, email, username';
+    const [rows] = await pool.query(`SELECT ${fields} FROM users WHERE email = ?`, [email]);
     return rows[0];
 }
 
