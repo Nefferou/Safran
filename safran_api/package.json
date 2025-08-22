@@ -2,11 +2,10 @@
   "name": "safran_api",
   "version": "0.1.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development src/server.js",
     "start": "node src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -23,5 +22,12 @@
     "prom-client": "^15.1.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "jest": "^30.0.5",
+    "jest-environment-node": "^30.0.5",
+    "sinon": "^21.0.0",
+    "supertest": "^7.1.4"
   }
 }
