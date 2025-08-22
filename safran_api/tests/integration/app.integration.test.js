@@ -33,7 +33,7 @@ describe('integration: app routes', () => {
         .post('/api/v1/auth/register')
         .send({ email: 'a', password: 'p', username: 'u' });
       expect(res.status).toBe(201);
-      expect(res.body).toMatchObject({ id: 1, email: 'a', username: 'u', token: expect.any(String) });
+      expect(res.body).toMatchObject({ data: { id: 1, email: 'a', username: 'u', token: expect.any(String) } });
     });
 
     it('POST /api/v1/auth/login returns 200 with token', async () => {
@@ -42,7 +42,7 @@ describe('integration: app routes', () => {
         .post('/api/v1/auth/login')
         .send({ email: 'a', password: 'p' });
       expect(res.status).toBe(200);
-      expect(res.body.result).toMatchObject({ id: 1, email: 'a', username: 'u', token: expect.any(String) });
+      expect(res.body.data).toMatchObject({ id: 1, email: 'a', username: 'u', token: expect.any(String) });
     });
   });
 
@@ -53,14 +53,14 @@ describe('integration: app routes', () => {
       repo.getUsers.mockResolvedValue([{ id: 1 }]);
       const res = await request(app).get('/api/v1/users').set(authHeader());
       expect(res.status).toBe(200);
-      expect(res.body).toEqual([{ id: 1 }]);
+      expect(res.body).toEqual({ data: [{ id: 1 }] });
     });
 
     it('GET /api/v1/users/:id returns user', async () => {
       repo.getUserById.mockResolvedValue({ id: 1 });
       const res = await request(app).get('/api/v1/users/1').set(authHeader());
       expect(res.status).toBe(200);
-      expect(res.body).toEqual({ id: 1 });
+      expect(res.body).toEqual({ data: { id: 1 } });
     });
 
     it('POST /api/v1/users creates user', async () => {
@@ -71,7 +71,7 @@ describe('integration: app routes', () => {
         .set(authHeader())
         .send({ email: 'a', password: 'p', username: 'u' });
       expect(res.status).toBe(201);
-      expect(res.body).toEqual({ id: 2, email: 'a', username: 'u' });
+      expect(res.body).toEqual({ data: { id: 2, email: 'a', username: 'u' } });
     });
 
     it('PATCH /api/v1/users/:id updates user', async () => {
@@ -81,7 +81,7 @@ describe('integration: app routes', () => {
         .set(authHeader())
         .send({ email: 'b' });
       expect(res.status).toBe(200);
-      expect(res.body).toEqual({ id: 1, email: 'b' });
+      expect(res.body).toEqual({ data: { id: 1, email: 'b' } });
     });
 
     it('DELETE /api/v1/users/:id deletes user', async () => {

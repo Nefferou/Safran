@@ -15,7 +15,21 @@ describe('controllers/auth.controller', () => {
     jest.resetAllMocks();
   });
 
-  it('login returns 200 with { result } payload', async () => {
+  it('register returns 201 with { data } payload', async () => {
+    const fakeUser = { id: 1, email: 'a', username: 'u', token: 't' };
+    authService.register = jest.fn().mockResolvedValue(fakeUser);
+
+    const req = { body: { email: 'a', password: 'p', username: 'u' } };
+    const res = makeRes();
+
+    await controller.register(req, res);
+
+    expect(res.statusCode).toBe(201);
+    expect(res.body).toEqual({ data: fakeUser });
+    expect(authService.register).toHaveBeenCalledWith({ email: 'a', password: 'p', username: 'u' });
+  });
+
+  it('login returns 200 with { data } payload', async () => {
     const fakeResult = { id: 1, email: 'a', username: 'u', token: 't' };
     authService.login.mockResolvedValue(fakeResult);
 
@@ -25,7 +39,7 @@ describe('controllers/auth.controller', () => {
     await controller.login(req, res);
 
     expect(res.statusCode).toBe(200);
-    expect(res.body).toEqual({ result: fakeResult });
+    expect(res.body).toEqual({ data: fakeResult });
     expect(authService.login).toHaveBeenCalledWith({ email: 'a', password: 'p' });
   });
 }); 

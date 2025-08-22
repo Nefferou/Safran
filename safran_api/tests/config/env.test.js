@@ -1,5 +1,3 @@
-const path = require('path');
-
 const loadEnvModule = (overrides = {}) => {
   const saved = { ...process.env };
   const keys = [

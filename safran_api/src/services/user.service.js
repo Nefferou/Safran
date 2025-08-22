@@ -1,7 +1,7 @@
 const repo = require('../repositories/user.repository');
 const HttpError = require("../utils/http_errors");
 const { metrics } = require('../instrumentation/metrics');
-const {userExistsError} = require("../utils/errors_constants");
+const {userExistsError} = require("../utils/error_constants");
 
 exports.getUsers = async () => await repo.getUsers();
 

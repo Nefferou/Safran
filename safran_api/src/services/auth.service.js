@@ -3,7 +3,7 @@ const { hashPassword, comparePassword } = require('../utils/password_handler');
 const HttpError = require("../utils/http_errors");
 const { generateToken } = require("../utils/jwt");
 const { metrics } = require('../instrumentation/metrics');
-const {userExistsError, invalidCredentialsError} = require("../utils/errors_constants");
+const {userExistsError, invalidCredentialsError} = require("../utils/error_constants");
 
 const authResponse = (user) => {
     const token = generateToken({ sub: String(user.id), email: user.email, username: user.username });

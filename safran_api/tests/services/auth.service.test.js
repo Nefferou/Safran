@@ -6,9 +6,6 @@ const repo = require('../../src/repositories/user.repository');
 const pw = require('../../src/utils/password_handler');
 const jwt = require('../../src/utils/jwt');
 
-// Metrics are mapped to mocks via moduleNameMapper
-const { metrics } = require('../../src/instrumentation/metrics');
-
 const service = require('../../src/services/auth.service');
 const HttpError = require('../../src/utils/http_errors');
 

@@ -1,6 +1,6 @@
 const { pool } = require('./db');
 const HttpError = require("../utils/http_errors");
-const {userNotFoundError, missingFieldsError} = require("../utils/errors_constants");
+const {userNotFoundError, missingFieldsError} = require("../utils/error_constants");
 
 exports.getUsers = async () => {
     const [rows] = await pool.query('SELECT id, email, username FROM users');
@@ -10,7 +10,7 @@ exports.getUsers = async () => {
 exports.getUserById = async (id, withPassword = false ) => {
     const fields = withPassword ? 'id, email, username, password' : 'id, email, username';
     const [rows] = await pool.query(`SELECT ${fields} FROM users WHERE id = ?`, [id]);
-    if (rows.length === 0) throw new HttpError(userNotFoundError.status, userNotFoundError.status, userNotFoundError.message);
+    if (rows.length === 0) throw new HttpError(userNotFoundError.status, userNotFoundError.code, userNotFoundError.message);
     return rows[0];
 }
 
@@ -65,13 +65,13 @@ exports.updateUser = async (id, userData) => {
     const query = `UPDATE users SET ${updates.join(', ')} WHERE id = ?`;
     const [result] = await pool.query(query, params);
 
-    if (result.affectedRows === 0) throw new HttpError(userNotFoundError.status, userNotFoundError.status, userNotFoundError.message);
+    if (result.affectedRows === 0) throw new HttpError(userNotFoundError.status, userNotFoundError.code, userNotFoundError.message);
 
     return { id, email, username };
 }
 
 exports.deleteUser = async (id) => {
     const [result] = await pool.query('DELETE FROM users WHERE id = ?', [id]);
-    if (result.affectedRows === 0) throw new HttpError(userNotFoundError.status, userNotFoundError.status, userNotFoundError.message);
+    if (result.affectedRows === 0) throw new HttpError(userNotFoundError.status, userNotFoundError.code, userNotFoundError.message);
     return { message: `User with ID ${id} deleted successfully` };
 }
