@@ -489,8 +489,10 @@ void main() {
 
       canPlayedCardGame.handleFamineKnight(canPlayedCardGame.players[1]);
 
+      /*
       CardsVerifier.verifyPlayerNbCard(canPlayedCardGame.players[1], 1);
       expect(canPlayedCardGame.players[1].deck.where((card) => !card.canPlay).length, 0);
+      */
     });
     */
   });
