@@ -3,7 +3,9 @@ const env = require('../config/env');
 const HttpError = require('./http_errors');
 const { invalidPasswordError } = require('./error_constants');
 
-exports.PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{12,}$/;
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9\s]).{12,}$/;
+
+exports.PASSWORD_REGEX = PASSWORD_REGEX;
 
 exports.hashPassword = async (password) => {
     if (!password || !password.match(PASSWORD_REGEX)) {
