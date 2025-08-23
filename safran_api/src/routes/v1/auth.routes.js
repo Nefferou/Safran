@@ -1,5 +1,7 @@
 const { Router } = require('express');
 const authController = require('../../controllers/auth.controller');
+const validate = require('../../middlewares/validate');
+const { registerBody, loginBody } = require('../../schemas/auth.schema');
 
 const router = Router();
 
@@ -33,7 +35,7 @@ const router = Router();
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.post('/register', authController.register);
+router.post('/register', validate({ body: registerBody }), authController.register);
 
 /**
  * @swagger
@@ -65,6 +67,6 @@ router.post('/register', authController.register);
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.post('/login', authController.login);
+router.post('/login', validate({ body: loginBody }), authController.login);
 
 module.exports = router;
