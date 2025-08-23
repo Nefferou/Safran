@@ -313,7 +313,7 @@ void main() {
       expect(game.getPreviousPlayerTurnIndex(), 1);
       expect(game.getNextPlayerTurnIndex(), 2);
     });
-    test("Play game successfully", () {
+    test("Play game successfully", () async {
       // All players card are dealt
       testPlayer1.deck.addAll([FakeCard(), FakeCard()]);
       testPlayer2.deck.addAll([FakeCard(), FakeCard(), FakeCard(), FakeCard()]);
@@ -332,7 +332,7 @@ void main() {
       game.cardFactory = CardFactory(game);
 
       // Set up the game (Player 1 starts)
-      game.startGame(0);
+      await game.startGame(0);
 
       // Game is over
       expect(game.isGameOver, isTrue);
@@ -344,7 +344,7 @@ void main() {
       // Player 3 is alive
       expect(testPlayer3.status == PlayerStatusConstant.alive, isTrue);
     });
-    test("Player in pause and time out", () {
+    test("Player in pause and time out", () async {
       // All players card are dealt
       testPlayer1.deck.addAll([FakeCard(), FakeCard()]);
       testPlayer2.deck.addAll([FakeCard(), FakeCard(), FakeCard(), FakeCard()]);
@@ -366,7 +366,7 @@ void main() {
       game.cardFactory = CardFactory(game);
 
       // Set up the game (Player 1 starts)
-      game.startGame(0);
+      await game.startGame(0);
 
       // Game is over
       expect(game.isGameOver, isTrue);
@@ -381,7 +381,7 @@ void main() {
   });
 
   group("Win conditions tests", () {
-    test("One player win", () {
+    test("One player win", () async {
       // All players card are dealt
       testPlayer1.deck.addAll([FakeCard(), FakeCard()]);
       testPlayer2.deck.addAll([FakeCard(), FakeCard(), FakeCard(), ConquestKnightCard()]);
@@ -400,7 +400,7 @@ void main() {
       game.cardFactory = CardFactory(game);
 
       // Set up the game (Player 1 starts)
-      game.startGame(0);
+      await game.startGame(0);
 
       // Game is over
       expect(game.isGameOver, isTrue);
@@ -413,7 +413,7 @@ void main() {
       expect(testPlayer3.status == PlayerStatusConstant.alive, isTrue);
       expect(game.winCondition, "Only one player is left alive");
     });
-    test("Conquest win", () {
+    test("Conquest win", () async {
       // All players card are dealt
       testPlayer1.deck.addAll([ConquestKnightCard()]);
       testPlayer2.deck.addAll([FakeCard(), FakeCard(), FakeCard(), FakeCard()]);
@@ -432,14 +432,14 @@ void main() {
       game.cardFactory = CardFactory(game);
 
       // Set up the game (Player 1 starts)
-      game.startGame(0);
+      await game.startGame(0);
 
       // Game is over
       expect(game.isGameOver, isTrue);
       expect(game.winCondition, "Wins by conquest");
     });
 
-    test("Tie", () {
+    test("Tie", () async {
       // All players card are dealt
       testPlayer1.deck.addAll([ArcherCard(), FakeCard()]);
       testPlayer2.deck.addAll([GuardCard()]);
@@ -458,7 +458,7 @@ void main() {
       game.cardFactory = CardFactory(game);
 
       // Set up the game (Player 1 starts)
-      game.startGame(0);
+      await game.startGame(0);
 
       // Game is over
       expect(game.isGameOver, isTrue);
@@ -467,33 +467,34 @@ void main() {
   });
 
   group("Can Play Card Tests", () {
-    test("Check Can Play State", () {
+    test("Check Can Play State", () async {
       expect(canPlayedCardGame.players[0].deck.where((card) => !card.canPlay).length, 2);
       CardsVerifier.verifyPlayerNbCard(canPlayedCardGame.players[0], 3);
 
       int indexCard =
         CardsVerifier.getIndexCardByType(canPlayedCardGame.players[0], SwordsmanCard);
 
-      canPlayedCardGame.players[0].playCard(canPlayedCardGame, indexCard);
+      await canPlayedCardGame.players[0].playCard(canPlayedCardGame, indexCard);
 
-      //canPlayedCardGame.handleFamineKnight(canPlayedCardGame.players[0]);
+      await canPlayedCardGame.players[0].handleFamineKnight(canPlayedCardGame);
 
       CardsVerifier.verifyPlayerNbCard(canPlayedCardGame.players[0], 2);
       expect(canPlayedCardGame.players[0].deck.where((card) => !card.canPlay).length, 0);
     });
 
-    /*
-    test("Check Can Play with Famine", () {
+    test("Check Can Play with Famine", () async {
       expect(canPlayedCardGame.players[1].deck.where((card) => !card.canPlay).length, 1);
       CardsVerifier.verifyPlayerNbCard(canPlayedCardGame.players[1], 2);
 
-      canPlayedCardGame.handleFamineKnight(canPlayedCardGame.players[1]);
+      final future = canPlayedCardGame.players[1].handleFamineKnight(canPlayedCardGame);
 
-      /*
+      canPlayedCardGame.players[1].chooseCard(0);
+
+      await future;
+
       CardsVerifier.verifyPlayerNbCard(canPlayedCardGame.players[1], 1);
       expect(canPlayedCardGame.players[1].deck.where((card) => !card.canPlay).length, 0);
-      */
     });
-    */
+
   });
 }

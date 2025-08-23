@@ -3,6 +3,7 @@ import 'package:safran/entities/card/recruitment/army/archer_card.dart';
 import 'package:safran/entities/card/recruitment/army/guard_card.dart';
 import 'package:safran/entities/card/recruitment/army/swordsman_card.dart';
 import 'package:safran/entities/game.dart';
+import 'package:safran/services/logger.dart';
 import '../utils/cards_verifier.dart';
 import '../utils/preset_util.dart';
 
@@ -14,7 +15,7 @@ void main() {
   });
 
   group("Cards Army tests", () {
-    test("Card Guard (Counter OK)", () {
+    test("Card Guard (Counter OK)", () async {
       CardsVerifier.verifyPlayerNbCard(armyGame.players[0], 4);
       CardsVerifier.verifyPlayerNbCard(armyGame.players[1], 4);
       CardsVerifier.verifyBattleFieldNbCard(armyGame.battleField, 2);
@@ -30,12 +31,12 @@ void main() {
 
       expect(armyGame.battleMode, false);
 
-      armyGame.players[0].playCard(armyGame, indexCardArcher);
+      await armyGame.players[0].playCard(armyGame, indexCardArcher);
       expect(armyGame.battleMode, true);
 
       armyGame.nextTurn();
 
-      armyGame.players[1].playCard(armyGame, indexCard2);
+      await armyGame.players[1].playCard(armyGame, indexCard2);
       expect(armyGame.battleMode, true);
 
       CardsVerifier.verifyPlayerNbCard(armyGame.players[0], 2);
@@ -47,7 +48,7 @@ void main() {
           armyGame.players[1], GuardCard);
     });
 
-    test("Card Guard (Counter KO)", () {
+    test("Card Guard (Counter KO)", () async {
       CardsVerifier.verifyPlayerNbCard(armyGame.players[0], 4);
       CardsVerifier.verifyPlayerNbCard(armyGame.players[1], 4);
       CardsVerifier.verifyBattleFieldNbCard(armyGame.battleField, 2);
@@ -63,12 +64,12 @@ void main() {
 
       expect(armyGame.battleMode, false);
 
-      armyGame.players[0].playCard(armyGame, indexCard1);
+      await armyGame.players[0].playCard(armyGame, indexCard1);
       expect(armyGame.battleMode, true);
 
       armyGame.nextTurn();
 
-      armyGame.players[1].playCard(armyGame, indexCard2);
+      await armyGame.players[1].playCard(armyGame, indexCard2);
       expect(armyGame.battleMode, true);
 
       CardsVerifier.verifyPlayerNbCard(armyGame.players[0], 3);
@@ -80,7 +81,7 @@ void main() {
           armyGame.players[1], GuardCard);
     });
 
-    test("Card Spearman (Counter OK)", () {
+    test("Card Spearman (Counter OK)", () async {
       CardsVerifier.verifyPlayerNbCard(armyGame.players[0], 4);
       CardsVerifier.verifyPlayerNbCard(armyGame.players[1], 4);
       CardsVerifier.verifyBattleFieldNbCard(armyGame.battleField, 2);
@@ -96,12 +97,12 @@ void main() {
 
       expect(armyGame.battleMode, false);
 
-      armyGame.players[0].playCard(armyGame, indexCard1);
+      await armyGame.players[0].playCard(armyGame, indexCard1);
       expect(armyGame.battleMode, true);
 
       armyGame.nextTurn();
 
-      armyGame.players[1].playCard(armyGame, indexCard2);
+      await armyGame.players[1].playCard(armyGame, indexCard2);
       expect(armyGame.battleMode, true);
 
       CardsVerifier.verifyPlayerNbCard(armyGame.players[0], 2);
@@ -113,7 +114,7 @@ void main() {
           armyGame.players[1], ArcherCard);
     });
 
-    test("Card Spearman (Counter KO)", () {
+    test("Card Spearman (Counter KO)", () async {
       CardsVerifier.verifyPlayerNbCard(armyGame.players[0], 4);
       CardsVerifier.verifyPlayerNbCard(armyGame.players[1], 4);
       CardsVerifier.verifyBattleFieldNbCard(armyGame.battleField, 2);
@@ -129,12 +130,12 @@ void main() {
 
       expect(armyGame.battleMode, false);
 
-      armyGame.players[0].playCard(armyGame, indexCard1);
+      await armyGame.players[0].playCard(armyGame, indexCard1);
       expect(armyGame.battleMode, true);
 
       armyGame.nextTurn();
 
-      armyGame.players[1].playCard(armyGame, indexCard2);
+      await armyGame.players[1].playCard(armyGame, indexCard2);
       expect(armyGame.battleMode, true);
 
       CardsVerifier.verifyPlayerNbCard(armyGame.players[0], 3);
@@ -146,7 +147,7 @@ void main() {
           armyGame.players[1], ArcherCard);
     });
 
-    test("Card Swordsman (Counter OK)", () {
+    test("Card Swordsman (Counter OK)", () async {
       CardsVerifier.verifyPlayerNbCard(armyGame.players[0], 4);
       CardsVerifier.verifyPlayerNbCard(armyGame.players[1], 4);
       CardsVerifier.verifyBattleFieldNbCard(armyGame.battleField, 2);
@@ -162,12 +163,12 @@ void main() {
 
       expect(armyGame.battleMode, false);
 
-      armyGame.players[0].playCard(armyGame, indexCard1);
+      await armyGame.players[0].playCard(armyGame, indexCard1);
       expect(armyGame.battleMode, true);
 
       armyGame.nextTurn();
 
-      armyGame.players[1].playCard(armyGame, indexCard2);
+      await armyGame.players[1].playCard(armyGame, indexCard2);
       expect(armyGame.battleMode, true);
 
       CardsVerifier.verifyPlayerNbCard(armyGame.players[0], 2);
@@ -179,7 +180,7 @@ void main() {
           armyGame.players[1], SwordsmanCard);
     });
 
-    test("Card Swordsman (Counter KO)", () {
+    test("Card Swordsman (Counter KO)", () async {
       CardsVerifier.verifyPlayerNbCard(armyGame.players[0], 4);
       CardsVerifier.verifyPlayerNbCard(armyGame.players[1], 4);
       CardsVerifier.verifyBattleFieldNbCard(armyGame.battleField, 2);
@@ -195,12 +196,12 @@ void main() {
 
       expect(armyGame.battleMode, false);
 
-      armyGame.players[0].playCard(armyGame, indexCard1);
+      await armyGame.players[0].playCard(armyGame, indexCard1);
       expect(armyGame.battleMode, true);
 
       armyGame.nextTurn();
 
-      armyGame.players[1].playCard(armyGame, indexCard2);
+      await armyGame.players[1].playCard(armyGame, indexCard2);
       expect(armyGame.battleMode, true);
 
       CardsVerifier.verifyPlayerNbCard(armyGame.players[0], 3);

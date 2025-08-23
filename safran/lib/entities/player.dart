@@ -19,7 +19,6 @@ import 'card/triad/cursedKnight/war_knight_card.dart';
 import 'game.dart';
 
 class Player extends ChangeNotifier {
-  late int Function() readPlayerLine = _defaultReadPlayerLine;
 
   String userName;
   bool isTheirTurn;
@@ -69,17 +68,20 @@ class Player extends ChangeNotifier {
     }
   }
 
-  playCardWithoutTarget(Game game, indexCard) async {
+  Future<void> playCardWithoutTarget(Game game, indexCard) async {
     Logger.info("$userName play ${getCard(indexCard).name}");
-    int oldCardQuantity = deck.length;
+
+    GameCard choosenCard = getCard(indexCard);
 
     await deck[indexCard].play(game);
 
-    int numberCardLess = oldCardQuantity - deck.length;
+    if (indexCard > deck.length-1 || getCard(indexCard) != choosenCard) {
+      indexCard--;
+    }
 
     // Discard the card played
     Dealer.transferCardPlayerToBattleField(
-        game.getCurrentPlayer(), indexCard - numberCardLess, game.battleField);
+        game.getCurrentPlayer(), indexCard, game.battleField);
   }
 
   playCardWithOneTarget(Game game, indexCard, int target) {
@@ -262,11 +264,6 @@ class Player extends ChangeNotifier {
 
   haveOnlyKnightCardTypeInDeck() {
     return deck.every((card) => card is CursedKnightCard);
-  }
-
-  static int _defaultReadPlayerLine() {
-    final line = (stdin.readLineSync)();
-    return int.parse(line!);
   }
 
   void chooseCard(int index) {

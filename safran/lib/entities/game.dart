@@ -114,10 +114,16 @@ class Game extends ChangeNotifier {
 
     await playGame();
 
-    String winner = players.firstWhere((player) => player.status == PlayerStatusConstant.alive).userName;
+    if (winCondition == "Draw: 3 players eliminated after a chain of deaths") {
+      setActionMessage("Tie");
+      Logger.info("Tie");
+    }
+    else {
+      String winner = players.firstWhere((player) => player.status == PlayerStatusConstant.alive || player.status == PlayerStatusConstant.conquest).userName;
 
-    setActionMessage("$winner wins ! $winCondition");
-    Logger.info("$winner wins ! $winCondition");
+      setActionMessage("$winner wins ! $winCondition");
+      Logger.info("$winner wins ! $winCondition");
+    }
   }
 
   Future<void> playGame() async {
