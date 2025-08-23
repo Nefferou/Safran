@@ -1,7 +1,5 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:safran/services/logger.dart';
-import '../header/custom_header.dart';
 import 'package:safran/widgets/components/hands/opponent_hand.dart';
 import 'package:safran/widgets/components/hands/main_hand.dart';
 import 'package:safran/widgets/components/discard_pile/discard_pile.dart';
@@ -58,16 +56,29 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3P> {
                 bottom: -100,
                 left: 0,
                 right: 0,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "Your hand (${widget.game.players[0].deck.length} cards)",
-                      style:
-                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    MainHand(cards: widget.game.players[0].deck),
-                  ],
+                child: GestureDetector(
+                  onTap: () {
+                    print("Main tap !");
+                    widget.game.players[0].choosePlayer(0);
+                  },
+                  child: AnimatedBuilder(
+                    animation: widget.game.players[0],
+                    builder: (context, _) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "Your hand (${widget.game.players[0].deck.length} cards)",
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          MainHand(
+                            player: widget.game.players[0],
+                            game: widget.game,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
 
@@ -77,12 +88,16 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3P> {
                 left: 0,
                 right: 0,
                 top: 0,
-                child: DiscardPile(
-                  cards: [
-                    GameCardComponent(
-                        card: widget.game.battleField.getUpCard())
-                  ],
-                  quarterTurns: 0,
+                child: AnimatedBuilder(
+                  animation: widget.game.battleField,
+                  builder: (context, _) {
+                    final upCard = widget.game.battleField.getUpCard();
+
+                    return DiscardPile(
+                      cards: [GameCardComponent(card: upCard)],
+                      quarterTurns: 0,
+                    );
+                  },
                 ),
               ),
 
@@ -91,13 +106,20 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3P> {
                 top: 0,
                 right: MediaQuery.of(context).size.width / 2,
                 left: 0,
-                child: Transform.scale(
-                  scale: scale,
-                  alignment: Alignment.topLeft,
-                  child: _buildOpponentColumn(
-                    widget.game.players[1].userName,
-                    widget.game.players[1].deck,
-                    quarterTurns: 1,
+                child: GestureDetector(
+                  onTap: () {
+                    print("Opponent 1 tap !");
+                    widget.game.players[0].choosePlayer(1);
+                  },
+                  child: AnimatedBuilder(
+                    animation: widget.game.players[1],
+                    builder: (context, _) {
+                      return _buildOpponentColumn(
+                        widget.game.players[1].userName,
+                        widget.game.players[1].deck,
+                        quarterTurns: 1,
+                      );
+                    },
                   ),
                 ),
               ),
@@ -107,13 +129,20 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3P> {
                 top: 0,
                 right: 0,
                 left: MediaQuery.of(context).size.width / 2,
-                child: Transform.scale(
-                  scale: scale,
-                  alignment: Alignment.topRight,
-                  child: _buildOpponentColumn(
-                    widget.game.players[2].userName,
-                    widget.game.players[2].deck,
-                    quarterTurns: 3,
+                child: GestureDetector(
+                  onTap: () {
+                    print("Opponent 2 tap !");
+                    widget.game.players[0].choosePlayer(2);
+                  },
+                  child: AnimatedBuilder(
+                    animation: widget.game.players[2],
+                    builder: (context, _) {
+                      return _buildOpponentColumn(
+                        widget.game.players[2].userName,
+                        widget.game.players[2].deck,
+                        quarterTurns: 3,
+                      );
+                    },
                   ),
                 ),
               ),
