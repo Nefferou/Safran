@@ -476,7 +476,7 @@ void main() {
 
       canPlayedCardGame.players[0].playCard(canPlayedCardGame, indexCard);
 
-      canPlayedCardGame.handleFamineKnight(canPlayedCardGame.players[0]);
+      //canPlayedCardGame.handleFamineKnight(canPlayedCardGame.players[0]);
 
       CardsVerifier.verifyPlayerNbCard(canPlayedCardGame.players[0], 2);
       expect(canPlayedCardGame.players[0].deck.where((card) => !card.canPlay).length, 0);

@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:safran/services/logger.dart';
 import 'package:safran/widgets/components/hands/opponent_hand.dart';
 import 'package:safran/widgets/components/hands/main_hand.dart';
 import 'package:safran/widgets/components/discard_pile/discard_pile.dart';
@@ -8,17 +9,17 @@ import '../../../entities/game.dart';
 import '../../pages/setings_page/settings_page.dart';
 import '../cards/game_card_component.dart';
 
-class GameBoardTemplate5P extends StatefulWidget {
+class GameBoardTemplate3PTest extends StatefulWidget {
   final Game game;
-  const GameBoardTemplate5P({super.key, required this.game});
+  const GameBoardTemplate3PTest({super.key, required this.game});
 
   @override
-  State<GameBoardTemplate5P> createState() => _GameBoardTemplate5PState();
+  State<GameBoardTemplate3PTest> createState() => _GameBoardTemplate3PState();
 }
 
-class _GameBoardTemplate5PState extends State<GameBoardTemplate5P> {
-  static const double handWidth = 80;
-  static const double handHeight = 200;
+class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
+  static const double handWidth = 400;
+  static const double handHeight = 180;
 
   @override
   void initState() {
@@ -66,7 +67,7 @@ class _GameBoardTemplate5PState extends State<GameBoardTemplate5P> {
                 child: GestureDetector(
                   onTap: () {
                     print("Main tap !");
-                    widget.game.players[0].choosePlayer(0);
+                    widget.game.players[widget.game.currentPlayerTurn].choosePlayer(0);
                   },
                   child: AnimatedBuilder(
                     animation: widget.game.players[0],
@@ -110,67 +111,29 @@ class _GameBoardTemplate5PState extends State<GameBoardTemplate5P> {
 
               // --- Left Opponent ---
               Positioned(
-                top: 25,
-                right: MediaQuery.of(context).size.width / (4/3),
+                top: 0,
+                right: MediaQuery.of(context).size.width / 2,
                 left: 0,
                 child: GestureDetector(
                   onTap: () {
                     print("Opponent 1 tap !");
-                    widget.game.players[0].choosePlayer(1);
+                    widget.game.players[widget.game.currentPlayerTurn].choosePlayer(1);
                   },
                   child: AnimatedBuilder(
                     animation: widget.game.players[1],
                     builder: (context, _) {
-                      return _buildOpponentColumn(
-                        widget.game.players[1].userName,
-                        widget.game.players[1].deck,
-                        quarterTurns: 1,
-                      );
-                    },
-                  ),
-                ),
-              ),
-
-              // --- Middle-Left Opponent ---
-              Positioned(
-                top: -50,
-                right: MediaQuery.of(context).size.width / 3,
-                left: 0,
-                child: GestureDetector(
-                  onTap: () {
-                    print("Opponent 2 tap !");
-                    widget.game.players[0].choosePlayer(2);
-                  },
-                  child: AnimatedBuilder(
-                    animation: widget.game.players[2],
-                    builder: (context, _) {
-                      return _buildOpponentColumn(
-                        widget.game.players[2].userName,
-                        widget.game.players[2].deck,
-                        quarterTurns: 3,
-                      );
-                    },
-                  ),
-                ),
-              ),
-
-              // --- Middle-Right Opponent ---
-              Positioned(
-                top: -50,
-                right: 0,
-                left: MediaQuery.of(context).size.width / 3,
-                child: GestureDetector(
-                  onTap: () {
-                    print("Opponent 3 tap !");
-                    widget.game.players[0].choosePlayer(3);
-                  },
-                  child: AnimatedBuilder(
-                    animation: widget.game.players[3],
-                    builder: (context, _) {
-                      return _buildOpponentColumn(
-                        widget.game.players[3].userName,
-                        widget.game.players[3].deck,
-                        quarterTurns: 2,
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "${widget.game.players[1].userName} (carte ${widget.game.players[1].deck.length})",
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          MainHand(
+                            player: widget.game.players[1],
+                            game: widget.game,
+                          ),
+                        ],
                       );
                     },
                   ),
@@ -179,24 +142,56 @@ class _GameBoardTemplate5PState extends State<GameBoardTemplate5P> {
 
               // --- Right Opponent ---
               Positioned(
-                top: 25,
+                top: 0,
                 right: 0,
-                left: MediaQuery.of(context).size.width / (4/3),
+                left: MediaQuery.of(context).size.width / 2,
                 child: GestureDetector(
                   onTap: () {
-                    print("Opponent 4 tap !");
-                    widget.game.players[0].choosePlayer(4);
+                    print("Opponent 2 tap !");
+                    widget.game.players[widget.game.currentPlayerTurn].choosePlayer(2);
                   },
                   child: AnimatedBuilder(
-                    animation: widget.game.players[4],
+                    animation: widget.game.players[2],
                     builder: (context, _) {
-                      return _buildOpponentColumn(
-                        widget.game.players[4].userName,
-                        widget.game.players[4].deck,
-                        quarterTurns: 2,
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "${widget.game.players[2].userName} (carte ${widget.game.players[2].deck.length})",
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          MainHand(
+                            player: widget.game.players[2],
+                            game: widget.game,
+                          ),
+                        ],
                       );
                     },
                   ),
+                ),
+              ),
+
+              // --- Action Message ---
+              Positioned(
+                top: 10,
+                left: 0,
+                right: 0,
+                child: AnimatedBuilder(
+                  animation: widget.game,
+                  builder: (context, _) {
+                    return Center(
+                      child: Text(
+                        widget.game.actionMessage.isNotEmpty
+                            ? widget.game.actionMessage
+                            : "En attente...",
+                        style: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ],

@@ -20,7 +20,7 @@ void main() {
       CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
       CardsVerifier.verifyIfCardTypeIsInDeck(customGame.players[1], FamineKnightCard);
 
-      customGame.handleFamineKnight(customGame.players[1]);
+      //customGame.handleFamineKnight(customGame.players[1]);
 
       CardsVerifier.verifyPlayerNbCard(customGame.players[1], 10);
       CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 5);

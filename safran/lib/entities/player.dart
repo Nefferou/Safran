@@ -1,7 +1,10 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:safran/core/constants/player_status_constant.dart';
+import 'package:safran/entities/card/triad/saintProtector/saint_protector_card.dart';
 import 'package:safran/services/dealer.dart';
 import 'package:safran/entities/card/recruitment/mage/mage_card.dart';
 import 'package:safran/entities/card/recruitment/thief_card.dart';
@@ -12,9 +15,10 @@ import 'package:safran/services/logger.dart';
 import '../entities/card/game_card.dart';
 import '../entities/card/triad/cursedKnight/cursed_knight_card.dart';
 import '../entities/card/triad/cursedKnight/famine_knight_card.dart';
+import 'card/triad/cursedKnight/war_knight_card.dart';
 import 'game.dart';
 
-class Player {
+class Player extends ChangeNotifier {
   late int Function() readPlayerLine = _defaultReadPlayerLine;
 
   String userName;
@@ -23,48 +27,73 @@ class Player {
   String status;
   int timeInPause = 0;
 
+  Completer<int>? _pendingPlay;
+  Completer<int>? _pendingPlayTarget;
+
   List<GameCard> deck = [];
 
   Player(this.userName)
       : status = PlayerStatusConstant.alive,
         isTheirTurn = false;
 
-  playCard(Game game, indexCard) {
+  Future<void> playCard(Game game, indexCard) async {
     // Check if card require one target
     if (getCard(indexCard) is MageCard || getCard(indexCard) is FateHeraldCard) {
-      stdout.write("Choose target : ");
-      int target = readPlayerLine();
+      game.setActionMessage("${userName} choisir un joueur comme cible");
+
+      _pendingPlayTarget = Completer<int>();
+
+      final target = await _pendingPlayTarget!.future;
+
       playCardWithOneTarget(game, indexCard, target);
     }
     // Check if card require two target
     else if (getCard(indexCard) is ThiefCard) {
-      stdout.write("Choose stealer target : ");
-      int stealerTarget = readPlayerLine();
-      stdout.write("Choose stolen target : ");
-      int stolenTarget = readPlayerLine();
+      game.setActionMessage("${userName} choisir le voleur");
+
+      _pendingPlayTarget = Completer<int>();
+
+      final stealerTarget = await _pendingPlayTarget!.future;
+
+      game.setActionMessage("${userName} choisir le volé");
+
+      _pendingPlayTarget = Completer<int>();
+
+      final stolenTarget = await _pendingPlayTarget!.future;
+
       playCardWithTwoTargets(game, indexCard, stealerTarget, stolenTarget);
     }
     // Check if card doesn't require any target
     else {
-      playCardWithoutTarget(game, indexCard);
+      await playCardWithoutTarget(game, indexCard);
     }
   }
 
-  playCardWithoutTarget(Game game, indexCard) {
+  playCardWithoutTarget(Game game, indexCard) async {
     Logger.info("$userName play ${getCard(indexCard).name}");
-    deck[indexCard].play(game);
+    int oldCardQuantity = deck.length;
+
+    await deck[indexCard].play(game);
+
+    int numberCardLess = oldCardQuantity - deck.length;
 
     // Discard the card played
     Dealer.transferCardPlayerToBattleField(
-        game.getCurrentPlayer(), indexCard, game.battleField);
+        game.getCurrentPlayer(), indexCard - numberCardLess, game.battleField);
   }
 
   playCardWithOneTarget(Game game, indexCard, int target) {
     Logger.info("$userName play ${getCard(indexCard).name}");
 
+    GameCard choosenCard = getCard(indexCard);
+
     // Play the card with one target player
     Logger.info("${game.players[target].userName} is the target");
     getCard(indexCard).play(game, [target]);
+
+    if (indexCard > deck.length-1 || getCard(indexCard) != choosenCard) {
+      indexCard--;
+    }
 
     // Discard the card played
     Dealer.transferCardPlayerToBattleField(
@@ -74,48 +103,94 @@ class Player {
   playCardWithTwoTargets(Game game, indexCard, int target1, int target2) {
     Logger.info("$userName play ${getCard(indexCard).name}");
 
+    GameCard choosenCard = getCard(indexCard);
+    Logger.info("carte choisie : ${choosenCard}");
+
     // Player chooses two target players
     Logger.info("${game.players[target1].userName} draw a card from ${game.players[target2].userName}");
     getCard(indexCard).play(game, [target1, target2]);
 
+    if (indexCard > deck.length-1 || getCard(indexCard) != choosenCard) {
+      indexCard--;
+    }
+
     // Discard the card played
-    Dealer.transferCardPlayerToBattleField(
-        game.getCurrentPlayer(), indexCard, game.battleField);
+    if (deck.length != 0) {
+      Dealer.transferCardPlayerToBattleField(
+          game.getCurrentPlayer(), indexCard, game.battleField);
+    }
+  }
+
+  void addCards(List<GameCard> cards) {
+    deck.addAll(cards);
+    notifyListeners();
   }
 
   takeCard(int indexCard) {
     GameCard card = deck.elementAt(indexCard);
     deck.removeAt(indexCard);
+    notifyListeners();
 
     return card;
   }
 
-  takeRandomCard() {
+  takeRandomCard(bool canTakeAllCard) {
     int deckLength = deck.length;
     int randomIndex = Random().nextInt(deckLength);
 
     GameCard card = deck.elementAt(randomIndex);
+
+    if (!card.canPlay && !canTakeAllCard) {
+      return takeRandomCard(canTakeAllCard);
+    }
+
     deck.removeAt(randomIndex);
+    notifyListeners();
 
     return card;
   }
 
-  discardCard(Game game, [int indexCard = -1]) {
+  Future<void> discardCard(Game game, [int indexCard = -1, bool otherPlayerNeedToChooseCard = false]) async {
     Logger.info("$userName discard a card");
+
+    game.battleMode = false;
+
+    final otherPlayer = game.players.where(
+          (player) => player.haveCardTypeInDeck(WarKnightCard) && player != this,
+    );
+
+    if (otherPlayer.isNotEmpty) {
+      game.setActionMessage("${otherPlayer.first.userName} defausser");
+
+      await otherPlayer.first.discardCard(game, -1, true);
+
+      game.setActionMessage("$userName defausser");
+    }
+
+    if (otherPlayerNeedToChooseCard) {
+      _pendingPlay = Completer<int>();
+
+      indexCard = await _pendingPlay!.future;
+    }
 
     game.handleCardCanBePlayed(this);
     Dealer.transferCardPlayerToBattleField(
         this, indexCard, game.battleField);
+
+    Logger.info("battlefield discard : ${game.battleField.cards}");
   }
   
   discardAllCard(Game game) {
+    game.battleMode = false;
+
     while (deck.isNotEmpty) {
       Dealer.transferCardPlayerToBattleField(
           this, 0, game.battleField);
     }
+    notifyListeners();
   }
 
-  getCard(int indexCard) {
+  GameCard getCard(int indexCard) {
     return deck[indexCard];
   }
 
@@ -128,19 +203,40 @@ class Player {
     Logger.info("$userName in paused");
   }
 
-  play(Game game) {
-    // Player chooses a card to play
-    stdout.write("Entrez l'index de la carte à jouer : ");
-    int indexCard = readPlayerLine();
+  Future<void> play(Game game) async {
+    Logger.info("Entrez l'index de la carte à jouer : ");
+    game.setActionMessage("${userName} choisir une carte à jouer");
 
-    while (!deck[indexCard].canBePlayed(this)) {
-      stdout.write("Choisir un autre index de carte à jouer : ");
-      indexCard = readPlayerLine();
+    _pendingPlay = Completer<int>();
+
+    final indexCard = await _pendingPlay!.future;
+
+    if (!deck[indexCard].canBePlayed(this)) {
+      Logger.info("Cette carte ne peut pas être jouée !");
+      return await play(game);
     }
 
     // Player plays the card
     Logger.info("$userName play ${deck[indexCard].name}");
-    playCard(game, indexCard);
+    await playCard(game, indexCard);
+  }
+
+  Future<void> handleFamineKnight(Game game) async {
+    if (haveFamineKnightCard()) {
+      game.setActionMessage("${userName} defausser à cause du cavalier de la famine");
+
+      _pendingPlay = Completer<int>();
+
+      final indexCard = await _pendingPlay!.future;
+
+      if (!deck[indexCard].canBePlayed(this)) {
+        Logger.info("Cette carte ne peut pas être jouée !");
+        return await handleFamineKnight(game);
+      }
+
+      await discardCard(game, indexCard);
+    }
+    game.handleCardCanBePlayed(this);
   }
 
   haveCardTypeInDeck(Type type) {
@@ -171,5 +267,19 @@ class Player {
   static int _defaultReadPlayerLine() {
     final line = (stdin.readLineSync)();
     return int.parse(line!);
+  }
+
+  void chooseCard(int index) {
+    if (_pendingPlay != null && !_pendingPlay!.isCompleted) {
+      _pendingPlay!.complete(index);
+      _pendingPlay = null;
+    }
+  }
+
+  void choosePlayer(int index) {
+    if (_pendingPlayTarget != null && !_pendingPlayTarget!.isCompleted) {
+      _pendingPlayTarget!.complete(index);
+      _pendingPlayTarget = null;
+    }
   }
 }
