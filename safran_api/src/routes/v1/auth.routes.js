@@ -2,6 +2,7 @@ const { Router } = require('express');
 const authController = require('../../controllers/auth.controller');
 const validate = require('../../middlewares/validate');
 const { registerBody, loginBody } = require('../../schemas/auth.schema');
+const { loginBruteforce } = require('../../middlewares/login_bruteforce');
 
 const router = Router();
 
@@ -67,6 +68,6 @@ router.post('/register', validate({ body: registerBody }), authController.regist
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-router.post('/login', validate({ body: loginBody }), authController.login);
+router.post('/login', validate({ body: loginBody }), loginBruteforce, authController.login);
 
 module.exports = router;

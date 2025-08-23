@@ -23,6 +23,13 @@ const env = {
 
     // Metrics
     metricsToken: process.env.METRICS_TOKEN || 'metrics_token',
+
+    // Rate Limiting
+    loginBruteWindowMs: Number(process.env.LOGIN_BRUTE_WINDOW_MS || 15 * 60 * 1000),
+    loginBruteTreshold: Number(process.env.LOGIN_BRUTE_THRESHOLD || 5),
+    loginBruteBaseDelayMs: Number(process.env.LOGIN_BRUTE_BASE_DELAY_MS || 1000),
+    loginBruteMaxDelayMs: Number(process.env.LOGIN_BRUTE_MAX_DELAY_MS || 60 * 1000),
+    loginBruteBanMs: Number(process.env.LOGIN_BRUTE_BAN_MS || 15 * 60 * 1000)
 };
 
 module.exports = env;
