@@ -5,7 +5,7 @@ import 'package:safran/widgets/components/hands/main_hand.dart';
 import 'package:safran/widgets/components/discard_pile/discard_pile.dart';
 import '../../../entities/card/game_card.dart';
 import '../../../entities/game.dart';
-import '../../pages/setings_page/settings_page.dart';
+import '../../pages/settings_page/settings_page.dart';
 import '../cards/game_card_component.dart';
 
 class GameBoardTemplate4P extends StatefulWidget {

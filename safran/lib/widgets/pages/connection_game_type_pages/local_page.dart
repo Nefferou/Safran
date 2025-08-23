@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:safran/widgets/components/buttons/basic_button.dart';
-import 'package:safran/widgets/pages/setup_game_pages/host_game_page.dart';
+import 'package:safran/widgets/pages/setup_game_pages/host_game/host_game_page.dart';
 
 import '../../components/header/custom_header.dart';
-import '../setup_game_pages/join_game_page.dart';
+import '../settings_page/rules_page.dart';
+import '../settings_page/settings_page.dart';
+import '../setup_game_pages/join_game/join_game_page.dart';
 
 class LocalPage extends StatelessWidget {
 
@@ -12,7 +14,20 @@ class LocalPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomHeader(),
+      appBar: CustomHeader(
+        onBookTap: (){
+          Navigator.push(
+            context,
+            PageRouteBuilder(pageBuilder: (c, a1, a2) => RulesPage()),
+          );
+        },
+        onSettingsTap: (){
+          Navigator.push(
+            context,
+            PageRouteBuilder(pageBuilder: (c, a1, a2) => SettingsPage()),
+          );
+        },
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

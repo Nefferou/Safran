@@ -59,6 +59,25 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - res/assets/home/
+    - res/assets/join_game/
+    - res/assets/host_game/
+
+  fonts:
+    - family: Almendra
+      fonts:
+        - asset: res/fonts/Almendra/Almendra-Regular.ttf
+          weight: 400
+        - asset: res/fonts/Almendra/Almendra-Bold.ttf
+          weight: 700
+        - asset: res/fonts/Almendra/Almendra-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: res/fonts/Almendra/Almendra-BoldItalic.ttf
+          weight: 700
+          style: italic
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
