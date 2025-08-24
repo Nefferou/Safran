@@ -10,16 +10,16 @@ import '../cards/opponent_game_card_component.dart';
 class MainHand extends StatefulWidget {
   final Player player;
   final Game game;
+  final double handWidth;
 
-  const MainHand({super.key, required this.player, required this.game});
+  const MainHand({super.key, required this.player, required this.game, required this.handWidth});
 
   @override
   State<MainHand> createState() => _MainHandState();
 }
 
 class _MainHandState extends State<MainHand> {
-  static const double handWidth = 400;
-  static const double handHeight = 180;
+  static const double handHeight = 90;
   static const double cardWidth = 80;
   static const double maxOffset = 40;
 
@@ -42,15 +42,15 @@ class _MainHandState extends State<MainHand> {
     final int cardCount = widget.player.deck.length;
 
     double offset = cardCount > 1
-        ? (handWidth - cardWidth) / (cardCount - 1)
+        ? (widget.handWidth - cardWidth) / (cardCount - 1)
         : 0;
     offset = offset.clamp(0, maxOffset);
 
     final totalWidth = cardWidth + offset * (cardCount - 1);
-    final startOffset = (handWidth - totalWidth) / 2;
+    final startOffset = (widget.handWidth - totalWidth) / 2;
 
     return SizedBox(
-      width: handWidth,
+      width: widget.handWidth,
       height: handHeight,
       child: GestureDetector(
         onPanDown: (details) =>
@@ -79,7 +79,7 @@ class _MainHandState extends State<MainHand> {
                   duration: const Duration(milliseconds: 150),
                   child: SizedBox(
                     width: cardWidth,
-                    height: 120,
+                    height: 180,
                     child: GameCardComponent(card: widget.player.deck[index]),
                   ),
                 ),

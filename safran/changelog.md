@@ -1,5 +1,6 @@
 | Version         | Date       | Auteur           | Changements principaux                                                                |
 |---------------- |------------|------------------|---------------------------------------------------------------------------------------|
+| 1.1.0-snapshot  | 24/08/2025 | Anthony VIANO    | Ajout du style sur le front
 | 1.0.1-snapshot  | 24/08/2025 | Yves ESTRADA     | Ajout de l'anti brut force et de la vérification d'entrée pour l'api                  |
 | 1.0.0-release   | 24/08/2025 | Guilhem MAGAUD   | Fusion du front et de la couche métier pour avoir une partie jouable                  |
 | 0.10.0-snapshot | 22/08/2025 | Yves ESTRADA     | Mise en place de l'api & des tests liées                                              |
