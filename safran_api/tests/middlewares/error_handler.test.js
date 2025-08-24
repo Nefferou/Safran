@@ -18,6 +18,25 @@ describe('middlewares/error_handler', () => {
     expect(res.body.message).toBe('Bad');
   });
 
+  it('formats validation errors', () => {
+    const err = { 
+      type: 'validation_error', 
+      message: 'Invalid request', 
+      details: [
+        { path: 'email', message: 'Invalid email', code: 'invalid_string' }
+      ] 
+    };
+    const req = {};
+    const res = makeRes();
+    errorHandler(err, req, res);
+    expect(res.statusCode).toBe(400);
+    expect(res.body.error).toBe('VALIDATION_ERROR');
+    expect(res.body.message).toBe('Invalid request');
+    expect(res.body.details).toEqual([
+      { path: 'email', message: 'Invalid email', code: 'invalid_string' }
+    ]);
+  });
+
   it('defaults to 500 and INTERNAL_ERROR', () => {
     const err = {};
     const req = {};

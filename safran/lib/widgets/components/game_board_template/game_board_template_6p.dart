@@ -21,6 +21,13 @@ class _GameBoardTemplate6PState extends State<GameBoardTemplate6P> {
   static const double handHeight = 200;
 
   @override
+  void initState() {
+    super.initState();
+
+    widget.game.startGame(0);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
@@ -56,16 +63,29 @@ class _GameBoardTemplate6PState extends State<GameBoardTemplate6P> {
                 bottom: -100,
                 left: 0,
                 right: 0,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "Your hand (${widget.game.players[0].deck.length} cards)",
-                      style:
-                      TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    MainHand(cards: widget.game.players[0].deck),
-                  ],
+                child: GestureDetector(
+                  onTap: () {
+                    print("Main tap !");
+                    widget.game.players[0].choosePlayer(0);
+                  },
+                  child: AnimatedBuilder(
+                    animation: widget.game.players[0],
+                    builder: (context, _) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "Your hand (${widget.game.players[0].deck.length} cards)",
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          MainHand(
+                            player: widget.game.players[0],
+                            game: widget.game,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
 
@@ -75,12 +95,16 @@ class _GameBoardTemplate6PState extends State<GameBoardTemplate6P> {
                 left: 0,
                 right: 0,
                 top: 0,
-                child: DiscardPile(
-                  cards: [
-                    GameCardComponent(
-                        card: widget.game.battleField.getUpCard())
-                  ],
-                  quarterTurns: 1,
+                child: AnimatedBuilder(
+                  animation: widget.game.battleField,
+                  builder: (context, _) {
+                    final upCard = widget.game.battleField.getUpCard();
+
+                    return DiscardPile(
+                      cards: [GameCardComponent(card: upCard)],
+                      quarterTurns: 0,
+                    );
+                  },
                 ),
               ),
 
@@ -89,13 +113,20 @@ class _GameBoardTemplate6PState extends State<GameBoardTemplate6P> {
                 top: 25,
                 right: MediaQuery.of(context).size.width / (1.25),
                 left: 0,
-                child: Transform.scale(
-                  scale: scale,
-                  alignment: Alignment.topLeft,
-                  child: _buildOpponentColumn(
-                    widget.game.players[1].userName,
-                    widget.game.players[1].deck,
-                    quarterTurns: 1,
+                child: GestureDetector(
+                  onTap: () {
+                    print("Opponent 1 tap !");
+                    widget.game.players[0].choosePlayer(1);
+                  },
+                  child: AnimatedBuilder(
+                    animation: widget.game.players[1],
+                    builder: (context, _) {
+                      return _buildOpponentColumn(
+                        widget.game.players[1].userName,
+                        widget.game.players[1].deck,
+                        quarterTurns: 1,
+                      );
+                    },
                   ),
                 ),
               ),
@@ -105,13 +136,20 @@ class _GameBoardTemplate6PState extends State<GameBoardTemplate6P> {
                 top: -12.5,
                 right: MediaQuery.of(context).size.width / (2.5),
                 left: 0,
-                child: Transform.scale(
-                  scale: scale,
-                  alignment: Alignment.topRight,
-                  child: _buildOpponentColumn(
-                    widget.game.players[2].userName,
-                    widget.game.players[2].deck,
-                    quarterTurns: 3,
+                child: GestureDetector(
+                  onTap: () {
+                    print("Opponent 2 tap !");
+                    widget.game.players[0].choosePlayer(2);
+                  },
+                  child: AnimatedBuilder(
+                    animation: widget.game.players[2],
+                    builder: (context, _) {
+                      return _buildOpponentColumn(
+                        widget.game.players[2].userName,
+                        widget.game.players[2].deck,
+                        quarterTurns: 3,
+                      );
+                    },
                   ),
                 ),
               ),
@@ -121,13 +159,20 @@ class _GameBoardTemplate6PState extends State<GameBoardTemplate6P> {
                 top: -50,
                 right: 0,
                 left: 0,
-                child: Transform.scale(
-                  scale: scale,
-                  alignment: Alignment.topRight,
-                  child: _buildOpponentColumn(
-                    widget.game.players[3].userName,
-                    widget.game.players[3].deck,
-                    quarterTurns: 2,
+                child: GestureDetector(
+                  onTap: () {
+                    print("Opponent 3 tap !");
+                    widget.game.players[0].choosePlayer(3);
+                  },
+                  child: AnimatedBuilder(
+                    animation: widget.game.players[3],
+                    builder: (context, _) {
+                      return _buildOpponentColumn(
+                        widget.game.players[3].userName,
+                        widget.game.players[3].deck,
+                        quarterTurns: 2,
+                      );
+                    },
                   ),
                 ),
               ),
@@ -137,13 +182,20 @@ class _GameBoardTemplate6PState extends State<GameBoardTemplate6P> {
                 top: -12.5,
                 right: 0,
                 left: MediaQuery.of(context).size.width / (2.5),
-                child: Transform.scale(
-                  scale: scale,
-                  alignment: Alignment.topRight,
-                  child: _buildOpponentColumn(
-                    widget.game.players[4].userName,
-                    widget.game.players[4].deck,
-                    quarterTurns: 2,
+                child: GestureDetector(
+                  onTap: () {
+                    print("Opponent 4 tap !");
+                    widget.game.players[0].choosePlayer(4);
+                  },
+                  child: AnimatedBuilder(
+                    animation: widget.game.players[4],
+                    builder: (context, _) {
+                      return _buildOpponentColumn(
+                        widget.game.players[4].userName,
+                        widget.game.players[4].deck,
+                        quarterTurns: 2,
+                      );
+                    },
                   ),
                 ),
               ),
@@ -153,13 +205,20 @@ class _GameBoardTemplate6PState extends State<GameBoardTemplate6P> {
                 top: 25,
                 right: 0,
                 left: MediaQuery.of(context).size.width / (1.25),
-                child: Transform.scale(
-                  scale: scale,
-                  alignment: Alignment.topRight,
-                  child: _buildOpponentColumn(
-                    widget.game.players[5].userName,
-                    widget.game.players[5].deck,
-                    quarterTurns: 2,
+                child: GestureDetector(
+                  onTap: () {
+                    print("Opponent 5 tap !");
+                    widget.game.players[0].choosePlayer(5);
+                  },
+                  child: AnimatedBuilder(
+                    animation: widget.game.players[5],
+                    builder: (context, _) {
+                      return _buildOpponentColumn(
+                        widget.game.players[5].userName,
+                        widget.game.players[5].deck,
+                        quarterTurns: 2,
+                      );
+                    },
                   ),
                 ),
               ),

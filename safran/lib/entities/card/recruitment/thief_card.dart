@@ -17,9 +17,11 @@ class ThiefCard extends RecruitmentCard {
       GameCard.correctNbTargets(2, targets);
       Type typeSteal = Dealer.transferCardPlayerToPlayer(game.players[targets[1]], -1, game.players[targets[0]]);
       Logger.info("Player ${game.players[targets[0]].userName} steals a card from player ${game.players[targets[1]].userName}");
+      Logger.info("carte volé : ${typeSteal}");
 
       if(typeSteal == PlagueKnightCard) {
         game.kill(game.players[targets[1]]);
+        game.players[targets[1]].discardAllCard(game);
       }
     } catch (e) {
       Logger.error("Error while playing ThiefCard: $e");

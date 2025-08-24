@@ -12,14 +12,14 @@ class SwordsmanCard extends ArmyCard {
       : super(CardInfo.swordsman);
 
   @override
-  play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
+  play(Game game, [List<int> targets = const [], bool activateEffect = true]) async {
     try {
       if (game.battleMode &&
           game.battleField.getUpCard().runtimeType == GuardCard) {
         GameCard.correctNbTargets(0, targets);
         Player previousPlayer = game.players[game.getPreviousPlayerTurnIndex()];
         Logger.info("Player ${previousPlayer.userName} is countered by Guard");
-        previousPlayer.discardCard(game);
+        await previousPlayer.discardCard(game);
       }
       game.battleMode = true;
     } catch (e) {

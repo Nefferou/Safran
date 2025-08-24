@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
+import 'package:flutter/foundation.dart';
 import 'package:safran/entities/battle_field.dart';
 import 'package:safran/core/constants/player_status_constant.dart';
 import 'package:safran/services/logger.dart';
@@ -7,7 +9,7 @@ import 'package:safran/entities/player.dart';
 import '../entities/card/game_card.dart';
 import '../services/card_factory.dart';
 
-class Game {
+class Game extends ChangeNotifier {
   late bool isSetup;
   late bool playOrder;
   late bool battleMode;
@@ -20,6 +22,7 @@ class Game {
   late CardFactory cardFactory;
 
   String winCondition = "No win condition set";
+  String actionMessage = "";
 
   // List of players 3-6
   List<Player> players = [];
@@ -100,7 +103,7 @@ class Game {
   }
 
   // Start the game
-  startGame([int playerTurn = -1]) {
+  Future<void> startGame([int playerTurn = -1]) async {
     // Choose a player to start or randomly select one if not specified
     currentPlayerTurn =
         (playerTurn == -1) ? Random().nextInt(players.length) : playerTurn;
@@ -109,12 +112,21 @@ class Game {
     Logger.info(
         "Player ${players[currentPlayerTurn].userName} starts the game");
 
-    playGame();
+    await playGame();
 
-    Logger.info("${players[currentPlayerTurn].userName} wins ! $winCondition");
+    if (winCondition == "Draw: 3 players eliminated after a chain of deaths") {
+      setActionMessage("Tie");
+      Logger.info("Tie");
+    }
+    else {
+      String winner = players.firstWhere((player) => player.status == PlayerStatusConstant.alive || player.status == PlayerStatusConstant.conquest).userName;
+
+      setActionMessage("$winner wins ! $winCondition");
+      Logger.info("$winner wins ! $winCondition");
+    }
   }
 
-  void playGame() {
+  Future<void> playGame() async {
     while (!isGameOver) {
       final currentPlayer = players[currentPlayerTurn];
 
@@ -122,10 +134,15 @@ class Game {
       if (checkEndGame()) break;
       if (skipIfDead(currentPlayer)) continue;
 
-      handleFamineKnight(currentPlayer);
-      playTurn(currentPlayer);
+      await currentPlayer.handleFamineKnight(this);
+      if (currentPlayer.deck.isNotEmpty) {
+        await playTurn(currentPlayer);
+      }
       eliminateAllPlayersWithoutCards();
       handleConquestKnight();
+
+      Logger.info("battlefiel : ${this.battleField.cards}");
+      Logger.info("joueur carte : ${this.players[0].deck.length}");
 
       nextTurn();
     }
@@ -218,13 +235,6 @@ class Game {
     return false;
   }
 
-  void handleFamineKnight(Player player) {
-    if (player.haveFamineKnightCard()) {
-      player.discardCard(this);
-    }
-    handleCardCanBePlayed(player);
-  }
-
   void handleConquestKnight() {
     for (var player in players) {
       if (player.haveConquestKnightCard() && onePlayerIsDead()) {
@@ -233,9 +243,9 @@ class Game {
     }
   }
 
-  void playTurn(Player player) {
+  Future<void> playTurn(Player player) async {
     if (player.isTheirTurn) {
-      player.play(this);
+      await player.play(this);
     }
   }
 
@@ -305,5 +315,10 @@ class Game {
     for (var card in player.deck) {
       card.canPlay = card.canBePlayed(player);
     }
+  }
+
+  void setActionMessage(String message) {
+    actionMessage = message;
+    notifyListeners();
   }
 }

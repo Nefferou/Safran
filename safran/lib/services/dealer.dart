@@ -15,8 +15,8 @@ class Dealer {
     return takenCard;
   }
 
-  static takeRandomCardToPlayer(Player player) {
-    GameCard takenCard = player.takeRandomCard();
+  static takeRandomCardToPlayer(Player player, bool canTakeAllCard) {
+    GameCard takenCard = player.takeRandomCard(canTakeAllCard);
     return takenCard;
   }
 
@@ -33,21 +33,18 @@ class Dealer {
 
   // Give Card to player or battle field
   static giveCardToPlayer(Player player, List<GameCard> cards) {
-    player.deck.addAll(cards);
+    player.addCards(cards);
   }
 
   static giveCardToBattleField(BattleField battleField, List<GameCard> cards) {
-    battleField.cards.addAll(cards);
+    battleField.addCards(cards);
   }
 
   // Transfer Card from ... to ... (Take and Give)
   static transferCardPlayerToBattleField(Player player, int indexCard, BattleField battleField) {
     GameCard cards;
     if(indexCard == -1) {
-      cards = takeRandomCardToPlayer(player);
-      while (!cards.canBePlayed(player)) {
-        cards = takeRandomCardToPlayer(player);
-      }
+      cards = takeRandomCardToPlayer(player, false);
     } else {
       cards = takeCardToPlayer(player, indexCard);
     }
@@ -62,7 +59,7 @@ class Dealer {
       {bool canBeKill = true}) {
     GameCard cards;
     if(indexCard == -1) {
-      cards = takeRandomCardToPlayer(player1);
+      cards = takeRandomCardToPlayer(player1, true);
     } else {
       cards = takeCardToPlayer(player1, indexCard);
     }

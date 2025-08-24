@@ -4,7 +4,7 @@ const loadEnvModule = (overrides = {}) => {
     'NODE_ENV','PORT','METRICS_ENABLED','SWAGGER_ENABLED',
     'DB_HOST','DB_PORT','DB_USER','DB_PASSWORD','DB_NAME','DB_CONN_LIMIT',
     'BCRYPT_ROUNDS','JWT_SECRET','JWT_EXPIRATION','JWT_ISSUER','JWT_AUDIENCE',
-    'METRICS_TOKEN'
+    'METRICS_TOKEN','LOGIN_BRUTE_WINDOW_MS','LOGIN_BRUTE_THRESHOLD','LOGIN_BRUTE_BASE_DELAY_MS','LOGIN_BRUTE_MAX_DELAY_MS','LOGIN_BRUTE_BAN_MS'
   ];
   keys.forEach(k => delete process.env[k]);
   Object.assign(process.env, overrides);
@@ -38,6 +38,11 @@ describe('config/env', () => {
     expect(env.jwtIssuer).toBe('safran_api');
     expect(env.jwtAudience).toBe('safran_users');
     expect(env.metricsToken).toBe('metrics_token');
+    expect(env.loginBruteWindowMs).toBe(15 * 60 * 1000);
+    expect(env.loginBruteTreshold).toBe(5);
+    expect(env.loginBruteBaseDelayMs).toBe(1000);
+    expect(env.loginBruteMaxDelayMs).toBe(60 * 1000);
+    expect(env.loginBruteBanMs).toBe(15 * 60 * 1000);
   });
 
   it('loads provided env vars correctly and coerces types', () => {
@@ -58,6 +63,11 @@ describe('config/env', () => {
       JWT_ISSUER: 'iss',
       JWT_AUDIENCE: 'aud',
       METRICS_TOKEN: 'mt',
+      LOGIN_BRUTE_WINDOW_MS: '30000',
+      LOGIN_BRUTE_THRESHOLD: '10',
+      LOGIN_BRUTE_BASE_DELAY_MS: '2000',
+      LOGIN_BRUTE_MAX_DELAY_MS: '120000',
+      LOGIN_BRUTE_BAN_MS: '30000',
     });
     expect(env.nodeEnv).toBe('test');
     expect(env.port).toBe(8080);
@@ -75,5 +85,10 @@ describe('config/env', () => {
     expect(env.jwtIssuer).toBe('iss');
     expect(env.jwtAudience).toBe('aud');
     expect(env.metricsToken).toBe('mt');
+    expect(env.loginBruteWindowMs).toBe(30000);
+    expect(env.loginBruteTreshold).toBe(10);
+    expect(env.loginBruteBaseDelayMs).toBe(2000);
+    expect(env.loginBruteMaxDelayMs).toBe(120000);
+    expect(env.loginBruteBanMs).toBe(30000);
   });
 }); 

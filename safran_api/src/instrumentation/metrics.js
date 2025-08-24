@@ -52,6 +52,12 @@ const usersLoginFailureTotal = new client.Counter({
     help: 'Connexions échouées'
 });
 
+const loginTarpitDelay = new client.Histogram({
+    name: 'login_tarpit_delay_ms',
+    help: 'Délai (ms) appliqué par le tarpit sur /auth/login',
+    buckets: [0, 100, 250, 500, 1000, 2000, 4000, 8000, 10000]
+});
+
 const metricsMiddleware = (req, res, next) => {
     const start = Date.now();
     httpRequestsInFlight.inc();
@@ -88,6 +94,7 @@ module.exports = {
         usersLoginSuccessTotal,
         usersLoginFailureTotal,
         usersCreatedTotal,
-        usersRegisteredTotal
+        usersRegisteredTotal,
+        loginTarpitDelay
     }
 };
