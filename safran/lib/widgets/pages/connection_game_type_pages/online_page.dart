@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../components/buttons/basic_button.dart';
+import '../../components/buttons/game_mode_text_button.dart';
 import '../../components/header/custom_header.dart';
 import '../settings_page/rules_page.dart';
 import '../settings_page/settings_page.dart';
@@ -11,9 +11,15 @@ class OnlinePage extends StatelessWidget {
 
   const OnlinePage({super.key});
 
+  static const double _headerHeight = 100;
+  static const double _gapBelowHeader = 10;
+
   @override
   Widget build(BuildContext context) {
+    final double topInset = MediaQuery.of(context).padding.top;
+
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: CustomHeader(
         onBookTap: (){
           Navigator.push(
@@ -28,14 +34,40 @@ class OnlinePage extends StatelessWidget {
           );
         },
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            BasicButton(text: "Host game", redirectedPage: HostGamePage()),
-            BasicButton(text: "Join game", redirectedPage: JoinGamePage()),
-          ],
-        ),
+      body: Stack(
+        children: [
+          // même background que la Home
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("res/assets/home/background.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: topInset + _headerHeight + _gapBelowHeader,
+              bottom: 20,
+            ),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GameModeTextButton(
+                    text: "Host\ngame",
+                    redirectedPage: HostGamePage(),
+                  ),
+                  const SizedBox(height: 46),
+                  GameModeTextButton(
+                    text: "Join\ngame",
+                    redirectedPage: JoinGamePage(),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
