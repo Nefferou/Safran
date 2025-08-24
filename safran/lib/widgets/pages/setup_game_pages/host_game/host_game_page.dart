@@ -48,6 +48,8 @@ class _HostGamePageState extends State<HostGamePage> {
             PageRouteBuilder(pageBuilder: (c, a1, a2) => SettingsPage()),
           );
         },
+        isRulesPage: false,
+        isSettingsPage: false,
       ),
       resizeToAvoidBottomInset: true,
       body: Stack(

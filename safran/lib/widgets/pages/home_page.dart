@@ -14,7 +14,6 @@ import '../../entities/player.dart';
 import '../components/buttons/game_mode_button.dart';
 
 class HomePage extends StatelessWidget {
-
   const HomePage({super.key});
 
   static const double _headerHeight = 100;
@@ -22,7 +21,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final double topInset = MediaQuery.of(context).padding.top;
 
     List<Player> players = [
@@ -38,47 +36,60 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: CustomHeader(
-        onBookTap: (){
+        onBookTap: () {
           Navigator.push(
             context,
             PageRouteBuilder(pageBuilder: (c, a1, a2) => RulesPage()),
           );
         },
-        onSettingsTap: (){
+        onSettingsTap: () {
           Navigator.push(
             context,
             PageRouteBuilder(pageBuilder: (c, a1, a2) => SettingsPage()),
           );
         },
+        isRulesPage: false,
+        isSettingsPage: false,
       ),
-      body: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("res/assets/home/background.png"),
-                fit: BoxFit.cover,
-              ),
+      body: Stack(children: [
+        Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("res/assets/home/background.png"),
+              fit: BoxFit.cover,
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: topInset + _headerHeight + _gapBelowHeader, bottom: 20),
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GameModeButton(text: "Jouer en\nligne", imagePath: "res/assets/home/internet.png", redirectedPage: OnlinePage()),
-                  const SizedBox(width: 46,),
-                  GameModeButton(text: "Jouer en\nlocal", imagePath: "res/assets/home/local.png", redirectedPage: OnlinePage()),
-                  const SizedBox(width: 46,),
-                  GameModeButton(text: "Partie de test Admin", imagePath: "res/assets/home/test.png", redirectedPage: GameBoardPage(game: game, isTestGame: true))
-                ],
-              ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(
+              top: topInset + _headerHeight + _gapBelowHeader, bottom: 20),
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                GameModeButton(
+                    text: "Jouer en\nligne",
+                    imagePath: "res/assets/home/internet.png",
+                    redirectedPage: OnlinePage()),
+                const SizedBox(
+                  width: 46,
+                ),
+                GameModeButton(
+                    text: "Jouer en\nlocal",
+                    imagePath: "res/assets/home/local.png",
+                    redirectedPage: OnlinePage()),
+                const SizedBox(
+                  width: 46,
+                ),
+                GameModeButton(
+                    text: "Partie de test Admin",
+                    imagePath: "res/assets/home/test.png",
+                    redirectedPage: GameBoardPage(game: game, isTestGame: true))
+              ],
             ),
           ),
-        ]
-      ),
+        ),
+      ]),
     );
   }
-
 }

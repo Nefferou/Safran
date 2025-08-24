@@ -17,13 +17,48 @@ class _JoinGamePageState extends State<JoinGamePage> {
   static const double _gapBelowHeader = 10;
 
   final List<Map<String, dynamic>> games = [
-    {'title':'Partie 1','isPrivate':false,'maxPlayers':4,'currentPlayers':2,},
-    {'title':'Partie 2','isPrivate':false,'maxPlayers':4,'currentPlayers':3,},
-    {'title':'Partie 3','isPrivate':true,'maxPlayers':6,'currentPlayers':6,},
-    {'title':'Partie 4','isPrivate':false,'maxPlayers':5,'currentPlayers':1,},
-    {'title':'Partie 5','isPrivate':true,'maxPlayers':6,'currentPlayers':5,},
-    {'title':'Partie 6','isPrivate':true,'maxPlayers':4,'currentPlayers':4,},
-    {'title':'Partie 7','isPrivate':true,'maxPlayers':6,'currentPlayers':1,},
+    {
+      'title': 'Partie 1',
+      'isPrivate': false,
+      'maxPlayers': 4,
+      'currentPlayers': 2,
+    },
+    {
+      'title': 'Partie 2',
+      'isPrivate': false,
+      'maxPlayers': 4,
+      'currentPlayers': 3,
+    },
+    {
+      'title': 'Partie 3',
+      'isPrivate': true,
+      'maxPlayers': 6,
+      'currentPlayers': 6,
+    },
+    {
+      'title': 'Partie 4',
+      'isPrivate': false,
+      'maxPlayers': 5,
+      'currentPlayers': 1,
+    },
+    {
+      'title': 'Partie 5',
+      'isPrivate': true,
+      'maxPlayers': 6,
+      'currentPlayers': 5,
+    },
+    {
+      'title': 'Partie 6',
+      'isPrivate': true,
+      'maxPlayers': 4,
+      'currentPlayers': 4,
+    },
+    {
+      'title': 'Partie 7',
+      'isPrivate': true,
+      'maxPlayers': 6,
+      'currentPlayers': 1,
+    },
   ];
 
   @override
@@ -33,19 +68,20 @@ class _JoinGamePageState extends State<JoinGamePage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: CustomHeader(
-        onBookTap: (){
-          Navigator.push(
-            context,
-            PageRouteBuilder(pageBuilder: (c, a1, a2) => RulesPage()),
-          );
-        },
-        onSettingsTap: (){
-          Navigator.push(
-            context,
-            PageRouteBuilder(pageBuilder: (c, a1, a2) => SettingsPage()),
-          );
-        },
-      ),
+          onBookTap: () {
+            Navigator.push(
+              context,
+              PageRouteBuilder(pageBuilder: (c, a1, a2) => RulesPage()),
+            );
+          },
+          onSettingsTap: () {
+            Navigator.push(
+              context,
+              PageRouteBuilder(pageBuilder: (c, a1, a2) => SettingsPage()),
+            );
+          },
+          isRulesPage: false,
+          isSettingsPage: false),
       body: Stack(
         children: [
           // background
@@ -80,11 +116,11 @@ class _JoinGamePageState extends State<JoinGamePage> {
                   ),
                 ),
                 const SizedBox(width: 16),
-
                 Expanded(
                   child: GridView.builder(
                     padding: const EdgeInsets.only(right: 4),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 30,
                       mainAxisSpacing: 20,

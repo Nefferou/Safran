@@ -107,7 +107,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
                           MainHand(
                             player: widget.game.players[0],
                             game: widget.game,
-                            handWidth: 800,
+                            handWidth: 400,
                           ),
                         ],
                       );
@@ -137,7 +137,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
 
               // --- Left Opponent ---
               Positioned(
-                top: 75,
+                top: 25,
                 right: MediaQuery.of(context).size.width / 2,
                 left: 0,
                 child: GestureDetector(
@@ -158,7 +158,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
                           MainHand(
                             player: widget.game.players[1],
                             game: widget.game,
-                            handWidth: 600,
+                            handWidth: 200,
                           ),
                         ],
                       );
@@ -169,7 +169,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
 
               // --- Right Opponent ---
               Positioned(
-                top: 75,
+                top: 25,
                 right: 0,
                 left: MediaQuery.of(context).size.width / 2,
                 child: GestureDetector(
@@ -190,7 +190,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
                           MainHand(
                             player: widget.game.players[2],
                             game: widget.game,
-                            handWidth: 600,
+                            handWidth: 200,
                           ),
                         ],
                       );

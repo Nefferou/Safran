@@ -19,7 +19,7 @@ class MainHand extends StatefulWidget {
 }
 
 class _MainHandState extends State<MainHand> {
-  static const double handHeight = 180;
+  static const double handHeight = 90;
   static const double cardWidth = 80;
   static const double maxOffset = 40;
 

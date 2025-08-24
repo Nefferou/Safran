@@ -5,6 +5,8 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
   final String avatarAsset;
   final VoidCallback? onBookTap;
   final VoidCallback? onSettingsTap;
+  final bool isRulesPage;
+  final bool isSettingsPage;
 
   const CustomHeader({
     super.key,
@@ -12,6 +14,8 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
     this.avatarAsset = "res/assets/home/default_avatar.png",
     this.onBookTap,
     this.onSettingsTap,
+    required this.isRulesPage,
+    required this.isSettingsPage,
   });
 
   @override
@@ -94,7 +98,8 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 const SizedBox(width: 12),
                 _ActionPill(
-                  iconColor: iconColor,
+                  rulesColor: isRulesPage ? Color(0xFFAE004B) : iconColor,
+                  settingsColor: isSettingsPage ? Color(0xFFAE004B) : iconColor,
                   onBookTap: onBookTap,
                   onSettingsTap: onSettingsTap,
                 ),
@@ -109,12 +114,14 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class _ActionPill extends StatelessWidget {
-  final Color iconColor;
+  final Color rulesColor;
+  final Color settingsColor;
   final VoidCallback? onBookTap;
   final VoidCallback? onSettingsTap;
 
   const _ActionPill({
-    required this.iconColor,
+    required this.rulesColor,
+    required this.settingsColor,
     this.onBookTap,
     this.onSettingsTap,
   });
@@ -128,12 +135,14 @@ class _ActionPill extends StatelessWidget {
           assetPath: "res/assets/home/rules.png",
           size: 55,
           onTap: onBookTap,
+          color: rulesColor,
         ),
         const SizedBox(width: 6),
         _ImageBtn(
           assetPath: "res/assets/home/settings.png",
           size: 55,
           onTap: onSettingsTap,
+          color: settingsColor,
         ),
       ],
     );
@@ -144,11 +153,13 @@ class _ImageBtn extends StatelessWidget {
   final String assetPath;
   final double size;
   final VoidCallback? onTap;
+  final Color color;
 
   const _ImageBtn({
     required this.assetPath,
     this.size = 24,
     this.onTap,
+    required this.color
   });
 
   @override
@@ -168,6 +179,7 @@ class _ImageBtn extends StatelessWidget {
             width: size,
             height: size,
             filterQuality: FilterQuality.high,
+            color: color,
           ),
         ),
       ),

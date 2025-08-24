@@ -8,7 +8,6 @@ import '../settings_page/settings_page.dart';
 import '../setup_game_pages/join_game/join_game_page.dart';
 
 class LocalPage extends StatelessWidget {
-
   const LocalPage({super.key});
 
   static const double _headerHeight = 100;
@@ -21,19 +20,20 @@ class LocalPage extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: CustomHeader(
-        onBookTap: (){
-          Navigator.push(
-            context,
-            PageRouteBuilder(pageBuilder: (c, a1, a2) => RulesPage()),
-          );
-        },
-        onSettingsTap: (){
-          Navigator.push(
-            context,
-            PageRouteBuilder(pageBuilder: (c, a1, a2) => SettingsPage()),
-          );
-        },
-      ),
+          onBookTap: () {
+            Navigator.push(
+              context,
+              PageRouteBuilder(pageBuilder: (c, a1, a2) => RulesPage()),
+            );
+          },
+          onSettingsTap: () {
+            Navigator.push(
+              context,
+              PageRouteBuilder(pageBuilder: (c, a1, a2) => SettingsPage()),
+            );
+          },
+          isRulesPage: false,
+          isSettingsPage: false),
       body: Stack(
         children: [
           // même background que la Home
@@ -71,5 +71,4 @@ class LocalPage extends StatelessWidget {
       ),
     );
   }
-
 }
