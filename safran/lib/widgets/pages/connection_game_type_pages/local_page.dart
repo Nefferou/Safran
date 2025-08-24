@@ -36,7 +36,6 @@ class LocalPage extends StatelessWidget {
           isSettingsPage: false),
       body: Stack(
         children: [
-          // même background que la Home
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -50,15 +49,16 @@ class LocalPage extends StatelessWidget {
               top: topInset + _headerHeight + _gapBelowHeader,
               bottom: 20,
             ),
-            child: Center(
-              child: Column(
+            child: Align(
+              alignment: Alignment(0, 0),
+              child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   GameModeTextButton(
                     text: "Host\ngame",
                     redirectedPage: HostGamePage(),
                   ),
-                  const SizedBox(height: 46),
+                  const SizedBox(width: 46),
                   GameModeTextButton(
                     text: "Join\ngame",
                     redirectedPage: JoinGamePage(),

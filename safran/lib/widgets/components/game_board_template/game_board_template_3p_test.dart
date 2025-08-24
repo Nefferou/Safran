@@ -4,8 +4,11 @@ import 'package:safran/services/logger.dart';
 import 'package:safran/widgets/components/hands/opponent_hand.dart';
 import 'package:safran/widgets/components/hands/main_hand.dart';
 import 'package:safran/widgets/components/discard_pile/discard_pile.dart';
+import 'package:safran/widgets/components/popup/custom_popup.dart';
 import '../../../entities/card/game_card.dart';
 import '../../../entities/game.dart';
+import '../../pages/home_page.dart';
+import '../../pages/settings_page/rules_page.dart';
 import '../../pages/settings_page/settings_page.dart';
 import '../cards/game_card_component.dart';
 
@@ -19,7 +22,7 @@ class GameBoardTemplate3PTest extends StatefulWidget {
 
 class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
   static const double handWidth = 400;
-  static const double handHeight = 180;
+  static const double handHeight = 80;
 
   @override
   void initState() {
@@ -63,21 +66,112 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
                 ),
               ),
 
-              // --- SETTING BUTTON ---
+              // --- MENU BUTTON ---
               Positioned(
                 top: 20,
                 right: 20,
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) => SettingsPage(),
-                      ),
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return CustomPopup(
+                          title: "Menu",
+                          child: IntrinsicWidth(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (_) => const RulesPage()),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: const [
+                                        Icon(Icons.menu_book, color: Color(0xFFFFE5AC)),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          "Règles du jeu",
+                                          style: TextStyle(color: Color(0xFFFFE5AC), fontSize: 24, fontFamily: 'Almendra'),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+
+                                const SizedBox(
+                                  width: double.infinity,
+                                  child: Divider(color: Color(0xFFFFE5AC), thickness: 2),
+                                ),
+
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (_) => const SettingsPage()),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: const [
+                                        Icon(Icons.settings, color: Color(0xFFFFE5AC)),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          "Paramètre",
+                                          style: TextStyle(color: Color(0xFFFFE5AC), fontSize: 24, fontFamily: 'Almendra'),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+
+                                const SizedBox(
+                                  width: double.infinity,
+                                  child: Divider(color: Color(0xFFFFE5AC), thickness: 2),
+                                ),
+
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).pop();
+                                    Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(builder: (_) => const HomePage()),
+                                          (route) => false,
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: const [
+                                        Icon(Icons.home, color: Color(0xFFFFE5AC)),
+                                        SizedBox(width: 10),
+                                        Text(
+                                          "Quitter la partie",
+                                          style: TextStyle(color: Color(0xFFFFE5AC), fontSize: 24, fontFamily: 'Almendra'),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                     );
                   },
                   child: Image.asset(
-                    "res/assets/game_board/Nav.png", // ton image
+                    "res/assets/game_board/Nav.png",
                     width: 50,
                     height: 50,
                   ),
