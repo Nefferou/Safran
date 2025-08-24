@@ -1,5 +1,9 @@
 jest.mock('../../src/repositories/user.repository');
-jest.mock('../../src/utils/password_handler');
+jest.mock('../../src/utils/password_handler', () => ({
+  hashPassword: jest.fn(async (x) => `hashed:${x}`),
+  comparePassword: jest.fn(async () => true),
+  PASSWORD_REGEX: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{12,}$/
+}));
 jest.mock('../../src/utils/jwt');
 
 const repo = require('../../src/repositories/user.repository');
@@ -28,6 +32,21 @@ describe('services/auth.service register', () => {
 
     const res = await service.register({ email: 'a', password: 'p', username: 'u' });
     expect(res).toEqual({ id: 2, email: 'a', username: 'u', token: 'token' });
+  });
+
+  it('throws if password validation fails', async () => {
+    repo.getUserByEmail.mockResolvedValue(undefined);
+    const passwordError = new HttpError(400, 'INVALID_PASSWORD', 'Invalid password');
+    pw.hashPassword.mockRejectedValue(passwordError);
+
+    await expect(service.register({ email: 'a', password: 'weak', username: 'u' }))
+      .rejects.toBeInstanceOf(HttpError);
+    await expect(service.register({ email: 'a', password: 'weak', username: 'u' }))
+      .rejects.toMatchObject({
+        status: 400,
+        code: 'INVALID_PASSWORD',
+        message: 'Invalid password'
+      });
   });
 });
 

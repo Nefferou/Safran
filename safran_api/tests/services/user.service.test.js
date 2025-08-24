@@ -4,8 +4,11 @@ const repo = require('../../src/repositories/user.repository');
 const service = require('../../src/services/user.service');
 
 jest.mock('../../src/utils/password_handler', () => ({
-  hashPassword: jest.fn(async (pw) => `hashed:${pw}`),
+  hashPassword: jest.fn(async (x) => `hashed:${x}`),
+  PASSWORD_REGEX: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{12,}$/
 }));
+
+const pw = require('../../src/utils/password_handler');
 
 beforeEach(() => {
   jest.resetAllMocks();
@@ -26,10 +29,27 @@ describe('services/user.service', () => {
 
   it('createUser hashes password and creates user', async () => {
     repo.getUserByEmail.mockResolvedValue(undefined);
+    pw.hashPassword.mockResolvedValue('hashed:p');
     repo.createUser.mockResolvedValue({ id: 2, email: 'a', username: 'u' });
     const res = await service.createUser({ email: 'a', password: 'p', username: 'u' });
     expect(repo.createUser).toHaveBeenCalledWith({ email: 'a', password: 'hashed:p', username: 'u' });
     expect(res).toEqual({ id: 2, email: 'a', username: 'u' });
+  });
+
+  it('createUser throws if password validation fails', async () => {
+    repo.getUserByEmail.mockResolvedValue(undefined);
+    const passwordError = new Error('Invalid password');
+    passwordError.status = 400;
+    passwordError.code = 'INVALID_PASSWORD';
+    pw.hashPassword.mockRejectedValue(passwordError);
+
+    await expect(service.createUser({ email: 'a', password: 'weak', username: 'u' }))
+      .rejects.toBeInstanceOf(Error);
+    await expect(service.createUser({ email: 'a', password: 'weak', username: 'u' }))
+      .rejects.toMatchObject({
+        status: 400,
+        code: 'INVALID_PASSWORD'
+      });
   });
 
   it('createUser throws if email exists', async () => {

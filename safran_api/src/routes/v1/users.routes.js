@@ -1,5 +1,8 @@
 const { Router } = require('express');
 const userController = require('../../controllers/user.controller');
+const validate = require('../../middlewares/validate');
+const { userCreateBody, userUpdateBody } = require('../../schemas/user.schema');
+const { idParamSchema } = require('../../schemas/common.schema');
 
 const router = Router();
 
@@ -60,7 +63,7 @@ router.get('/', userController.getUsers);
  *       404:
  *         description: Not found
  */
-router.get('/:id', userController.getUserById);
+router.get('/:id', validate({ params: idParamSchema }), userController.getUserById);
 
 /**
  * @swagger
@@ -90,7 +93,7 @@ router.get('/:id', userController.getUserById);
  *       400:
  *         description: Email already in use
  */
-router.post('/', userController.createUser);
+router.post('/', validate({ body: userCreateBody }), userController.createUser);
 
 /**
  * @swagger
@@ -127,7 +130,7 @@ router.post('/', userController.createUser);
  *       404:
  *         description: Not found
  */
-router.patch('/:id', userController.updateUser);
+router.patch('/:id', validate({ params: idParamSchema, body: userUpdateBody }), userController.updateUser);
 
 /**
  * @swagger
@@ -152,6 +155,6 @@ router.patch('/:id', userController.updateUser);
  *         description: Not found
  */
 
-router.delete('/:id', userController.deleteUser);
+router.delete('/:id', validate({ params: idParamSchema }), userController.deleteUser);
 
 module.exports = router;
