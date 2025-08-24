@@ -8,7 +8,6 @@ import '../setup_game_pages/host_game/host_game_page.dart';
 import '../setup_game_pages/join_game/join_game_page.dart';
 
 class OnlinePage extends StatelessWidget {
-
   const OnlinePage({super.key});
 
   static const double _headerHeight = 100;
@@ -36,7 +35,6 @@ class OnlinePage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // même background que la Home
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -50,15 +48,16 @@ class OnlinePage extends StatelessWidget {
               top: topInset + _headerHeight + _gapBelowHeader,
               bottom: 20,
             ),
-            child: Center(
-              child: Column(
+            child: Align(
+              alignment: Alignment(0, 0),
+              child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   GameModeTextButton(
                     text: "Host\ngame",
                     redirectedPage: HostGamePage(),
                   ),
-                  const SizedBox(height: 46),
+                  const SizedBox(width: 46),
                   GameModeTextButton(
                     text: "Join\ngame",
                     redirectedPage: JoinGamePage(),
