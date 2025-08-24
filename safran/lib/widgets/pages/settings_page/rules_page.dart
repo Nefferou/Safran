@@ -47,6 +47,7 @@ class _RulesPageState extends State<RulesPage> {
       appBar: CustomHeader(
         onBookTap: () {},
         onSettingsTap: () {
+          Navigator.pop(context);
           Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => const SettingsPage()),
@@ -95,7 +96,6 @@ class _RulesPageState extends State<RulesPage> {
                       ),
                     ),
                     const SizedBox(width: 20),
-
                     Expanded(
                       child: isWide
                           ? Row(

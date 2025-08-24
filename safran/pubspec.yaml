@@ -66,6 +66,7 @@ flutter:
     - res/assets/host_game/
     - res/assets/cards/
     - res/assets/game_board/
+    - res/assets/settings/
 
   fonts:
     - family: Almendra

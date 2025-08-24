@@ -101,7 +101,7 @@ class _HostGamePageState extends State<HostGamePage> {
                           children: [
                             ConstrainedBox(
                               constraints: const BoxConstraints(
-                                maxWidth: 300, // peut être 230 si tu veux
+                                maxWidth: 300,
                                 minWidth: 180,
                                 minHeight: 40,
                               ),
