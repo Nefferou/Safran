@@ -78,92 +78,107 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
                         return CustomPopup(
                           title: "Menu",
                           child: IntrinsicWidth(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).pop();
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (_) => const RulesPage()),
-                                    );
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: const [
-                                        Icon(Icons.menu_book, color: Color(0xFFFFE5AC)),
-                                        SizedBox(width: 10),
-                                        Text(
-                                          "Règles du jeu",
-                                          style: TextStyle(color: Color(0xFFFFE5AC), fontSize: 24, fontFamily: 'Almendra'),
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                // borne la hauteur de la colonne des items
+                                maxHeight: MediaQuery.of(context).size.height * 0.6,
+                              ),
+                              child: SingleChildScrollView(
+                                padding: EdgeInsets.zero,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (_) => const RulesPage()),
+                                        );
+                                      },
+                                      child: const Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 8),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(Icons.menu_book, color: Color(0xFFFFE5AC)),
+                                            SizedBox(width: 10),
+                                            Text(
+                                              "Règles du jeu",
+                                              style: TextStyle(
+                                                color: Color(0xFFFFE5AC),
+                                                fontSize: 24,
+                                                fontFamily: 'Almendra',
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                ),
 
-                                const SizedBox(
-                                  width: double.infinity,
-                                  child: Divider(color: Color(0xFFFFE5AC), thickness: 2),
-                                ),
+                                    const Divider(color: Color(0xFFFFE5AC), thickness: 2, height: 0),
 
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).pop();
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (_) => const SettingsPage()),
-                                    );
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: const [
-                                        Icon(Icons.settings, color: Color(0xFFFFE5AC)),
-                                        SizedBox(width: 10),
-                                        Text(
-                                          "Paramètre",
-                                          style: TextStyle(color: Color(0xFFFFE5AC), fontSize: 24, fontFamily: 'Almendra'),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (_) => const SettingsPage()),
+                                        );
+                                      },
+                                      child: const Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 8),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(Icons.settings, color: Color(0xFFFFE5AC)),
+                                            SizedBox(width: 10),
+                                            Text(
+                                              "Paramètre",
+                                              style: TextStyle(
+                                                color: Color(0xFFFFE5AC),
+                                                fontSize: 24,
+                                                fontFamily: 'Almendra',
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                ),
 
-                                const SizedBox(
-                                  width: double.infinity,
-                                  child: Divider(color: Color(0xFFFFE5AC), thickness: 2),
-                                ),
+                                    const Divider(color: Color(0xFFFFE5AC), thickness: 2, height: 0),
 
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).pop();
-                                    Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(builder: (_) => const HomePage()),
-                                          (route) => false,
-                                    );
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: const [
-                                        Icon(Icons.home, color: Color(0xFFFFE5AC)),
-                                        SizedBox(width: 10),
-                                        Text(
-                                          "Quitter la partie",
-                                          style: TextStyle(color: Color(0xFFFFE5AC), fontSize: 24, fontFamily: 'Almendra'),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                        Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(builder: (_) => const HomePage()),
+                                              (route) => false,
+                                        );
+                                      },
+                                      child: const Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 8),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(Icons.home, color: Color(0xFFFFE5AC)),
+                                            SizedBox(width: 10),
+                                            Text(
+                                              "Quitter la partie",
+                                              style: TextStyle(
+                                                color: Color(0xFFFFE5AC),
+                                                fontSize: 24,
+                                                fontFamily: 'Almendra',
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ),
                         );
