@@ -12,7 +12,7 @@ class OpponentHand extends StatefulWidget {
 
 class _OpponentHandState extends State<OpponentHand> {
   static const double cardWidth = 80;
-  static const double cardHeight = 120;
+  static const double cardHeight = 60;
 
   int? pressedIndex;
 

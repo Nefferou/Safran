@@ -1,28 +1,74 @@
 import 'package:flutter/material.dart';
 
-import '../../components/buttons/basic_button.dart';
+import '../../components/buttons/game_mode_text_button.dart';
 import '../../components/header/custom_header.dart';
-import '../setup_game_pages/host_game_page.dart';
-import '../setup_game_pages/join_game_page.dart';
+import '../settings_page/rules_page.dart';
+import '../settings_page/settings_page.dart';
+import '../setup_game_pages/host_game/host_game_page.dart';
+import '../setup_game_pages/join_game/join_game_page.dart';
 
 class OnlinePage extends StatelessWidget {
-
   const OnlinePage({super.key});
+
+  static const double _headerHeight = 100;
+  static const double _gapBelowHeader = 10;
 
   @override
   Widget build(BuildContext context) {
+    final double topInset = MediaQuery.of(context).padding.top;
+
     return Scaffold(
-      appBar: CustomHeader(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            BasicButton(text: "Host game", redirectedPage: HostGamePage()),
-            BasicButton(text: "Join game", redirectedPage: JoinGamePage()),
-          ],
-        ),
+      extendBodyBehindAppBar: true,
+      appBar: CustomHeader(
+          onBookTap: () {
+            Navigator.push(
+              context,
+              PageRouteBuilder(pageBuilder: (c, a1, a2) => RulesPage()),
+            );
+          },
+          onSettingsTap: () {
+            Navigator.push(
+              context,
+              PageRouteBuilder(pageBuilder: (c, a1, a2) => SettingsPage()),
+            );
+          },
+          isRulesPage: false,
+          isSettingsPage: false),
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("res/assets/home/background.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: topInset + _headerHeight + _gapBelowHeader,
+              bottom: 20,
+            ),
+            child: Align(
+              alignment: Alignment(0, 0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GameModeTextButton(
+                    text: "Host\ngame",
+                    redirectedPage: HostGamePage(),
+                  ),
+                  const SizedBox(width: 46),
+                  GameModeTextButton(
+                    text: "Join\ngame",
+                    redirectedPage: JoinGamePage(),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
-
 }

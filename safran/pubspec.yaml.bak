@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.0.0+1
+version: 1.1.0+1
 
 
 environment:
@@ -60,13 +60,32 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - res/assets/home/
+    - res/assets/join_game/
+    - res/assets/host_game/
+    - res/assets/cards/
+    - res/assets/game_board/
+    - res/assets/settings/
+
+  fonts:
+    - family: Almendra
+      fonts:
+        - asset: res/fonts/Almendra/Almendra-Regular.ttf
+          weight: 400
+        - asset: res/fonts/Almendra/Almendra-Bold.ttf
+          weight: 700
+        - asset: res/fonts/Almendra/Almendra-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: res/fonts/Almendra/Almendra-BoldItalic.ttf
+          weight: 700
+          style: italic
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
-
-  assets:
-    - res/assets/cards/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

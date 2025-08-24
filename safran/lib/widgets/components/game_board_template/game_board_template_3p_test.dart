@@ -4,9 +4,12 @@ import 'package:safran/services/logger.dart';
 import 'package:safran/widgets/components/hands/opponent_hand.dart';
 import 'package:safran/widgets/components/hands/main_hand.dart';
 import 'package:safran/widgets/components/discard_pile/discard_pile.dart';
+import 'package:safran/widgets/components/popup/custom_popup.dart';
 import '../../../entities/card/game_card.dart';
 import '../../../entities/game.dart';
-import '../../pages/setings_page/settings_page.dart';
+import '../../pages/home_page.dart';
+import '../../pages/settings_page/rules_page.dart';
+import '../../pages/settings_page/settings_page.dart';
 import '../cards/game_card_component.dart';
 
 class GameBoardTemplate3PTest extends StatefulWidget {
@@ -19,7 +22,7 @@ class GameBoardTemplate3PTest extends StatefulWidget {
 
 class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
   static const double handWidth = 400;
-  static const double handHeight = 180;
+  static const double handHeight = 80;
 
   @override
   void initState() {
@@ -43,25 +46,156 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
           return Stack(
             clipBehavior: Clip.none,
             children: [
+              // --- BACKGROUND IMAGE ---
+              Positioned.fill(
+                child: Image.asset(
+                  "res/assets/game_board/background.png",
+                  fit: BoxFit.cover,
+                ),
+              ),
+
+              // --- BOARD IMAGE ---
+              Positioned.fill(
+                child: Center(
+                  child: Image.asset(
+                    "res/assets/game_board/board.png",
+                    width: 1300,
+                    height: 1300,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+
+              // --- MENU BUTTON ---
               Positioned(
-                top: 0,
-                right: 0,
-                child: IconButton(
-                  icon: const Icon(Icons.settings),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) => SettingsPage(),
-                      ),
+                top: 20,
+                right: 20,
+                child: GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return CustomPopup(
+                          title: "Menu",
+                          child: IntrinsicWidth(
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                // borne la hauteur de la colonne des items
+                                maxHeight: MediaQuery.of(context).size.height * 0.6,
+                              ),
+                              child: SingleChildScrollView(
+                                padding: EdgeInsets.zero,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (_) => const RulesPage()),
+                                        );
+                                      },
+                                      child: const Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 8),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(Icons.menu_book, color: Color(0xFFFFE5AC)),
+                                            SizedBox(width: 10),
+                                            Text(
+                                              "Règles du jeu",
+                                              style: TextStyle(
+                                                color: Color(0xFFFFE5AC),
+                                                fontSize: 24,
+                                                fontFamily: 'Almendra',
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+
+                                    const Divider(color: Color(0xFFFFE5AC), thickness: 2, height: 0),
+
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (_) => const SettingsPage()),
+                                        );
+                                      },
+                                      child: const Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 8),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(Icons.settings, color: Color(0xFFFFE5AC)),
+                                            SizedBox(width: 10),
+                                            Text(
+                                              "Paramètre",
+                                              style: TextStyle(
+                                                color: Color(0xFFFFE5AC),
+                                                fontSize: 24,
+                                                fontFamily: 'Almendra',
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+
+                                    const Divider(color: Color(0xFFFFE5AC), thickness: 2, height: 0),
+
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                        Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(builder: (_) => const HomePage()),
+                                              (route) => false,
+                                        );
+                                      },
+                                      child: const Padding(
+                                        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 8),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Icon(Icons.home, color: Color(0xFFFFE5AC)),
+                                            SizedBox(width: 10),
+                                            Text(
+                                              "Quitter la partie",
+                                              style: TextStyle(
+                                                color: Color(0xFFFFE5AC),
+                                                fontSize: 24,
+                                                fontFamily: 'Almendra',
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
                     );
                   },
+                  child: Image.asset(
+                    "res/assets/game_board/Nav.png",
+                    width: 50,
+                    height: 50,
+                  ),
                 ),
               ),
 
               // --- Main Hand ---
               Positioned(
-                bottom: -100,
+                bottom: 0,
                 left: 0,
                 right: 0,
                 child: GestureDetector(
@@ -76,12 +210,13 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            "Your hand (${widget.game.players[0].deck.length} cards)",
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            "${widget.game.players[0].userName} (${widget.game.players[0].deck.length})",
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
                           ),
                           MainHand(
                             player: widget.game.players[0],
                             game: widget.game,
+                            handWidth: 400,
                           ),
                         ],
                       );
@@ -111,7 +246,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
 
               // --- Left Opponent ---
               Positioned(
-                top: 0,
+                top: 25,
                 right: MediaQuery.of(context).size.width / 2,
                 left: 0,
                 child: GestureDetector(
@@ -126,12 +261,13 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            "${widget.game.players[1].userName} (carte ${widget.game.players[1].deck.length})",
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            "${widget.game.players[1].userName} (${widget.game.players[1].deck.length})",
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
                           ),
                           MainHand(
                             player: widget.game.players[1],
                             game: widget.game,
+                            handWidth: 200,
                           ),
                         ],
                       );
@@ -142,7 +278,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
 
               // --- Right Opponent ---
               Positioned(
-                top: 0,
+                top: 25,
                 right: 0,
                 left: MediaQuery.of(context).size.width / 2,
                 child: GestureDetector(
@@ -157,12 +293,13 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            "${widget.game.players[2].userName} (carte ${widget.game.players[2].deck.length})",
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            "${widget.game.players[2].userName} (${widget.game.players[2].deck.length})",
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
                           ),
                           MainHand(
                             player: widget.game.players[2],
                             game: widget.game,
+                            handWidth: 200,
                           ),
                         ],
                       );
@@ -187,7 +324,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
                         style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
                     );
