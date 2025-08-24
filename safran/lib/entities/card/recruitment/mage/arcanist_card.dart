@@ -14,8 +14,9 @@ class ArcanistCard extends MageCard {
   play(Game game, [List<int> targets = const [], bool activateEffect = true]) {
     try {
       GameCard.correctNbTargets(1, targets);
-      Dealer.transferCardBattleFieldToPlayer(
-          game.battleField, game.players[targets[0]], DrawPositionEnum.both);
+      game.battleField.cards.length > 1
+        ? Dealer.transferCardBattleFieldToPlayer(game.battleField, game.players[targets[0]], DrawPositionEnum.both)
+        : Dealer.transferCardBattleFieldToPlayer(game.battleField, game.players[targets[0]], DrawPositionEnum.bottom);
     } catch (e) {
       Logger.error("Error while playing Arcanist: $e");
       rethrow;

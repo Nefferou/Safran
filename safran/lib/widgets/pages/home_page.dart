@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
           children: [
             BasicButton(text: "Online Games", redirectedPage: OnlinePage()),
             BasicButton(text: "Local Games", redirectedPage: LocalPage()),
-            BasicButton(text: "Test Board Game", redirectedPage: GameBoardPage(game: game,))
+            BasicButton(text: "Test Board Game", redirectedPage: GameBoardPage(game: game, isTestGame: true,))
           ],
         ),
       ),

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:safran/entities/card/game_card.dart';
+import 'package:safran/entities/game.dart';
+import 'package:safran/entities/player.dart';
+import 'package:safran/services/logger.dart';
 import 'package:safran/widgets/components/cards/game_card_component.dart';
 
 import '../cards/opponent_game_card_component.dart';
 
 class MainHand extends StatefulWidget {
-  final List<GameCard> cards;
+  final Player player;
+  final Game game;
 
-  const MainHand({super.key, required this.cards});
+  const MainHand({super.key, required this.player, required this.game});
 
   @override
   State<MainHand> createState() => _MainHandState();
@@ -26,7 +30,7 @@ class _MainHandState extends State<MainHand> {
     final local = box.globalToLocal(globalPos);
     final dx = local.dx - startOffset;
     final idx = (dx / offset).round();
-    if (idx >= 0 && idx < widget.cards.length) {
+    if (idx >= 0 && idx < widget.player.deck.length) {
       setState(() => pressedIndex = idx);
     } else {
       setState(() => pressedIndex = null);
@@ -35,7 +39,7 @@ class _MainHandState extends State<MainHand> {
 
   @override
   Widget build(BuildContext context) {
-    final int cardCount = widget.cards.length;
+    final int cardCount = widget.player.deck.length;
 
     double offset = cardCount > 1
         ? (handWidth - cardWidth) / (cardCount - 1)
@@ -76,7 +80,7 @@ class _MainHandState extends State<MainHand> {
                   child: SizedBox(
                     width: cardWidth,
                     height: 120,
-                    child: GameCardComponent(card: widget.cards[index]),
+                    child: GameCardComponent(card: widget.player.deck[index]),
                   ),
                 ),
               ),
@@ -96,11 +100,16 @@ class _MainHandState extends State<MainHand> {
       transitionDuration: const Duration(milliseconds: 300),
       pageBuilder: (_, __, ___) => Center(
         child: GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
+          onTap: () {
+            Logger.info("tap");
+            widget.player.chooseCard(index);
+            setState(() {});
+            Navigator.of(context).pop();
+          },
           child: SizedBox(
             width: 200,
             height: 300,
-            child: GameCardComponent(card: widget.cards[index]),
+            child: GameCardComponent(card: widget.player.deck[index]),
           ),
         ),
       ),

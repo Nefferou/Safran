@@ -1,7 +1,10 @@
 import 'dart:collection';
+import 'package:flutter/foundation.dart';
+import 'package:safran/services/logger.dart';
+
 import '../entities/card/game_card.dart';
 
-class BattleField {
+class BattleField  extends ChangeNotifier {
   late Queue<GameCard> cards;
 
   BattleField() {
@@ -23,10 +26,17 @@ class BattleField {
   shuffleBattleField() {
     List<GameCard> cardsList = cards.toList();
     cardsList.shuffle();
+    Logger.info("cardList ${cardsList}");
     cards = Queue.from(cardsList);
   }
 
+  void addCards(List<GameCard> newCards) {
+    cards.addAll(newCards);
+    notifyListeners();
+  }
+
   getUpCard() {
+    Logger.info("carte de dessus : ${cards.last}");
     return cards.last;
   }
 

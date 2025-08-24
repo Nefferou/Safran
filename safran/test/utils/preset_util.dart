@@ -156,7 +156,7 @@ class PresetUtil {
     BattleField battleField = BattleField();
 
     player1.deck.addAll([
-      WarKnightCard(),
+      PlagueKnightCard(),
       PlagueKnightCard(),
       SwordsmanCard()
     ]);
