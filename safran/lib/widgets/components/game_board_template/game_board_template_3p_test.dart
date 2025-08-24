@@ -6,7 +6,7 @@ import 'package:safran/widgets/components/hands/main_hand.dart';
 import 'package:safran/widgets/components/discard_pile/discard_pile.dart';
 import '../../../entities/card/game_card.dart';
 import '../../../entities/game.dart';
-import '../../pages/setings_page/settings_page.dart';
+import '../../pages/settings_page/settings_page.dart';
 import '../cards/game_card_component.dart';
 
 class GameBoardTemplate3PTest extends StatefulWidget {
@@ -43,12 +43,32 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
           return Stack(
             clipBehavior: Clip.none,
             children: [
+              // --- BACKGROUND IMAGE ---
+              Positioned.fill(
+                child: Image.asset(
+                  "res/assets/game_board/background.png",
+                  fit: BoxFit.cover,
+                ),
+              ),
+
+              // --- BOARD IMAGE ---
+              Positioned.fill(
+                child: Center(
+                  child: Image.asset(
+                    "res/assets/game_board/board.png",
+                    width: 1300,
+                    height: 1300,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+
+              // --- SETTING BUTTON ---
               Positioned(
-                top: 0,
-                right: 0,
-                child: IconButton(
-                  icon: const Icon(Icons.settings),
-                  onPressed: () {
+                top: 20,
+                right: 20,
+                child: GestureDetector(
+                  onTap: () {
                     Navigator.push(
                       context,
                       PageRouteBuilder(
@@ -56,12 +76,17 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
                       ),
                     );
                   },
+                  child: Image.asset(
+                    "res/assets/game_board/Nav.png", // ton image
+                    width: 50,
+                    height: 50,
+                  ),
                 ),
               ),
 
               // --- Main Hand ---
               Positioned(
-                bottom: -100,
+                bottom: 0,
                 left: 0,
                 right: 0,
                 child: GestureDetector(
@@ -76,12 +101,13 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            "Your hand (${widget.game.players[0].deck.length} cards)",
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            "${widget.game.players[0].userName} (${widget.game.players[0].deck.length})",
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
                           ),
                           MainHand(
                             player: widget.game.players[0],
                             game: widget.game,
+                            handWidth: 800,
                           ),
                         ],
                       );
@@ -111,7 +137,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
 
               // --- Left Opponent ---
               Positioned(
-                top: 0,
+                top: 75,
                 right: MediaQuery.of(context).size.width / 2,
                 left: 0,
                 child: GestureDetector(
@@ -126,12 +152,13 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            "${widget.game.players[1].userName} (carte ${widget.game.players[1].deck.length})",
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            "${widget.game.players[1].userName} (${widget.game.players[1].deck.length})",
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
                           ),
                           MainHand(
                             player: widget.game.players[1],
                             game: widget.game,
+                            handWidth: 600,
                           ),
                         ],
                       );
@@ -142,7 +169,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
 
               // --- Right Opponent ---
               Positioned(
-                top: 0,
+                top: 75,
                 right: 0,
                 left: MediaQuery.of(context).size.width / 2,
                 child: GestureDetector(
@@ -157,12 +184,13 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            "${widget.game.players[2].userName} (carte ${widget.game.players[2].deck.length})",
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                            "${widget.game.players[2].userName} (${widget.game.players[2].deck.length})",
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
                           ),
                           MainHand(
                             player: widget.game.players[2],
                             game: widget.game,
+                            handWidth: 600,
                           ),
                         ],
                       );
@@ -187,7 +215,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
                         style: const TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: Colors.white,
                         ),
                       ),
                     );

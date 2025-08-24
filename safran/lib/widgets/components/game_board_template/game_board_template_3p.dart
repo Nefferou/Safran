@@ -74,6 +74,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3P> {
                           MainHand(
                             player: widget.game.players[0],
                             game: widget.game,
+                            handWidth: 800,
                           ),
                         ],
                       );

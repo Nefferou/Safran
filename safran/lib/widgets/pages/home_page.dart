@@ -70,7 +70,8 @@ class HomePage extends StatelessWidget {
                   GameModeButton(text: "Jouer en\nligne", imagePath: "res/assets/home/internet.png", redirectedPage: OnlinePage()),
                   const SizedBox(width: 46,),
                   GameModeButton(text: "Jouer en\nlocal", imagePath: "res/assets/home/local.png", redirectedPage: OnlinePage()),
-                  //BasicButton(text: "Test Board Game", redirectedPage: GameBoardPage(game: game,))
+                  const SizedBox(width: 46,),
+                  GameModeButton(text: "Partie de test Admin", imagePath: "res/assets/home/test.png", redirectedPage: GameBoardPage(game: game, isTestGame: true))
                 ],
               ),
             ),

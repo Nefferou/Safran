@@ -81,6 +81,7 @@ class _GameBoardTemplate5PState extends State<GameBoardTemplate5P> {
                           MainHand(
                             player: widget.game.players[0],
                             game: widget.game,
+                            handWidth: 800,
                           ),
                         ],
                       );
