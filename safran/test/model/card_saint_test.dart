@@ -19,7 +19,7 @@ void main() {
   });
 
   group("Card Saint tests", () {
-    test("Card Saint Healing", () {
+    test("Card Saint Healing", () async {
       CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
       CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
       CardsVerifier.verifyIfCardTypeIsInDeck(
@@ -28,7 +28,7 @@ void main() {
       int indexCardHealingSaint = CardsVerifier.getIndexCardByType(
           customGame.players[0], HealingSaintCard);
 
-      customGame
+      await customGame
           .getCurrentPlayer()
           .playCardWithoutTarget(customGame, indexCardHealingSaint);
 
@@ -40,7 +40,7 @@ void main() {
           customGame.players[0], PlagueKnightCard);
     });
 
-    test("Card Saint Abundance", () {
+    test("Card Saint Abundance", () async {
       CardsVerifier.verifyPlayerNbCard(customGame.players[1], 11);
       CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
       CardsVerifier.verifyIfCardTypeIsInDeck(
@@ -51,7 +51,7 @@ void main() {
 
       customGame.currentPlayerTurn = 1;
 
-      customGame
+      await customGame
           .getCurrentPlayer()
           .playCardWithoutTarget(customGame, indexCardAbundanceSaint);
 
@@ -63,7 +63,7 @@ void main() {
           customGame.players[1], FamineKnightCard);
     });
 
-    test("Card Saint Peace", () {
+    test("Card Saint Peace", () async {
       CardsVerifier.verifyPlayerNbCard(customGame.players[2], 11);
       CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
       CardsVerifier.verifyIfCardTypeIsInDeck(
@@ -74,7 +74,7 @@ void main() {
 
       customGame.currentPlayerTurn = 2;
 
-      customGame
+      await customGame
           .getCurrentPlayer()
           .playCardWithoutTarget(customGame, indexCardPeaceSaint);
 
@@ -86,7 +86,7 @@ void main() {
           customGame.players[2], WarKnightCard);
     });
 
-    test("Card Saint Prosperity", () {
+    test("Card Saint Prosperity", () async {
       CardsVerifier.verifyPlayerNbCard(customGame.players[3], 11);
       CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
       CardsVerifier.verifyIfCardTypeIsInDeck(
@@ -97,7 +97,7 @@ void main() {
 
       customGame.currentPlayerTurn = 3;
 
-      customGame
+      await customGame
           .getCurrentPlayer()
           .playCardWithoutTarget(customGame, indexCardProsperitySaint);
 

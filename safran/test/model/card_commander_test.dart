@@ -12,7 +12,7 @@ void main() {
   });
 
   group("Card Commander tests", () {
-    test("Card Commander", () {
+    test("Card Commander", () async {
       CardsVerifier.verifyPlayerNbCard(customGame.players[0], 11);
       CardsVerifier.verifyBattleFieldNbCard(customGame.battleField, 4);
       CardsVerifier.verifyIfCardTypeIsInDeck(
@@ -22,7 +22,7 @@ void main() {
           customGame.players[0], CommanderCard);
 
       var battleFieldBeforeShuffle = customGame.battleField.cards;
-      customGame.getCurrentPlayer().playCard(customGame, indexCardCommander);
+      await customGame.getCurrentPlayer().playCard(customGame, indexCardCommander);
       var battleFieldAfterShuffle = customGame.battleField.cards;
 
       expect(

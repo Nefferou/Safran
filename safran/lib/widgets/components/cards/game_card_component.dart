@@ -31,19 +31,10 @@ class _GameCardComponentState extends State<GameCardComponent> {
           ),
         ],
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.person,
-            size: 50,
-            color: Colors.black
-          ),
-          const SizedBox(height: 5),
-          Text(widget.card.name, style: const TextStyle(fontSize: 10)),
-          const SizedBox(height: 5),
-          Text(widget.card.description, style: const TextStyle(fontSize: 12)),
-        ],
+      clipBehavior: Clip.antiAlias, // <-- pour que l'image respecte les bords arrondis
+      child: Image.asset(
+        "res/assets/cards/${widget.card.image}",
+        fit: BoxFit.cover, // <-- prend tout l'espace dispo
       ),
     );
   }
