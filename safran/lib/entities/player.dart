@@ -152,7 +152,7 @@ class Player extends ChangeNotifier {
     return card;
   }
 
-  Future<void> discardCard(Game game, [int indexCard = -1, bool otherPlayerNeedToChooseCard = false]) async {
+  Future<void> discardCard(Game game, [int indexCard = -1, bool otherPlayerNeedToChooseCard = false, bool discardBecauseOfFamine = false]) async {
     Logger.info("$userName discard a card");
 
     game.battleMode = false;
@@ -161,7 +161,7 @@ class Player extends ChangeNotifier {
           (player) => player.haveCardTypeInDeck(WarKnightCard) && player != this,
     );
 
-    if (otherPlayer.isNotEmpty) {
+    if (otherPlayer.isNotEmpty && !discardBecauseOfFamine) {
       game.setActionMessage("${otherPlayer.first.userName} defausser");
 
       await otherPlayer.first.discardCard(game, -1, true);
@@ -236,7 +236,7 @@ class Player extends ChangeNotifier {
         return await handleFamineKnight(game);
       }
 
-      await discardCard(game, indexCard);
+      await discardCard(game, indexCard, false, true);
     }
     game.handleCardCanBePlayed(this);
   }

@@ -146,14 +146,7 @@ class _RulesPageState extends State<RulesPage> {
                               ],
                             ),
                     ),
-                    SizedBox(
-                      width: 165,
-                      child: _RightPane(
-                        selected: _selected,
-                        onChanged: (i) => setState(() => _selected = i),
-                      ),
-                    ),
-                  ],
+                                      ],
                 );
               },
             ),

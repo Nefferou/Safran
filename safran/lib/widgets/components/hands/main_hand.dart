@@ -78,8 +78,8 @@ class _MainHandState extends State<MainHand> {
                   scale: (pressedIndex == index) ? 1.6 : 1.0,
                   duration: const Duration(milliseconds: 150),
                   child: SizedBox(
-                    width: cardWidth,
-                    height: 180,
+                    width: cardWidth / 2,
+                    height: 90,
                     child: GameCardComponent(card: widget.player.deck[index]),
                   ),
                 ),
