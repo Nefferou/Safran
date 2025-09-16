@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:safran/widgets/components/header/custom_header.dart';
 import 'package:safran/widgets/pages/settings_page/rules_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../connection_pages/login_page.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -35,10 +38,20 @@ class _SettingsPageState extends State<SettingsPage> {
         ],
       ),
     );
+
     if (ok == true) {
-      // TODO: logique de déconnexion
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove('token');
+
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Déconnecté.')));
+
+      if (!mounted) return;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const LoginPage()),
+      );
     }
+
     setState(() => _selected = 0); // revenir sur Affichage
   }
 
