@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:safran/widgets/pages/connection_pages/login_page.dart';
 import 'package:safran/widgets/pages/home_page.dart';
 
 import 'entities/setting/settings_model.dart';
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Safran',
-      home: HomePage(),
+      home: LoginPage(),
     );
   }
 

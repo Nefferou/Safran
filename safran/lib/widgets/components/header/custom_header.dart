@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 
-class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
-  final String username;
+class CustomHeader extends StatefulWidget implements PreferredSizeWidget {
   final String avatarAsset;
   final VoidCallback? onBookTap;
   final VoidCallback? onSettingsTap;
@@ -10,7 +11,6 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
 
   const CustomHeader({
     super.key,
-    this.username = 'Guest',
     this.avatarAsset = "res/assets/home/default_avatar.png",
     this.onBookTap,
     this.onSettingsTap,
@@ -22,23 +22,40 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(100);
 
   @override
+  State<CustomHeader> createState() => _CustomHeaderState();
+}
+
+class _CustomHeaderState extends State<CustomHeader> {
+  String username = 'Guest';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUsername();
+  }
+
+  Future<void> _loadUsername() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    if (token != null) {
+      try {
+        final payload = Jwt.parseJwt(token);
+        setState(() {
+          username = payload['username'] ?? 'Guest';
+        });
+      } catch (e) {
+        print("Erreur parsing token: $e");
+      }
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    const headerGradient = LinearGradient(
-      colors: [
-        Color(0xFFAE004B),
-        Color(0xFF550167),
-      ],
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-    );
-
-    const iconColor = Color(0xFFFFE5AC);
-
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
       automaticallyImplyLeading: false,
-      toolbarHeight: preferredSize.height,
+      toolbarHeight: widget.preferredSize.height,
       flexibleSpace: SafeArea(
         bottom: false,
         child: Padding(
@@ -46,7 +63,11 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
           child: Container(
             height: 72,
             decoration: BoxDecoration(
-              gradient: headerGradient,
+              gradient: const LinearGradient(
+                colors: [Color(0xFFAE004B), Color(0xFF550167)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
@@ -64,7 +85,7 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
                   width: 56,
                   height: 56,
                   decoration: BoxDecoration(
-                    color: iconColor,
+                    color: const Color(0xFFFFE5AC),
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
@@ -77,13 +98,12 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
                   padding: const EdgeInsets.all(1),
                   child: ClipOval(
                     child: Image.asset(
-                      avatarAsset,
+                      widget.avatarAsset,
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
                 const SizedBox(width: 12),
-                // Username
                 Expanded(
                   child: Text(
                     username,
@@ -98,10 +118,10 @@ class CustomHeader extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 const SizedBox(width: 12),
                 _ActionPill(
-                  rulesColor: isRulesPage ? Color(0xFFAE004B) : iconColor,
-                  settingsColor: isSettingsPage ? Color(0xFFAE004B) : iconColor,
-                  onBookTap: onBookTap,
-                  onSettingsTap: onSettingsTap,
+                  rulesColor: widget.isRulesPage ? const Color(0xFFAE004B) : const Color(0xFFFFE5AC),
+                  settingsColor: widget.isSettingsPage ? const Color(0xFFAE004B) : const Color(0xFFFFE5AC),
+                  onBookTap: widget.onBookTap,
+                  onSettingsTap: widget.onSettingsTap,
                 ),
                 const SizedBox(width: 12),
               ],
