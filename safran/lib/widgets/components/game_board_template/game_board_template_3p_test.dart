@@ -23,6 +23,7 @@ class GameBoardTemplate3PTest extends StatefulWidget {
 class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
   static const double handWidth = 400;
   static const double handHeight = 80;
+  bool showHistory = false;
 
   @override
   void initState() {
@@ -33,9 +34,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: LayoutBuilder(builder: (context, constraints) {
+    return LayoutBuilder(builder: (context, constraints) {
           // 1. height available
           final availableH = constraints.maxHeight;
           // 2. required height after the rotation
@@ -280,7 +279,7 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
               Positioned(
                 top: 25,
                 right: 0,
-                left: MediaQuery.of(context).size.width / 2,
+                left: MediaQuery.of(context).size.width / 2 + 50,
                 child: GestureDetector(
                   onTap: () {
                     print("Opponent 2 tap !");
@@ -317,25 +316,88 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
                   animation: widget.game,
                   builder: (context, _) {
                     return Center(
-                      child: Text(
-                        widget.game.actionMessage.isNotEmpty
-                            ? widget.game.actionMessage
-                            : "En attente...",
-                        style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 200),
+                        child: Text(
+                          widget.game.actionMessage.isNotEmpty
+                              ? widget.game.actionMessage
+                              : "En attente...",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     );
                   },
                 ),
               ),
+
+              // === BOUTON HISTORIQUE ===
+              Positioned(
+                bottom: 20,
+                right: 20,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                      width: showHistory ? 300 : 0,
+                      height: showHistory ? 250 : 0,
+                      padding: showHistory ? const EdgeInsets.all(8) : EdgeInsets.zero,
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.7),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: showHistory
+                          ? Scrollbar(
+                        thumbVisibility: true,
+                        child: ListView.builder(
+                          itemCount: widget.game.history.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: const EdgeInsets.symmetric(vertical: 4),
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                widget.game.history[index],
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      )
+                          : null,
+                    ),
+                    const SizedBox(height: 10),
+
+                    FloatingActionButton(
+                      backgroundColor: const Color(0xFFAE004B),
+                      onPressed: () {
+                        setState(() {
+                          showHistory = !showHistory;
+                        });
+                      },
+                      child: Icon(
+                        showHistory ? Icons.close : Icons.history,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           );
-        }),
-      ),
-    );
+        });
   }
 
   Widget _buildOpponentColumn(

@@ -176,8 +176,10 @@ class Player extends ChangeNotifier {
     }
 
     game.handleCardCanBePlayed(this);
-    Dealer.transferCardPlayerToBattleField(
+    GameCard card = Dealer.transferCardPlayerToBattleField(
         this, indexCard, game.battleField);
+
+    game.addHistoryMessage("le joueur $userName a défaussé ${card.name}");
 
     Logger.info("battlefield discard : ${game.battleField.cards}");
   }
@@ -219,6 +221,7 @@ class Player extends ChangeNotifier {
     }
 
     // Player plays the card
+    game.addHistoryMessage("le joueur $userName a joué ${deck[indexCard].name}");
     Logger.info("$userName play ${deck[indexCard].name}");
     await playCard(game, indexCard);
   }
