@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:safran/entities/setting/settings_model.dart';
 import 'package:safran/services/logger.dart';
 import 'package:safran/widgets/components/hands/opponent_hand.dart';
 import 'package:safran/widgets/components/hands/main_hand.dart';
@@ -34,6 +36,8 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
 
   @override
   Widget build(BuildContext context) {
+    final settings = context.watch<SettingsModel>();
+
     return LayoutBuilder(builder: (context, constraints) {
           // 1. height available
           final availableH = constraints.maxHeight;
@@ -57,7 +61,9 @@ class _GameBoardTemplate3PState extends State<GameBoardTemplate3PTest> {
               Positioned.fill(
                 child: Center(
                   child: Image.asset(
-                    "res/assets/game_board/board.png",
+                    settings.mode == "dal"
+                        ? "res/assets/game_board/board_dal.png"
+                        : "res/assets/game_board/board.png",
                     width: 1300,
                     height: 1300,
                     fit: BoxFit.contain,
