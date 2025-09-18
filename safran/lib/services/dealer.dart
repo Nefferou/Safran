@@ -53,6 +53,8 @@ class Dealer {
     }
     giveCardToBattleField(battleField, [cards]);
     Logger.info("Player ${player.userName} discard");
+
+    return cards;
   }
 
   static Type transferCardPlayerToPlayer(Player player1, int indexCard, Player player2,
