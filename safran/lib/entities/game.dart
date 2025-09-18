@@ -23,6 +23,7 @@ class Game extends ChangeNotifier {
 
   String winCondition = "No win condition set";
   String actionMessage = "";
+  List<String> history = [];
 
   // List of players 3-6
   List<Player> players = [];
@@ -160,6 +161,8 @@ class Game extends ChangeNotifier {
         player.status = PlayerStatusConstant.dead;
       }
 
+      addHistoryMessage("le joueur ${player.userName} a gagné grâce au cavalier de la conquête");
+
       isGameOver = true;
       winCondition = "Wins by conquest";
     }
@@ -168,11 +171,15 @@ class Game extends ChangeNotifier {
       Logger.info("${player.userName} is time out, he is eliminated");
       player.discardAllCard(this);
       player.status = PlayerStatusConstant.timeout;
+
+      addHistoryMessage("le joueur ${player.userName} a été exclue pour cause d'inactivité");
     }
     // If the player has no more cards, they are eliminated
     else {
       Logger.info("${player.userName} has no more cards, he is eliminated");
       player.status = PlayerStatusConstant.dead;
+
+      addHistoryMessage("le joueur ${player.userName} a été éliminé");
     }
     nbPlayerDieInARow++;
   }
@@ -319,6 +326,11 @@ class Game extends ChangeNotifier {
 
   void setActionMessage(String message) {
     actionMessage = message;
+    notifyListeners();
+  }
+
+  void addHistoryMessage(String message) {
+    history.add(message);
     notifyListeners();
   }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:safran/entities/setting/settings_model.dart';
 import 'package:safran/widgets/components/header/custom_header.dart';
 import 'package:safran/widgets/pages/settings_page/rules_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -128,10 +130,6 @@ class _SettingsPageState extends State<SettingsPage> {
                             child: _selected == 0
                                 ? _DisplaySettings(
                               key: const ValueKey('affichage'),
-                              lang: _lang,
-                              mode: _mode,
-                              onLangChanged: (v) => setState(() => _lang = v),
-                              onModeChanged: (v) => setState(() => _mode = v),
                               bordeaux: bordeaux,
                               jauneClair: jauneClair,
                             )
@@ -179,23 +177,17 @@ class _SettingsPageState extends State<SettingsPage> {
 class _DisplaySettings extends StatelessWidget {
   const _DisplaySettings({
     super.key,
-    required this.lang,
-    required this.mode,
-    required this.onLangChanged,
-    required this.onModeChanged,
     required this.bordeaux,
     required this.jauneClair,
   });
 
-  final String lang;
-  final String mode;
-  final ValueChanged<String> onLangChanged;
-  final ValueChanged<String> onModeChanged;
   final Color bordeaux;
   final Color jauneClair;
 
   @override
   Widget build(BuildContext context) {
+    final settings = context.watch<SettingsModel>();
+
     return Column(
       children: [
         // LANGUE
@@ -223,8 +215,8 @@ class _DisplaySettings extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: DropdownMenu<String>(
-                    initialSelection: lang,
-                    onSelected: (v) { if (v != null) onLangChanged(v); },
+                    initialSelection: settings.lang,
+                    onSelected: (v) { if (v != null) context.read<SettingsModel>().setLang(v); },
                     dropdownMenuEntries: const [
                       DropdownMenuEntry(value: "fr", label: "Français"),
                       DropdownMenuEntry(value: "en", label: "English"),
@@ -283,15 +275,16 @@ class _DisplaySettings extends StatelessWidget {
                   fontSize: 16,
                 ),
               ),
-              const Spacer(),
+              const SizedBox(width: 12),
               Expanded(
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: DropdownMenu<String>(
-                    initialSelection: mode,
-                    onSelected: (value) { if (value != null) onModeChanged(value); },
+                    initialSelection: settings.mode,
+                    onSelected: (value) { if (value != null) context.read<SettingsModel>().setMode(value); },
                     dropdownMenuEntries: const [
                       DropdownMenuEntry(value: "cl", label: "Classique"),
+                      DropdownMenuEntry(value: "dal", label: "Daltonien"),
                     ],
                     textStyle: TextStyle(
                       color: bordeaux,
